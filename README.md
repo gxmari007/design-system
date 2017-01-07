@@ -5,6 +5,7 @@
 ## 使用
 
 ```` bash
+# 安装模块
 npm install coview --save
 ````
 
