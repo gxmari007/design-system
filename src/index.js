@@ -1,4 +1,8 @@
-const coview = {};
+import { CoRow } from './layout';
+
+const coview = {
+  CoRow,
+};
 
 function install(Vue) {
   Object.keys(coview).forEach(key => {
@@ -15,4 +19,5 @@ if (typeof window !== undefined && window.Vue) {
 
 module.exports = {
   version: '0.1.0',
+  ...coview,
 };
