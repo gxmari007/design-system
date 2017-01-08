@@ -1,3 +1,7 @@
 const path = require('path');
 
-module.exports = {};
+module.exports = {
+  entry: {
+    app: path.resolve(__dirname, '../src/index.js'),
+  },
+};
