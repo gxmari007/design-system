@@ -28,6 +28,7 @@ module.exports = {
     // 路径代理
     alias: {
       'coview': path.resolve(__dirname, '../src'),
+      'views': path.resolve(__dirname, '../docs/views'),
     },
   },
   // webpack 编译中需要用到的模块
