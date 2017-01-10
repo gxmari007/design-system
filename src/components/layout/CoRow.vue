@@ -12,12 +12,15 @@ const preClass = 'co-row';
 export default {
   name: 'CoRow',
   props: {
+    // 布局类型
+    // 浮动布局和 flex 布局
     type: {
       type: String,
       validate(value) {
         return oneOf(value, ['flex']);
       },
     },
+    // 删格间距
     gutter: {
       type: Number,
       default: 0,

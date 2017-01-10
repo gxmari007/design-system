@@ -1,0 +1,50 @@
+// 创建列
+// 会根据 @layout-columns 创建相应数量的列 class
+.make-columns() {
+  .col(@index) {
+    @item: ~"co-col-@{index}";
+    .col(@index + 1, @item);
+  }
+
+  .col(@index, @list) when (@index =< @layout-columns) {
+    @item: ~"co-col-@{index}";
+    .col(@index + 1, ~"@{list}, @{item}");
+  }
+
+  .col(@index, @list) when (@index > @layout-columns) {
+    @{list} {
+      position: relative;
+      display: block;
+      float: left;
+      min-height: 1px;
+    }
+  }
+
+  .col(1);
+}
+
+// 设置列的样式
+.calc-columns(@index, @class, @type) when (@type = width) and (@index > 0) {
+  @width: percentage(@index / @layout-columns);
+
+  .co-col-@{index} {
+    width: @width;
+  }
+
+  .co-col-@{class}-@{index} {
+    width: @width;
+  }
+}
+
+// 设置列偏移样式
+.calc-columns(@index, @class, @type) when (@type = offset) {
+  @left: percentage(@index / @layout-columns);
+
+  .co-col-offset-@{index} {
+    margin-left: @left;
+  }
+
+  .co-col-@{class}-offset-@{index} {
+    margin-left: @left;
+  }
+}
