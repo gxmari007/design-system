@@ -23,28 +23,95 @@
   .col(1);
 }
 
-// 设置列的样式
-.calc-columns(@index, @class, @type) when (@type = width) and (@index > 0) {
-  @width: percentage(@index / @layout-columns);
-
+// width
+.calc-columns(@index, @class, @type) when (@class = undefined), (@type = width), (@index > 0) {
   .co-col-@{index} {
-    width: @width;
-  }
-
-  .co-col-@{class}-@{index} {
-    width: @width;
+    width: percentage(@index / @layout-columns);
   }
 }
 
-// 设置列偏移样式
-.calc-columns(@index, @class, @type) when (@type = offset) {
-  @left: percentage(@index / @layout-columns);
+.calc-columns(@index, @class, @type) when (@type = width) and (@index > 0) {
+  .co-col-@{class}-@{index} {
+    width: percentage(@index / @layout-columns);
+  }
+}
 
+
+// offset
+.calc-columns(@index, @class, @type) when (@class = undefined) and (@type = offset) {
   .co-col-offset-@{index} {
-    margin-left: @left;
+    margin-left: percentage(@index / @layout-columns);
   }
+}
 
+.calc-columns(@index, @class, @type) when (@type = offset) {
   .co-col-@{class}-offset-@{index} {
-    margin-left: @left;
+    margin-left: percentage(@index / @layout-columns);
   }
+}
+
+
+// push
+.calc-columns(@index, @class, @type) when (@class = undefined), (@type = push), (@index > 0) {
+  .co-col-push-@{index} {
+    left: percentage(@index / @layout-columns);
+  }
+}
+
+.calc-columns(@index, @class, @type) when (@class = undefined), (@type = push), (@index = 0) {
+  .co-col-push-@{index} {
+    left: auto;
+  }
+}
+
+.calc-columns(@index, @class, @type) when (@type = push) and (@index > 0) {
+  .co-col-@{class}-push-@{index} {
+    left: percentage(@index / @layout-columns);
+  }
+}
+
+.calc-columns(@index, @class, @type) when (@type = push) and (@index = 0) {
+  .co-col-@{class}-push-@{index} {
+    left: auto;
+  }
+}
+
+
+// pull
+.calc-columns(@index, @class, @type) when (@class = undefined), (@type = pull), (@index > 0) {
+  .co-col-pull-@{index} {
+    right: percentage(@index / @layout-columns);
+  }
+}
+
+.calc-columns(@index, @class, @type) when (@class = undefined), (@type = pull), (@index = 0) {
+  .co-col-pull-@{index} {
+    right: auto;
+  }
+}
+
+.calc-columns(@index, @class, @type) when (@type = pull) and (@index > 0) {
+  .co-col-@{class}-pull-@{index} {
+    right: percentage(@index / @layout-columns);
+  }
+}
+
+.calc-columns(@index, @class, @type) when (@type = pull) and (@index = 0) {
+  .co-col-@{class}-pull-@{index} {
+    right: auto;
+  }
+}
+
+
+// 设置所有列的样式
+.loop-columns(@index, @class, @type) when (@index >= 0) {
+  .calc-columns(@index, @class, @type);
+  .loop-columns(@index - 1, @class, @type);
+}
+
+.make-grid(@class) {
+  .loop-columns(@layout-columns, @class, width);
+  .loop-columns(@layout-columns, @class, offset);
+  .loop-columns(@layout-columns, @class, push);
+  .loop-columns(@layout-columns, @class, pull);
 }
