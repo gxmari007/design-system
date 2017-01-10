@@ -1,12 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
+const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const baseWebpackConfig = require('./webpack.config.base');
 const config = require('../config');
 const utils = require('./utils');
 
-const projectRoot = path.resolve(__dirname, '../');
-
-module.exports = {
+module.exports = merge(baseWebpackConfig, {
   devtool: '#eval-source-map',
   // 入口
   entry: {
@@ -31,36 +31,8 @@ module.exports = {
       'views': path.resolve(__dirname, '../docs/views'),
     },
   },
-  // webpack 编译中需要用到的模块
   module: {
-    loaders: [
-      {
-        test: /\.vue$/,
-        loader: 'vue',
-      },
-      {
-        test: /\.js/,
-        loader: 'babel',
-        include: projectRoot,
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url',
-        query: {
-          limit: 10000,
-          name: utils.assetsPath('images/[name].[hash:5].[ext]'),
-        },
-      },
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url',
-        query: {
-          limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:5].[ext]'),
-        },
-      },
-    ],
+    loaders: utils.styleLoaders({ sourceMap: config.docs.cssSourceMap }),
   },
   // vue 配置
   vue: {
@@ -83,4 +55,4 @@ module.exports = {
       inject: true,
     }),
   ],
-};
+});

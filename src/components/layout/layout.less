@@ -9,3 +9,22 @@
     display: flex;
   }
 }
+
+// 构建列样式
+.make-columns();
+
+// 创建布局
+.make-default-grid();
+.make-grid(xs);
+
+@media (min-width: @screem-sm-min) {
+  .make-grid(sm);
+}
+
+@media (min-width: @screem-md-min) {
+  .make-grid(md);
+}
+
+@media (min-width: @screem-lg-min) {
+  .make-grid(lg);
+}

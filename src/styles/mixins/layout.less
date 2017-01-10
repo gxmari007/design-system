@@ -1,13 +1,17 @@
+/**
+ * Layout mixin
+ */
+
 // 创建列
 // 会根据 @layout-columns 创建相应数量的列 class
 .make-columns() {
   .col(@index) {
-    @item: ~"co-col-@{index}";
+    @item: ~".co-col-@{index}, .co-col-xs-@{index}, .co-col-sm-@{index}, .co-col-md-@{index}, .co-col-lg-@{index}";
     .col(@index + 1, @item);
   }
 
   .col(@index, @list) when (@index =< @layout-columns) {
-    @item: ~"co-col-@{index}";
+    @item: ~".co-col-@{index}, .co-col-xs-@{index}, .co-col-sm-@{index}, .co-col-md-@{index}, .co-col-lg-@{index}";
     .col(@index + 1, ~"@{list}, @{item}");
   }
 
@@ -23,8 +27,9 @@
   .col(1);
 }
 
+
 // width
-.calc-columns(@index, @class, @type) when (@class = undefined), (@type = width), (@index > 0) {
+.calc-default-columns(@index, @type) when (@type = width) and (@index > 0) {
   .co-col-@{index} {
     width: percentage(@index / @layout-columns);
   }
@@ -38,7 +43,7 @@
 
 
 // offset
-.calc-columns(@index, @class, @type) when (@class = undefined) and (@type = offset) {
+.calc-default-columns(@index, @type) when (@type = offset) {
   .co-col-offset-@{index} {
     margin-left: percentage(@index / @layout-columns);
   }
@@ -52,13 +57,13 @@
 
 
 // push
-.calc-columns(@index, @class, @type) when (@class = undefined), (@type = push), (@index > 0) {
+.calc-default-columns(@index, @type) when (@type = push) and (@index > 0) {
   .co-col-push-@{index} {
     left: percentage(@index / @layout-columns);
   }
 }
 
-.calc-columns(@index, @class, @type) when (@class = undefined), (@type = push), (@index = 0) {
+.calc-default-columns(@index, @type) when (@type = push) and (@index = 0) {
   .co-col-push-@{index} {
     left: auto;
   }
@@ -78,13 +83,13 @@
 
 
 // pull
-.calc-columns(@index, @class, @type) when (@class = undefined), (@type = pull), (@index > 0) {
+.calc-default-columns(@index, @type) when (@type = pull) and (@index > 0) {
   .co-col-pull-@{index} {
     right: percentage(@index / @layout-columns);
   }
 }
 
-.calc-columns(@index, @class, @type) when (@class = undefined), (@type = pull), (@index = 0) {
+.calc-default-columns(@index, @type) when (@type = pull) and (@index = 0) {
   .co-col-pull-@{index} {
     right: auto;
   }
@@ -107,6 +112,20 @@
 .loop-columns(@index, @class, @type) when (@index >= 0) {
   .calc-columns(@index, @class, @type);
   .loop-columns(@index - 1, @class, @type);
+}
+
+.loop-default-columns(@index, @type) when (@index >= 0) {
+  .calc-default-columns(@index, @type);
+  .loop-default-columns(@index - 1, @type);
+}
+
+
+// 构建布局
+.make-default-grid() {
+  .loop-default-columns(@layout-columns, width);
+  .loop-default-columns(@layout-columns, offset);
+  .loop-default-columns(@layout-columns, push);
+  .loop-default-columns(@layout-columns, pull);
 }
 
 .make-grid(@class) {
