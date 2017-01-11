@@ -1,15 +1,32 @@
 <template>
-  <div class="co-row row">
-    <div class="item co-col-6 co-col-offset-6">12</div>
-    <div class="item co-col-12">12</div>
-  </div>
+  <co-row class="row" align="bottom" :gutter="20">
+    <co-col :xs="{ span: 6, offset: 3 }">
+      <div class="item">栅格</div>
+    </co-col>
+    <co-col :xs="6">
+      <div class="item">栅格</div>
+    </co-col>
+  </co-row>
 </template>
+
+<script>
+import { CoRow, CoCol } from 'coview';
+
+export default {
+  components: {
+    CoRow,
+    CoCol,
+  },
+};
+</script>
 
 <style lang="less">
 .row {
-  border: 1px solid #333;
+  // height: 200px;
+  background-color: #999;
 }
 .item {
+  height: 50px;
   background-color: #ddd;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" :style="style">
+  <div :class="classes" :style="styles">
     <slot></slot>
   </div>
 </template>
@@ -7,10 +7,11 @@
 <script>
 import { oneOf } from '../../utils/help';
 
-const preClass = 'co-row';
+const prefixClass = 'co-row';
 
 export default {
   name: 'CoRow',
+  componentName: 'CoRow',
   props: {
     // 布局类型
     // 浮动布局和 flex 布局
@@ -20,29 +21,47 @@ export default {
         return oneOf(value, ['flex']);
       },
     },
-    // 删格间距
+    // 栅格间距
     gutter: {
       type: Number,
       default: 0,
     },
+    // flex 水平布局
+    justify: {
+      type: String,
+      validate(value) {
+        return oneOf(value, ['start', 'end', 'center', 'space-round', 'space-between']);
+      },
+    },
+    // flex 垂直布局
+    align: {
+      type: String,
+      validate(value) {
+        return oneOf(value, ['top', 'middle', 'bottom']);
+      },
+    },
   },
   computed: {
     classes() {
+      const { type, justify, align } = this;
+
       return {
-        `${preClass}`: true,
-        `${preClass}--flex`: this.type === 'flex',
+        [`${prefixClass}`]: true,
+        [`${prefixClass}--flex`]: type === 'flex',
+        [`${prefixClass}--flex-${justify}`]: type === 'flex' && justify !== undefined,
+        [`${prefixClass}--flex-${align}`]: type === 'flex' && align !== undefined,
       };
     },
-    style() {
+    styles() {
       const { gutter } = this;
-      const margin = {};
+      const style = {};
 
       if (gutter !== 0) {
-        margin.marginRight = `${-(gutter / 2)}px`;
-        margin.marginLeft = margin.marginRight;
+        style.marginRight = `${-(gutter / 2)}px`;
+        style.marginLeft = style.marginRight;
       }
 
-      return margin;
+      return style;
     },
   },
 };

@@ -1,7 +1,8 @@
-import { CoRow } from './layout';
+import { CoRow, CoCol } from './components/layout';
 
 const coview = {
   CoRow,
+  CoCol,
 };
 
 function install(Vue) {
