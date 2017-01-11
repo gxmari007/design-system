@@ -9,16 +9,18 @@
     <co-col span="6" order="1">
       <div class="item">3</div>
     </co-col>
+    <co-loading :show="true" :percent="90" :height="10"></co-loading>
   </co-row>
 </template>
 
 <script>
-import { CoRow, CoCol } from 'coview';
+import { CoRow, CoCol, CoLoading } from 'coview';
 
 export default {
   components: {
     CoRow,
     CoCol,
+    CoLoading,
   },
 };
 </script>
@@ -26,7 +28,6 @@ export default {
 <style lang="less">
 .row {
   height: 200px;
-  background-color: #999;
 }
 .item {
   height: 50px;
