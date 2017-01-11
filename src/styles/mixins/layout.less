@@ -42,6 +42,14 @@
 }
 
 
+// order
+.calc-default-columns(@index, @type) when (@type = order) and (@index > 0) {
+  .co-col-@{type}-@{index} {
+    order: @index;
+  }
+}
+
+
 // offset
 .calc-default-columns(@index, @type) when (@type = offset) {
   .co-col-offset-@{index} {
@@ -122,6 +130,7 @@
 
 // 构建布局
 .make-default-grid() {
+  .loop-default-columns(@layout-columns, order);
   .loop-default-columns(@layout-columns, width);
   .loop-default-columns(@layout-columns, offset);
   .loop-default-columns(@layout-columns, push);

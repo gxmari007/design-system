@@ -12,6 +12,8 @@ export default {
   props: {
     // 栅格布局占位格数 0 ~ 24
     span: [Number, String],
+    // flex 布局下栅格的顺序
+    order: [Number, String],
     // 栅格相对左侧偏移格数
     offset: [Number, String],
     // 栅格向右移动格数
@@ -35,9 +37,10 @@ export default {
   },
   computed: {
     classes() {
-      const { span, offset, push, pull } = this;
+      const { span, order, offset, push, pull } = this;
       const classList = {
         [`${prefixClass}-${span}`]: span !== undefined,
+        [`${prefixClass}-order-${order}`]: order !== undefined,
         [`${prefixClass}-offset-${offset}`]: offset !== undefined,
         [`${prefixClass}-push-${push}`]: push !== undefined,
         [`${prefixClass}-pull-${pull}`]: pull !== undefined,
