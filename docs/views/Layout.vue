@@ -9,7 +9,6 @@
     <co-col span="6" order="1">
       <div class="item">3</div>
     </co-col>
-    <co-loading :show="true" :percent="90" :height="10"></co-loading>
   </co-row>
 </template>
 
