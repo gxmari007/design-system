@@ -4,7 +4,6 @@ import CoLoading from './components/loading';
 const coview = {
   CoRow,
   CoCol,
-  CoLoading,
 };
 
 function install(Vue) {
@@ -13,6 +12,8 @@ function install(Vue) {
 
     Vue.component(component.name, component);
   });
+
+  Vue.prototype.$loading = CoLoading;
 }
 
 // 无模块开发环境下自动安装
@@ -22,5 +23,6 @@ if (typeof window !== undefined && window.Vue) {
 
 module.exports = {
   version: '0.1.0',
+  install,
   ...coview,
 };

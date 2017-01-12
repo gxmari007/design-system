@@ -27,7 +27,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "vue": "^2.1.0"
+    "vue": "^2.1.8"
   },
   "dependencies": {
     "async-validator": "^1.6.8"

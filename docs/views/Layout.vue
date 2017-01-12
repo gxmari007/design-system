@@ -8,18 +8,29 @@
     </co-col>
     <co-col span="6" order="1">
       <div class="item">3</div>
+      <button @click="onStart">start</button>
+      <button @click="onFinish">finish</button>
+      <button @click="onError">error</button>
+      <button @click="onRemove">remove</button>
     </co-col>
   </co-row>
 </template>
 
 <script>
-import { CoRow, CoCol, CoLoading } from 'coview';
-
 export default {
-  components: {
-    CoRow,
-    CoCol,
-    CoLoading,
+  methods: {
+    onStart() {
+      this.$loading.start();
+    },
+    onFinish() {
+      this.$loading.finish();
+    },
+    onError() {
+      this.$loading.error();
+    },
+    onRemove() {
+      this.$loading.destroy();
+    },
   },
 };
 </script>

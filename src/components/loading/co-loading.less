@@ -16,4 +16,15 @@
       background-color: @error;
     }
   }
+
+  // 动画
+  &__fade-enter-active,
+  &__fade-leave-active {
+    transition: opacity .2s linear;
+  }
+
+  &__fade-enter,
+  &__fade-leave-to {
+    opacity: 0;
+  }
 }

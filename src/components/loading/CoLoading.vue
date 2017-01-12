@@ -1,5 +1,5 @@
 <template>
-  <transition>
+  <transition name="co-loading__fade">
     <div :class="outClasses" :style="outStyles" v-show="show">
       <div :class="innerClasses" :style="innerStyles"></div>
     </div>
