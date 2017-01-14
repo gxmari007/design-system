@@ -6,6 +6,12 @@
 
 <script>
 export default {
-  name: 'breadcrumb',
+  name: 'co-breadcrumb',
+  props: {
+    separator: {
+      type: String,
+      default: '/',
+    },
+  },
 };
 </script>

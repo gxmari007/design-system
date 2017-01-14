@@ -4,8 +4,6 @@ import makeInstance from './co-loading';
 let coLoadingInstance = null;
 // setInterval timeID
 let timer = null;
-// setTimeout timeID
-let timeout = null;
 
 function getInstance() {
   coLoadingInstance = coLoadingInstance || makeInstance();

@@ -12,7 +12,7 @@ import { oneOf } from '../../utils/help';
 const prefixClass = 'co-loading';
 
 export default {
-  name: 'CoLoading',
+  name: 'co-loading',
   props: {
     // 显示或隐藏
     show: {
