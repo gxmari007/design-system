@@ -16,12 +16,12 @@ function install(Vue) {
   Vue.prototype.$loading = CoLoading;
 }
 
-// 无模块开发环境下自动安装
+// 在浏览器 script 标签引入的情况下自动安装
 if (typeof window !== undefined && window.Vue) {
   install(window.Vue);
 }
 
-module.exports = {
+export default {
   version: '0.1.0',
   install,
   ...coview,
