@@ -8,7 +8,7 @@
 const prefixClass = 'co-col';
 
 export default {
-  name: 'CoCol',
+  name: 'co-col',
   props: {
     // 栅格布局占位格数 0 ~ 24
     span: [Number, String],
@@ -32,7 +32,7 @@ export default {
   },
   data() {
     return {
-      isInRow: this.$parent && this.$parent.$options.componentName === 'CoRow',
+      isInRow: this.$parent && this.$parent.$options.componentName === 'co-row',
     };
   },
   computed: {

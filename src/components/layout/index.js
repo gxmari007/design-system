@@ -1,4 +1,4 @@
-import CoRow from './CoRow';
-import CoCol from './Cocol';
+import CoRow from './row';
+import CoCol from './col';
 
 export { CoRow, CoCol };
