@@ -30,7 +30,8 @@
     "vue": "^2.1.8"
   },
   "dependencies": {
-    "async-validator": "^1.6.8"
+    "async-validator": "^1.6.8",
+    "dom-helpers": "^3.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

@@ -1,4 +1,4 @@
-import CoBreadcrumb from './Breadcrumb';
-import CoBreadcrumbItem from './BreadcrumbItem';
+import CoBreadcrumb from './breadcrumb';
+import CoBreadcrumbItem from './breadcrumb-item';
 
 export { CoBreadcrumb, CoBreadcrumbItem };
