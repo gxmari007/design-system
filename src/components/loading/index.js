@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import makeInstance from './co-loading';
+import makeInstance from './loading';
 
 let coLoadingInstance = null;
 // setInterval timeID
