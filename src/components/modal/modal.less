@@ -1,0 +1,102 @@
+.co-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  // modal 遮罩层
+  &__mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+
+  // modal 主体区域
+  &__main {
+    position: relative;
+    top: 12%;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+  }
+
+  // modal 头部
+  &__header {
+    padding: 11px 14px;
+    border-bottom: 1px solid #dcdcdc;
+    line-height: 1;
+  }
+
+  &__title {
+    .text-overflow();
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  &__body {
+    padding: 10px 14px;
+  }
+
+  &__footer {
+    padding: 0 14px 10px;
+  }
+}
+
+// 动画
+.co-modal__fade-enter-active {
+  animation: co-modal-fade-in .2s linear;
+}
+
+.co-modal__fade-leave-active {
+  animation: co-modal-fade-out .2s linear;
+}
+
+.co-modal__fade-enter-active .co-modal__main {
+  animation: co-modal-scale-in .2s linear;
+}
+
+.co-modal__fade-leave-active .co-modal__main {
+  animation: co-modal-scale-out .2s linear;
+}
+
+@keyframes co-modal-fade-in {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes co-modal-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes co-modal-scale-in {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes co-modal-scale-out {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.9);
+  }
+}

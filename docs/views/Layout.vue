@@ -1,20 +1,29 @@
 <template>
-  <co-row class="row" type="flex" align="center" justify="middle">
-    <co-col span="6" order="1">
-      <co-breadcrumb>
-        <co-breadcrumb-item to="/123">123</co-breadcrumb-item>
-        <co-breadcrumb-item>123</co-breadcrumb-item>
-      </co-breadcrumb>
-    </co-col>
-  </co-row>
+  <div>
+    <button @click="show1 = true">modal</button>
+    <co-modal v-model="show1" title="标题" @ok="onOpen" @cancel="onClose">
+      123
+      <template slot="footer">
+        <button>diy</button>
+      </template>
+    </co-modal>
+  </div>
 </template>
 
-<style lang="less">
-.row {
-  height: 200px;
-}
-.item {
-  height: 50px;
-  background-color: #ddd;
-}
-</style>
+<script>
+export default {
+  data() {
+    return {
+      show1: false,
+    };
+  },
+  methods: {
+    onOpen() {
+      console.log('open');
+    },
+    onClose() {
+      console.log('close');
+    },
+  },
+};
+</script>

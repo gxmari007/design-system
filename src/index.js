@@ -1,12 +1,14 @@
 import { CoBreadcrumb, CoBreadcrumbItem } from './components/breadcrumb';
 import { CoRow, CoCol } from './components/layout';
 import CoLoading from './components/loading';
+import CoModal from './components/modal';
 
 const coview = {
   CoBreadcrumb,
   CoBreadcrumbItem,
   CoRow,
   CoCol,
+  CoModal,
 };
 
 function install(Vue) {
