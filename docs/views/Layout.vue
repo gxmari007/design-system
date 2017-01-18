@@ -1,6 +1,7 @@
 <template>
   <div>
-    <button @click="show1 = true">modal</button>
+    <co-button @click.native="show1 = true">打开</co-button>
+    <co-button @click.native="show1 = true" disabled>打开</co-button>
     <co-modal v-model="show1" title="标题" @ok="onOpen" @cancel="onClose">
       123
       <template slot="footer">

@@ -1,4 +1,5 @@
 import { CoBreadcrumb, CoBreadcrumbItem } from './components/breadcrumb';
+import CoButton from './components/button';
 import { CoRow, CoCol } from './components/layout';
 import CoLoading from './components/loading';
 import CoModal from './components/modal';
@@ -6,6 +7,7 @@ import CoModal from './components/modal';
 const coview = {
   CoBreadcrumb,
   CoBreadcrumbItem,
+  CoButton,
   CoRow,
   CoCol,
   CoModal,
