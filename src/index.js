@@ -1,5 +1,6 @@
 import { CoBreadcrumb, CoBreadcrumbItem } from './components/breadcrumb';
 import CoButton from './components/button';
+import CoInput from './components/input';
 import CoIcon from './components/icon';
 import { CoRow, CoCol } from './components/layout';
 import CoLoading from './components/loading';
@@ -9,6 +10,7 @@ const coview = {
   CoBreadcrumb,
   CoBreadcrumbItem,
   CoButton,
+  CoInput,
   CoIcon,
   CoRow,
   CoCol,
