@@ -14,7 +14,7 @@ export default {
     // 图标大小
     size: {
       type: [String, Number],
-      default: '24px',
+      default: '24',
     },
     // 图标颜色
     color: {
@@ -28,10 +28,9 @@ export default {
     },
     style() {
       const { size, color } = this;
-      const fontSize = typeof size === 'string' ? size : `${size}px`;
 
       return {
-        fontSize,
+        fontSize: `${size}px`,
         color,
       };
     },
