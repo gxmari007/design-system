@@ -1,14 +1,10 @@
 <template>
   <div>
-    <co-button @click.native="show1 = true">打开</co-button>
-    <co-button @click.native="show1 = true" disabled>打开</co-button>
-    <co-icon type="g_translate" :size="120"></co-icon>
-    <co-modal v-model="show1" title="标题" @ok="onOpen" @cancel="onClose">
-      123
-      <template slot="footer">
-        <button>diy</button>
-      </template>
-    </co-modal>
+    <co-input style="width: 180px; margin: 10px;" v-model="value" placeholder="名称" icon="search"></co-input>
+    <div>{{ value }}</div>
+    <co-input style="width: 180px; margin: 10px;" type="textarea" placeholder="名称" :rows="4"></co-input>
+    <div></div>
+    <co-input style="margin: 10px; width: 180px;" placeholder="名称" icon="tv"></co-input>
   </div>
 </template>
 
@@ -17,15 +13,8 @@ export default {
   data() {
     return {
       show1: false,
+      value: 'hello',
     };
-  },
-  methods: {
-    onOpen() {
-      console.log('open');
-    },
-    onClose() {
-      console.log('close');
-    },
   },
 };
 </script>

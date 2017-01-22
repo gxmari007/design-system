@@ -12,15 +12,9 @@ export default {
       required: true,
     },
     // 图标大小
-    size: {
-      type: [String, Number],
-      default: '24',
-    },
+    size: [String, Number],
     // 图标颜色
-    color: {
-      type: String,
-      default: '#333',
-    },
+    color: String,
   },
   computed: {
     classes() {
@@ -28,11 +22,17 @@ export default {
     },
     style() {
       const { size, color } = this;
+      const style = {};
 
-      return {
-        fontSize: `${size}px`,
-        color,
-      };
+      if (size) {
+        style.fontSize = `${size}px`;
+      }
+
+      if (color) {
+        style.color = color;
+      }
+
+      return style;
     },
   },
 };
