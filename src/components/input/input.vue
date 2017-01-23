@@ -1,5 +1,5 @@
 <template>
-  <div class="co-input">
+  <div :class="classes">
     <textarea
       v-if="type === 'textarea'"
       class="co-input__textarea"
@@ -29,7 +29,12 @@
 </template>
 
 <script>
+// components
 import CoIcon from '../icon';
+// utils
+import { oneOf } from '../../utils/help';
+
+const prefixClass = 'co-input';
 
 export default {
   name: 'co-input',
@@ -60,6 +65,22 @@ export default {
     autofocus: {
       type: Boolean,
       default: false,
+    },
+    size: {
+      type: String,
+      validator(value) {
+        return oneOf(value, ['small', 'large']);
+      },
+    },
+  },
+  computed: {
+    classes() {
+      const { size } = this;
+
+      return {
+        [prefixClass]: true,
+        [`${prefixClass}--${size}`]: !!size,
+      }
     },
   },
   methods: {
