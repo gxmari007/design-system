@@ -1,3 +1,4 @@
+import CoAffix from './components/affix';
 import { CoBreadcrumb, CoBreadcrumbItem } from './components/breadcrumb';
 import CoButton from './components/button';
 import CoInput from './components/input';
@@ -7,6 +8,7 @@ import CoLoading from './components/loading';
 import CoModal from './components/modal';
 
 const coview = {
+  CoAffix,
   CoBreadcrumb,
   CoBreadcrumbItem,
   CoButton,

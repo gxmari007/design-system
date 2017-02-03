@@ -1,9 +1,13 @@
 <template>
-  <div>
-    <co-input style="width: 180px; margin: 10px; vertical-align: top;" v-model="value" placeholder="名称" icon="search"></co-input>
-    <co-input style="margin: 10px; width: 180px; vertical-align: top;" placeholder="名称" icon="search" size="small"></co-input>
-    <co-input style="margin: 10px; width: 180px; vertical-align: top;" placeholder="名称" icon="search" size="large"></co-input>
-    <co-input style="width: 180px; margin: 10px; vertical-align: top;" type="textarea" placeholder="名称" :rows="4"></co-input>
+  <div class="test">
+    <co-input style="width: 180px; vertical-align: top;" v-model="value" placeholder="test" icon="search"></co-input>
+    <co-button type="primary">测试文本</co-button>
+    <p>X<sup>2</sup>测试文本测试文本测试文本测试文本<br>测试文本测试文本<a href="">测试文本</a>测试文本测试文本测试文本</p>
+    <hr>
+    <abbr title="asdf">asdfsd</abbr>
+    <co-affix class="bg" @change="onChange">
+      <co-button type="primary">测试文本</co-button>
+    </co-affix>
   </div>
 </template>
 
@@ -12,8 +16,24 @@ export default {
   data() {
     return {
       show1: false,
-      value: 'hello',
+      value: '',
     };
+  },
+  methods: {
+    onChange(status) {
+      console.log(status);
+    },
   },
 };
 </script>
+
+<style>
+.test {
+  height: 2000px;
+  padding: 100px;
+}
+.bg {
+  background-color: yellow;
+  padding: 10px;
+}
+</style>

@@ -38,7 +38,7 @@ exports.cssLoaders = (options) => {
   return {
     css: generateLoaders(['css']),
     postcss: generateLoaders(['css']),
-    less: generateLoaders(['css', 'less']),
+    less: generateLoaders(['css', 'postcss', 'less']),
   };
 }
 

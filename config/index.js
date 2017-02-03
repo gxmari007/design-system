@@ -12,6 +12,6 @@ module.exports = {
     port: 8080,
     assetsPublicPath: '/',
     assetsSubDirectory: 'static',
-    cssSourceMap: false,
+    cssSourceMap: true,
   },
 };

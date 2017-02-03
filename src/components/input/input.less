@@ -12,9 +12,9 @@
   &__textarea {
     display: block;
     width: 100%;
-    line-height: 1;
+    line-height: 1.25;
     border: 1px solid @input-border-color;
-    font-size: 12px;
+    font-size: inherit;
     color: @input-font-color;
     padding: @input-padding-y @input-padding-x;
     background-color: #fff;
@@ -27,10 +27,12 @@
       opacity: 1;
     }
 
+    .co-input:hover &:focus,
     &:focus {
-      border-color: @primary !important;
+      border-color: @primary;
     }
 
+    .co-input:hover &:disabled,
     &:disabled {
       color: @input-placeholder-color;
       background-color: @input-disabled-background;
@@ -40,7 +42,7 @@
   }
 
   &__textarea {
-    line-height: @textarea-line-height;
+    line-height: @input-line-height;
   }
 
   &__icon {

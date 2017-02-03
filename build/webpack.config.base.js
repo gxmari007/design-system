@@ -1,5 +1,6 @@
 const path = require('path');
 const utils = require('./utils');
+const autoprefixer = require('autoprefixer');
 
 const projectRoot = path.resolve(__dirname, '../');
 
@@ -12,7 +13,7 @@ module.exports = {
         loader: 'vue',
       },
       {
-        test: /\.js/,
+        test: /\.js$/,
         loader: 'babel',
         include: projectRoot,
         exclude: /node_modules/,
@@ -33,6 +34,18 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:5].[ext]'),
         },
       },
+    ],
+  },
+  postcss: [
+    autoprefixer({
+      browsers: ['last 2 versions'],
+    }),
+  ],
+  vue: {
+    postcss: [
+      autoprefixer({
+        browsers: ['last 2 versions'],
+      }),
     ],
   },
 };
