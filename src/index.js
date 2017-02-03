@@ -1,6 +1,7 @@
 import CoAffix from './components/affix';
 import { CoBreadcrumb, CoBreadcrumbItem } from './components/breadcrumb';
 import CoButton from './components/button';
+import CoCheckbox from './components/checkbox';
 import CoInput from './components/input';
 import CoIcon from './components/icon';
 import { CoRow, CoCol } from './components/layout';
@@ -12,6 +13,7 @@ const coview = {
   CoBreadcrumb,
   CoBreadcrumbItem,
   CoButton,
+  CoCheckbox,
   CoInput,
   CoIcon,
   CoRow,

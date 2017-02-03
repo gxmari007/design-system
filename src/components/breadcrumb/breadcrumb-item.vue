@@ -31,7 +31,10 @@ export default {
       ? this.$parent.separator
       : '/';
 
-    return { separator };
+    return {
+      separator,
+      clickEvent: null,
+    };
   },
   mounted() {
     const { to, replace } = this;
@@ -39,9 +42,14 @@ export default {
     if (to !== undefined) {
       const textDom = this.$refs.text;
 
-      listen(textDom, 'click', () => {
+      this.clickEvent = listen(textDom, 'click', () => {
         replace ? this.$router.replace(to) : this.$router.push(to);
       });
+    }
+  },
+  beforeDestroy() {
+    if (typeof this.clickEvent === 'function') {
+      this.clickEvent();
     }
   },
 };
