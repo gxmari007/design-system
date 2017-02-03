@@ -4,10 +4,12 @@
     <co-button type="primary">测试文本</co-button>
     <p>X<sup>2</sup>测试文本测试文本测试文本测试文本<br>测试文本测试文本<a href="">测试文本</a>测试文本测试文本测试文本</p>
     <hr>
-    <abbr title="asdf">asdfsd</abbr>
-    <co-affix class="bg" @change="onChange">
+    <abbr>asdfsd</abbr>
+    <co-affix :offset-top="20" @change="onChange">
       <co-button type="primary">测试文本</co-button>
     </co-affix>
+    <abbr title="asdf">asdfsd</abbr>
+    <p>X<sup>2</sup>测试文本测试文本测试文本测试文本<br>测试文本测试文本<a href="">测试文本</a>测试文本测试文本测试文本</p>
   </div>
 </template>
 

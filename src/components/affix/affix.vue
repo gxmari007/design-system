@@ -1,6 +1,9 @@
 <template>
-  <div :class="classes" :style="style">
-    <slot></slot>
+  <div>
+    <div ref="affix" :class="classes" :style="style">
+      <slot></slot>
+    </div>
+    <div v-show="affix" :style="spanStyle"></div>
   </div>
 </template>
 
@@ -29,6 +32,7 @@ export default {
       scrollEvent: null,
       resizeEvent: null,
       style: null,
+      spanStyle: null,
     };
   },
   computed: {
@@ -47,8 +51,13 @@ export default {
   },
   mounted() {
     const scrollFunc = throttle(this.onScroll, 17);
+    const { top, width, height } = offset(this.$refs.affix);
 
-    this.defaultTop = offset(this.$el).top;
+    this.defaultTop = top;
+    this.spanStyle = {
+      width: `${width}px`,
+      height: `${height}px`,
+    };
     this.scrollEvent = listen(window, 'scroll', scrollFunc);
     this.resizeEvent = listen(window, 'resize', scrollFunc);
   },
@@ -67,7 +76,7 @@ export default {
     onScroll() {
       const { affix, offsetTop, defaultTop, offsetBottom, offsetType } = this;
       const scroll = scrollTop(window);
-      const { left, width, height } = offset(this.$el);
+      const { left, width, height } = offset(this.$refs.affix);
       const windowHeight = window.innerHeight;
 
       if (offsetType === 'top' && !affix && defaultTop - offsetTop < scroll) {
