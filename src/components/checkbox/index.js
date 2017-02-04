@@ -1,3 +1,4 @@
+import CoCheckboxGroup from './checkbox-group';
 import CoCheckbox from './checkbox';
 
-export default CoCheckbox;
+export { CoCheckboxGroup, CoCheckbox };
