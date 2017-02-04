@@ -5,6 +5,12 @@ const autoprefixer = require('autoprefixer');
 const projectRoot = path.resolve(__dirname, '../');
 
 module.exports = {
+  resolve: {
+    alias: {
+      'components': path.resolve(__dirname, '../src/components'),
+      'mixins': path.resolve(__dirname, '../src/mixins'),
+    },
+  },
   // webpack 编译中需要用到的模块
   module: {
     loaders: [

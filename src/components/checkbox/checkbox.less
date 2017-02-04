@@ -41,12 +41,41 @@
     transition: transform .15s linear;
   }
 
-  .co-checkbox__input:checked + & {
+  &:hover {
+    border-color: @checkbox-hover-border-color;
+  }
+}
+
+.co-checkbox--checked {
+  & .co-checkbox__indicator {
     border-color: @primary;
     background-color: @primary;
   }
 
-  .co-checkbox__input:checked + &::after {
+  & .co-checkbox__indicator::after {
     transform: rotate(45deg) scale(1);
+  }
+}
+
+.co-checkbox--indeterminate {
+  & .co-checkbox__indicator {
+    border-color: @primary;
+    background-color: @primary;
+  }
+
+  & .co-checkbox__indicator::after {
+    border-bottom: 0;
+    transform: rotate(90deg) scale(1);
+  }
+}
+
+.co-checkbox--disabled {
+  & .co-checkbox__indicator {
+    background-color: @checkbox-disabled-background;
+    border-color: @checkbox-border-color;
+
+    &::after {
+      border-color: @checkbox-border-color;
+    }
   }
 }

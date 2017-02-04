@@ -16,7 +16,7 @@ module.exports = merge(baseWebpackConfig, {
   output: {
     path: config.build.assetsRoot,
     publicPath: config.docs.assetsPublicPath,
-    filename: '[name].js'
+    filename: '[name].js',
   },
   resolve: {
     // 自动补全扩展名
