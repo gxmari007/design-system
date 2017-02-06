@@ -1,7 +1,15 @@
 <template>
   <div class="test">
-    <co-radio v-model="test" label="123">教师数</co-radio>
-    <co-radio v-model="test" label="321">教师数</co-radio>
+    <co-checkbox-group>
+      <co-checkbox>hello</co-checkbox>
+      <co-checkbox>hello</co-checkbox>
+    </co-checkbox-group>
+    <br>
+    <co-radio-group v-model="test">
+      <co-radio label="123">教师数</co-radio>
+      <co-radio label="321">教师数</co-radio>
+    </co-radio-group>
+    {{ test }}
   </div>
 </template>
 

@@ -1,3 +1,9 @@
+.co-radio-group {
+  display: inline-block;
+  font-size: 0;
+  // line-height: 1;
+}
+
 .co-radio {
   position: relative;
   display: inline-block;
@@ -41,6 +47,10 @@
     transform: scale(0);
     transition: transform .15s linear;
   }
+}
+
+.co-radio__description {
+  font-size: @font-size-base;
 }
 
 .co-radio--checked {
