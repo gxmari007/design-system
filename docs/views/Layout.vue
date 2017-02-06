@@ -1,13 +1,7 @@
 <template>
   <div class="test">
-    <co-checkbox-group v-model="model">
-      <co-checkbox :label="123" checked>教职工数</co-checkbox>
-      <co-checkbox label="xuesheng1">学生数</co-checkbox>
-      <co-checkbox label="xuesheng">学生数</co-checkbox>
-    </co-checkbox-group>
-    {{ model }}
-    <co-checkbox v-model="test" :true-label="123" :false-label="321" disabled>学生数</co-checkbox>
-    {{ test }}
+    <co-radio v-model="test" label="123">教师数</co-radio>
+    <co-radio v-model="test" label="321">教师数</co-radio>
   </div>
 </template>
 
@@ -15,7 +9,7 @@
 export default {
   data() {
     return {
-      test: 123,
+      test: '',
       model: [],
     };
   },

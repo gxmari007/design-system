@@ -1,15 +1,15 @@
 <template>
-  <div class="co-checkbox-group">
+  <div class="co-radio-group">
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'co-checkbox-group',
-  componentName: 'co-checkbox-group',
+  name: 'co-radio-group',
+  componentName: 'co-radio-group',
   props: {
-    value: Array,
+    value: null,
   },
   watch: {
     value(newVal) {

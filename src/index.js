@@ -7,6 +7,7 @@ import CoIcon from './components/icon';
 import { CoRow, CoCol } from './components/layout';
 import CoLoading from './components/loading';
 import CoModal from './components/modal';
+import { CoRadioGroup, CoRadio } from './components/radio';
 
 const coview = {
   CoAffix,
@@ -20,6 +21,8 @@ const coview = {
   CoRow,
   CoCol,
   CoModal,
+  CoRadioGroup,
+  CoRadio,
 };
 
 function install(Vue) {
