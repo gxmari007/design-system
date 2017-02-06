@@ -1,13 +1,14 @@
-import CoAffix from './components/affix';
-import { CoBreadcrumb, CoBreadcrumbItem } from './components/breadcrumb';
-import CoButton from './components/button';
-import { CoCheckboxGroup, CoCheckbox } from './components/checkbox';
-import CoInput from './components/input';
-import CoIcon from './components/icon';
-import { CoRow, CoCol } from './components/layout';
-import CoLoading from './components/loading';
-import CoModal from './components/modal';
-import { CoRadioGroup, CoRadio } from './components/radio';
+import CoAffix from 'components/affix';
+import { CoBreadcrumb, CoBreadcrumbItem } from 'components/breadcrumb';
+import CoButton from 'components/button';
+import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
+import CoInput from 'components/input';
+import CoIcon from 'components/icon';
+import { CoRow, CoCol } from 'components/layout';
+import CoLoading from 'components/loading';
+import CoModal from 'components/modal';
+import { CoRadioGroup, CoRadio } from 'components/radio';
+import { CoSelect, CoOption } from 'components/select';
 
 const coview = {
   CoAffix,
@@ -23,6 +24,8 @@ const coview = {
   CoModal,
   CoRadioGroup,
   CoRadio,
+  CoSelect,
+  CoOption,
 };
 
 function install(Vue) {

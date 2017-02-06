@@ -1,105 +1,116 @@
 .co-input {
   position: relative;
+
   display: inline-block;
+
   width: 100%;
 
   &:hover &__input,
   &:hover &__textarea {
     border-color: @input-hover-border-color;
   }
+}
 
-  &__input,
-  &__textarea {
-    display: block;
-    width: 100%;
-    line-height: 1.25;
-    border: 1px solid @input-border-color;
-    font-size: inherit;
-    color: @input-font-color;
-    padding: @input-padding-y @input-padding-x;
-    background-color: #fff;
-    background-image: none;
-    outline: none;
-    transition: border-color .2s linear;
+.co-input__input,
+.co-input__textarea {
+  display: block;
 
-    &::placeholder {
-      color: @input-placeholder-color;
-      opacity: 1;
-    }
+  width: 100%;
+  padding: @input-padding-y @input-padding-x;
 
-    .co-input:hover &:focus,
-    &:focus {
-      border-color: @primary;
-    }
+  transition: border-color .2s linear;
 
-    .co-input:hover &:disabled,
-    &:disabled {
-      color: @input-placeholder-color;
-      background-color: @input-disabled-background;
-      cursor: @input-disabled-cursor;
-      border-color: @input-border-color;
-    }
+  color: @input-font-color;
+  border: 1px solid @input-border-color;
+  outline: none;
+  background-color: #fff;
+  background-image: none;
+
+  line-height: @input-line-height;
+
+  &::placeholder {
+    opacity: 1;
+    color: @input-placeholder-color;
   }
 
-  &__textarea {
-    line-height: @input-line-height;
+  .co-input:hover &:focus,
+  &:focus {
+    border-color: @primary;
   }
 
-  &__icon {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 26px;
-    height: 26px;
-    line-height: 26px;
-    text-align: center;
-    font-size: 16px;
-    color: @input-icon-color;
-    cursor: pointer;
-    transition: color .2s linear;
+  .co-input:hover &:disabled,
+  &:disabled {
+    cursor: @input-disabled-cursor;
+
+    color: @input-placeholder-color;
+    border-color: @input-border-color;
+    background-color: @input-disabled-background;
+  }
+}
+
+.co-input__textarea {
+  line-height: @input-line-height;
+}
+
+.co-input__icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: @input-icon-size;
+  height: @input-icon-size;
+
+  cursor: pointer;
+  transition: color .2s linear;
+  text-align: center;
+
+  color: @input-icon-color;
+
+  font-size: 16px;
+  line-height: @input-icon-size;
+
+  & + .co-input__input {
+    padding-right: @input-icon-size;
+  }
+
+  &:hover {
+    color: @input-icon-hover-color;
+  }
+}
+
+// size
+.co-input--small {
+  .co-input__input {
+    padding: @input-padding-y-sm @input-padding-x-sm;
+  }
+
+  .co-input__icon {
+    width: @input-icon-size-sm;
+    height: @input-icon-size-sm;
+
+    font-size: 14px;
+    line-height: @input-icon-size-sm;
 
     & + .co-input__input {
-      padding-right: 26px;
-    }
-
-    &:hover {
-      color: @input-icon-hover-color;
+      padding-right: @input-icon-size-sm;
     }
   }
+}
 
-
-  // size
-  &--small {
-    .co-input__input {
-      padding: @input-padding-y-sm @input-padding-x-sm;
-    }
-
-    .co-input__icon {
-      width: 24px;
-      height: 24px;
-      line-height: 24px;
-      font-size: 14px;
-
-      & + .co-input__input {
-        padding-right: 24px;
-      }
-    }
+.co-input--large {
+  .co-input__input {
+    padding: @input-padding-y-lg @input-padding-x-lg;
   }
 
-  &--large {
-    .co-input__input {
-      padding: @input-padding-y-lg @input-padding-x-lg;
-    }
+  .co-input__icon {
+    width: @input-icon-size-lg;
+    height: @input-icon-size-lg;
 
-    .co-input__icon {
-      width: 30px;
-      height: 30px;
-      font-size: 18px;
-      line-height: 30px;
+    font-size: 18px;
+    line-height: @input-icon-size-lg;
 
-      & + .co-input__input {
-        padding-right: 30px;
-      }
+    & + .co-input__input {
+      padding-right: @input-icon-size-lg;
     }
   }
 }

@@ -1,0 +1,29 @@
+.co-select {
+  display: inline-block;
+  position: relative;
+}
+
+.co-select__input {
+  & > .co-input__input {
+    cursor: pointer;
+  }
+
+  & > .co-input__icon {
+    font-size: 20px;
+    color: #8b8c8d;
+  }
+}
+
+
+// 尺寸
+.co-select--small {
+  .co-select__input > .co-input__icon {
+    font-size: 18px;
+  }
+}
+
+.co-select--large {
+  .co-select__input > .co-input__icon {
+    font-size: 22px;
+  }
+}

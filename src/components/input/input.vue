@@ -15,6 +15,7 @@
         :type="icon"
         @click.native="onIconClick"></co-icon>
       <input
+        ref="input"
         class="co-input__input"
         :value="value"
         :type="type"
@@ -32,7 +33,7 @@
 // components
 import CoIcon from '../icon';
 // utils
-import { oneOf } from '../../utils/help';
+import { oneOf } from 'utils/help';
 
 const prefixClass = 'co-input';
 
@@ -80,7 +81,7 @@ export default {
       return {
         [prefixClass]: true,
         [`${prefixClass}--${size}`]: !!size,
-      }
+      };
     },
   },
   methods: {

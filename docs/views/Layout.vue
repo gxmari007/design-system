@@ -1,15 +1,8 @@
 <template>
   <div class="test">
-    <co-checkbox-group>
-      <co-checkbox>hello</co-checkbox>
-      <co-checkbox>hello</co-checkbox>
-    </co-checkbox-group>
-    <br>
-    <co-radio-group v-model="test">
-      <co-radio label="123">教师数</co-radio>
-      <co-radio label="321">教师数</co-radio>
-    </co-radio-group>
-    {{ test }}
+    <co-select style="width: 220px;" placeholder="选择状态" size="large"></co-select>
+    <co-select style="width: 220px;" placeholder="选择状态"></co-select>
+    <co-select style="width: 220px;" placeholder="选择状态" size="small"></co-select>
   </div>
 </template>
 
@@ -17,7 +10,6 @@
 export default {
   data() {
     return {
-      test: '',
       model: [],
     };
   },

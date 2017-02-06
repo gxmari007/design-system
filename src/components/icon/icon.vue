@@ -24,11 +24,11 @@ export default {
       const { size, color } = this;
       const style = {};
 
-      if (size) {
+      if (size !== undefined) {
         style.fontSize = `${size}px`;
       }
 
-      if (color) {
+      if (color !== undefined) {
         style.color = color;
       }
 
