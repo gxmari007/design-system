@@ -9,6 +9,7 @@ module.exports = {
     alias: {
       'components': path.resolve(__dirname, '../src/components'),
       'mixins': path.resolve(__dirname, '../src/mixins'),
+      'directives': path.resolve(__dirname, '../src/directives'),
       'utils': path.resolve(__dirname, '../src/utils'),
     },
   },

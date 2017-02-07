@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes">
+  <div :class="classes" v-clickoutside="handle">
     <co-input
       ref="input"
       class="co-select__input"
@@ -19,12 +19,15 @@
 import CoInput from 'components/input';
 // utils
 import { oneOf } from 'utils/help';
+// directives
+import clickoutside from 'directives/clickoutside';
 
 const prefixClass = 'co-select';
 
 export default {
   name: 'co-select',
   componentName: 'co-select',
+  directives: { clickoutside },
   props: {
     // 数据
     value: null,
@@ -53,6 +56,9 @@ export default {
     // 点击图标的时候 input 也能获取到焦点
     focusInput() {
       this.$refs.input.$refs.input.focus();
+    },
+    handle() {
+      console.log('outside');
     },
   },
   components: {
