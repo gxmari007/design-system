@@ -3,27 +3,141 @@
   position: relative;
 }
 
-.co-select__input {
-  & > .co-input__input {
-    cursor: pointer;
-  }
+.co-select__wrap {
+  &:extend(.co-input__input);
+  transition: box-shadow .2s linear, border-color .2s linear;
+  cursor: pointer;
+  user-select: none;
 
-  & > .co-input__icon {
-    font-size: 20px;
-    color: #8b8c8d;
+  &:hover {
+    border-color: @primary;
   }
+}
+
+.co-select__placeholder {
+  color: @input-placeholder-color;
+}
+
+.co-select__arrow,
+.co-select__clear {
+  &:extend(.co-input__icon);
+  font-size: 20px;
+  transition: transform .2s linear;
+}
+
+.co-select__clear {
+  font-size: 14px;
+}
+
+.co-select__dropdown {
+  max-height: 200px;
+  list-style: none;
+  background-color: #fff;
+  padding-left: 0;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border: 1px solid #d2d2d2;
+  box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+  z-index: @select-dropdown-z-index;
 }
 
 
 // 尺寸
 .co-select--small {
-  .co-select__input > .co-input__icon {
+  .co-select__wrap {
+    padding-top: @input-padding-y-sm;
+    padding-bottom: @input-padding-y-sm;
+  }
+
+  .co-select__arrow,
+  .co-select__clear {
+    width: @input-icon-size-sm;
+    height: @input-icon-size-sm;
     font-size: 18px;
+    line-height: @input-icon-size-sm;
+  }
+
+  .co-select__clear {
+    font-size: 12px;
   }
 }
 
 .co-select--large {
-  .co-select__input > .co-input__icon {
+  .co-select__wrap {
+    padding-top: @input-padding-y-lg;
+    padding-bottom: @input-padding-y-lg;
+  }
+
+  .co-select__arrow,
+  .co-select__clear {
+    width: @input-icon-size-lg;
+    height: @input-icon-size-lg;
     font-size: 22px;
+    line-height: @input-icon-size-lg;
+  }
+
+  .co-select__clear {
+    font-size: 16px;
+  }
+}
+
+// 获取焦点
+.co-select--focus {
+  .co-select__wrap {
+    border-color: @primary;
+    box-shadow: 0 0 4px fade(@primary, 35%);
+  }
+
+  .co-select__arrow {
+    transform: rotate(180deg);
+  }
+}
+
+// 可以清除选择
+.co-select--clearable {
+  .co-select__wrap {
+    &:hover .co-select__arrow {
+      display: none;
+    }
+
+    &:hover .co-select__clear {
+      display: block;
+    }
+  }
+
+  .co-select__clear {
+    display: none;
+  }
+}
+
+
+// 动效
+.co-select--slide-enter-active {
+  animation: co-select-in .2s ease;
+}
+
+.co-select--slide-leave-active {
+  animation: co-select-out .2s ease;
+}
+
+@keyframes co-select-in {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes co-select-out {
+  from {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(0);
   }
 }
