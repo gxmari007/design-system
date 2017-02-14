@@ -1,4 +1,5 @@
 import CoAffix from 'components/affix';
+import CoBackTop from 'components/back_top';
 import { CoBreadcrumb, CoBreadcrumbItem } from 'components/breadcrumb';
 import CoButton from 'components/button';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
@@ -12,6 +13,7 @@ import { CoSelect, CoOption } from 'components/select';
 
 const coview = {
   CoAffix,
+  CoBackTop,
   CoBreadcrumb,
   CoBreadcrumbItem,
   CoButton,

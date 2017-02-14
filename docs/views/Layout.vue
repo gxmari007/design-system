@@ -15,6 +15,7 @@
       <co-option value="选项二">选项二</co-option>
       <co-option value="选项三" disabled>选项三</co-option>
     </co-select>
+    <co-back-top>back top</co-back-top>
   </div>
 </template>
 
