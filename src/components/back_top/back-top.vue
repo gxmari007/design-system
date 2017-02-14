@@ -1,15 +1,21 @@
 <template>
   <transition name="co-back-top">
     <div v-show="show" class="co-back-top" :style="styles" @click="onClick">
-      <slot></slot>
+      <slot>
+        <co-icon class="co-back-top__default" type="arrow_drop_up" size="36" color="#fff"></co-icon>
+      </slot>
     </div>
   </transition>
 </template>
 
 <script>
+// libs
 import listen from 'dom-helpers/events/listen';
 import throttle from 'lodash/throttle';
+// utils
 import { scrollTo } from 'utils/help';
+// components
+import CoIcon from 'components/icon';
 
 export default {
   name: 'co-back-top',
@@ -22,12 +28,12 @@ export default {
     // 组件距离底部的位置
     bottom: {
       type: Number,
-      default: 10,
+      default: 30,
     },
     // 组件距离右侧的位置
     right: {
       type: Number,
-      default: 10,
+      default: 30,
     },
     // 动画持续时间
     duration: {
@@ -72,6 +78,9 @@ export default {
     onClick() {
       scrollTo(window, window.pageYOffset, 0, this.duration);
     },
+  },
+  components: {
+    CoIcon,
   },
 };
 </script>

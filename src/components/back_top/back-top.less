@@ -1,8 +1,22 @@
 .co-back-top {
   position: fixed;
   z-index: @back-top-z-index;
-  width: 100px;
-  height: 100px;
+
+  cursor: @back-top-cursor;
+}
+
+.co-back-top__default {
+  display: block;
+
+  transition: opacity .2s linear;
+
+  opacity: @back-top-opacity;
+  border-radius: @back-top-border-radius;
+  background-color: @back-top-background;
+
+  &:hover {
+    opacity: @back-top-hover-opacity;
+  }
 }
 
 // 动画
