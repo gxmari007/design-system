@@ -1,7 +1,9 @@
 <template>
-  <div v-show="show" class="co-back-top" :style="style" @click="onClick">
-    <slot></slot>
-  </div>
+  <transition name="co-back-top">
+    <div v-show="show" class="co-back-top" :style="styles" @click="onClick">
+      <slot></slot>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -41,7 +43,7 @@ export default {
     };
   },
   computed: {
-    style() {
+    styles() {
       return {
         bottom: `${this.bottom}px`,
         right: `${this.bottom}px`,
