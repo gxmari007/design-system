@@ -3,7 +3,7 @@
     <ul
       v-show="show"
       class="co-select__dropdown"
-      :style="style">
+      :style="styles">
       <slot></slot>
     </ul>
   </transition>
@@ -23,7 +23,7 @@ export default {
     },
     placement: {
       type: String,
-      default: 'top-start',
+      default: 'bottom-start',
     },
   },
   data() {
@@ -33,10 +33,14 @@ export default {
     };
   },
   computed: {
-    style() {
-      return {
-        width: `${this.width}px`,
-      };
+    styles() {
+      const styles = {};
+
+      if (this.width > 0) {
+        styles.width = `${this.width}px`;
+      }
+
+      return styles;
     },
   },
   watch: {
