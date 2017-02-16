@@ -3,7 +3,7 @@ import CoBackTop from 'components/back_top';
 import { CoBreadcrumb, CoBreadcrumbItem } from 'components/breadcrumb';
 import CoButton from 'components/button';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
-import { CoDropdown, CoDropdownMenu } from 'components/dropdown';
+import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
 import CoInput from 'components/input';
 import CoIcon from 'components/icon';
 import { CoRow, CoCol } from 'components/layout';
@@ -22,6 +22,7 @@ const coview = {
   CoCheckbox,
   CoDropdown,
   CoDropdownMenu,
+  CoDropdownItem,
   CoInput,
   CoIcon,
   CoRow,

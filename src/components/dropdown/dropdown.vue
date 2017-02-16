@@ -1,9 +1,16 @@
 <template>
-  <div class="co-dropdown" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
-    <div class="co-dropdown__trigger" @click="onClick">
+  <div
+    class="co-dropdown"
+    v-clickoutside="closeMenu"
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseLeave">
+    <div
+      class="co-dropdown__trigger"
+      ref="reference"
+      @click="onClick">
       <slot></slot>
     </div>
-    <dropdown :show="show" :placement="placement">
+    <dropdown :show="show" :placement="placement" :transition="transition">
       <slot name="menu"></slot>
     </dropdown>
   </div>
@@ -13,16 +20,23 @@
 import { oneOf } from 'utils/help';
 // components
 import Dropdown from 'components/select/select-dropdown';
+// directives
+import clickoutside from 'directives/clickoutside';
+// mixins
+import emitter from 'mixins/emitter';
 
 export default {
   name: 'co-dropdown',
+  componentName: 'co-dropdown',
+  mixins: [emitter],
+  directives: { clickoutside },
   props: {
     // 触发方式
     trigger: {
       type: String,
-      default: 'click',
+      default: 'hover',
       validate(val) {
-        return oneOf(val, ['click', 'hover', 'custom']);
+        return oneOf(val, ['hover', 'click', 'custom']);
       },
     },
     // 菜单的位置
@@ -30,7 +44,8 @@ export default {
       type: String,
       default: 'bottom',
       validate(val) {
-        return oneOf(val, ['bottom', 'bottom-start', 'bottom-end']);
+        return oneOf(val, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start',
+          'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end']);
       },
     },
   },
@@ -40,7 +55,29 @@ export default {
       timeId: null,
     };
   },
+  computed: {
+    isSubDropdown() {
+      const parent = this.$parent.$parent.$parent;
+
+      if (parent.$options.componentName === 'co-dropdown') {
+        return parent;
+      }
+
+      return false;
+    },
+    transition() {
+      return this.isSubDropdown ? 'co-fade' : 'co-select--slide';
+    },
+  },
+  created() {
+    this.$on('on-click', this.onDropdownClick);
+  },
   methods: {
+    closeMenu() {
+      if (this.trigger !== 'click') return;
+
+      this.show = false;
+    },
     onClick() {
       if (this.trigger !== 'click') return;
 
@@ -65,6 +102,15 @@ export default {
       this.timeId = setTimeout(() => {
         this.show = false;
       }, 150);
+    },
+    onDropdownClick(label) {
+      if (this.isSubDropdown) {
+        this.dispatch('co-dropdown', 'on-click', label);
+      } else {
+        this.$emit('dropdown-click', label);
+      }
+
+      this.show = false;
     },
   },
   components: {

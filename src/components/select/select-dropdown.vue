@@ -1,11 +1,11 @@
 <template>
-  <transition name="co-select--slide">
-    <ul
+  <transition :name="transition">
+    <div
       v-show="show"
       class="co-select__dropdown"
       :style="styles">
       <slot></slot>
-    </ul>
+    </div>
   </transition>
 </template>
 
@@ -24,6 +24,10 @@ export default {
     placement: {
       type: String,
       default: 'bottom-start',
+    },
+    transition: {
+      type: String,
+      default: 'co-select--slide',
     },
   },
   data() {
@@ -79,7 +83,9 @@ export default {
         });
       }
 
-      this.width = width(this.$parent.$el);
+      if (this.$parent.$options.componentName === 'co-select') {
+        this.width = width(this.$parent.$el);
+      }
     },
     setTransformOrigin(popper) {
       const popperDom = popper.instance.popper;

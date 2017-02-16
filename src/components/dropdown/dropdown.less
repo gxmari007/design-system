@@ -1,3 +1,36 @@
 .co-dropdown {
   display: inline-block;
+
+  & & {
+    display: block;
+    width: 100%;
+  }
+
+  .co-select__dropdown {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+
+.co-dropdown__menu {
+  &:extend(.co-select__list);
+  min-width: 115px;
+}
+
+
+.co-dropdown__item {
+  &:extend(.co-option all);
+}
+
+.co-dropdown__item--disabled {
+  &:extend(.co-option--disabled all);
+}
+
+.co-dropdown__item--active {
+  &:extend(.co-option--active all);
+}
+
+.co-dropdown__item--divided {
+  border-top: 1px solid #dcdcdc;
 }

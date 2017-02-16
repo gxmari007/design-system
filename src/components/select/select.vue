@@ -7,7 +7,9 @@
       <co-icon class="co-select__clear" v-if="clearable" type="cancel" @click.native.stop="clearModel"></co-icon>
     </div>
     <co-select-dropdown :show="show">
-      <slot></slot>
+      <ul class="co-select__list">
+        <slot></slot>
+      </ul>
     </co-select-dropdown>
   </div>
 </template>
