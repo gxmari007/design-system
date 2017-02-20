@@ -4,11 +4,6 @@
   display: inline-block;
 
   width: 100%;
-
-  &:hover &__input,
-  &:hover &__textarea {
-    border-color: @input-hover-border-color;
-  }
 }
 
 .co-input__input,
@@ -42,7 +37,7 @@
   &:disabled {
     cursor: @input-disabled-cursor;
 
-    color: @input-placeholder-color;
+    color: @input-disabled-color;
     border-color: @input-border-color;
     background-color: @input-disabled-background;
   }

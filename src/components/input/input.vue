@@ -45,7 +45,10 @@ export default {
       type: String,
       default: 'text',
     },
-    placeholder: String,
+    placeholder: {
+      type: String,
+      default: '请输入',
+    },
     readonly: {
       type: Boolean,
       default: false,

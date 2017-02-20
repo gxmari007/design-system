@@ -1,0 +1,107 @@
+.co-input-number {
+  position: relative;
+  display: inline-block;
+  width: @input-number-default-width;
+  border: 1px solid @input-border-color;
+  overflow: hidden;
+  transition: border-color .2s linear, box-shadow .2s linear;
+
+  &:hover {
+    border-color: @primary;
+
+    .co-input-number__btn-group {
+      opacity: 1;
+    }
+  }
+}
+
+.co-input-number__btn-group {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #fff;
+  opacity: 0;
+  transition: opacity .2s linear;
+  border-left: 1px solid @input-number-btn-border-color;
+}
+
+.co-input-number__btn {
+  display: block;
+  width: @input-number-btn-width;
+  height: @input-number-btn-height;
+  font-size: 12px;
+  line-height: @input-number-btn-height;
+  color: @input-number-btn-color;
+  text-align: center;
+  cursor: pointer;
+  transition: color .2s linear;
+
+  &:first-child {
+    border-bottom: 1px solid @input-number-btn-border-color;
+  }
+
+  &:hover {
+    color: @primary;
+  }
+}
+
+.co-input-number__input {
+  &:extend(.co-input__input);
+  border: 0;
+}
+
+
+.co-input-number--focus {
+  border-color: @primary;
+  box-shadow: @input-focus-shadow;
+}
+
+// size
+.co-input-number--small {
+  .co-input-number__btn {
+    height: @input-number-btn-height-sm;
+    line-height: @input-number-btn-height-sm;
+  }
+
+  .co-input-number__input {
+    padding: @input-padding-y-sm @input-padding-x-sm;
+  }
+}
+
+.co-input-number--large {
+  .co-input-number__btn {
+    height: @input-number-btn-height-lg;
+    line-height: @input-number-btn-height-lg;
+  }
+
+  .co-input-number__input {
+    padding: @input-padding-y-lg @input-padding-x-lg;
+  }
+}
+
+// disabled
+.co-input-number--disabled {
+  .co-input-number__input {
+    color: @input-disabled-color;
+    background-color: @input-disabled-background;
+    cursor: @input-disabled-cursor;
+  }
+
+  &:hover {
+    border-color: @input-border-color;
+
+    .co-input-number__btn-group {
+      display: none;
+    }
+  }
+}
+
+// btn disabled
+.co-input-number__btn--disabled {
+  cursor: not-allowed;
+
+  &,
+  &:hover {
+    color: @input-number-btn-disabled-color;
+  }
+}

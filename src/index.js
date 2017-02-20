@@ -5,6 +5,7 @@ import CoButton from 'components/button';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
 import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
 import CoInput from 'components/input';
+import CoInputNumber from 'components/input_number';
 import CoIcon from 'components/icon';
 import { CoRow, CoCol } from 'components/layout';
 import CoLoading from 'components/loading';
@@ -24,6 +25,7 @@ const coview = {
   CoDropdownMenu,
   CoDropdownItem,
   CoInput,
+  CoInputNumber,
   CoIcon,
   CoRow,
   CoCol,
