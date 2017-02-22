@@ -3,13 +3,13 @@
     <colgroup>
       <col v-for="column in columns" :style="setStyles(column.width)">
     </colgroup>
-    <thead>
-      <tr>
-        <th v-for="column in columns">
-          <div class="co-table__cell">{{ column.label }}</div>
-        </th>
+    <tbody>
+      <tr v-for="(item, index) in data" :key="index">
+        <td v-for="(column, index) in columns" :key="index">
+          <div class="co-table__cell">{{ item[column.prop] }}</div>
+        </td>
       </tr>
-    </thead>
+    </tbody>
   </table>
 </template>
 
@@ -18,9 +18,10 @@
 import mixin from './mixin';
 
 export default {
-  name: 'co-table-header',
+  name: 'co-table-body',
   mixins: [mixin],
   props: {
+    data: Array,
     columns: Array,
     colWidth: Number,
   },

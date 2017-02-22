@@ -1,7 +1,7 @@
 <template>
   <div class="test">
-    <co-table :data="data" :show-header="true">
-      <co-table-column prop="name" label="姓名"></co-table-column>
+    <co-table :data="data" border>
+      <co-table-column prop="name" label="姓名" width="100"></co-table-column>
       <co-table-column prop="age" label="年龄"></co-table-column>
       <co-table-column prop="date" label="日期"></co-table-column>
     </co-table>

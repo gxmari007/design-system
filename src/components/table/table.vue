@@ -5,28 +5,24 @@
       <slot></slot>
     </div>
     <div class="co-table__header" v-if="showHeader" ref="header">
-      <co-table-header :columns="columns"></co-table-header>
+      <co-table-header :columns="columns" :col-width="colWidth"></co-table-header>
     </div>
     <!-- 内容 -->
-    <div class="co-table__body" :style="bodyStyles">
-      <table>
-        <tbody>
-          <tr v-for="item in data">
-            <td v-for="column in columns">
-              <div class="co-table__cell">{{ item[column.prop] }}</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="co-table__body" ref="body" :style="bodyStyles">
+      <co-table-body :data="data" :columns="columns" :col-width="colWidth"></co-table-body>
     </div>
   </div>
 </template>
 
 <script>
 // libs
+import width from 'dom-helpers/query/width';
 import height from 'dom-helpers/query/height';
+import listen from 'dom-helpers/events/listen';
+import throttle from 'lodash/throttle';
 // components
 import CoTableHeader from './table-header';
+import CoTableBody from './table-body';
 
 const prefixClass = 'co-table';
 
@@ -59,7 +55,9 @@ export default {
   data() {
     return {
       columns: [],
+      tableWidth: 0,
       headerHeight: 0,
+      resizeOff: null,
     };
   },
   computed: {
@@ -93,6 +91,22 @@ export default {
 
       return styles;
     },
+    // 未设置宽度的列的宽度
+    colWidth() {
+      let lens = 0;
+
+      // 获取自定义列宽度的总和
+      const diyWidth = this.columns.reduce((acc, column) => {
+        if (column.width !== undefined) {
+          acc += Number(column.width);
+          lens += 1;
+        }
+
+        return acc;
+      }, 0);
+
+      return Math.floor((this.tableWidth - diyWidth) / (this.columns.length - lens));
+    },
   },
   watch: {
     showHeader: {
@@ -109,6 +123,18 @@ export default {
       },
     },
   },
+  mounted() {
+    this.tableWidth = width(this.$refs.body);
+    // 改变窗口大小重新计算表格布局
+    this.resizeOff = listen(window, 'resize', throttle(() => {
+      this.tableWidth = width(this.$refs.body);
+    }, 17));
+  },
+  beforeDestroy() {
+    if (this.resizeOff) {
+      this.resizeOff();
+    }
+  },
   methods: {
     // 从 co-table-column 添加列信息到 columns
     addColumn(instance) {
@@ -117,6 +143,7 @@ export default {
   },
   components: {
     CoTableHeader,
+    CoTableBody,
   },
 };
 </script>
