@@ -25,7 +25,6 @@ export default function makeInstance() {
       }
     },
     destroy() {
-      console.log(vm);
       document.body.removeChild(vm.$el);
     },
   };

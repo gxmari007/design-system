@@ -112,13 +112,57 @@ sup {
   top: -.5em;
 }
 
+
+// links
 a {
-  color: @primary;
-  text-decoration: none;
+  color: @link-color;
+  text-decoration: @link-text-decoration;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
+
+  &:hover {
+    text-decoration: @link-hover-text-decoration;
+  }
 }
 
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: @link-text-decoration;
+
+  &:hover {
+    text-decoration: @link-text-decoration;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+
+// Figures
+figure {
+  margin: 0 0 1rem;
+}
+
+
+// Image
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+svg:not(:root) {
+  overflow: hidden; // Hide the overflow in IE
+}
+
+
+// Table
+table {
+  border-collapse: collapse; // 重置默认双边线
+}
+
+
+// Form
 input,
 button,
 select,

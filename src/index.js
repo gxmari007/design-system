@@ -2,6 +2,7 @@ import CoAffix from 'components/affix';
 import CoBackTop from 'components/back_top';
 import { CoBreadcrumb, CoBreadcrumbItem } from 'components/breadcrumb';
 import CoButton from 'components/button';
+import CoCascader from 'components/cascader';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
 import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
 import CoInput from 'components/input';
@@ -12,6 +13,8 @@ import CoLoading from 'components/loading';
 import CoModal from 'components/modal';
 import { CoRadioGroup, CoRadio } from 'components/radio';
 import { CoSelect, CoOption } from 'components/select';
+import { CoTable, CoTableColumn } from 'components/table';
+import { CoTimeline, CoTimelineItem } from 'components/timeline';
 
 const coview = {
   CoAffix,
@@ -19,6 +22,7 @@ const coview = {
   CoBreadcrumb,
   CoBreadcrumbItem,
   CoButton,
+  CoCascader,
   CoCheckboxGroup,
   CoCheckbox,
   CoDropdown,
@@ -34,6 +38,10 @@ const coview = {
   CoRadio,
   CoSelect,
   CoOption,
+  CoTable,
+  CoTableColumn,
+  CoTimeline,
+  CoTimelineItem,
 };
 
 function install(Vue) {
