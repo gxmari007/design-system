@@ -11,6 +11,7 @@ import CoIcon from 'components/icon';
 import { CoRow, CoCol } from 'components/layout';
 import CoLoading from 'components/loading';
 import CoModal from 'components/modal';
+import CoPagination from 'components/pagination';
 import { CoRadioGroup, CoRadio } from 'components/radio';
 import { CoSelect, CoOption } from 'components/select';
 import { CoTable, CoTableColumn } from 'components/table';
@@ -34,6 +35,7 @@ const coview = {
   CoRow,
   CoCol,
   CoModal,
+  CoPagination,
   CoRadioGroup,
   CoRadio,
   CoSelect,
