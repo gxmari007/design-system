@@ -1,13 +1,16 @@
 <template>
   <div class="test">
-    <co-table :data="data" border height="120">
+    <co-table :data="data" border>
       <co-table-column prop="name" label="姓名" width="100"></co-table-column>
       <co-table-column prop="age" label="年龄"></co-table-column>
       <co-table-column prop="date" label="日期"></co-table-column>
     </co-table>
-    <co-pagination :current="page" :total="100" @page-change="onPageChange"></co-pagination>
-    {{ page }}
-    <button @click="page = 10">set</button>
+    <co-pagination
+      :current="page"
+      :total="200"
+      :max-pages="5"
+      ellipsis
+      @page-change="onPageChange"></co-pagination>
     <co-back-top></co-back-top>
   </div>
 </template>
@@ -70,7 +73,6 @@ export default {
   },
   methods: {
     onPageChange(page) {
-      console.log(page);
       this.page = page;
     },
   },

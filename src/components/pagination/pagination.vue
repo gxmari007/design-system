@@ -1,23 +1,33 @@
 <template>
-  <ul class="co-pagination">
-    <li
-      class="co-pagination__prev"
-      :class="{ 'co-pagination__prev--disabled': currentPage === 1 }"
-      @click="selectPrev">
-      <co-icon type="navigate_before"></co-icon>
-    </li>
-    <li
-      class="co-pagination__item"
-      :class="{ active: currentPage === index + 1 }"
-      v-for="(item, index) in pageCount"
-      @click="selectPage(index + 1)">{{ index + 1 }}</li>
-    <li
-      class="co-pagination__next"
-      :class="{ 'co-pagination__next--disabled': currentPage === pageCount }"
-      @click="selectNext">
-      <co-icon type="navigate_next"></co-icon>
-    </li>
-  </ul>
+  <div class="co-pagination">
+    <span class="co-pagination__total">共 {{ total }} 条</span>
+    <ul class="co-pagination__pages">
+      <li
+        v-if="prev"
+        class="co-pagination__item"
+        :class="{ 'co-pagination__item--disabled': activePage === 1 }"
+        @click="selectPrev">
+        <co-icon type="navigate_before"></co-icon>
+      </li>
+      <template v-for="item in pageButtons">
+        <li
+          v-if="typeof item === 'number'"
+          class="co-pagination__item"
+          :class="{ active: activePage === item }"
+          @click="selectPage(item)">{{ item }}</li>
+        <li
+          v-else
+          class="co-pagination__ellipsis">{{ item }}</li>
+      </template>
+      <li
+        v-if="next"
+        class="co-pagination__item"
+        :class="{ 'co-pagination__item--disabled': activePage === pageCount }"
+        @click="selectNext">
+        <co-icon type="navigate_next"></co-icon>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -41,43 +51,104 @@ export default {
       type: Number,
       default: 10,
     },
+    // 最多显示页码个数
+    maxPages: {
+      type: Number,
+      default: 0,
+    },
+    // 是否显示前一页按钮
+    prev: {
+      type: Boolean,
+      default: true,
+    },
+    // 是否显示后一页按钮
+    next: {
+      type: Boolean,
+      default: true,
+    },
+    // 是否显示省略号
+    ellipsis: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
-      currentPage: this.current,
+      activePage: this.current,
     };
   },
   computed: {
-    // 页面个数
+    // 总页数
     pageCount() {
       return Math.ceil(this.total / this.pageSize);
+    },
+    // 页码按钮数组
+    pageButtons() {
+      const { activePage, maxPages, pageCount, ellipsis } = this;
+      const buttons = [];
+      let startPage = 1;
+      let endPage = 1;
+
+      if (maxPages && maxPages < pageCount) {
+        startPage = Math.max(
+          Math.min(activePage - Math.floor(maxPages / 2), pageCount - maxPages + 1),
+          1
+        );
+        endPage = startPage + maxPages - 1;
+      } else {
+        startPage = 1;
+        endPage = pageCount;
+      }
+
+      for (let page = startPage; page <= endPage; page++) {
+        buttons.push(page);
+      }
+      console.log(typeof ellipsis);
+
+      if (ellipsis && startPage > 1) {
+        if (startPage > 2) {
+          buttons.unshift(ellipsis === true ? '...' : ellipsis);
+        }
+
+        buttons.unshift(1);
+      }
+
+      if (ellipsis && endPage < pageCount) {
+        if (endPage < pageCount - 1) {
+          buttons.push(ellipsis === true ? '...' : ellipsis);
+        }
+
+        buttons.push(pageCount);
+      }
+
+      return buttons;
     },
   },
   watch: {
     current(newVal) {
-      this.currentPage = newVal;
+      this.activePage = newVal;
     },
-    currentPage(newVal) {
+    activePage(newVal) {
       this.$emit('page-change', newVal);
     },
   },
   methods: {
     selectPage(page) {
-      this.currentPage = page;
+      this.activePage = page;
     },
     selectPrev() {
-      if (this.currentPage === 1) {
+      if (this.activePage === 1) {
         return;
       }
 
-      this.currentPage -= 1;
+      this.activePage -= 1;
     },
     selectNext() {
-      if (this.currentPage === this.pageCount) {
+      if (this.activePage === this.pageCount) {
         return;
       }
 
-      this.currentPage += 1;
+      this.activePage += 1;
     },
   },
   components: {
