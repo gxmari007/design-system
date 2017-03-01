@@ -15,6 +15,7 @@ import CoPagination from 'components/pagination';
 import { CoRadioGroup, CoRadio } from 'components/radio';
 import { CoSelect, CoOption } from 'components/select';
 import { CoTable, CoTableColumn } from 'components/table';
+import { CoTabs, CoTabPane } from 'components/tabs';
 import { CoTimeline, CoTimelineItem } from 'components/timeline';
 
 const coview = {
@@ -42,6 +43,8 @@ const coview = {
   CoOption,
   CoTable,
   CoTableColumn,
+  CoTabs,
+  CoTabPane,
   CoTimeline,
   CoTimelineItem,
 };

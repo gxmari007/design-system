@@ -103,7 +103,6 @@ export default {
       for (let page = startPage; page <= endPage; page++) {
         buttons.push(page);
       }
-      console.log(typeof ellipsis);
 
       if (ellipsis && startPage > 1) {
         if (startPage > 2) {

@@ -6,6 +6,8 @@ const projectRoot = path.resolve(__dirname, '../');
 
 module.exports = {
   resolve: {
+    // 自动补全扩展名
+    extensions: ['', '.js', '.vue'],
     alias: {
       'components': path.resolve(__dirname, '../src/components'),
       'mixins': path.resolve(__dirname, '../src/mixins'),

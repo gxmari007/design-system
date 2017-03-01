@@ -11,7 +11,11 @@
       :max-pages="5"
       ellipsis
       @page-change="onPageChange"></co-pagination>
-    <co-back-top></co-back-top>
+    <co-tabs active-name="tab3">
+      <co-tab-pane name="tab1" label="数字">tab 1 content</co-tab-pane>
+      <co-tab-pane name="tab2" label="标题">tab 2 content</co-tab-pane>
+      <co-tab-pane name="tab3" label="参考线">tab 3 content</co-tab-pane>
+    </co-tabs>
   </div>
 </template>
 
