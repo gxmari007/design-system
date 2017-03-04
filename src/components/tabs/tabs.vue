@@ -3,7 +3,10 @@
     <ul class="co-tabs__navs">
       <li
         class="co-tabs__nav-item"
-        :class="{ active: tab.key === active }"
+        :class="{
+          'co-tabs__nav-item--disabled': tab.disabled,
+          active: tab.key === active,
+        }"
         v-for="tab in tabs"
         @click="onClick(tab)">{{ tab.label }}</li>
     </ul>

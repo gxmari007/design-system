@@ -8,6 +8,8 @@ module.exports = {
   resolve: {
     // 自动补全扩展名
     extensions: ['', '.js', '.vue'],
+    // 不进行补全或处理的文件或文件夹
+    fallback: [path.resolve(__dirname, '../node_modules')],
     alias: {
       'components': path.resolve(__dirname, '../src/components'),
       'mixins': path.resolve(__dirname, '../src/mixins'),

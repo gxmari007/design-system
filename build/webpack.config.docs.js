@@ -19,10 +19,6 @@ module.exports = merge(baseWebpackConfig, {
     filename: '[name].js',
   },
   resolve: {
-    // 不进行补全或处理的文件或文件夹
-    fallback: [
-      path.resolve(__dirname, '../node_modules'),
-    ],
     // 路径代理
     alias: {
       'coview': path.resolve(__dirname, '../src'),

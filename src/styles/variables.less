@@ -30,10 +30,34 @@
 
 
 // Button
-@button-font-size: 12px;
-@button-font-weight: 400;
+@button-font-weight: @font-weight-base;
+@button-border-radius: 2px;
+@button-padding: 3px 17px;
+@button-cursor: pointer;
 
-@button-default-color: #333;
+@button-disabled-bg: #fafafa;
+@button-disabled-border-color: #dcdcdc;
+@button-disabled-color: #bebebe;
+@button-disabled-cursor: not-allowed;
+
+@button-default-border-color: #dcdcdc;
+@button-default-bg: #fafafa;
+@button-default-hover-border-color: #bebebe;
+@button-default-hover-bg: #fff;
+
+@button-primary-border-color: @primary;
+@button-primary-bg: @primary;
+@button-primary-color: #fff;
+@button-primary-hover-border-color: #0d81bd;
+@button-primary-hover-bg: #0d81bd;
+
+@button-ghost-border-color: @primary;
+@button-ghost-bg: #fff;
+@button-ghost-color: @primary;
+@button-ghost-hover-bg: #ebf3f7;
+
+@button-small-padding: 2px 17px;
+@button-large-padding: 5px 17px;
 
 
 // Input

@@ -1,9 +1,10 @@
 import requestAnimationFrame from 'dom-helpers/util/requestAnimationFrame';
 import scrollTop from 'dom-helpers/query/scrollTop';
 
+// 组件 props 验证方法
 // 验证第一个参数是否为第二个参数中的值
 export function oneOf(value, valueList) {
-  return valueList.some(val => val === value);
+  return valueList.indexOf(value) !== -1;
 }
 
 // 滚动条滚动方法（动画效果）

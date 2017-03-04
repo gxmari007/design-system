@@ -1,25 +1,71 @@
 .co-button {
   display: inline-block;
-  padding: 6px 28px;
-  cursor: pointer;
+
+  padding: @button-padding;
+
+  cursor: @button-cursor;
+  user-select: none;
+  transition: border-color .2s linear, background-color .2s linear;
   vertical-align: middle;
   white-space: nowrap;
+
   border: 1px solid transparent;
-  font-size: @button-font-size;
-  line-height: 1;
+  border-radius: @button-border-radius;
+
   font-weight: @button-font-weight;
 
+  &:focus {
+    outline: 0;
+  }
+
   &:disabled {
-    color: #888;
-    background-color: #dcdcdc;
-    border-color: #888;
+    &,
+    &:hover {
+      cursor: @button-disabled-cursor;
+      text-decoration: none;
+
+      color: @button-disabled-color;
+      border-color: @button-disabled-border-color;
+      background-color: @button-disabled-bg;
+    }
   }
 }
 
-/**
- * 按钮类型
- * default, primary, ghost
- */
-.co-button__default {
 
+// 按钮类型
+.co-button--default {
+  .button-style(@font-color-base, @button-default-border-color, @button-default-bg, @button-default-hover-border-color, @button-default-hover-bg);
+}
+
+.co-button--primary {
+  .button-style(@button-primary-color, @button-primary-border-color, @button-primary-bg, @button-primary-hover-border-color, @button-primary-hover-bg);
+}
+
+.co-button--ghost {
+  .button-style(@button-ghost-color, @button-ghost-border-color, @button-ghost-bg, @button-ghost-border-color, @button-ghost-hover-bg);
+}
+
+.co-button--link {
+  color: @primary;
+  background-color: transparent;
+
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.co-button--block {
+  display: block;
+  width: 100%;
+}
+
+
+// 按钮尺寸
+.co-button--small {
+  padding: @button-small-padding;
+}
+
+.co-button--large {
+  padding: @button-large-padding;
 }
