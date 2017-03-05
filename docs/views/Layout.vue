@@ -11,6 +11,24 @@
     <co-button size="small">确定</co-button>
     <co-button>确定</co-button>
     <co-button size="large">确定</co-button>
+    <hr>
+    <co-button-group size="small">
+      <co-button>我的报表</co-button>
+      <co-button>共享报表</co-button>
+    </co-button-group>
+    <co-button-group>
+      <co-button>我的报表</co-button>
+      <co-button>共享报表</co-button>
+    </co-button-group>
+    <co-button-group size="large">
+      <co-button>我的报表</co-button>
+      <co-button>共享报表</co-button>
+    </co-button-group>
+    <hr>
+    <co-button-group vertical>
+      <co-button>我的报表</co-button>
+      <co-button>共享报表</co-button>
+    </co-button-group>
   </div>
 </template>
 

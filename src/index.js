@@ -1,7 +1,7 @@
 import CoAffix from 'components/affix';
 import CoBackTop from 'components/back_top';
 import { CoBreadcrumb, CoBreadcrumbItem } from 'components/breadcrumb';
-import CoButton from 'components/button';
+import { CoButtonGroup, CoButton } from 'components/button';
 import CoCascader from 'components/cascader';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
 import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
@@ -23,6 +23,7 @@ const coview = {
   CoBackTop,
   CoBreadcrumb,
   CoBreadcrumbItem,
+  CoButtonGroup,
   CoButton,
   CoCascader,
   CoCheckboxGroup,

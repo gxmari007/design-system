@@ -49,14 +49,36 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      buttonGroup: null,
+    };
+  },
   computed: {
     classes() {
       return {
         [prefixClass]: true,
         [`${prefixClass}--${this.type}`]: true,
         [`${prefixClass}--block`]: this.block,
-        [`${prefixClass}--${this.size}`]: this.size,
+        [`${prefixClass}--${this.buttonSize}`]: this.buttonSize,
       };
+    },
+    isGroup() {
+      let parent = this.$parent;
+
+      while (parent) {
+        if (parent.$options.name === 'co-button-group') {
+          this.buttonGroup = parent;
+          return true;
+        } else {
+          parent = parent.$parent;
+        }
+      }
+
+      return false;
+    },
+    buttonSize() {
+      return this.isGroup ? this.buttonGroup.size : this.size;
     },
   },
 };
