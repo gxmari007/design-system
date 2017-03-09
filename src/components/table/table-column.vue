@@ -3,11 +3,17 @@ export default {
   name: 'co-table-column',
   props: {
     // 对应数据项的属性名称
-    prop: String,
+    prop: [String, Number],
     // 实际显示的列名称
     label: String,
     // 自定义列宽度
     width: [String, Number],
+  },
+  data() {
+    return {
+      // 是否数据子列
+      subColumn: false,
+    };
   },
   computed: {
     tableParent() {
@@ -21,6 +27,7 @@ export default {
     },
   },
   created() {
+    this.subColumn = this.$parent !== this.tableParent;
     this.tableParent.addColumn(this);
   },
   render(h) {

@@ -1,6 +1,9 @@
 import requestAnimationFrame from 'dom-helpers/util/requestAnimationFrame';
 import scrollTop from 'dom-helpers/query/scrollTop';
 
+// 验证十六进制颜色值
+export const colorRegex = /#([\da-f]{3}){1,2}/i;
+
 // 组件 props 验证方法
 // 验证第一个参数是否为第二个参数中的值
 export function oneOf(value, valueList) {

@@ -1,34 +1,14 @@
 <template>
   <div class="test">
-    <co-button>确定</co-button>
-    <co-button type="primary">取消</co-button>
-    <co-button type="ghost">取消</co-button>
-    <co-button type="link">链接</co-button>
-    <co-button disabled>禁用</co-button>
-    <hr>
-    <co-button block>块级按钮</co-button>
-    <hr>
-    <co-button size="small">确定</co-button>
-    <co-button>确定</co-button>
-    <co-button size="large">确定</co-button>
-    <hr>
-    <co-button-group size="small">
-      <co-button>我的报表</co-button>
-      <co-button>共享报表</co-button>
-    </co-button-group>
-    <co-button-group>
-      <co-button>我的报表</co-button>
-      <co-button>共享报表</co-button>
-    </co-button-group>
-    <co-button-group size="large">
-      <co-button>我的报表</co-button>
-      <co-button>共享报表</co-button>
-    </co-button-group>
-    <hr>
-    <co-button-group vertical>
-      <co-button>我的报表</co-button>
-      <co-button>共享报表</co-button>
-    </co-button-group>
+    <co-table :data="data" border>
+      <co-table-column v-for="(column, index) in columns" :prop="index" :label="column"></co-table-column>
+    </co-table>
+    <co-timeline>
+      <co-timeline-item>2016/7/1</co-timeline-item>
+      <co-timeline-item color="red">2016/7/2</co-timeline-item>
+      <co-timeline-item color="green">2016/7/2</co-timeline-item>
+      <co-timeline-item>2016/7/2</co-timeline-item>
+    </co-timeline>
   </div>
 </template>
 
@@ -36,7 +16,21 @@
 export default {
   data() {
     return {
-      model: 1,
+      columns: ['学校办别', '类型', '性别', '学生数'],
+      data: [
+        ['公办', '初中', '男', 125123],
+        ['公办', '初中', '女', 83712],
+        ['公办', '高中', '男', 821981],
+        ['公办', '高中', '女', 812373],
+        ['公办', '完中', '男', 1243],
+        ['公办', '完中', '女', 281234],
+        ['民办', '初中', '男', 125123],
+        ['民办', '初中', '女', 83712],
+        ['民办', '高中', '男', 821981],
+        ['民办', '高中', '女', 812373],
+        ['民办', '完中', '男', 1243],
+        ['民办', '完中', '女', 281234],
+      ],
     };
   },
 };
@@ -44,7 +38,6 @@ export default {
 
 <style>
 .test {
-  height: 800px;
-  padding: 100px;
+  padding: 50px;
 }
 </style>
