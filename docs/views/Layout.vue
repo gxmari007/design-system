@@ -3,11 +3,22 @@
     <co-table :data="data" border>
       <co-table-column v-for="(column, index) in columns" :prop="index" :label="column"></co-table-column>
     </co-table>
-    <co-timeline>
+    <co-timeline pending>
       <co-timeline-item>2016/7/1</co-timeline-item>
-      <co-timeline-item color="red">2016/7/2</co-timeline-item>
-      <co-timeline-item color="green">2016/7/2</co-timeline-item>
-      <co-timeline-item>2016/7/2</co-timeline-item>
+      <co-timeline-item color="red">
+        <div>2016/7/2</div>
+        <div>2016/7/3</div><div>2016/7/2</div>
+        <div>2016/7/3</div>
+      </co-timeline-item>
+      <co-timeline-item color="green">
+        <div>2016/7/2</div>
+        <div>2016/7/3</div>
+        <div>2016/7/2</div>
+        <div>2016/7/3</div>
+        <div>2016/7/2</div>
+        <div>2016/7/3</div>
+      </co-timeline-item>
+      <co-timeline-item><a href="#">更多选项</a></co-timeline-item>
     </co-timeline>
   </div>
 </template>

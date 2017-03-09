@@ -6,53 +6,63 @@
 
 .co-timeline__item {
   position: relative;
-  padding-bottom: 10px;
+  padding-bottom: @timeline-item-padding-bottom;
 
   &:last-child .co-timeline__tail {
     display: none;
   }
 }
 
-.co-timeline__outline {
+// timeline 节点样式
+.co-timeline__circle-bg {
   position: absolute;
   top: 0;
   left: 0;
-  width: 12px;
-  height: 18px;
-  background-color: #fff;
+  width: @timeline-circle-bg-width;
+  height: @timeline-circle-bg-height;
+  background-color: @timeline-circle-bg;
 }
 
 .co-timeline__circle {
   position: absolute;
-  top: 3px;
+  top: @timeline-circle-top;
   left: 0;
-  width: 12px;
-  height: 12px;
-  border: 2px solid transparent;
-  border-radius: 50%;
+  width: @timeline-circle-size;
+  height: @timeline-circle-size;
+  border: @timeline-circle-border-width solid @timeline-circle-border-color;
+  border-radius: @timeline-circle-border-radius;
 
   &--blue {
-    border-color: @primary;
+    border-color: @timeline-circle-blue;
   }
 
   &--green {
-    border-color: @success;
+    border-color: @timeline-circle-green;
   }
 
   &--red {
-    border-color: @error;
+    border-color: @timeline-circle-red;
   }
 }
 
 .co-timeline__tail {
   position: absolute;
-  left: 5px;
-  top: 0;
+  top: @timeline-tail-top;
+  left: @timeline-tail-left;
   height: 100%;
-  border-left: 2px solid #ddd;
+  border-left: @timeline-tail-border;
 }
 
 .co-timeline__content {
-  padding-bottom: 10px;
-  padding-left: 24px;
+  padding-bottom: @timeline-content-padding-bottom;
+  padding-left: @timeline-content-padding-left;
+}
+
+
+.co-timeline--pending {
+  .co-timeline__item:nth-last-of-type(2) {
+    .co-timeline__tail {
+      border-left-style: @timeline-tail-pending-border-type;
+    }
+  }
 }

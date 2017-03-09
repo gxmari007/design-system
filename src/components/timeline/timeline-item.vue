@@ -1,7 +1,7 @@
 <template>
   <li class="co-timeline__item">
     <div class="co-timeline__tail"></div>
-    <div class="co-timeline__outline"></div>
+    <div class="co-timeline__circle-bg"></div>
     <div :class="circleClasses" :style="circleStyles"></div>
     <div class="co-timeline__content">
       <slot></slot>
@@ -11,6 +11,8 @@
 
 <script>
 import { colorRegex } from 'utils/help';
+
+const prefixClass = 'co-timeline__circle';
 
 export default {
   name: 'co-timeline-item',
@@ -25,8 +27,8 @@ export default {
   computed: {
     circleClasses() {
       return {
-        'co-timeline__circle': true,
-        [`co-timeline__circle--${this.color}`]: !colorRegex.test(this.color),
+        [prefixClass]: true,
+        [`${prefixClass}--${this.color}`]: !colorRegex.test(this.color),
       };
     },
     circleStyles() {
