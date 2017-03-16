@@ -1,11 +1,11 @@
 # CoView
 
-一个用 Vue.js 2.0 构建的前端 PC 组件库
+A Vue.js 2.0 ui components for web
 
-## 使用
+## Usage
 
 ```` bash
-# 安装模块
+# install
 npm install coview --save
 ````
 
