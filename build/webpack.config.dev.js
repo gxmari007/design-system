@@ -8,7 +8,7 @@ module.exports = merge(baseWebpackConfig, {
   entry: path.resolve(__dirname, '../src/index.js'),
   output: {
     path: config.build.assetsRoot,
-    filename: 'coview.min.js',
+    filename: 'coview.js',
     library: 'coview',
     libraryTarget: 'umd',
   },
@@ -23,11 +23,6 @@ module.exports = merge(baseWebpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': config.build.env,
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
     }),
   ],
 });

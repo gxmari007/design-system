@@ -1,25 +1,17 @@
 <template>
   <div class="test">
-    <co-table :data="data" border>
-      <co-table-column v-for="(column, index) in columns" :prop="index" :label="column"></co-table-column>
+    <co-button @click.native="onClick">switch head</co-button>
+    <co-table :data="data" border height="220" :show-header="head">
+      <!-- <co-table-column v-for="(column, index) in columns" :prop="index" :label="column"></co-table-column> -->
+      <co-table-column prop="0" label="学校办别" width="180" merge-column></co-table-column>
+      <co-table-column prop="1" label="类型" width="180" merge-column></co-table-column>
+      <co-table-column label="男">
+        <co-table-column label="学生数" prop="3"></co-table-column>
+      </co-table-column>
+      <co-table-column label="女">
+        <co-table-column label="学生数" prop="3"></co-table-column>
+      </co-table-column>
     </co-table>
-    <co-timeline pending>
-      <co-timeline-item>2016/7/1</co-timeline-item>
-      <co-timeline-item color="red">
-        <div>2016/7/2</div>
-        <div>2016/7/3</div><div>2016/7/2</div>
-        <div>2016/7/3</div>
-      </co-timeline-item>
-      <co-timeline-item color="green">
-        <div>2016/7/2</div>
-        <div>2016/7/3</div>
-        <div>2016/7/2</div>
-        <div>2016/7/3</div>
-        <div>2016/7/2</div>
-        <div>2016/7/3</div>
-      </co-timeline-item>
-      <co-timeline-item><a href="#">更多选项</a></co-timeline-item>
-    </co-timeline>
   </div>
 </template>
 
@@ -27,28 +19,37 @@
 export default {
   data() {
     return {
-      columns: ['学校办别', '类型', '性别', '学生数'],
+      head: true,
+      columns: ['学校办别', '办学类型', '性别', '学生数'],
+      cols: ['学校办别', '办学类型'],
+      rows: ['性别'],
+      values: ['学生数'],
       data: [
-        ['公办', '初中', '男', 125123],
-        ['公办', '初中', '女', 83712],
-        ['公办', '高中', '男', 821981],
-        ['公办', '高中', '女', 812373],
-        ['公办', '完中', '男', 1243],
-        ['公办', '完中', '女', 281234],
-        ['民办', '初中', '男', 125123],
-        ['民办', '初中', '女', 83712],
-        ['民办', '高中', '男', 821981],
-        ['民办', '高中', '女', 812373],
-        ['民办', '完中', '男', 1243],
-        ['民办', '完中', '女', 281234],
+        ['公办', '初中', '男', '123121'],
+        ['公办', '初中', '女', '123122'],
+        ['公办', '高中', '男', '123123'],
+        ['公办', '高中', '女', '123124'],
+        ['公办', '完中', '男', '123125'],
+        ['公办', '完中', '女', '123126'],
+        ['民办', '初中', '男', '123123'],
+        ['民办', '初中', '女', '123123'],
+        ['民办', '高中', '男', '123123'],
+        ['民办', '高中', '女', '123123'],
+        ['民办', '完中', '男', '123123'],
+        ['民办', '完中', '女', '123123'],
       ],
     };
+  },
+  methods: {
+    onClick() {
+      this.head = !this.head;
+    },
   },
 };
 </script>
 
 <style>
 .test {
-  padding: 50px;
+  padding: 30px;
 }
 </style>

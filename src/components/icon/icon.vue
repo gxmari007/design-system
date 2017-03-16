@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     classes() {
-      return `co-icon-${this.type}`;
+      return `icon-${this.type}`;
     },
     style() {
       const { size, color } = this;

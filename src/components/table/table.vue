@@ -1,15 +1,29 @@
 <template>
   <div :class="classes" :style="styles">
     <!-- 表头 -->
-    <div class="co-table__hidden-columns">
+    <div class="co-table__hidden-columns" ref="hiddenColumns">
       <slot></slot>
     </div>
-    <div class="co-table__header" v-if="showHeader" ref="header">
-      <co-table-header :columns="columns" :col-width="colWidth"></co-table-header>
+    <div v-if="showHeader" class="co-table__header" ref="header">
+      <co-table-header
+        :columns="columns"
+        :origin-columns="originColumns"
+        :col-width="colWidth"></co-table-header>
     </div>
     <!-- 内容 -->
-    <div class="co-table__body" ref="body" :style="bodyStyles">
-      <co-table-body :data="data" :columns="columns" :col-width="colWidth"></co-table-body>
+    <div class="co-table__body" :style="bodyStyles" ref="body">
+      <co-table-body
+        v-if="data.length > 0"
+        :data="data"
+        :columns="columns"
+        :col-width="colWidth"></co-table-body>
+      <!-- 表格为空时的界面 -->
+      <div v-else class="co-table__empty">
+        <span class="co-table__empty-text">
+          <slot v-if="$slots.empty" name="empty"></slot>
+          <template v-else>{{ emptyText }}</template>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -24,11 +38,12 @@ import throttle from 'lodash/throttle';
 import CoTableHeader from './table-header';
 import CoTableBody from './table-body';
 
+import { makeFlattenColumns } from './utils';
+
 const prefixClass = 'co-table';
 
 export default {
   name: 'co-table',
-  componentName: 'co-table',
   props: {
     // 数据项
     data: Array,
@@ -42,6 +57,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 是否需要鼠标悬浮效果
+    hover: {
+      type: Boolean,
+      default: false,
+    },
     // 表格宽度
     width: [String, Number],
     // 表格高度，设置之后会固定表头
@@ -51,10 +71,17 @@ export default {
       type: Boolean,
       default: true,
     },
+    // 空数据时显示的文本
+    // 也可通过 slot="empty" 设置
+    emptyText: {
+      type: String,
+      default: '暂无数据',
+    },
   },
   data() {
     return {
-      columns: [],
+      // 原始列
+      originColumns: [],
       tableWidth: 0,
       headerHeight: 0,
       resizeOff: null,
@@ -66,6 +93,7 @@ export default {
         [prefixClass]: true,
         [`${prefixClass}--stripe`]: this.stripe,
         [`${prefixClass}--border`]: this.border,
+        [`${prefixClass}--hover`]: this.hover,
       };
     },
     styles() {
@@ -107,20 +135,16 @@ export default {
 
       return Math.floor((this.tableWidth - diyWidth) / (this.columns.length - lens));
     },
+    // 原始列中没有 children 组成的数组
+    columns() {
+      return makeFlattenColumns(this.originColumns);
+    },
   },
   watch: {
-    showHeader: {
-      immediate: true,
-      handler(newVal) {
-        // 需要等到 dom 元素更新之后获取表头的 height 值
-        this.$nextTick(() => {
-          if (newVal) {
-            this.headerHeight = height(this.$refs.header);
-          } else {
-            this.headerHeight = 0;
-          }
-        });
-      },
+    // bug: 初始化的时候无法获取高度
+    // 需要重新设计
+    showHeader() {
+      this.computedBodyHeight();
     },
   },
   mounted() {
@@ -129,6 +153,7 @@ export default {
     this.resizeOff = listen(window, 'resize', throttle(() => {
       this.tableWidth = width(this.$refs.body);
     }, 17));
+    this.computedBodyHeight();
   },
   beforeDestroy() {
     if (this.resizeOff) {
@@ -137,8 +162,31 @@ export default {
   },
   methods: {
     // 从 co-table-column 添加列信息到 columns
-    addColumn(instance) {
-      this.columns.push(instance);
+    addColumn(instance, index, parent) {
+      let array = this.originColumns;
+
+      if (parent) {
+        array = parent.children;
+
+        if (!array) {
+          array = parent.children = [];
+        }
+      }
+
+      if (typeof index !== 'undefined') {
+        array.splice(index, 0, instance);
+      } else {
+        array.push(instance);
+      }
+    },
+    computedBodyHeight() {
+      this.$nextTick(() => {
+        if (this.showHeader) {
+          this.headerHeight = height(this.$refs.header);
+        } else {
+          this.headerHeight = 0;
+        }
+      });
     },
   },
   components: {

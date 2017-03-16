@@ -27,7 +27,6 @@ import emitter from 'mixins/emitter';
 
 export default {
   name: 'co-dropdown',
-  componentName: 'co-dropdown',
   mixins: [emitter],
   directives: { clickoutside },
   props: {

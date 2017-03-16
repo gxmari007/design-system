@@ -7,7 +7,7 @@
         class="co-pagination__item"
         :class="{ 'co-pagination__item--disabled': activePage === 1 }"
         @click="selectPrev">
-        <co-icon type="navigate_before"></co-icon>
+        <co-icon type="angle-left"></co-icon>
       </li>
       <template v-for="item in pageButtons">
         <li
@@ -15,16 +15,16 @@
           class="co-pagination__item"
           :class="{ active: activePage === item }"
           @click="selectPage(item)">{{ item }}</li>
-        <li
-          v-else
-          class="co-pagination__ellipsis">{{ item }}</li>
+        <li v-else class="co-pagination__ellipsis">
+          <co-icon type="ellipsis-h"></co-icon>
+        </li>
       </template>
       <li
         v-if="next"
         class="co-pagination__item"
         :class="{ 'co-pagination__item--disabled': activePage === pageCount }"
         @click="selectNext">
-        <co-icon type="navigate_next"></co-icon>
+        <co-icon type="angle-right"></co-icon>
       </li>
     </ul>
   </div>
@@ -106,7 +106,7 @@ export default {
 
       if (ellipsis && startPage > 1) {
         if (startPage > 2) {
-          buttons.unshift(ellipsis === true ? '...' : ellipsis);
+          buttons.unshift(ellipsis);
         }
 
         buttons.unshift(1);
@@ -114,7 +114,7 @@ export default {
 
       if (ellipsis && endPage < pageCount) {
         if (endPage < pageCount - 1) {
-          buttons.push(ellipsis === true ? '...' : ellipsis);
+          buttons.push(ellipsis);
         }
 
         buttons.push(pageCount);

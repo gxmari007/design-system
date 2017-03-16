@@ -7,7 +7,6 @@
 <script>
 export default {
   name: 'co-radio-group',
-  componentName: 'co-radio-group',
   props: {
     value: null,
   },

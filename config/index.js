@@ -3,15 +3,15 @@ const path = require('path');
 module.exports = {
   build: {
     env: require('./prod.env'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'lib',
+    assetsRoot: path.resolve(__dirname, '../lib'),
+    assetsPublicPath: '/',
     cssSourceMap: true,
   },
   docs: {
     env: require('./docs.env'),
     port: 8080,
-    assetsPublicPath: '/',
     assetsSubDirectory: 'static',
+    assetsPublicPath: '/',
     cssSourceMap: true,
   },
 };

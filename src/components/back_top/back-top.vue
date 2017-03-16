@@ -2,7 +2,7 @@
   <transition name="co-back-top">
     <div v-show="show" class="co-back-top" :style="styles" @click="onClick">
       <slot>
-        <co-icon class="co-back-top__default" type="arrow_drop_up" size="36" color="#fff"></co-icon>
+        <co-icon class="co-back-top__default" type="chevron-up" size="20" color="#fff"></co-icon>
       </slot>
     </div>
   </transition>

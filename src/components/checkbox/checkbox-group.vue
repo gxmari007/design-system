@@ -7,7 +7,6 @@
 <script>
 export default {
   name: 'co-checkbox-group',
-  componentName: 'co-checkbox-group',
   props: {
     value: Array,
   },

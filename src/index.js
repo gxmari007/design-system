@@ -17,6 +17,7 @@ import { CoSelect, CoOption } from 'components/select';
 import { CoTable, CoTableColumn } from 'components/table';
 import { CoTabs, CoTabPane } from 'components/tabs';
 import { CoTimeline, CoTimelineItem } from 'components/timeline';
+import CoTree from 'components/tree';
 
 const coview = {
   CoAffix,
@@ -48,6 +49,7 @@ const coview = {
   CoTabPane,
   CoTimeline,
   CoTimelineItem,
+  CoTree,
 };
 
 function install(Vue) {

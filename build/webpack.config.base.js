@@ -1,6 +1,7 @@
 const path = require('path');
 const utils = require('./utils');
 const autoprefixer = require('autoprefixer');
+const package = require('../package.json');
 
 const projectRoot = path.resolve(__dirname, '../');
 
@@ -50,13 +51,13 @@ module.exports = {
   },
   postcss: [
     autoprefixer({
-      browsers: ['last 2 versions'],
+      browsers: package.browserslist,
     }),
   ],
   vue: {
     postcss: [
       autoprefixer({
-        browsers: ['last 2 versions'],
+        browsers: package.browserslist,
       }),
     ],
   },

@@ -23,7 +23,7 @@
   th {
     padding: @table-th-padding;
 
-    vertical-align: bottom;
+    vertical-align: middle;
 
     background-color: @table-th-background;
 
@@ -35,14 +35,6 @@
     padding: @table-td-padding;
 
     font-size: @table-td-font-size;
-  }
-
-  tbody tr {
-    transition: background-color .15s linear;
-
-    &:hover {
-      background-color: @table-tr-hover-bg;
-    }
   }
 
   &::before,
@@ -91,6 +83,62 @@
   }
 }
 
+// 表格为空
+.co-table__empty {
+  position: relative;
+
+  min-height: @table-empty-min-height;
+
+  text-align: center;
+}
+
+.co-table__empty-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+// 排序
+.co-table__sortable {
+  position: relative;
+
+  display: inline-block;
+
+  width: @table-caret-border-width * 2;
+  height: @table-sortable-height;
+  margin-top: -3px;
+
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.co-table__caret {
+  position: absolute;
+
+  display: inline-block;
+
+  width: 0;
+  height: 0;
+
+  border: 0;
+  border-right: @table-caret-border-width solid transparent;
+  border-left: @table-caret-border-width solid transparent;
+
+  &--ascending {
+    top: @table-caret-position;
+
+    border-bottom: @table-caret-border-width solid @table-th-icon-color;
+  }
+
+  &--descending {
+    bottom: @table-caret-position;
+
+    border-top: @table-caret-border-width solid @table-th-icon-color;
+  }
+}
+
 
 // 条纹效果
 .co-table--stripe {
@@ -106,5 +154,17 @@
   td {
     border-right: @table-border-width solid @table-border-color;
     border-bottom: @table-border-width solid @table-border-color;
+  }
+}
+
+
+// hover 效果
+.co-table--hover {
+  tbody tr {
+    transition: background-color .2s linear;
+
+    &:hover {
+      background-color: @table-tr-hover-bg;
+    }
   }
 }
