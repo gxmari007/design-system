@@ -8,13 +8,17 @@
       <co-table-header
         :columns="columns"
         :origin-columns="originColumns"
-        :col-width="colWidth"></co-table-header>
+        :col-width="colWidth"
+        :sorting-column="sortingColumn"
+        :sort-prop="sortProp"
+        @sorting-column-change="onSortingColumnChange"
+        @no-sort="onNoSort"></co-table-header>
     </div>
     <!-- 内容 -->
     <div class="co-table__body" :style="bodyStyles" ref="body">
       <co-table-body
         v-if="data.length > 0"
-        :data="data"
+        :data="filterData"
         :columns="columns"
         :col-width="colWidth"></co-table-body>
       <!-- 表格为空时的界面 -->
@@ -34,6 +38,7 @@ import width from 'dom-helpers/query/width';
 import height from 'dom-helpers/query/height';
 import listen from 'dom-helpers/events/listen';
 import throttle from 'lodash/throttle';
+import orderBy from 'lodash/orderBy';
 // components
 import CoTableHeader from './table-header';
 import CoTableBody from './table-body';
@@ -82,6 +87,10 @@ export default {
     return {
       // 原始列
       originColumns: [],
+      // 当前排序的列
+      sortingColumn: null,
+      // 排序列的属性名称
+      sortProp: '',
       tableWidth: 0,
       headerHeight: 0,
       resizeOff: null,
@@ -139,6 +148,15 @@ export default {
     columns() {
       return makeFlattenColumns(this.originColumns);
     },
+    filterData() {
+      const { sortingColumn, sortProp, data } = this;
+
+      if (!sortingColumn || !sortProp) {
+        return data;
+      }
+
+      return orderBy(data, sortProp, sortingColumn.order);
+    },
   },
   watch: {
     // bug: 初始化的时候无法获取高度
@@ -187,6 +205,14 @@ export default {
           this.headerHeight = 0;
         }
       });
+    },
+    onSortingColumnChange(column) {
+      this.sortingColumn = column;
+      this.sortProp = column.prop;
+    },
+    onNoSort() {
+      this.sortingColumn = null;
+      this.sortProp = '';
     },
   },
   components: {

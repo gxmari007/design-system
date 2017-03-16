@@ -3,7 +3,7 @@ export default {
   name: 'co-table-column',
   props: {
     // 对应数据项的属性名称
-    prop: [String, Number],
+    prop: String,
     // 实际显示的列名称
     label: String,
     // 自定义列宽度

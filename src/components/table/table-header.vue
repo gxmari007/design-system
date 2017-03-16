@@ -8,9 +8,9 @@
         <th v-for="column in subColumns" :colspan="column.colSpan" :rowspan="column.rowSpan">
           <div class="co-table__cell">
             {{ column.label }}
-            <span v-if="column.sortable" class="co-table__sortable">
-              <i class="co-table__caret co-table__caret--ascending"></i>
-              <i class="co-table__caret co-table__caret--descending"></i>
+            <span v-if="column.sortable" class="co-table__sortable" @click.stop="onSort(column)">
+              <i class="co-table__caret co-table__caret--ascending" @click.stop="onSort(column, 'asc')"></i>
+              <i class="co-table__caret co-table__caret--descending" @click.stop="onSort(column, 'desc')"></i>
             </span>
           </div>
         </th>
@@ -31,10 +31,39 @@ export default {
     columns: Array,
     originColumns: Array,
     colWidth: Number,
+    sortingColumn: Object,
+    sortProp: String,
   },
   computed: {
     rows() {
       return makeRows(this.originColumns);
+    },
+  },
+  methods: {
+    switchOrder(order) {
+      return !order ? 'asc' : order === 'asc' ? 'desc' : '';
+    },
+    // 根据传入的参数决定排序顺序
+    // 没有传递顺序参数则无序、顺序、倒序切换
+    onSort(column, givenOrder) {
+      if (!column.sortable) return;
+
+      const { sortingColumn } = this;
+      const order = givenOrder || this.switchOrder(column.order);
+
+      if (sortingColumn !== column) {
+        if (sortingColumn) {
+          sortingColumn.order = '';
+        }
+
+        this.$emit('sorting-column-change', column);
+      }
+
+      if (!order) {
+        this.$emit('no-sort');
+      }
+
+      column.order = order;
     },
   },
 };
