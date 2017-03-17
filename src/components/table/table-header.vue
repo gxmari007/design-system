@@ -5,12 +5,16 @@
     </colgroup>
     <thead>
       <tr v-for="subColumns in rows">
-        <th v-for="column in subColumns" :colspan="column.colSpan" :rowspan="column.rowSpan">
+        <th
+          v-for="column in subColumns"
+          :colspan="column.colSpan"
+          :rowspan="column.rowSpan"
+          @click="onThClick(column)">
           <div class="co-table__cell">
             {{ column.label }}
-            <span v-if="column.sortable" class="co-table__sortable" @click.stop="onSort(column)">
-              <i class="co-table__caret co-table__caret--ascending" @click.stop="onSort(column, 'asc')"></i>
-              <i class="co-table__caret co-table__caret--descending" @click.stop="onSort(column, 'desc')"></i>
+            <span v-if="column.sortable" :class="sortClasses(column)" @click.stop="onSort(column)">
+              <i class="co-table__caret co-table__caret--asc" @click.stop="onSort(column, 'asc')"></i>
+              <i class="co-table__caret co-table__caret--desc" @click.stop="onSort(column, 'desc')"></i>
             </span>
           </div>
         </th>
@@ -40,6 +44,20 @@ export default {
     },
   },
   methods: {
+    sortClasses(column) {
+      const prefixClass = 'co-table__sortable';
+
+      return {
+        [prefixClass]: true,
+        [`${prefixClass}--asc`]: column.order === 'asc',
+        [`${prefixClass}--desc`]: column.order === 'desc',
+      };
+    },
+    onThClick(column) {
+      if (column.sortable) {
+        this.onSort(column);
+      }
+    },
     switchOrder(order) {
       return !order ? 'asc' : order === 'asc' ? 'desc' : '';
     },

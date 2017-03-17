@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import CoLoading from './loading';
+import CoLoading from './loading.vue';
 
 const CoLoadingConstructor = Vue.extend(CoLoading);
 

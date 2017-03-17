@@ -8,7 +8,6 @@ A Vue.js 2.0 ui components for web
 ## Install
 
 ```` bash
-# install
 npm install coview --save
 ````
 

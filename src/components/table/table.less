@@ -126,19 +126,23 @@
   border-right: @table-caret-border-width solid transparent;
   border-left: @table-caret-border-width solid transparent;
 
-  &--ascending {
+  &--asc {
     top: @table-caret-position;
 
     border-bottom: @table-caret-border-width solid @table-th-icon-color;
   }
 
-  &--descending {
+  &--desc {
     bottom: @table-caret-position;
 
     border-top: @table-caret-border-width solid @table-th-icon-color;
   }
 }
 
+
+/*
+ * modified
+ */
 
 // 条纹效果
 .co-table--stripe {
@@ -166,5 +170,18 @@
     &:hover {
       background-color: @table-tr-hover-bg;
     }
+  }
+}
+
+// 排序
+.co-table__sortable--asc {
+  .co-table__caret--asc {
+    border-bottom-color: @table-th-icon-active-color;
+  }
+}
+
+.co-table__sortable--desc {
+  .co-table__caret--desc {
+    border-top-color: @table-th-icon-active-color;
   }
 }
