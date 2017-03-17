@@ -1,5 +1,8 @@
 # CoView
 
+[![dependencies Status](https://david-dm.org/gxmari007/coview/status.svg?style=flat-square)](https://david-dm.org/gxmari007/coview)
+[![devDependencies Status](https://david-dm.org/gxmari007/coview/dev-status.svg?style=flat-square)](https://david-dm.org/gxmari007/coview?type=dev)
+
 A Vue.js 2.0 ui components for web
 
 ## Install
