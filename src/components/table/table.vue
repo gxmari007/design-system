@@ -85,6 +85,7 @@ export default {
   },
   data() {
     return {
+      tableId: `${prefixClass}`,
       // 原始列
       originColumns: [],
       // 当前排序的列

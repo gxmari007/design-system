@@ -9,6 +9,7 @@
           v-for="column in subColumns"
           :colspan="column.colSpan"
           :rowspan="column.rowSpan"
+          :data-id="column.columnId"
           @click="onThClick(column)">
           <div class="co-table__cell">
             {{ column.label }}

@@ -8,7 +8,8 @@
         <td
           v-for="column in columns"
           v-if="column.mergeColumn ? item[`dis-${column.prop}`] : true"
-          :rowspan="column.mergeColumn ? item[`span-${column.prop}`] : false">
+          :rowspan="column.mergeColumn ? item[`span-${column.prop}`] : false"
+          :data-id="column.columnId">
           <div class="co-table__cell">{{ item.row[column.prop] }}</div>
         </td>
       </tr>
@@ -20,7 +21,7 @@
 // mixins
 import mixin from './mixin';
 
-import { mergeColumn } from './utils';
+import { mergeColumn, getCellDom, getColumnByCell } from './utils';
 
 export default {
   name: 'co-table-body',
@@ -49,14 +50,23 @@ export default {
     },
   },
   methods: {
-    // 这里会触发
-    onClick(e, row) {
-      this.handleEvent(e, row, 'click');
+    // 触发行与单元格的单击事件
+    onClick(event, row) {
+      this.handleEvent(event, row, 'click');
     },
-    handleEvent(e, row, name) {
+    handleEvent(event, row, name) {
       const { table } = this;
+      const cellDom = getCellDom(event);
 
-      table.$emit(`row-${name}`, e, row);
+      if (cellDom) {
+        const column = getColumnByCell(table, cellDom);
+
+        if (column) {
+          table.$emit(`cell-${name}`, event, row, column, cellDom);
+        }
+      }
+
+      table.$emit(`row-${name}`, event, row);
     },
   },
 };

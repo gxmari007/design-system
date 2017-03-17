@@ -116,3 +116,35 @@ export function mergeColumn(data, columns) {
 
   return data;
 }
+
+// 获取单元格 dom 元素
+// 如果没有则返回 null
+export function getCellDom(event) {
+  let dom = event.target;
+
+  while (dom && dom.tagName.toUpperCase() !== 'HTML') {
+    if (dom.tagName.toUpperCase() === 'TD') {
+      return dom;
+    }
+
+    dom = dom.parentNode;
+  }
+
+  return null;
+}
+
+// 根据传入的 table 组件实例与单元格实例返回对应的列实例
+export function getColumnByCell(table, cell) {
+  const id = cell.getAttribute('data-id');
+  let column = null;
+
+  if (id) {
+    table.columns.forEach((item) => {
+      if (item.columnId === id) {
+        column = item;
+      }
+    });
+  }
+
+  return column;
+}

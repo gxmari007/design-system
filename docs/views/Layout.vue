@@ -1,7 +1,7 @@
 <template>
   <div class="test">
-    <co-table :data="data" border :show-header="head" @row-click="onRowClick">
-      <co-table-column prop="0" label="学校办别" width="150" merge-column sortable></co-table-column>
+    <co-table :data="data" border :show-header="head" @cell-click="onRowClick">
+      <co-table-column prop="0" label="学校办别" width="150" sortable></co-table-column>
       <co-table-column prop="1" label="类型" width="180" sortable></co-table-column>
       <co-table-column label="性别">
         <co-table-column label="男">
@@ -44,8 +44,9 @@ export default {
     onClick() {
       this.head = !this.head;
     },
-    onRowClick(e, row) {
+    onRowClick(e, row, column) {
       console.log(row);
+      console.log(column.label);
     },
   },
 };

@@ -1,4 +1,6 @@
 <script>
+let id = 1;
+
 export default {
   name: 'co-table-column',
   props: {
@@ -24,6 +26,7 @@ export default {
       /*
        * Global values
        */
+      columnId: '',
       // 是否为子表头
       isSubColumn: false,
       order: '',
@@ -51,6 +54,7 @@ export default {
   },
   created() {
     this.isSubColumn = this.$parent !== this.tableParent;
+    this.columnId = `${this.$parent.tableId || this.$parent.columnId}_column_${id++}`;
   },
   mounted() {
     const parent = this.$parent;
