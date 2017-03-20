@@ -1,5 +1,6 @@
 <template>
   <co-modal v-model="visible">
+    <div></div>
   </co-modal>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="test">
-    <co-table :data="data" border :show-header="head" @cell-click="onRowClick">
+    <!-- <co-table :data="data" border :show-header="head" @cell-click="onRowClick">
       <co-table-column prop="0" label="学校办别" width="150" sortable></co-table-column>
       <co-table-column prop="1" label="类型" width="180" sortable></co-table-column>
       <co-table-column label="性别">
@@ -11,7 +11,11 @@
           <co-table-column label="学生数" prop="3"></co-table-column>
         </co-table-column>
       </co-table-column>
-    </co-table>
+    </co-table> -->
+    <co-button type="primary" @click.native="visible = true">modal</co-button>
+    <co-modal v-model="visible" title="标题" center>
+      modal body
+    </co-modal>
   </div>
 </template>
 
@@ -38,6 +42,7 @@ export default {
         ['民办', '完中', '男', '123123'],
         ['民办', '完中', '女', '123123'],
       ],
+      visible: false,
     };
   },
   methods: {
@@ -55,5 +60,6 @@ export default {
 <style>
 .test {
   padding: 30px;
+  height: 2000px;
 }
 </style>

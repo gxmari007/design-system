@@ -1,10 +1,26 @@
 // 透明度渐变动画
-.co-fade-enter-active,
-.co-fade-leave-active {
-  transition: opacity .15s linear;
+.co-fade-enter-active {
+  animation: fade-in .2s linear;
 }
 
-.co-fade-enter,
 .co-fade-leave-active {
-  opacity: 0;
+  animation: fade-out .2s linear;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import requestAnimationFrame from 'dom-helpers/util/requestAnimationFrame';
 import scrollTop from 'dom-helpers/query/scrollTop';
 
@@ -32,4 +33,37 @@ export function scrollTo(element, from, to, duration = 600) {
   }
 
   scroll(from, to, step);
+}
+
+let scrollBarWidth;
+
+// 获取滚动条宽度
+export function getScrollBarWidth() {
+  if (Vue.prototype.$isServer) {
+    return 0;
+  }
+
+  if (typeof scrollBarWidth === 'undefined') {
+    const outer = document.createElement('div');
+
+    outer.style.position = 'absolute';
+    outer.style.visibility = 'hidden';
+    outer.style.width = '100px';
+    document.body.appendChild(outer);
+
+    const widthNoScroll = outer.offsetWidth;
+    const inner = document.createElement('div');
+
+    outer.style.overflow = 'scroll';
+    inner.style.width = '100%';
+    outer.appendChild(inner);
+
+    const widthWithScroll = inner.offsetWidth;
+
+    outer.parentNode.removeChild(outer);
+
+    scrollBarWidth = widthNoScroll - widthWithScroll;
+  }
+
+  return scrollBarWidth;
 }
