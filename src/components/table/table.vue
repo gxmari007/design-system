@@ -8,19 +8,19 @@
       <co-table-header
         :columns="columns"
         :origin-columns="originColumns"
-        :col-width="colWidth"
         :sorting-column="sortingColumn"
         :sort-prop="sortProp"
+        :style="{ width: layout.bodyWidth ? `${layout.bodyWidth}px` : '' }"
         @sorting-column-change="onSortingColumnChange"
         @no-sort="onNoSort"></co-table-header>
     </div>
     <!-- 内容 -->
-    <div class="co-table__body" :style="bodyStyles" ref="body">
+    <div class="co-table__body" :style="bodyStyles" ref="body" @scroll="onBodyScroll">
       <co-table-body
         v-if="data.length > 0"
         :data="filterData"
         :columns="columns"
-        :col-width="colWidth"></co-table-body>
+        :style="{ width: tableBodyWidth ? tableBodyWidth : '' }"></co-table-body>
       <!-- 表格为空时的界面 -->
       <div v-else class="co-table__empty">
         <span class="co-table__empty-text">
@@ -39,6 +39,9 @@ import height from 'dom-helpers/query/height';
 import listen from 'dom-helpers/events/listen';
 import throttle from 'lodash/throttle';
 import orderBy from 'lodash/orderBy';
+// mixins
+import fixedMixin from './fixedMixin';
+import layoutMixin from './layoutMixin';
 // components
 import CoTableHeader from './table-header';
 import CoTableBody from './table-body';
@@ -49,6 +52,7 @@ const prefixClass = 'co-table';
 
 export default {
   name: 'co-table',
+  mixins: [fixedMixin, layoutMixin],
   props: {
     // 数据项
     data: Array,
@@ -129,22 +133,6 @@ export default {
 
       return styles;
     },
-    // 未设置宽度的列的宽度
-    colWidth() {
-      let lens = 0;
-
-      // 获取自定义列宽度的总和
-      const diyWidth = this.columns.reduce((acc, column) => {
-        if (column.width !== undefined) {
-          acc += Number(column.width);
-          lens += 1;
-        }
-
-        return acc;
-      }, 0);
-
-      return Math.floor((this.tableWidth - diyWidth) / (this.columns.length - lens));
-    },
     // 原始列中没有 children 组成的数组
     columns() {
       return makeFlattenColumns(this.originColumns);
@@ -158,21 +146,27 @@ export default {
 
       return orderBy(data, sortProp, sortingColumn.order);
     },
+    tableBodyWidth() {
+      const { bodyWidth, scrollY, scrollBarWidth } = this.layout;
+
+      return bodyWidth ? `${bodyWidth - (scrollY ? scrollBarWidth : 0)}px` : '';
+    },
   },
   watch: {
     // bug: 初始化的时候无法获取高度
     // 需要重新设计
     showHeader() {
-      this.computedBodyHeight();
+      this.computedTableHeight();
     },
   },
   mounted() {
+    this.doUpdateLayout();
     this.tableWidth = width(this.$refs.body);
     // 改变窗口大小重新计算表格布局
     this.resizeOff = listen(window, 'resize', throttle(() => {
       this.tableWidth = width(this.$refs.body);
     }, 17));
-    this.computedBodyHeight();
+    this.computedTableHeight();
   },
   beforeDestroy() {
     if (this.resizeOff) {
@@ -198,7 +192,7 @@ export default {
         array.push(instance);
       }
     },
-    computedBodyHeight() {
+    computedTableHeight() {
       this.$nextTick(() => {
         if (this.showHeader) {
           this.headerHeight = height(this.$refs.header);
@@ -214,6 +208,11 @@ export default {
     onNoSort() {
       this.sortingColumn = null;
       this.sortProp = '';
+    },
+    onBodyScroll(event) {
+      const { header, body } = this.$refs;
+
+      header.scrollLeft = body.scrollLeft;
     },
   },
   components: {

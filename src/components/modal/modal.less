@@ -9,7 +9,8 @@
 
 // modal 遮罩层
 .co-modal__mask {
-  position: absolute;
+  position: fixed;
+  z-index: @modal-mask-z-index;
   top: 0;
   right: 0;
   bottom: 0;
@@ -30,6 +31,8 @@
 }
 
 .co-modal__header {
+  position: relative;
+
   padding: @modal-header-padding;
 
   border-bottom: @modal-header-border;
@@ -43,6 +46,20 @@
   font-weight: @modal-header-font-weight;
 
   .text-overflow();
+}
+
+.co-modal__close {
+  position: absolute;
+  top: @modal-close-top;
+  right: @modal-close-right;
+
+  width: @modal-close-font-size;
+  height: @modal-close-font-size;
+
+  cursor: @modal-close-cursor;
+  text-align: center;
+
+  font-size: @modal-close-font-size;
 }
 
 .co-modal__body {

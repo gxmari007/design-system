@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       visible: false,
+      title: '',
     };
   },
   components: {

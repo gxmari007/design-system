@@ -13,6 +13,13 @@ CoModal.newInstance = (options) => {
 
   instance.$mount();
   document.body.appendChild(instance.$el);
+
+  return {
+    component: instance,
+    remove() {
+      
+    },
+  };
 };
 
 export default CoModal;

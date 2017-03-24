@@ -4,12 +4,13 @@
       <div v-show="visible" class="co-modal__mask" @click="clickMask"></div>
     </transition>
     <transition name="co-modal__fade">
-      <div v-show="visible" :class="classes" @click="clickMask">
+      <div v-show="visible" :class="classes" @click.self="clickMask">
         <div class="co-modal__main" :style="contentStyles">
-          <div class="co-modal__header" v-if="header">
+          <div v-if="title || $slots.header" class="co-modal__header">
             <slot name="header">
               <h3 class="co-modal__title">{{ title }}</h3>
             </slot>
+            <co-icon class="co-modal__close" type="close" @click.native="close"></co-icon>
           </div>
           <div class="co-modal__body">
             <slot></slot>
@@ -30,6 +31,7 @@
 <script>
 // components
 import { CoButton } from 'components/button';
+import CoIcon from 'components/icon';
 // libs
 import listen from 'dom-helpers/events/listen';
 import { getScrollBarWidth } from 'utils/help';
@@ -105,9 +107,6 @@ export default {
         this.$emit('input', val);
       },
     },
-    header() {
-      return this.title || this.$slots.header;
-    },
     contentStyles() {
       return {
         width: `${this.width}px`,
@@ -153,10 +152,12 @@ export default {
       document.body.style.overflow = 'hidden';
     },
     removeScrollEffect() {
-      const bodyStyle = document.body.style;
+      setTimeout(() => {
+        const bodyStyle = document.body.style;
 
-      bodyStyle.paddingRight = '';
-      bodyStyle.overflow = '';
+        bodyStyle.paddingRight = '';
+        bodyStyle.overflow = '';
+      }, 200);
     },
   },
   mounted() {
@@ -169,6 +170,7 @@ export default {
   },
   components: {
     CoButton,
+    CoIcon,
   },
 };
 </script>

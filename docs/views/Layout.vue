@@ -1,17 +1,17 @@
 <template>
   <div class="test">
-    <!-- <co-table :data="data" border :show-header="head" @cell-click="onRowClick">
-      <co-table-column prop="0" label="学校办别" width="150" sortable></co-table-column>
-      <co-table-column prop="1" label="类型" width="180" sortable></co-table-column>
+    <co-table :data="data" border :show-header="head" @cell-click="onRowClick" :width="250" :height="300">
+      <co-table-column prop="0" label="学校办别" sortable merge-column></co-table-column>
+      <co-table-column prop="1" label="类型" sortable overflow-tooltip></co-table-column>
       <co-table-column label="性别">
         <co-table-column label="男">
-          <co-table-column label="学生数" prop="3" sortable></co-table-column>
+          <co-table-column label="学生数" prop="3" sortable overflow-tooltip></co-table-column>
         </co-table-column>
         <co-table-column label="女">
-          <co-table-column label="学生数" prop="3"></co-table-column>
+          <co-table-column label="学生数" prop="3" overflow-tooltip></co-table-column>
         </co-table-column>
       </co-table-column>
-    </co-table> -->
+    </co-table>
     <co-button type="primary" @click.native="visible = true">modal</co-button>
     <co-modal v-model="visible" title="标题" center>
       modal body
@@ -29,7 +29,7 @@ export default {
       rows: ['性别'],
       values: ['学生数'],
       data: [
-        ['公办', '初中', '男', '123121'],
+        ['公办', '初中初中初中初中初中初中初中初中初中初中', '男', '123121'],
         ['公办', '初中', '女', '123122'],
         ['公办', '高中', '男', '123123'],
         ['民办', '初中', '男', '123123'],

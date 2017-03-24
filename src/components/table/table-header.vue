@@ -1,7 +1,7 @@
 <template>
   <table>
     <colgroup>
-      <col v-for="column in columns" :style="setStyles(column.width)">
+      <col v-for="column in columns" :style="{ width: `${column.realWidth || column.width}px` }">
     </colgroup>
     <thead>
       <tr v-for="subColumns in rows">
@@ -25,17 +25,13 @@
 </template>
 
 <script>
-import mixin from './mixin';
-
 import { makeRows } from './utils';
 
 export default {
   name: 'co-table-header',
-  mixins: [mixin],
   props: {
     columns: Array,
     originColumns: Array,
-    colWidth: Number,
     sortingColumn: Object,
     sortProp: String,
   },

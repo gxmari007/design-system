@@ -7,8 +7,6 @@
   background-color: @table-background;
 
   table {
-    width: 100%;
-
     table-layout: fixed;
   }
 
@@ -71,12 +69,20 @@
   visibility: hidden;
 }
 
+.co-table__header {
+  width: 100%;
+  overflow: hidden;
+}
+
 .co-table__body {
+  width: 100%;
   overflow: auto;
 }
 
 .co-table__cell {
   padding: @table-cell-padding;
+  text-overflow: ellipsis;
+  word-break: break-all;
 
   .co-table__header & {
     display: inline-block;
@@ -184,4 +190,9 @@
   .co-table__caret--desc {
     border-top-color: @table-th-icon-active-color;
   }
+}
+
+.co-table__cell--tooltip {
+  white-space: nowrap;
+  overflow: hidden;
 }

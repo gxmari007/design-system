@@ -1,7 +1,7 @@
 <template>
-  <table>
+  <table class="co-table__body-table">
     <colgroup>
-      <col v-for="column in columns" :style="setStyles(column.width)">
+      <col v-for="column in columns" :style="{ width: `${column.realWidth || column.width}px` }">
     </colgroup>
     <tbody>
       <tr v-for="item in currentData" @click="onClick($event, item.row)">
@@ -10,7 +10,10 @@
           v-if="column.mergeColumn ? item[`dis-${column.prop}`] : true"
           :rowspan="column.mergeColumn ? item[`span-${column.prop}`] : false"
           :data-id="column.columnId">
-          <div class="co-table__cell">{{ item.row[column.prop] }}</div>
+          <!-- 这里需要 tooltip 组件提示，暂时先用原生 title 属性代替 -->
+          <div
+            :class="cellClasses(column.overflowTooltip)"
+            :title="column.overflowTooltip ? item.row[column.prop] : false">{{ item.row[column.prop] }}</div>
         </td>
       </tr>
     </tbody>
@@ -18,18 +21,13 @@
 </template>
 
 <script>
-// mixins
-import mixin from './mixin';
-
 import { mergeColumn, getCellDom, getColumnByCell } from './utils';
 
 export default {
   name: 'co-table-body',
-  mixins: [mixin],
   props: {
     data: Array,
     columns: Array,
-    colWidth: Number,
   },
   computed: {
     table() {
@@ -50,6 +48,14 @@ export default {
     },
   },
   methods: {
+    cellClasses(tooltip) {
+      const prefix = 'co-table__cell';
+
+      return {
+        [prefix]: true,
+        [`${prefix}--tooltip`]: tooltip,
+      };
+    },
     // 触发行与单元格的单击事件
     onClick(event, row) {
       this.handleEvent(event, row, 'click');

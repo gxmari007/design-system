@@ -9,9 +9,22 @@ export default {
     // 实际显示的列名称
     label: String,
     // 自定义列宽度
-    width: [String, Number],
+    width: Number,
+    // 列的最小宽度
+    // 当 table 宽度有剩余的时候，剩余宽度会平均分配在设置了 min-width 的列上
+    minWidth: Number,
     // 排序
     sortable: {
+      type: Boolean,
+      default: false,
+    },
+    // 固定此列在左侧或者右侧，默认左侧
+    fixed: {
+      type: [Boolean, String],
+      default: true,
+    },
+    // 单元格内容过长时添加省略号显示 tooltip 信息
+    overflowTooltip: {
       type: Boolean,
       default: false,
     },
@@ -30,6 +43,7 @@ export default {
       // 是否为子表头
       isSubColumn: false,
       order: '',
+      realWidth: this.width || this.minWidth || 80,
     };
   },
   computed: {

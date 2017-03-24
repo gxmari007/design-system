@@ -38,6 +38,7 @@ export function scrollTo(element, from, to, duration = 600) {
 let scrollBarWidth;
 
 // 获取滚动条宽度
+// 缓存结果方便下次获取
 export function getScrollBarWidth() {
   if (Vue.prototype.$isServer) {
     return 0;
@@ -45,24 +46,24 @@ export function getScrollBarWidth() {
 
   if (typeof scrollBarWidth === 'undefined') {
     const outer = document.createElement('div');
-
-    outer.style.position = 'absolute';
-    outer.style.visibility = 'hidden';
-    outer.style.width = '100px';
-    document.body.appendChild(outer);
-
-    const widthNoScroll = outer.offsetWidth;
     const inner = document.createElement('div');
 
+    outer.style.visibility = 'hidden';
+    outer.style.width = '100px';
+    outer.style.position = 'absolute';
+    outer.style.zIndex = '-999';
     outer.style.overflow = 'scroll';
+
     inner.style.width = '100%';
+
+    document.body.appendChild(outer);
     outer.appendChild(inner);
 
-    const widthWithScroll = inner.offsetWidth;
+    const outerWidth = outer.offsetWidth;
+    const innerWidth = inner.offsetWidth;
 
-    outer.parentNode.removeChild(outer);
-
-    scrollBarWidth = widthNoScroll - widthWithScroll;
+    document.body.removeChild(outer);
+    scrollBarWidth = outerWidth - innerWidth;
   }
 
   return scrollBarWidth;
