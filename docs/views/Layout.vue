@@ -13,7 +13,7 @@
       </co-table-column>
     </co-table>
     <co-button type="primary" @click.native="visible = true">modal</co-button>
-    <co-modal v-model="visible" title="标题" center>
+    <co-modal v-model="visible" title="标题">
       modal body
     </co-modal>
   </div>

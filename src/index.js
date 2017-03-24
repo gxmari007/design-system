@@ -71,7 +71,7 @@ if (typeof window !== undefined && window.Vue) {
 }
 
 module.exports = {
-  version: '0.1.0',
+  version: require('../package.json').version,
   install,
   ...coview,
 };

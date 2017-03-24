@@ -26,6 +26,11 @@ module.exports = {
         loader: 'vue',
       },
       {
+        test: /\.json$/,
+        loader: 'json',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.js$/,
         loader: 'babel',
         include: projectRoot,
