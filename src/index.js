@@ -5,6 +5,7 @@ import { CoButtonGroup, CoButton } from 'components/button';
 import CoCascader from 'components/cascader';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
 import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
+import { CoForm, CoFormItem } from 'components/form';
 import CoInput from 'components/input';
 import CoInputNumber from 'components/input_number';
 import CoIcon from 'components/icon';
@@ -32,6 +33,8 @@ const coview = {
   CoDropdown,
   CoDropdownMenu,
   CoDropdownItem,
+  CoForm,
+  CoFormItem,
   CoInput,
   CoInputNumber,
   CoIcon,
@@ -53,7 +56,7 @@ const coview = {
 };
 
 function install(Vue) {
-  Object.keys(coview).forEach(key => {
+  Object.keys(coview).forEach((key) => {
     const component = coview[key];
 
     Vue.component(component.name, component);
@@ -67,7 +70,7 @@ if (typeof window !== undefined && window.Vue) {
   install(window.Vue);
 }
 
-export default {
+module.exports = {
   version: '0.1.0',
   install,
   ...coview,
