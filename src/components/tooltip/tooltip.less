@@ -1,0 +1,102 @@
+.co-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.co-tooltip__popper {
+  font-size: 12px;
+  z-index: 1000;
+
+  &[x-placement^="top"] {
+    padding: 5px 0 8px;
+  }
+
+  &[x-placement^="right"] {
+    padding: 0 5px 0 8px;
+  }
+
+  &[x-placement^="bottom"] {
+    padding: 8px 0 5px;
+  }
+
+  &[x-placement^="left"] {
+    padding: 0 8px 0 5px;
+  }
+}
+
+.co-tooltip__arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent;
+
+  // top
+  .co-tooltip__popper[x-placement^="top"] & {
+    bottom: 3px;
+    border-width: 5px 5px 0;
+    border-top-color: rgba(64, 64, 64, .85);
+  }
+
+  .co-tooltip__popper[x-placement="top-start"] &,
+  .co-tooltip__popper[x-placement="bottom-start"] & {
+    left: 16px;
+  }
+
+  .co-tooltip__popper[x-placement="top"] &,
+  .co-tooltip__popper[x-placement="bottom"] & {
+    left: 50%;
+    margin-left: -5px;
+  }
+
+  .co-tooltip__popper[x-placement="top-end"] &,
+  .co-tooltip__popper[x-placement="bottom-end"] & {
+    right: 16px;
+  }
+
+  // right
+  .co-tooltip__popper[x-placement^="right"] & {
+    left: 3px;
+    border-width: 5px 5px 5px 0;
+    border-right-color: rgba(64, 64, 64, .85);
+  }
+
+  .co-tooltip__popper[x-placement="right-start"] &,
+  .co-tooltip__popper[x-placement="left-start"] & {
+    top: 8px;
+  }
+
+  .co-tooltip__popper[x-placement="right"] &,
+  .co-tooltip__popper[x-placement="left"] & {
+    top: 50%;
+    margin-top: -5px;
+  }
+
+  .co-tooltip__popper[x-placement="right-end"] &,
+  .co-tooltip__popper[x-placement="left-end"] & {
+    bottom: 8px;
+  }
+
+  // bottom
+  .co-tooltip__popper[x-placement^="bottom"] & {
+    top: 3px;
+    border-width: 0 5px 5px;
+    border-bottom-color: rgba(64, 64, 64, .85);
+  }
+
+  // left
+  .co-tooltip__popper[x-placement^="left"] & {
+    right: 3px;
+    border-width: 5px 0 5px 5px;
+    border-left-color: rgba(64, 64, 64, .85);
+  }
+}
+
+.co-tooltip__content {
+  padding: 8px 10px;
+  white-space: nowrap;
+  color: #fff;
+  border-radius: 2px;
+  background-color: rgba(64, 64, 64, .85);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+}

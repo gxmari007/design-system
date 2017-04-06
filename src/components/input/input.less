@@ -1,26 +1,21 @@
 .co-input {
   position: relative;
-
   display: inline-block;
-
   width: 100%;
 }
 
 .co-input__input,
 .co-input__textarea {
   display: block;
-
   width: 100%;
   padding: @input-padding-y @input-padding-x;
-
-  transition: border-color .2s linear;
-
+  transition: all .2s linear;
   color: @input-font-color;
   border: 1px solid @input-border-color;
+  border-radius: @input-border-radius;
   outline: none;
   background-color: #fff;
   background-image: none;
-
   line-height: @input-line-height;
 
   &::placeholder {
@@ -28,9 +23,14 @@
     color: @input-placeholder-color;
   }
 
-  .co-input:hover &:focus,
+  &:hover {
+    border-color: @input-hover-border-color;
+  }
+
+  // .co-input:hover &:focus,
   &:focus {
-    border-color: @primary;
+    border-color: @input-hover-border-color;
+    box-shadow: @input-focus-shadow;
   }
 
   .co-input:hover &:disabled,

@@ -7,7 +7,9 @@
       :readonly="readonly"
       :disabled="disabled"
       :rows="rows"
-      :autofocus="autofocus"></textarea>
+      :autofocus="autofocus"
+      @blur="onBlur"
+      @change="onChange"></textarea>
     <template v-else>
       <co-icon
         v-if="icon"
@@ -17,14 +19,16 @@
       <input
         ref="input"
         class="co-input__input"
-        :value="value"
+        :value="model"
         :type="type"
         :placeholder="placeholder"
         :readonly="readonly"
         :disabled="disabled"
         :autocomplete="autocomplete"
         :autofocus="autofocus"
-        @input="onInput">
+        @input="onInput"
+        @blur="onBlur"
+        @change="onChange">
     </template>
   </div>
 </template>
@@ -32,6 +36,8 @@
 <script>
 // components
 import CoIcon from '../icon';
+// mixins
+import emitter from 'mixins/emitter';
 // utils
 import { oneOf } from 'utils/help';
 
@@ -39,6 +45,7 @@ const prefixClass = 'co-input';
 
 export default {
   name: 'co-input',
+  mixins: [emitter],
   props: {
     value: [String, Number],
     type: {
@@ -76,6 +83,16 @@ export default {
         return oneOf(value, ['small', 'large']);
       },
     },
+    // 是否触发表单项的验证事件
+    validate: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  data() {
+    return {
+      model: this.value,
+    };
   },
   computed: {
     classes() {
@@ -87,12 +104,39 @@ export default {
       };
     },
   },
+  watch: {
+    value(newVal) {
+      this.setModel(newVal);
+    },
+  },
   methods: {
     onIconClick() {
       this.$emit('icon-click');
     },
-    onInput(e) {
-      this.$emit('input', e.target.value);
+    onInput(event) {
+      const value = event.target.value;
+
+      this.$emit('input', value);
+      this.$emit('on-change', event);
+    },
+    onBlur(event) {
+      this.$emit('on-blur', event);
+
+      if (this.validate) {
+        this.dispatch('co-form-item', 'form-item-blur', this.model);
+      }
+    },
+    onChange(event) {
+      this.$emit('on-input-change', event);
+    },
+    setModel(value) {
+      if (value === this.model) return;
+
+      this.model = value;
+
+      if (this.validate) {
+        this.dispatch('co-form-item', 'form-item-change', this.model);
+      }
     },
   },
   components: {

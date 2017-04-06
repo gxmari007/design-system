@@ -38,6 +38,10 @@ export default {
         return oneOf(val, ['hover', 'click', 'custom']);
       },
     },
+    visible: {
+      type: Boolean,
+      default: false,
+    },
     // 菜单的位置
     placement: {
       type: String,
@@ -66,6 +70,13 @@ export default {
     },
     transition() {
       return this.isSubDropdown ? 'co-fade' : 'co-select--slide';
+    },
+  },
+  watch: {
+    visible(newVal) {
+      if (this.trigger !== 'custom') return;
+
+      this.show = newVal;
     },
   },
   created() {

@@ -24,3 +24,35 @@
     opacity: 0;
   }
 }
+
+
+// 缩放动画
+.co-scale-enter-active {
+  animation: scale-in .2s @ease-in;
+}
+
+.co-scale-leave-active {
+  animation: scale-out .2s @ease-out;
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scale-out {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(.8);
+    opacity: 0;
+  }
+}

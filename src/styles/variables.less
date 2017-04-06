@@ -63,19 +63,20 @@
 // Input
 @input-font-color: @font-color-base;
 @input-placeholder-color: #bebebe;
-@input-focus-shadow: 0 0 4px fade(@primary, 35%);
 
-@input-line-height: 1.25;
+@input-line-height: 1.5;
 
 @input-padding-x: 10px;
-@input-padding-y: 4px;
+@input-padding-y: 3px;
 @input-padding-x-sm: @input-padding-x;
 @input-padding-y-sm: 3px;
 @input-padding-x-lg: @input-padding-x;
 @input-padding-y-lg: 6px;
 
 @input-border-color: #dcdcdc;
-@input-hover-border-color: darken(@input-border-color, 20%);
+@input-hover-border-color: @primary;
+@input-border-radius: 2px;
+@input-focus-shadow: 0 0 0 2px fade(@primary, 20%);
 
 @input-disabled-background: #fafafa;
 @input-disabled-cursor: not-allowed;
@@ -245,6 +246,11 @@
 @modal-footer-text-align: right;
 @modal-footer-button-width: 90px;
 @modal-footer-button-gutter: 17px;
+
+
+// Timing
+@ease-in: cubic-bezier(0.08, 0.82, 0.17, 1);
+@ease-out: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 
 
 // Z-index

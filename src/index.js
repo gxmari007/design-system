@@ -18,6 +18,7 @@ import { CoSelect, CoOption } from 'components/select';
 import { CoTable, CoTableColumn } from 'components/table';
 import { CoTabs, CoTabPane } from 'components/tabs';
 import { CoTimeline, CoTimelineItem } from 'components/timeline';
+import CoTooltip from 'components/tooltip';
 import CoTree from 'components/tree';
 
 const coview = {
@@ -52,6 +53,7 @@ const coview = {
   CoTabPane,
   CoTimeline,
   CoTimelineItem,
+  CoTooltip,
   CoTree,
 };
 
