@@ -32,6 +32,31 @@
 }
 
 
+// 按钮点击动画
+.co-button--clicked {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    border-radius: inherit;
+    animation: button-click .4s;
+  }
+}
+
+@keyframes button-click {
+  100% {
+    opacity: 0;
+    box-shadow: @button-click-shadow;
+  }
+}
+
+
 // 按钮类型
 .co-button--default {
   .button-style(@font-color-base, @button-default-border-color, @button-default-bg, @button-default-hover-border-color, @button-default-hover-bg);

@@ -33,6 +33,11 @@ export default {
         };
       },
     },
+    // 是否插入到 body 标签尾部
+    appendBody: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -40,6 +45,7 @@ export default {
       visible: false,
       // popper 实例
       popperJS: null,
+      popperElm: null,
     };
   },
   watch: {
@@ -56,6 +62,10 @@ export default {
       this.popperJS.destroy();
       this.popperJS = null;
     }
+
+    if (this.popperElm && this.popperElm.parentNode === document.body) {
+      document.body.removeChild(this.popperElm);
+    }
   },
   methods: {
     createPopper() {
@@ -63,6 +73,11 @@ export default {
       const options = Object.assign({}, this.options, {
         placement: this.placement,
       });
+
+      if (this.appendBody) {
+        this.popperElm = popper;
+        document.body.appendChild(popper);
+      }
 
       this.popperJS = new Popper(reference, popper, options);
       this.popperJS.onCreate(() => {

@@ -2,7 +2,8 @@
   <button
     :class="classes"
     :type="htmlType"
-    :disabled="disabled">
+    :disabled="disabled"
+    @click="onClick">
     <slot></slot>
   </button>
 </template>
@@ -52,6 +53,8 @@ export default {
   data() {
     return {
       buttonGroup: null,
+      buttonClick: false,
+      timeoutID: null,
     };
   },
   computed: {
@@ -61,6 +64,7 @@ export default {
         [`${prefixClass}--${this.type}`]: true,
         [`${prefixClass}--block`]: this.block,
         [`${prefixClass}--${this.buttonSize}`]: this.buttonSize,
+        [`${prefixClass}--clicked`]: this.buttonClick,
       };
     },
     isGroup() {
@@ -79,6 +83,26 @@ export default {
     },
     buttonSize() {
       return this.isGroup ? this.buttonGroup.size : this.size;
+    },
+  },
+  beforeDestroy() {
+    if (this.timeoutID) {
+      clearTimeout(this.timeoutID);
+    }
+  },
+  methods: {
+    onClick() {
+      // link 按钮没有点击动画
+      if (this.type === 'link') return;
+
+      if (this.timeoutID) {
+        clearTimeout(this.timeoutID);
+      }
+
+      this.buttonClick = true;
+      this.timeoutID = setTimeout(() => {
+        this.buttonClick = false;
+      }, 400);
     },
   },
 };
