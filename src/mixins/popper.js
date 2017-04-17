@@ -123,5 +123,19 @@ export default {
         popperElm.style.transformOrigin = `${origin} ${axis ? map[axis] : 'center'}`;
       }
     },
+    findInput() {
+      const reference = this.$refs.reference;
+      const inputElm = reference.querySelector('input');
+      const textareaElm = reference.querySelector('textarea');
+      let elm = null;
+
+      if (inputElm) {
+        elm = inputElm;
+      } else if (textareaElm) {
+        elm = textareaElm;
+      }
+
+      return elm;
+    },
   },
 };

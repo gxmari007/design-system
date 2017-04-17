@@ -1,5 +1,13 @@
 <template>
   <div class="test">
+    <div style="margin-bottom: 15px;">
+      <co-tooltip trigger="focus" placement="top-start" content="测试一下文本">
+        <co-button type="ghost">按钮</co-button>
+      </co-tooltip>
+      <co-popover trigger="focus" placement="bottom" title="还能有标题" content="测试一下 Popover">
+        <co-input></co-input>
+      </co-popover>
+    </div>
     <co-table :data="data" border :default-sort="{ prop: '1', order: 'desc' }">
       <co-table-column label="test">
         <co-table-column label="日期" prop="0" sortable></co-table-column>

@@ -124,7 +124,7 @@ export default {
         // 防止鼠标从 trigger 区域移动到 popper 区域的时候 popper 关闭过快
         this.timeoutID = setTimeout(() => {
           this.visible = false;
-        }, 200);
+        }, 100);
       } else {
         this.visible = false;
       }
@@ -174,20 +174,6 @@ export default {
           this.visible = true;
         }, delay);
       }
-    },
-    findInput() {
-      const reference = this.$refs.reference;
-      const inputElm = reference.querySelector('input');
-      const textareaElm = reference.querySelector('textarea');
-      let elm = null;
-
-      if (inputElm) {
-        elm = inputElm;
-      } else if (textareaElm) {
-        elm = textareaElm;
-      }
-
-      return elm;
     },
     renderPopper() {
       return (
