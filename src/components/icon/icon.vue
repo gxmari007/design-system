@@ -18,17 +18,17 @@ export default {
   },
   computed: {
     classes() {
-      return `icon-${this.type}`;
+      return `co-icon co-icon-${this.type}`;
     },
     style() {
       const { size, color } = this;
       const style = {};
 
-      if (size !== undefined) {
+      if (typeof size !== 'undefined') {
         style.fontSize = `${size}px`;
       }
 
-      if (color !== undefined) {
+      if (typeof color !== 'undefined') {
         style.color = color;
       }
 

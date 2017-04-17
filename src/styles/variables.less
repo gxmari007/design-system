@@ -123,9 +123,11 @@
 
 @radio-border-color: #bdbebf;
 @radio-border-radius: 50%;
-@radio-border-hover-color: #98999a;
+@radio-border-hover-color: @primary;
 
 @radio-disabled-background: #f2f3f4;
+
+@radio-font-size: @font-size-base;
 
 
 // Select
@@ -230,15 +232,16 @@
 @modal-shadow: 0 0 6px rgba(0, 0, 0, .25);
 @modal-top: 100px;
 @modal-margin: 0 auto;
+@modal-border-radius: 2px;
 
 @modal-header-padding: 4.5px 14px;
 @modal-header-border: 1px solid #dcdcdc;
 @modal-header-font-size: 14px;
 @modal-header-font-weight: bold;
 
-@modal-close-top: 8px;
+@modal-close-top: 1px;
 @modal-close-right: 14px;
-@modal-close-font-size: 14px;
+@modal-close-font-size: 29px;
 @modal-close-cursor: pointer;
 
 @modal-body-padding: 14px;
@@ -270,8 +273,8 @@
 
 // Z-index
 @affix-z-index: 10;
-@select-dropdown-z-index: 900;
 @back-top-z-index: 10;
 @modal-z-index: 911;
 @modal-mask-z-index: 910;
 @tooltip-z-index: 1060;
+@select-dropdown-z-index: 1060;

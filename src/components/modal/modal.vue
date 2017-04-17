@@ -10,7 +10,7 @@
             <slot name="header">
               <h3 class="co-modal__title">{{ title }}</h3>
             </slot>
-            <co-icon class="co-modal__close" type="close" @click.native="close"></co-icon>
+            <co-icon class="co-modal__close" type="ios-close-empty" @click.native="onCancel"></co-icon>
           </div>
           <div class="co-modal__body">
             <slot></slot>
@@ -18,8 +18,8 @@
           <div class="co-modal__footer">
             <slot name="footer" v-if="$slots.footer"></slot>
             <template v-else>
-              <co-button type="ghost" @click.native="visible = false">{{ cancelText }}</co-button>
-              <co-button type="primary">{{ okText }}</co-button>
+              <co-button type="ghost" @click.native="onCancel">{{ cancelText }}</co-button>
+              <co-button type="primary" @click.native="onOk">{{ okText }}</co-button>
             </template>
           </div>
         </div>
@@ -128,14 +128,22 @@ export default {
     close() {
       this.$emit('input', false);
     },
+    onOk() {
+      this.close();
+      this.$emit('on-ok');
+    },
+    onCancel() {
+      this.close();
+      this.$emit('on-cancel');
+    },
     clickMask() {
       if (this.maskCloseable) {
-        this.close();
+        this.onCancel();
       }
     },
     onEscClose(e) {
       if (this.value && e.keyCode === 27) {
-        this.close();
+        this.onCancel();
       }
     },
     addScrollEffect() {

@@ -86,6 +86,7 @@ export function makeFlattenColumns(columns) {
 // 根据 columns 中设置了 mergeColumn 的列合并相同的值
 export function mergeColumn(data, columns) {
   columns.forEach((column) => {
+    // 合并相同单元格
     if (column.mergeColumn) {
       const prop = column.prop;
       let i = 0;
@@ -97,7 +98,7 @@ export function mergeColumn(data, columns) {
         firstRow[`span-${prop}`] = 1;
         firstRow[`dis-${prop}`] = true;
 
-        for (k = i + 1; k < data.length; k++) {
+        for (k = i + 1; k < data.length; k += 1) {
           const currentRow = data[k];
 
           if (firstRow.row[prop] === currentRow.row[prop]) {

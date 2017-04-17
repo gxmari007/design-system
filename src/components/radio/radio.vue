@@ -1,16 +1,14 @@
 <template>
   <label :class="classes">
-    <input
-      type="radio"
-      class="co-radio__input"
-      v-model="model"
-      :value="label"
-      :disabled="disabled">
-    <span class="co-radio__indicator"></span>
-    <span v-if="$slots.default || label" class="co-radio__description">
-      <slot></slot>
-      <template v-if="!$slots.default">{{ label }}</template>
-    </span>
+    <span class="co-radio__wrapper">
+      <input
+        type="radio"
+        class="co-radio__input"
+        v-model="model"
+        :value="label"
+        :disabled="disabled">
+      <span class="co-radio__indicator"></span>
+    </span><span class="co-radio__description"><slot>{{ label }}</slot></span>
   </label>
 </template>
 
@@ -60,7 +58,7 @@ export default {
       let parent = this.$parent;
 
       while (parent) {
-        if (parent.$options.componentName !== 'co-radio-group') {
+        if (parent.$options.name !== 'co-radio-group') {
           parent = parent.$parent;
         } else {
           this.radioGroup = parent;

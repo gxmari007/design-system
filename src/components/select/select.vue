@@ -1,35 +1,43 @@
 <template>
   <div :class="classes" v-clickoutside="closeDropdown">
-    <div class="co-select__wrap" ref="reference" @click="show = !show">
+    <div class="co-select__wrap" ref="reference" @click="visible = !visible">
       <span class="co-select__value" v-if="isSelected">{{ model }}</span>
       <span class="co-select__placeholder" v-else>{{ placeholder }}</span>
       <co-icon class="co-select__arrow" type="arrow_drop_down"></co-icon>
       <co-icon class="co-select__clear" v-if="clearable" type="cancel" @click.native.stop="clearModel"></co-icon>
     </div>
-    <co-select-dropdown :show="show">
-      <ul class="co-select__list">
-        <slot></slot>
-      </ul>
-    </co-select-dropdown>
+    <transition name="co-select--slide">
+      <div
+        v-show="visible"
+        class="co-select__dropdown"
+        :style="dropdownStyles"
+        ref="popper">
+        <ul class="co-select__list">
+          <slot></slot>
+        </ul>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 // components
 import CoIcon from 'components/icon';
-import CoSelectDropdown from './select-dropdown';
 // utils
 import { oneOf } from 'utils/help';
 // directives
 import clickoutside from 'directives/clickoutside';
 // libs
 import listen from 'dom-helpers/events/listen';
+// mixins
+import popper from 'mixins/popper';
 
 const prefixClass = 'co-select';
 
 export default {
   name: 'co-select',
   componentName: 'co-select',
+  mixins: [popper],
   directives: { clickoutside },
   props: {
     // v-model
@@ -54,12 +62,11 @@ export default {
   },
   data() {
     return {
-      // 控制下拉菜单显示或隐藏
-      show: false,
       // keydown 事件解绑
       keydownOff: null,
       // 所有 option 的 value 集合
       values: [],
+      width: 0,
     };
   },
   computed: {
@@ -70,6 +77,15 @@ export default {
         [`${prefixClass}--focus`]: this.show,
         [`${prefixClass}--clearable`]: this.clearable,
       };
+    },
+    dropdownStyles() {
+      const styles = {};
+
+      if (this.width > 0) {
+        styles.width = `${this.width}px`;
+      }
+
+      return styles;
     },
     // select 选中的值
     model() {
@@ -95,29 +111,28 @@ export default {
   },
   methods: {
     closeDropdown() {
-      this.show = false;
+      this.visible = false;
     },
     onSelectOption(value) {
       this.$emit('input', value);
-      this.show = false;
+      this.visible = false;
     },
     onKeydown(e) {
-      if (this.show) {
+      if (this.visible) {
         // 按下 esc 关闭 select 目录
         if (e.keyCode === 27) {
-          this.show = false;
+          this.visible = false;
         }
       }
     },
     // 清空选中的值
     clearModel() {
-      this.show = false;
+      this.visible = false;
       this.$emit('input', '');
     },
   },
   components: {
     CoIcon,
-    CoSelectDropdown,
   },
 };
 </script>

@@ -16,11 +16,11 @@
     </div>
     <!-- 内容 -->
     <div class="co-table__body" :style="bodyStyles" ref="body" @scroll="onBodyScroll">
-      <co-table-body
+      <table-body
         v-if="data.length > 0"
         :data="filterData"
         :columns="columns"
-        :style="{ width: tableBodyWidth ? tableBodyWidth : '' }"></co-table-body>
+        :style="{ width: tableBodyWidth ? tableBodyWidth : '' }"></table-body>
       <!-- 表格为空时的界面 -->
       <div v-else class="co-table__empty">
         <span class="co-table__empty-text">
@@ -44,7 +44,7 @@ import fixedMixin from './fixedMixin';
 import layoutMixin from './layoutMixin';
 // components
 import CoTableHeader from './table-header';
-import CoTableBody from './table-body';
+import TableBody from './table-body';
 
 import { makeFlattenColumns } from './utils';
 
@@ -85,6 +85,14 @@ export default {
     emptyText: {
       type: String,
       default: '暂无数据',
+    },
+    // 表格默认的排序
+    defaultSort: {
+      type: Object,
+      validator(value) {
+        return Object.prototype.toString.call(value) === '[object Object]' &&
+          Object.keys(value).indexOf('prop') !== -1;
+      },
     },
   },
   data() {
@@ -191,6 +199,17 @@ export default {
       } else {
         array.push(instance);
       }
+
+      // 判断是否有默认排序，设置默认排序列与列属性
+      if (typeof this.defaultSort === 'object') {
+        const { prop, order } = this.defaultSort;
+
+        if (prop === instance.prop) {
+          instance.order = order || instance.order;
+          this.sortingColumn = instance;
+          this.sortProp = prop;
+        }
+      }
     },
     computedTableHeight() {
       this.$nextTick(() => {
@@ -204,6 +223,11 @@ export default {
     onSortingColumnChange(column) {
       this.sortingColumn = column;
       this.sortProp = column.prop;
+      this.$emit('on-sort-change', {
+        column,
+        prop: column.prop,
+        order: column.order,
+      });
     },
     onNoSort() {
       this.sortingColumn = null;
@@ -217,7 +241,7 @@ export default {
   },
   components: {
     CoTableHeader,
-    CoTableBody,
+    TableBody,
   },
 };
 </script>

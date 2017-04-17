@@ -3,11 +3,11 @@
     <div class="co-input-number__btn-group">
       <co-icon
         :class="increaseClasses"
-        type="keyboard_arrow_up"
+        type="ios-arrow-up"
         @click.native="onIncrease"></co-icon>
       <co-icon
         :class="decreaseClasses"
-        type="keyboard_arrow_down"
+        type="ios-arrow-down"
         @click.native="onDecrease"></co-icon>
     </div>
     <input

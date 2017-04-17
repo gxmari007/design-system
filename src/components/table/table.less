@@ -114,10 +114,10 @@
 
   width: @table-caret-border-width * 2;
   height: @table-sortable-height;
-  margin-top: -3px;
+  margin-left: 2px;
 
   cursor: pointer;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .co-table__caret {
@@ -142,6 +142,20 @@
     bottom: @table-caret-position;
 
     border-top: @table-caret-border-width solid @table-th-icon-color;
+  }
+}
+
+
+// 显示设置
+.co-table__display {
+  display: inline-block;
+  margin-left: 2px;
+
+  &-icon {
+    font-size: 18px;
+    color: @table-th-icon-color;
+    vertical-align: top;
+    cursor: pointer;
   }
 }
 

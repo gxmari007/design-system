@@ -22,7 +22,9 @@ export default {
     const index = nodes.push(el) - 1;
 
     function onClick(e) {
-      if (el.contains(e.target)) {
+      if (el.contains(e.target) ||
+        (vnode.context.popperElm &&
+        vnode.context.popperElm.contains(e.target))) {
         return false;
       }
 

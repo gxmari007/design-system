@@ -44,6 +44,24 @@ export default {
       isSubColumn: false,
       order: '',
       realWidth: this.width || this.minWidth || 80,
+      // 显示设置参数
+      display: {
+        charLength: 0,
+        minLength: 0, // 单元格前多少字符
+        minBg: '', // 单元格前多少字符背景
+        minColor: '', // 单元格前多少字符字体颜色
+        maxLength: 0,
+        maxBg: '',
+        maxColor: '',
+        customEnabled: false, // 是否开启设置自定义范围值
+        customValueType: 'range', // 自定义范围值类型
+        beginValueType: 'include', // 开始值是否包含
+        beginValue: 0, // 开始值内容
+        endValueType: 'include', // 结束值是否包含
+        endValue: 0, // 结束值内容
+        customBg: '', // 自定义范围值背景颜色
+        customColor: '', // 自定义范围值字体颜色
+      },
     };
   },
   computed: {
@@ -68,7 +86,7 @@ export default {
   },
   created() {
     this.isSubColumn = this.$parent !== this.tableParent;
-    this.columnId = `${this.$parent.tableId || this.$parent.columnId}_column_${id++}`;
+    this.columnId = `${this.$parent.tableId || this.$parent.columnId}_column_${id += 1}`;
   },
   mounted() {
     const parent = this.$parent;

@@ -9,11 +9,16 @@
           v-for="column in columns"
           v-if="column.mergeColumn ? item[`dis-${column.prop}`] : true"
           :rowspan="column.mergeColumn ? item[`span-${column.prop}`] : false"
-          :data-id="column.columnId">
-          <!-- 这里需要 tooltip 组件提示，暂时先用原生 title 属性代替 -->
-          <div
-            :class="cellClasses(column.overflowTooltip)"
-            :title="column.overflowTooltip ? item.row[column.prop] : false">{{ item.row[column.prop] }}</div>
+          :data-id="column.columnId"
+          :style="setTdStyles(column, item.row)">
+          <co-tooltip
+            v-if="column.overflowTooltip || column.display.charLength > 0"
+            placement="top"
+            :content="item.row[column.prop]"
+            style="width: 100%">
+            <div :class="cellClasses(column.overflowTooltip)">{{ formatCell(item.row[column.prop], column.display.charLength) }}</div>
+          </co-tooltip>
+          <div v-else :class="cellClasses(column.overflowTooltip)">{{ item.row[column.prop] }}</div>
         </td>
       </tr>
     </tbody>
@@ -21,10 +26,16 @@
 </template>
 
 <script>
+// components
+import CoTooltip from 'components/tooltip';
+// libs
+import orderBy from 'lodash/orderBy';
+import inRange from 'lodash/inRange';
+// utils
 import { mergeColumn, getCellDom, getColumnByCell } from './utils';
 
 export default {
-  name: 'co-table-body',
+  name: 'table-body',
   props: {
     data: Array,
     columns: Array,
@@ -33,16 +44,10 @@ export default {
     table() {
       return this.$parent;
     },
-    // 判断数据列中是否有合并列
-    hasMergeColumn() {
-      return this.columns.some(column => column.mergeColumn);
-    },
     currentData() {
       let data = this.data.map(row => ({ row }));
 
-      if (this.hasMergeColumn) {
-        data = mergeColumn(data, this.columns);
-      }
+      data = mergeColumn(data, this.columns);
 
       return data;
     },
@@ -74,6 +79,91 @@ export default {
 
       table.$emit(`row-${name}`, event, row);
     },
+    formatCell(originText, len) {
+      if (len === 0) return originText;
+
+      const text = `${originText}`;
+      const textLen = text.split('').length;
+
+      if (textLen <= len) {
+        return originText;
+      }
+
+      return `${`${text}`.split('').slice(0, len).join('')}...`;
+    },
+    setTdStyles(column, row) {
+      let styles = {};
+
+      if (column.display.minLength > 0) {
+        const orderData = orderBy(this.data, column.prop, 'asc');
+
+        if (orderData.indexOf(row) <= column.display.minLength - 1) {
+          styles.backgroundColor = column.display.minBg;
+          styles.color = column.display.minColor;
+        }
+      }
+
+      if (column.display.maxLength > 0) {
+        const orderData = orderBy(this.data, column.prop, 'desc');
+
+        if (orderData.indexOf(row) <= column.display.maxLength - 1) {
+          styles.backgroundColor = column.display.maxBg;
+          styles.color = column.display.maxColor;
+        }
+      }
+
+      styles = this.setCustomValue(column, row, styles);
+
+      return styles;
+    },
+    setCustomValue(column, row, styles) {
+      const { display } = column;
+      const style = styles;
+
+      if (!display.customEnabled) return style;
+
+      const value = Number(row[column.prop]);
+
+      if (isNaN(value)) return style;
+
+      // 值范围设定
+      if (display.customValueType === 'range') {
+        const start = Number(display.beginValueType === 'include' ? display.beginValue : display.beginValue - 1);
+        const end = Number(display.endValueType === 'include' ? display.endValue + 1 : display.endValue);
+
+        if (!isNaN(start) && !isNaN(end) && inRange(value, start, end)) {
+          style.backgroundColor = display.customBg;
+          style.color = display.customColor;
+        }
+      }
+
+      if (display.customValueType === 'min') {
+        const orderData = orderBy(this.data, column.prop, 'desc');
+        const start = Number(display.beginValueType === 'include' ? display.beginValue : display.beginValue - 1);
+        const end = Number(orderData[0][column.prop] + 1);
+
+        if (!isNaN(start) && !isNaN(end) && inRange(value, start, end)) {
+          style.backgroundColor = display.customBg;
+          style.color = display.customColor;
+        }
+      }
+
+      if (display.customValueType === 'max') {
+        const orderData = orderBy(this.data, column.prop, 'asc');
+        const start = Number(orderData[0][column.prop]);
+        const end = Number(display.endValueType === 'include' ? display.endValue + 1 : display.endValue);
+
+        if (!isNaN(start) && !isNaN(end) && inRange(value, start, end)) {
+          style.backgroundColor = display.customBg;
+          style.color = display.customColor;
+        }
+      }
+
+      return style;
+    },
+  },
+  components: {
+    CoTooltip,
   },
 };
 </script>

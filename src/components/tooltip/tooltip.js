@@ -2,12 +2,15 @@
 import listen from 'dom-helpers/events/listen';
 // mixins
 import popper from 'mixins/popper';
+// directives
+import clickoutside from 'directives/clickoutside';
 // utils
 import { oneOf } from 'utils/help';
 
 export default {
   name: 'co-tooltip',
   mixins: [popper],
+  directives: { clickoutside },
   props: {
     trigger: {
       type: String,
@@ -63,16 +66,18 @@ export default {
           this.visible = newVal;
         }
       },
-    }
+    },
   },
   mounted() {
     if (this.trigger === 'focus') {
-      const elm = this.findInput();
+      let elm = this.findInput();
 
-      if (elm) {
-        this.focusOff = listen(elm, 'focus', this.onFocus);
-        this.blurOff = listen(elm, 'blur', this.onBlur);
+      if (!elm) {
+        elm = this.$slots.default[0].elm;
       }
+
+      this.focusOff = listen(elm, 'focus', this.onFocus);
+      this.blurOff = listen(elm, 'blur', this.onBlur);
     }
   },
   beforeDestroy() {
@@ -85,7 +90,7 @@ export default {
   },
   methods: {
     // 触发提示框显示
-    triggerOn() {
+    show() {
       if (this.timeoutID) {
         clearTimeout(this.timeoutID);
       }
@@ -103,7 +108,7 @@ export default {
       }, delay);
     },
     // 触发提示框关闭
-    triggerOff() {
+    hide() {
       if (this.timeoutID) {
         clearTimeout(this.timeoutID);
       }
@@ -112,6 +117,14 @@ export default {
         this.timeoutID = setTimeout(() => {
           this.visible = false;
         }, this.delay.hide);
+      }
+
+      if (this.trigger === 'hover') {
+        // 这里需要给鼠标离开设定一个默认延迟
+        // 防止鼠标从 trigger 区域移动到 popper 区域的时候 popper 关闭过快
+        this.timeoutID = setTimeout(() => {
+          this.visible = false;
+        }, 200);
       } else {
         this.visible = false;
       }
@@ -119,22 +132,22 @@ export default {
     onFocus() {
       if (this.disabled || this.trigger !== 'focus') return;
 
-      this.triggerOn();
+      this.show();
     },
     onBlur() {
       if (this.disabled || this.trigger !== 'focus') return;
 
-      this.triggerOff();
+      this.hide();
     },
     onMouseenter() {
       if (this.disabled || this.trigger !== 'hover') return;
 
-      this.triggerOn();
+      this.show();
     },
     onMouseleave() {
       if (this.disabled || this.trigger !== 'hover') return;
 
-      this.triggerOff();
+      this.hide();
     },
     onClick() {
       if (this.disabled || this.trigger !== 'click') return;
@@ -146,7 +159,6 @@ export default {
       let delay = 0;
 
       // 点击操作需要考虑提示框是否显示
-      // 根据 delay 参数判断一下 visible 的真假
       if (this.visible) {
         if (typeof this.delay === 'object') {
           delay = this.delay.hide;
@@ -156,7 +168,7 @@ export default {
           this.visible = false;
         }, delay);
       } else {
-        let delay = typeof this.delay === 'object' ? this.delay.show : this.delay;
+        delay = typeof this.delay === 'object' ? this.delay.show : this.delay;
 
         this.timeoutID = setTimeout(() => {
           this.visible = true;
@@ -170,7 +182,7 @@ export default {
       let elm = null;
 
       if (inputElm) {
-        elm = inputElm
+        elm = inputElm;
       } else if (textareaElm) {
         elm = textareaElm;
       }
@@ -179,7 +191,12 @@ export default {
     },
     renderPopper() {
       return (
-        <div v-show={this.visible || this.always} class="co-tooltip__popper" ref="popper">
+        <div
+          v-show={this.visible || this.always}
+          class="co-tooltip__popper"
+          ref="popper"
+          onMouseenter={this.onMouseenter}
+          onMouseleave={this.onMouseleave}>
           <div class="co-tooltip__arrow"></div>
           <div class="co-tooltip__content">
             {this.$slots.content ? this.$slots.content : this.content}
@@ -189,30 +206,29 @@ export default {
     },
   },
   render() {
-    let popper = (
+    let popperTep = (
       <transition name={this.transition}>
         {this.renderPopper()}
       </transition>
     );
 
     if (!this.animation) {
-      popper = this.renderPopper();
+      popperTep = this.renderPopper();
     }
 
     return (
       <div
         class="co-tooltip"
+        v-clickoutside={this.hide}
         onMouseenter={this.onMouseenter}
         onMouseleave={this.onMouseleave}>
         <div
           class="co-tooltip__reference"
           ref="reference"
-          onClick={this.onClick}
-          onMousedown={this.onFocus}
-          onMouseup={this.onBlur}>
+          onClick={this.onClick}>
           {this.$slots.default}
         </div>
-        {popper}
+        {popperTep}
       </div>
     );
   },

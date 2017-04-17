@@ -4,6 +4,7 @@
 
 // libs
 import Popper from 'popper.js';
+import width from 'dom-helpers/query/width';
 // utils
 import { oneOf } from 'utils/help';
 
@@ -11,7 +12,7 @@ const placementValues = [
   'top', 'top-start', 'top-end',
   'right', 'right-start', 'right-end',
   'bottom', 'bottom-start', 'bottom-end',
-  'left', 'left-start', 'left-end'
+  'left', 'left-start', 'left-end',
 ];
 
 export default {
@@ -33,11 +34,6 @@ export default {
         };
       },
     },
-    // 是否插入到 body 标签尾部
-    appendBody: {
-      type: Boolean,
-      default: true,
-    },
   },
   data() {
     return {
@@ -46,6 +42,8 @@ export default {
       // popper 实例
       popperJS: null,
       popperElm: null,
+      // 是否插入到 body 标签尾部
+      appendBody: true,
     };
   },
   watch: {
@@ -84,6 +82,10 @@ export default {
         this.resetTransformOrigin();
         this.$nextTick(this.updatePopper);
       });
+
+      if (this.$options.name === 'co-select') {
+        this.width = width(this.$parent.$el);
+      }
     },
     updatePopper() {
       this.popperJS ? this.popperJS.update() : this.createPopper();
@@ -100,12 +102,26 @@ export default {
         bottom: 'top',
         left: 'right',
       };
-      const placement = this.popperJS._popper.getAttribute('x-placement').split('-')[0];
-      const origin = placementMap[placement];
+      const placement = this.popperJS._popper.getAttribute('x-placement').split('-');
+      const origin = placementMap[placement[0]];
+      const popperElm = this.popperJS._popper;
+      const axis = placement[1];
 
-      this.popperJS._popper.style.transformOrigin = ['top', 'bottom'].indexOf(origin) !== -1 ?
-        `center ${origin}` :
-        `${origin} center`;
+      if (['top', 'bottom'].indexOf(origin) !== -1) {
+        const map = {
+          start: 'left',
+          end: 'right',
+        };
+
+        popperElm.style.transformOrigin = `${axis ? map[axis] : 'center'} ${origin}`;
+      } else {
+        const map = {
+          start: 'top',
+          end: 'bottom',
+        };
+
+        popperElm.style.transformOrigin = `${origin} ${axis ? map[axis] : 'center'}`;
+      }
     },
   },
 };
