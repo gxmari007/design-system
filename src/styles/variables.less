@@ -83,9 +83,10 @@
 @input-disabled-cursor: not-allowed;
 @input-disabled-color: #bebebe;
 
-@input-icon-color: #3d3d3d;
-@input-icon-hover-color: #1995d4;
-@input-icon-size: 25px;
+@input-icon-font-size: 14px;
+@input-icon-color: #909fa8;
+@input-icon-hover-color: @primary;
+@input-icon-size: 26px;
 @input-icon-size-sm: 23px;
 @input-icon-size-lg: 29px;
 
@@ -237,7 +238,7 @@
 @modal-header-padding: 4.5px 14px;
 @modal-header-border: 1px solid #dcdcdc;
 @modal-header-font-size: 14px;
-@modal-header-font-weight: bold;
+@modal-header-font-weight: 900;
 
 @modal-close-top: 1px;
 @modal-close-right: 14px;
@@ -264,6 +265,41 @@
 @tooltip-padding-s: 5px;
 
 @tooltip-arrow-border-width: 5px;
+
+
+// Switch
+@switch-min-width: 44px;
+@switch-height: 22px;
+@switch-cursor: pointer;
+@switch-vertical-align: middle;
+@switch-border-radius: @switch-height / 2;
+@switch-bg: rgba(0, 0, 0, .25);
+@switch-line-height: @switch-height;
+
+@switch-indicator-top: 2px;
+@switch-indicator-left: @switch-indicator-top;
+@switch-indicator-size: @switch-height - @switch-indicator-top * 2;
+@switch-indicator-border-radius: @switch-indicator-size;
+@switch-indicator-bg: #fff;
+
+@switch-content-margin-right: 6px;
+@switch-content-margin-left: 24px;
+@switch-content-text-align: center;
+@switch-content-color: #fff;
+@switch-content-font-size: 12px;
+
+@switch-checked-bg: @primary;
+@switch-checked-indicator-left: 100%;
+@switch-checked-indicator-margin-left: -@switch-indicator-size - @switch-indicator-top;
+@switch-checked-content-margin-right: @switch-content-margin-left;
+@switch-checked-content-margin-left: @switch-content-margin-right;
+
+@switch-sm-min-width: 28px;
+@switch-sm-height: 14px;
+@switch-sm-line-height: @switch-sm-height;
+@switch-sm-indicator-top: 1px;
+@switch-sm-indicator-left: @switch-sm-indicator-top;
+@switch-sm-indicator-size: @switch-sm-height - @switch-sm-indicator-top * 2;
 
 
 // Timing

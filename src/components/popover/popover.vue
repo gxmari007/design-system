@@ -94,13 +94,13 @@ export default {
   },
   computed: {
     styles() {
-      const style = {};
+      const styles = {};
 
       if (typeof this.width !== 'undefined') {
-        style.width = `${this.width}px`;
+        styles.width = `${this.width}px`;
       }
 
-      return style;
+      return styles;
     },
   },
   mounted() {

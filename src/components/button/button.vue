@@ -74,9 +74,9 @@ export default {
         if (parent.$options.name === 'co-button-group') {
           this.buttonGroup = parent;
           return true;
-        } else {
-          parent = parent.$parent;
         }
+
+        parent = parent.$parent;
       }
 
       return false;

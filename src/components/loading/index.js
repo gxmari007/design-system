@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import makeInstance from './loading';
 
 let coLoadingInstance = null;

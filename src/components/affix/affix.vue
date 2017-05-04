@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div ref="affix" :class="classes" :style="style">
+  <div class="co-affix">
+    <div ref="affix" :class="classes" :style="styles">
       <slot></slot>
     </div>
-    <div v-show="affix" :style="spanStyle"></div>
+    <div v-show="affix" :style="spanStyles"></div>
   </div>
 </template>
 
@@ -31,15 +31,17 @@ export default {
       affix: false,
       scrollEvent: null,
       resizeEvent: null,
-      style: null,
-      spanStyle: null,
+      styles: null,
+      spanStyles: null,
     };
   },
   computed: {
     classes() {
-      return {
-        'co-affix': this.affix,
-      };
+      const prefix = 'co-affix';
+
+      return [`${prefix}__content`, {
+        [`${prefix}__content--fixed`]: this.affix,
+      }];
     },
     offsetType() {
       if (this.offsetBottom >= 0) {
@@ -49,17 +51,24 @@ export default {
       return 'top';
     },
   },
-  mounted() {
-    const scrollFunc = throttle(this.onScroll, 17);
-    const { top, width, height } = offset(this.$refs.affix);
+  watch: {
+    affix(newVal) {
+      if (newVal) {
+        this.spanStyles = this.getElementSize(this.$refs.affix);
+      }
 
-    this.defaultTop = top;
-    this.spanStyle = {
-      width: `${width}px`,
-      height: `${height}px`,
-    };
-    this.scrollEvent = listen(window, 'scroll', scrollFunc);
-    this.resizeEvent = listen(window, 'resize', scrollFunc);
+      this.$emit('on-change', newVal);
+    },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      const scrollFunc = throttle(this.onScroll, 17);
+
+      this.defaultTop = offset(this.$refs.affix).top;
+      this.spanStyles = this.getElementSize(this.$refs.affix);
+      this.scrollEvent = listen(window, 'scroll', scrollFunc);
+      this.resizeEvent = listen(window, 'resize', scrollFunc);
+    });
   },
   beforeDestroy() {
     const { scrollEvent, resizeEvent } = this;
@@ -80,7 +89,7 @@ export default {
       const windowHeight = window.innerHeight;
 
       if (offsetType === 'top' && !affix && defaultTop - offsetTop < scroll) {
-        this.style = {
+        this.styles = {
           top: `${offsetTop}px`,
           left: `${left}px`,
           width: `${width}px`,
@@ -88,13 +97,13 @@ export default {
         this.affix = true;
         this.$emit('change', true);
       } else if (offsetType === 'top' && affix && defaultTop - offsetTop > scroll) {
-        this.style = null;
+        this.styles = null;
         this.affix = false;
         this.$emit('change', false);
       }
 
       if (offsetType === 'bottom' && !affix && scroll + windowHeight < defaultTop + height + offsetBottom) {
-        this.style = {
+        this.styles = {
           bottom: `${offsetBottom}px`,
           left: `${left}px`,
           width: `${width}px`,
@@ -102,10 +111,18 @@ export default {
         this.affix = true;
         this.$emit('change', true);
       } else if (offsetType === 'bottom' && affix && scroll + windowHeight > defaultTop + height + offsetBottom) {
-        this.style = null;
+        this.styles = null;
         this.affix = false;
         this.$emit('change', false);
       }
+    },
+    getElementSize(elm) {
+      const { width, height } = offset(elm);
+
+      return {
+        width: `${width}px`,
+        height: `${height}px`,
+      };
     },
   },
 };

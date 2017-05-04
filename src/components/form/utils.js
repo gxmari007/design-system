@@ -19,7 +19,7 @@ export function getValueByPath(model, path) {
     // 后面的操作是针对嵌套对象
     if (index === 0) return;
 
-    if (obj.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
       obj = obj[key];
     } else {
       throw new Error('[coview error] Please check that the incoming prop from <co-form-item> is correct!');
@@ -32,3 +32,5 @@ export function getValueByPath(model, path) {
     v: obj[prop],
   };
 }
+
+export const keep = '';

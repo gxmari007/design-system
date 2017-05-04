@@ -12,7 +12,8 @@
         :sort-prop="sortProp"
         :style="{ width: layout.bodyWidth ? `${layout.bodyWidth}px` : '' }"
         @sorting-column-change="onSortingColumnChange"
-        @no-sort="onNoSort"></co-table-header>
+        @no-sort="onNoSort"
+        @column-display="onColumnDisplay"></co-table-header>
     </div>
     <!-- 内容 -->
     <div class="co-table__body" :style="bodyStyles" ref="body" @scroll="onBodyScroll">
@@ -29,6 +30,7 @@
         </span>
       </div>
     </div>
+    <table-display v-if="displayColumn" v-model="display" :column="displayColumn"></table-display>
   </div>
 </template>
 
@@ -45,6 +47,7 @@ import layoutMixin from './layoutMixin';
 // components
 import CoTableHeader from './table-header';
 import TableBody from './table-body';
+import TableDisplay from './table-display';
 
 import { makeFlattenColumns } from './utils';
 
@@ -107,6 +110,8 @@ export default {
       tableWidth: 0,
       headerHeight: 0,
       resizeOff: null,
+      display: false, // 列显示设置窗口开关
+      displayColumn: null, // 当前显示设置的列
     };
   },
   computed: {
@@ -190,7 +195,8 @@ export default {
         array = parent.children;
 
         if (!array) {
-          array = parent.children = [];
+          array = [];
+          parent.children = array;
         }
       }
 
@@ -233,15 +239,22 @@ export default {
       this.sortingColumn = null;
       this.sortProp = '';
     },
-    onBodyScroll(event) {
+    onBodyScroll() {
       const { header, body } = this.$refs;
 
       header.scrollLeft = body.scrollLeft;
+    },
+    onColumnDisplay(column) {
+      this.displayColumn = column;
+      this.$nextTick(() => {
+        this.display = true;
+      });
     },
   },
   components: {
     CoTableHeader,
     TableBody,
+    TableDisplay,
   },
 };
 </script>

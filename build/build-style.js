@@ -18,8 +18,8 @@ gulp.task('css', () => {
 });
 
 gulp.task('fonts', () => {
-  gulp.src(path.resolve(__dirname, '../src/fonts/*.*'))
-    .pipe(gulp.dest(path.resolve(__dirname, '../lib/fonts')));
+  gulp.src(path.resolve(__dirname, '../src/styles/fonts/*.*'))
+    .pipe(gulp.dest(path.resolve(__dirname, '../lib/styles/fonts')));
 });
 
 gulp.task('default', ['css', 'fonts']);

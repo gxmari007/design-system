@@ -23,7 +23,10 @@ export default {
     },
     // 选项文本，默认会优先读取 slot，无 slot 的时候优先读取 label
     // 如果 label 也没有则把 value 格式化显示出来
-    label: String,
+    label: {
+      type: String,
+      required: true,
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -51,6 +54,7 @@ export default {
     },
     active() {
       if (this.parent) {
+        // 判断是否为多项选择
         if (Array.isArray(this.parent.value)) {
           return this.parent.value.indexOf(this.value) > -1;
         }
@@ -62,13 +66,10 @@ export default {
     },
   },
   created() {
-    let parent = this.$parent;
-
-    while (parent && parent.$options.componentName !== 'co-select') {
-      parent = parent.$parent;
-    }
-
-    parent.values.push(this.value);
+    this.parent.items.push({
+      label: this.label,
+      value: this.value,
+    });
   },
   methods: {
     onClick() {

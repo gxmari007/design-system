@@ -36,6 +36,17 @@ export default {
       clickEvent: null,
     };
   },
+  computed: {
+    breadcrumb() {
+      let parent = this.$parent;
+
+      while (parent && parent.$options.componentName !== 'co-breadcrumb') {
+        parent = parent.$parent;
+      }
+
+      return parent;
+    },
+  },
   mounted() {
     const { to, replace } = this;
 

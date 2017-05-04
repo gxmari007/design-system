@@ -53,9 +53,11 @@ export default {
           classList[`${prefixClass}-${size}-${layout}`] = true;
         } else if (typeof layout === 'object') {
           Object.keys(layout).forEach((key) => {
-            key === 'span'
-              ? classList[`${prefixClass}-${size}-${layout[key]}`] = true
-              : classList[`${prefixClass}-${size}-${key}-${layout[key]}`] = true;
+            if (key === 'span') {
+              classList[`${prefixClass}-${size}-${layout[key]}`] = true;
+            } else {
+              classList[`${prefixClass}-${size}-${key}-${layout[key]}`] = true;
+            }
           });
         }
       });

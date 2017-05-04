@@ -14,7 +14,7 @@ export function oneOf(value, valueList) {
 // 滚动条滚动方法（动画效果）
 export function scrollTo(element, from, to, duration = 600) {
   const different = Math.abs(from - to);
-  const step = Math.ceil(different / duration * 60);
+  const step = Math.ceil((different / duration) * 60);
 
   function scroll(start, end, step) {
     // 从下向上滚动

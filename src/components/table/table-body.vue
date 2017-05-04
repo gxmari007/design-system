@@ -13,10 +13,11 @@
           :style="setTdStyles(column, item.row)">
           <co-tooltip
             v-if="column.overflowTooltip || column.display.charLength > 0"
-            placement="top"
+            placement="left"
+            :delay="1000"
             :content="item.row[column.prop]"
             style="width: 100%">
-            <div :class="cellClasses(column.overflowTooltip)">{{ formatCell(item.row[column.prop], column.display.charLength) }}</div>
+            <div :class="cellClasses(column.overflowTooltip)">{{ item.row[column.prop] }}</div>
           </co-tooltip>
           <div v-else :class="cellClasses(column.overflowTooltip)">{{ item.row[column.prop] }}</div>
         </td>
@@ -33,6 +34,8 @@ import orderBy from 'lodash/orderBy';
 import inRange from 'lodash/inRange';
 // utils
 import { mergeColumn, getCellDom, getColumnByCell } from './utils';
+// helps
+import { colors } from './helps';
 
 export default {
   name: 'table-body',
@@ -79,18 +82,6 @@ export default {
 
       table.$emit(`row-${name}`, event, row);
     },
-    formatCell(originText, len) {
-      if (len === 0) return originText;
-
-      const text = `${originText}`;
-      const textLen = text.split('').length;
-
-      if (textLen <= len) {
-        return originText;
-      }
-
-      return `${`${text}`.split('').slice(0, len).join('')}...`;
-    },
     setTdStyles(column, row) {
       let styles = {};
 
@@ -98,8 +89,10 @@ export default {
         const orderData = orderBy(this.data, column.prop, 'asc');
 
         if (orderData.indexOf(row) <= column.display.minLength - 1) {
-          styles.backgroundColor = column.display.minBg;
-          styles.color = column.display.minColor;
+          const color = colors.findColor(column.display.minColor);
+
+          styles.backgroundColor = color.bg;
+          styles.color = color.font;
         }
       }
 
@@ -107,8 +100,29 @@ export default {
         const orderData = orderBy(this.data, column.prop, 'desc');
 
         if (orderData.indexOf(row) <= column.display.maxLength - 1) {
-          styles.backgroundColor = column.display.maxBg;
-          styles.color = column.display.maxColor;
+          const color = colors.findColor(column.display.maxColor);
+
+          styles.backgroundColor = color.bg;
+          styles.color = color.font;
+        }
+      }
+
+      if (column.display.middleValue) {
+        const orderData = orderBy(this.data, column.prop, 'asc');
+        const len = orderData.length;
+        let index = 0;
+
+        if (len % 2 === 0) {
+          index = (len / 2 + (len + 1) / 2) / 2;
+        } else {
+          index = (len + 1) / 2;
+        }
+
+        if (orderData.indexOf(row) === index - 1) {
+          const color = colors.findColor(column.display.middleValue);
+
+          styles.backgroundColor = color.bg;
+          styles.color = color.font;
         }
       }
 
@@ -119,43 +133,49 @@ export default {
     setCustomValue(column, row, styles) {
       const { display } = column;
       const style = styles;
+      const { rangeEnabled, rangeType, rangeColor } = display;
 
-      if (!display.customEnabled) return style;
+      if (!rangeEnabled) return style;
 
       const value = Number(row[column.prop]);
+      const orderData = orderBy(this.data, column.prop, 'asc');
+      const color = colors.findColor(rangeColor);
 
       if (isNaN(value)) return style;
 
       // 值范围设定
-      if (display.customValueType === 'range') {
-        const start = Number(display.beginValueType === 'include' ? display.beginValue : display.beginValue - 1);
-        const end = Number(display.endValueType === 'include' ? display.endValue + 1 : display.endValue);
+      if (['in', 'ex'].indexOf(rangeType) !== -1) {
+        const start = Number(display.min);
+        const end = Number(display.max) + 1;
 
-        if (!isNaN(start) && !isNaN(end) && inRange(value, start, end)) {
-          style.backgroundColor = display.customBg;
-          style.color = display.customColor;
+        if (!isNaN(start) && !isNaN(end) &&
+          (rangeType === 'in' ? inRange(value, start, end) : !inRange(value, start, end))) {
+          style.backgroundColor = color.bg;
+          style.color = color.font;
         }
       }
 
-      if (display.customValueType === 'min') {
-        const orderData = orderBy(this.data, column.prop, 'desc');
-        const start = Number(display.beginValueType === 'include' ? display.beginValue : display.beginValue - 1);
-        const end = Number(orderData[0][column.prop] + 1);
+      if (['ge', 'gt'].indexOf(rangeType) !== -1) {
+        let start = Number(display.min);
+        const end = Number(orderData[orderData.length - 1][column.prop]) + 1;
+
+        start = rangeType === 'ge' ? start : start + 1;
 
         if (!isNaN(start) && !isNaN(end) && inRange(value, start, end)) {
-          style.backgroundColor = display.customBg;
-          style.color = display.customColor;
+          style.backgroundColor = color.bg;
+          style.color = color.font;
         }
       }
 
-      if (display.customValueType === 'max') {
-        const orderData = orderBy(this.data, column.prop, 'asc');
+      if (['le', 'lt'].indexOf(rangeType) !== -1) {
         const start = Number(orderData[0][column.prop]);
-        const end = Number(display.endValueType === 'include' ? display.endValue + 1 : display.endValue);
+        let end = Number(display.max);
+
+        end = rangeType === 'le' ? end + 1 : end;
 
         if (!isNaN(start) && !isNaN(end) && inRange(value, start, end)) {
-          style.backgroundColor = display.customBg;
-          style.color = display.customColor;
+          style.backgroundColor = color.bg;
+          style.color = color.font;
         }
       }
 

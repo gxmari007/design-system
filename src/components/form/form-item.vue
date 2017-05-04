@@ -93,7 +93,7 @@ export default {
     fieldValue() {
       const model = this.form.model;
 
-      if (!model || !this.prop) return;
+      if (!model || !this.prop) return null;
 
       return getValueByPath(model, this.prop).v;
     },

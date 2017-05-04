@@ -2,7 +2,7 @@
   position: relative;
   display: inline-block;
   width: 100%;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .co-input__input,
@@ -28,7 +28,6 @@
     border-color: @input-hover-border-color;
   }
 
-  // .co-input:hover &:focus,
   &:focus {
     border-color: @input-hover-border-color;
     box-shadow: @input-focus-shadow;
@@ -62,7 +61,7 @@
 
   color: @input-icon-color;
 
-  font-size: 16px;
+  font-size: @input-icon-font-size;
   line-height: @input-icon-size;
 
   & + .co-input__input {
@@ -71,6 +70,10 @@
 
   &:hover {
     color: @input-icon-hover-color;
+
+    & + .co-input__input {
+      border-color: @input-hover-border-color;
+    }
   }
 }
 

@@ -133,7 +133,7 @@ export default {
   methods: {
     setValue(val) {
       let value = val;
-      let oldValue = this.model;
+      const oldValue = this.model;
 
       if (value <= this.min) {
         value = this.min;
@@ -167,15 +167,19 @@ export default {
     },
     // 加法运算方法
     increase(number, step) {
-      const precisionFactor = Math.pow(10, this.precision);
+      const precisionFactor = 10 ** this.precision;
 
-      return this.formatPrecision((number * precisionFactor + step * precisionFactor) / precisionFactor);
+      return this.formatPrecision(
+        (number * precisionFactor + step * precisionFactor) / precisionFactor,
+      );
     },
     // 减法运算方法
     decrease(number, step) {
-      const precisionFactor = Math.pow(10, this.precision);
+      const precisionFactor = 10 ** this.precision;
 
-      return this.formatPrecision((number * precisionFactor - step * precisionFactor) / precisionFactor);
+      return this.formatPrecision(
+        (number * precisionFactor - step * precisionFactor) / precisionFactor,
+      );
     },
     onFocus() {
       this.focus = true;
@@ -194,7 +198,7 @@ export default {
     },
     onInput(e) {
       const value = e.target.value;
-      let val = Number(value);
+      const val = Number(value);
 
       if (value !== '' && !isNaN(val)) {
         this.setValue(val);

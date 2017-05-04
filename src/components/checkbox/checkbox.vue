@@ -58,9 +58,13 @@ export default {
   computed: {
     model: {
       get() {
-        return this.isGroup ?
-          this.checkboxGroup.value : this.value !== undefined ?
-          this.value : this.selfModel;
+        if (this.isGroup) {
+          return this.checkboxGroup.value;
+        } else if (typeof this.value !== 'undefined') {
+          return this.value;
+        }
+
+        return this.selfModel;
       },
       set(val) {
         if (this.isGroup) {

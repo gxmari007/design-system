@@ -6,16 +6,18 @@
 import Vue from 'vue';
 import on from 'dom-helpers/events/on';
 
-let nodes = [];
+const nodes = [];
 const ctx = '$$clickoutside';
 
 // 如果是服务器渲染则不绑定事件
 // 放在外部绑定事件只需要绑定一次
 // 如果放在指令内部则需要多次绑定与解绑
 // 这样只需要删除 nodes 列表中相应的 dom 元素即可
-!Vue.prototype.$isServer && on(document, 'click', (e) => {
-  nodes.forEach(node => node[ctx].onClick(e));
-});
+if (!Vue.prototype.$isServer) {
+  on(document, 'click', (e) => {
+    nodes.forEach(node => node[ctx].onClick(e));
+  });
+}
 
 export default {
   bind(el, binding, vnode) {
@@ -25,15 +27,15 @@ export default {
       if (el.contains(e.target) ||
         (vnode.context.popperElm &&
         vnode.context.popperElm.contains(e.target))) {
-        return false;
+        return;
       }
 
       if (binding.expression &&
         el[ctx].methodName &&
         vnode.context[el[ctx].methodName]) {
         vnode.context[el[ctx].methodName]();
-      } else {
-        el[ctx].bindingFn && el[ctx].bindingFn();
+      } else if (el[ctx].bindingFn) {
+        el[ctx].bindingFn();
       }
     }
 
@@ -51,7 +53,7 @@ export default {
   unbind(el) {
     const ctxIndex = el[ctx].index;
 
-    for (let i = 0, len = nodes.length; i < len; i++) {
+    for (let i = 0, len = nodes.length; i < len; i += 1) {
       if (nodes[i][ctx].index === ctxIndex) {
         nodes.splice(i, 1);
         break;

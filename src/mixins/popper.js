@@ -1,7 +1,3 @@
-/*
- * popper.js 封装 mixin
- */
-
 // libs
 import Popper from 'popper.js';
 import width from 'dom-helpers/query/width';
@@ -84,11 +80,15 @@ export default {
       });
 
       if (this.$options.name === 'co-select') {
-        this.width = width(this.$parent.$el);
+        this.width = width(this.$el);
       }
     },
     updatePopper() {
-      this.popperJS ? this.popperJS.update() : this.createPopper();
+      if (this.popperJS) {
+        this.popperJS.update();
+      } else {
+        this.createPopper();
+      }
     },
     destroyPopper() {
       if (this.popperJS) {
@@ -96,6 +96,7 @@ export default {
       }
     },
     resetTransformOrigin() {
+      /* eslint-disable no-underscore-dangle */
       const placementMap = {
         top: 'bottom',
         right: 'left',

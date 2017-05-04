@@ -4,7 +4,7 @@ import { CoBreadcrumb, CoBreadcrumbItem } from 'components/breadcrumb';
 import { CoButtonGroup, CoButton } from 'components/button';
 import CoCascader from 'components/cascader';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
-import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
+// import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
 import { CoForm, CoFormItem } from 'components/form';
 import CoInput from 'components/input';
 import CoInputNumber from 'components/input_number';
@@ -16,11 +16,14 @@ import CoPagination from 'components/pagination';
 import CoPopover from 'components/popover';
 import { CoRadioGroup, CoRadio } from 'components/radio';
 import { CoSelect, CoOption } from 'components/select';
+import CoSwitch from 'components/switch';
 import { CoTable, CoTableColumn } from 'components/table';
 import { CoTabs, CoTabPane } from 'components/tabs';
 import { CoTimeline, CoTimelineItem } from 'components/timeline';
 import CoTooltip from 'components/tooltip';
 import CoTree from 'components/tree';
+
+import pkg from '../package.json';
 
 const coview = {
   CoAffix,
@@ -32,9 +35,9 @@ const coview = {
   CoCascader,
   CoCheckboxGroup,
   CoCheckbox,
-  CoDropdown,
-  CoDropdownMenu,
-  CoDropdownItem,
+  // CoDropdown,
+  // CoDropdownMenu,
+  // CoDropdownItem,
   CoForm,
   CoFormItem,
   CoInput,
@@ -49,6 +52,7 @@ const coview = {
   CoRadio,
   CoSelect,
   CoOption,
+  CoSwitch,
   CoTable,
   CoTableColumn,
   CoTabs,
@@ -70,12 +74,12 @@ function install(Vue) {
 }
 
 // 在浏览器 script 标签引入的情况下自动安装
-if (typeof window !== undefined && window.Vue) {
+if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
 
-module.exports = {
-  version: require('../package.json').version,
+export default {
+  version: pkg.version,
   install,
   ...coview,
 };

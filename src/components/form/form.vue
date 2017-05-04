@@ -73,12 +73,12 @@ export default {
     // 验证所有规则
     validate(cb) {
       let valid = true;
-      let lastIndex = this.fields.length - 1;
+      const lastIndex = this.fields.length - 1;
 
       this.fields.forEach((field, index) => {
         field.validate('', (error) => {
           if (error) {
-            valid = false
+            valid = false;
           }
 
           if (index === lastIndex && typeof cb === 'function') {
@@ -99,7 +99,7 @@ export default {
     },
     // 重置所有规则
     resetFields() {
-      this.fields.forEach(field => {
+      this.fields.forEach((field) => {
         field.resetField();
       });
     },

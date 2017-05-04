@@ -91,16 +91,16 @@ export default {
 
       if (maxPages && maxPages < pageCount) {
         startPage = Math.max(
-          Math.min(activePage - Math.floor(maxPages / 2), pageCount - maxPages + 1),
-          1
+          Math.min(activePage - Math.floor(maxPages / 2), (pageCount - maxPages) + 1),
+          1,
         );
-        endPage = startPage + maxPages - 1;
+        endPage = (startPage + maxPages) - 1;
       } else {
         startPage = 1;
         endPage = pageCount;
       }
 
-      for (let page = startPage; page <= endPage; page++) {
+      for (let page = startPage; page <= endPage; page += 1) {
         buttons.push(page);
       }
 

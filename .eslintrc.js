@@ -1,36 +1,42 @@
+// http://eslint.org/docs/user-guide/configuring
+
 module.exports = {
-  // eslint 检查到 root 属性就不会到父级目录去找配置文件了
   root: true,
-  // 使用 babel-eslint 作为 eslint 解析器
   parser: 'babel-eslint',
-  // 使用 parser 解析器所需要用到的参数
   parserOptions: {
-    sourceType: 'module',
+    sourceType: 'module'
   },
-  extends: 'airbnb-base',
-  // 定义预定义环境，能够获取各种环境的全局变量
   env: {
     browser: true,
   },
-  // 允许使用浏览器环境定义的全局变量
+  extends: 'airbnb-base',
+  // required to lint *.vue files
+  plugins: ['html'],
   globals: {
     window: false,
     document: false,
   },
-  plugins: ['html'],
-  settings: {
+  // check if imports actually resolve
+  'settings': {
     'import/resolver': {
-      webpack: {
-        config: 'build/webpack.config.base.js',
-      },
-    },
+      'webpack': {
+        'config': 'build/webpack.config.base.js',
+      }
+    }
   },
-  // 自定义规则
-  rules: {
-    'import/extensions': [2, 'always', {
-      js: 'never',
-      vue: 'never',
+  // add your custom rules here
+  'rules': {
+    // don't require .vue extension when importing
+    'import/extensions': ['error', 'always', {
+      'js': 'never',
+      'vue': 'never'
     }],
+    // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-  },
+    'no-param-reassign': ['error', { props: false }],
+    'no-unused-expressions': ['error', { allowTernary: true }],
+    'no-shadow': 0,
+    'no-mixed-operators': 0,
+    'global-require': 0,
+  }
 };

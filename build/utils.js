@@ -1,52 +1,70 @@
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const config = require('../config');
+var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var config = require('../config');
 
-exports.assetsPath = (_path) => {
-  const assetsSubDirectory = process.env.NODE_ENV === 'production'
+exports.assetsPath = function(_path) {
+  var assetsSubDirectory = process.env.NODE_ENV === 'production'
     ? config.build.assetsSubDirectory
     : config.docs.assetsSubDirectory;
 
   return path.join(assetsSubDirectory, _path);
 }
 
-exports.cssLoaders = (options) => {
+exports.resolve = function(dir) {
+  return path.join(__dirname, '..', dir);
+}
+
+exports.cssLoaders = function(options) {
   options = options || {};
 
-  function generateLoaders(loaders) {
-    const sourceLoader = loaders.map((loader) => {
-      let extraParamChar = '';
+  var cssLoader = {
+    loader: 'css-loader',
+    options: {
+      minimize: process.env.NODE_ENV === 'production',
+      sourceMap: options.sourceMap,
+    },
+  };
 
-      if (/\?/.test(loader)) {
-        loader = loader.replace(/\?/, '-loader?');
-        extraParamChar = '&';
-      } else {
-        loader = `${loader}-loader`;
-        extraParamChar = '?';
-      }
+  function generateLoaders(loader, loaderOptions) {
+    var loaders = [cssLoader];
 
-      return `${loader}${options.sourceMap ? `${extraParamChar}sourceMap` : ''}`;
-    }).join('!');
+    if (loader) {
+      loaders.push({
+        loader: loader + '-loader',
+        options: Object.assign({}, loaderOptions, {
+          sourceMap: options.sourceMap,
+        }),
+      });
+    }
 
     if (options.extract) {
-      return ExtractTextPlugin.extract('vue-style-loader', sourceLoader);
+      return ExtractTextPlugin.extract({
+        use: 'css-loader',
+        fallback: 'vue-style-loader',
+      });
     } else {
-      return ['vue-style-loader', sourceLoader].join('!');
+      return ['vue-style-loader'].concat(loaders);
     }
   }
 
   return {
-    css: generateLoaders(['css']),
-    postcss: generateLoaders(['css']),
-    less: generateLoaders(['css', 'postcss', 'less']),
+    css: generateLoaders(),
+    postcss: generateLoaders(),
+    less: generateLoaders('less'),
   };
 }
 
-exports.styleLoaders = (options) => {
-  const loaders = exports.cssLoaders(options);
+exports.styleLoaders = function(options) {
+  var output = [];
+  var loaders = exports.cssLoaders(options);
 
-  return Object.keys(loaders).map(key => ({
-    test: new RegExp('\\.' + key + '$'),
-    loader: loaders[key],
-  }));
+  for (var extension in loaders) {
+    var loader = loaders[extension];
+    output.push({
+      test: new RegExp('\\.' + extension + '$'),
+      use: loader
+    })
+  }
+
+  return output;
 }

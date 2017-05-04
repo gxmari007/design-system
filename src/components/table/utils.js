@@ -49,7 +49,7 @@ export function makeRows(originColumns) {
     traverse(column);
   });
 
-  for (let i = 0; i < maxLevel; i++) {
+  for (let i = 0; i < maxLevel; i += 1) {
     rows.push([]);
   }
 
@@ -58,7 +58,7 @@ export function makeRows(originColumns) {
     if (column.children) {
       column.rowSpan = 1;
     } else {
-      column.rowSpan = maxLevel - column.level + 1;
+      column.rowSpan = (maxLevel - column.level) + 1;
     }
 
     rows[column.level - 1].push(column);

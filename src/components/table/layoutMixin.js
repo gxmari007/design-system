@@ -16,7 +16,7 @@ export default {
       this.updateScrollY();
     },
     updateLayout() {
-      const { scrollBarWidth } = this;
+      // const { scrollBarWidth } = this;
       const tableWidth = this.$el.clientWidth;
       const flattenColumns = this.columns;
       const flexColumns = flattenColumns.filter(column => typeof column.width === 'undefined');
@@ -29,9 +29,7 @@ export default {
         });
 
         // 判断是否含有水平滚动条
-        if (bodyMinWidth < tableWidth - scrollBarWidth) {
-
-        }
+        // if (bodyMinWidth < tableWidth - scrollBarWidth) {}
 
         this.layout.bodyWidth = Math.max(bodyMinWidth, tableWidth);
       } else {

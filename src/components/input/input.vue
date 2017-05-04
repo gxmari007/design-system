@@ -35,7 +35,7 @@
 
 <script>
 // components
-import CoIcon from '../icon';
+import CoIcon from 'components/icon';
 // mixins
 import emitter from 'mixins/emitter';
 // utils
@@ -83,6 +83,7 @@ export default {
         return oneOf(value, ['small', 'large']);
       },
     },
+    // private
     // 是否触发表单项的验证事件
     validate: {
       type: Boolean,
@@ -111,7 +112,8 @@ export default {
   },
   methods: {
     onIconClick() {
-      this.$emit('icon-click');
+      this.$refs.input.focus();
+      this.$emit('on-icon-click');
     },
     onInput(event) {
       const value = event.target.value;

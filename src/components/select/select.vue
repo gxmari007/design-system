@@ -1,10 +1,20 @@
 <template>
   <div :class="classes" v-clickoutside="closeDropdown">
-    <div class="co-select__wrap" ref="reference" @click="visible = !visible">
-      <span class="co-select__value" v-if="isSelected">{{ model }}</span>
-      <span class="co-select__placeholder" v-else>{{ placeholder }}</span>
-      <co-icon class="co-select__arrow" type="arrow_drop_down"></co-icon>
-      <co-icon class="co-select__clear" v-if="clearable" type="cancel" @click.native.stop="clearModel"></co-icon>
+    <div class="co-select__input" ref="reference" @mouseenter="onMouseenter" @mouseleave="onMouseleave">
+      <co-icon
+        v-if="clearable"
+        v-show="clearShow"
+        class="co-select__clear"
+        type="ios-close"
+        @click.native="clearModel"></co-icon>
+      <co-input
+        ref="input"
+        v-model="label"
+        :icon="icon"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        readonly
+        @click.native="switchDropdown"></co-input>
     </div>
     <transition name="co-select--slide">
       <div
@@ -22,6 +32,7 @@
 
 <script>
 // components
+import CoInput from 'components/input';
 import CoIcon from 'components/icon';
 // utils
 import { oneOf } from 'utils/help';
@@ -59,14 +70,20 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 是否禁用 select
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       // keydown 事件解绑
       keydownOff: null,
-      // 所有 option 的 value 集合
-      values: [],
+      // 所有 option 集合
+      items: [],
       width: 0,
+      clearShow: false,
     };
   },
   computed: {
@@ -74,8 +91,7 @@ export default {
       return {
         [prefixClass]: true,
         [`${prefixClass}--${this.size}`]: this.size !== undefined,
-        [`${prefixClass}--focus`]: this.show,
-        [`${prefixClass}--clearable`]: this.clearable,
+        [`${prefixClass}--open`]: this.visible,
       };
     },
     dropdownStyles() {
@@ -87,17 +103,34 @@ export default {
 
       return styles;
     },
-    // select 选中的值
-    model() {
-      if (this.isSelected) {
+    model: {
+      get() {
         return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      },
+    },
+    label() {
+      if (this.isSelected) {
+        return this.items.find(item => item.value === this.model).label;
       }
 
       return '';
     },
     // 是否有值被选中
     isSelected() {
-      return this.values.indexOf(this.value) > -1;
+      return this.items.some(item => item.value === this.model);
+    },
+    icon() {
+      return this.clearShow ? null : 'arrow-down-b';
+    },
+  },
+  watch: {
+    visible(newVal) {
+      if (!newVal) {
+        this.$refs.input.$refs.input.blur();
+      }
     },
   },
   created() {
@@ -110,28 +143,45 @@ export default {
     }
   },
   methods: {
+    switchDropdown() {
+      if (this.disabled) return;
+
+      this.visible = !this.visible;
+    },
     closeDropdown() {
       this.visible = false;
     },
     onSelectOption(value) {
-      this.$emit('input', value);
+      this.model = value;
       this.visible = false;
     },
-    onKeydown(e) {
+    onKeydown(event) {
       if (this.visible) {
         // 按下 esc 关闭 select 目录
-        if (e.keyCode === 27) {
-          this.visible = false;
+        if (event.keyCode === 27) {
+          event.preventDefault();
+          this.closeDropdown();
         }
       }
     },
-    // 清空选中的值
+    onMouseenter() {
+      if (!this.disabled && this.clearable && this.isSelected) {
+        this.clearShow = true;
+      }
+    },
+    onMouseleave() {
+      if (!this.disabled && this.clearable && this.isSelected) {
+        this.clearShow = false;
+      }
+    },
     clearModel() {
-      this.visible = false;
-      this.$emit('input', '');
+      this.model = '';
+      this.clearShow = false;
+      this.closeDropdown();
     },
   },
   components: {
+    CoInput,
     CoIcon,
   },
 };

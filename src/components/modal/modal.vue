@@ -39,7 +39,7 @@ import { getScrollBarWidth } from 'utils/help';
 const prefixClass = 'co-modal';
 
 export default {
-  name: 'co-modal',
+  name: 'co-dialog',
   props: {
     // 控制模态框显示与隐藏
     value: {

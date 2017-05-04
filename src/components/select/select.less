@@ -2,32 +2,30 @@
   display: inline-block;
   width: 100%;
   position: relative;
+  vertical-align: top;
 }
 
-.co-select__wrap {
-  &:extend(.co-input__input);
-  transition: box-shadow .2s linear, border-color .2s linear;
-  cursor: pointer;
-  user-select: none;
+.co-select__clear {
+  &:extend(.co-input__icon);
+  z-index: 1;
 
-  &:hover {
-    border-color: @primary;
+  &:hover + .co-input .co-input__input {
+    border-color: @input-hover-border-color;
   }
 }
 
-.co-select__placeholder {
-  color: @input-placeholder-color;
-}
+.co-select__input {
+  & input {
+    cursor: pointer;
+  }
 
-.co-select__arrow,
-.co-select__clear {
-  &:extend(.co-input__icon);
-  font-size: 20px;
-  transition: transform .2s linear;
-}
+  & .co-input__icon {
+    transition: transform .2s linear;
 
-.co-select__clear {
-  font-size: 14px;
+    &:hover {
+      color: @input-icon-color;
+    }
+  }
 }
 
 .co-select__list {
@@ -40,10 +38,11 @@
   width: auto;
   max-height: 200px;
   background-color: #fff;
-  margin: 2px 0;
+  margin: 4px 0;
   border: 1px solid #d2d2d2;
   box-shadow: 0 0 6px rgba(0, 0, 0, .25);
   z-index: @select-dropdown-z-index;
+  overflow-y: auto;
 }
 
 
@@ -86,43 +85,20 @@
   }
 }
 
+
 // 获取焦点
-.co-select--focus {
-  .co-select__wrap {
-    border-color: @primary;
-    box-shadow: @input-focus-shadow;
-  }
-
-  .co-select__arrow {
-    transform: rotate(180deg);
-  }
-}
-
-// 可以清除选择
-.co-select--clearable {
-  .co-select__wrap {
-    &:hover .co-select__arrow {
-      display: none;
-    }
-
-    &:hover .co-select__clear {
-      display: block;
-    }
-  }
-
-  .co-select__clear {
-    display: none;
-  }
+.co-select--open .co-icon-arrow-down-b {
+  transform: rotate(180deg);
 }
 
 
 // 动效
 .co-select--slide-enter-active {
-  animation: co-select-in .15s ease-in-out;
+  animation: co-select-in .2s ease-in-out;
 }
 
 .co-select--slide-leave-active {
-  animation: co-select-out .15s ease-in-out;
+  animation: co-select-out .2s ease-in-out;
 }
 
 @keyframes co-select-in {

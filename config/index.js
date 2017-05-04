@@ -1,9 +1,9 @@
-const path = require('path');
+var path = require('path');
 
 module.exports = {
   build: {
     env: require('./prod.env'),
-    assetsRoot: path.resolve(__dirname, '../lib'),
+    assetsRoot: path.join(__dirname, '../lib'),
     assetsPublicPath: '/',
     cssSourceMap: true,
   },

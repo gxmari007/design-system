@@ -12,15 +12,15 @@ export default function makeInstance() {
   return {
     component: vm,
     update(options) {
-      if (options.hasOwnProperty('show')) {
+      if (Object.prototype.hasOwnProperty.call(options, 'show')) {
         vm.show = options.show;
       }
 
-      if (options.hasOwnProperty('percent')) {
+      if (Object.prototype.hasOwnProperty.call(options, 'percent')) {
         vm.percent = options.percent;
       }
 
-      if (options.hasOwnProperty('status')) {
+      if (Object.prototype.hasOwnProperty.call(options, 'status')) {
         vm.status = options.status;
       }
     },
