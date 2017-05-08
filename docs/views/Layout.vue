@@ -8,7 +8,6 @@
     <co-affix :offset-top="20">
       <co-button type="ghost" style="margin-left: 30px;">Button</co-button>
     </co-affix>
-    <co-button>哈哈哈</co-button>
   </div>
 </template>
 

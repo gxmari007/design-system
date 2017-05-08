@@ -1,30 +1,15 @@
-var utils = require('./utils');
-var path = require('path');
+const merge = require('webpack-merge');
+const resolveConfig = require('./webpack.config.resolve');
+const utils = require('./utils');
 
-function resolve(dir) {
-  return path.join(__dirname, '..', dir);
-}
-
-module.exports = {
-  resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
-      'src': path.resolve(__dirname, '../src'),
-      'components': path.resolve(__dirname, '../src/components'),
-      'mixins': path.resolve(__dirname, '../src/mixins'),
-      'directives': path.resolve(__dirname, '../src/directives'),
-      'utils': path.resolve(__dirname, '../src/utils'),
-      'coview': path.resolve(__dirname, '../src'),
-      'views': path.resolve(__dirname, '../docs/views'),
-    },
-  },
+module.exports = merge(resolveConfig, {
   module: {
     rules: [
       {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        include: [resolve('src')],
+        include: [utils.resolve('src')],
         options: {
           formatter: require('eslint-friendly-formatter'),
         },
@@ -37,7 +22,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src')],
+        include: [utils.resolve('src')],
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -57,4 +42,4 @@ module.exports = {
       },
     ],
   },
-};
+});

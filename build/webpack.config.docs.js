@@ -8,11 +8,9 @@ const utils = require('./utils');
 
 module.exports = merge(baseWebpackConfig, {
   devtool: '#cheap-module-eval-source-map',
-  // 入口
   entry: {
     app: [utils.resolve('build/docs-client.js'), utils.resolve('docs/index.js')],
   },
-  // 输出
   output: {
     path: config.build.assetsRoot,
     publicPath: config.docs.assetsPublicPath,

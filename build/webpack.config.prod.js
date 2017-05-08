@@ -1,16 +1,17 @@
-const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.config.base');
+const utils = require('./utils');
 const config = require('../config');
 
 module.exports = merge(baseWebpackConfig, {
-  entry: path.join(__dirname, '../src/index.js'),
+  entry: utils.resolve('src/index.js'),
   output: {
     path: config.build.assetsRoot,
     filename: 'coview.min.js',
     library: 'coview',
     libraryTarget: 'umd',
+    umdNamedDefine: true,
   },
   externals: {
     vue: {

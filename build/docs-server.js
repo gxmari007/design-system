@@ -13,24 +13,21 @@ if (!process.env.NODE_ENV) {
 
 // 如果没有设置端口则用 config.docs.port 作为运行端口
 const port = process.env.PORT || config.docs.port;
+const autoOpenBrowser = !!config.docs.autoOpenBrowser;
 
-// 创建 express 服务
 const app = express();
-
-// webpack 载入配置
 const compiler = webpack(webpackConfig);
 
 // webpack-dev-middleware 服务，把编译后的文件暂存到内存中
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
-  stats: {
-    colors: true,
-    chunks: false,
-  },
+  quiet: true,
 });
 
 // 代码热切换中间件
-const hotMiddleware = require('webpack-hot-middleware')(compiler);
+const hotMiddleware = require('webpack-hot-middleware')(compiler, {
+  log: () => {},
+});
 
 // 修改 html 文件的时候也需要刷新页面
 compiler.plugin('compilation', (compilation) => {
@@ -44,21 +41,31 @@ compiler.plugin('compilation', (compilation) => {
 
 // html5 history fallback
 app.use(require('connect-history-api-fallback')());
-
 app.use(devMiddleware);
 app.use(hotMiddleware);
 
 const staticPath = path.join(config.docs.assetsPublicPath, config.docs.assetsSubDirectory);
-app.use(staticPath, express.static(path.resolve(__dirname, '../docs/static')));
 
-app.listen(port, (err) => {
-  if (err) {
-    console.error(err);
-    return;
+app.use(staticPath, express.static(path.join(__dirname, '../docs/static')));
+
+let _resolve;
+const readyPromise = new Promise(resolve => {
+  _resolve = resolve;
+});
+
+const uri = `http://localhost:${port}`;
+
+devMiddleware.waitUntilValid(() => {
+  if (autoOpenBrowser) {
+    opn(uri);
   }
 
-  const uri = `http://localhost:${port}`;
-
-  console.log(`docs listening at ${uri}\n`);
-  opn(uri);
+  _resolve();
 });
+
+const server = app.listen(port);
+
+module.exports = {
+  ready: readyPromise,
+  close: server.close,
+};

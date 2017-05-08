@@ -17,15 +17,15 @@ module.exports = {
     document: false,
   },
   // check if imports actually resolve
-  'settings': {
+  settings: {
     'import/resolver': {
-      'webpack': {
-        'config': 'build/webpack.config.base.js',
-      }
-    }
+      webpack: {
+        config: 'build/webpack.config.resolve.js',
+      },
+    },
   },
   // add your custom rules here
-  'rules': {
+  rules: {
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       'js': 'never',
@@ -38,5 +38,5 @@ module.exports = {
     'no-shadow': 0,
     'no-mixed-operators': 0,
     'global-require': 0,
-  }
+  },
 };

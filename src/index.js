@@ -23,8 +23,6 @@ import { CoTimeline, CoTimelineItem } from 'components/timeline';
 import CoTooltip from 'components/tooltip';
 import CoTree from 'components/tree';
 
-import pkg from '../package.json';
-
 const coview = {
   CoAffix,
   CoBackTop,
@@ -79,7 +77,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: pkg.version,
+  version: require('../package.json').version,
   install,
   ...coview,
 };

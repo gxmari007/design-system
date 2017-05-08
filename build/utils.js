@@ -1,23 +1,23 @@
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var config = require('../config');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const config = require('../config');
 
-exports.assetsPath = function(_path) {
-  var assetsSubDirectory = process.env.NODE_ENV === 'production'
+exports.assetsPath = (_path) => {
+  const assetsSubDirectory = process.env.NODE_ENV === 'production'
     ? config.build.assetsSubDirectory
     : config.docs.assetsSubDirectory;
 
   return path.join(assetsSubDirectory, _path);
 }
 
-exports.resolve = function(dir) {
+exports.resolve = (dir) => {
   return path.join(__dirname, '..', dir);
 }
 
-exports.cssLoaders = function(options) {
+exports.cssLoaders = (options) => {
   options = options || {};
 
-  var cssLoader = {
+  const cssLoader = {
     loader: 'css-loader',
     options: {
       minimize: process.env.NODE_ENV === 'production',
@@ -26,7 +26,7 @@ exports.cssLoaders = function(options) {
   };
 
   function generateLoaders(loader, loaderOptions) {
-    var loaders = [cssLoader];
+    const loaders = [cssLoader];
 
     if (loader) {
       loaders.push({
@@ -54,17 +54,11 @@ exports.cssLoaders = function(options) {
   };
 }
 
-exports.styleLoaders = function(options) {
-  var output = [];
-  var loaders = exports.cssLoaders(options);
+exports.styleLoaders = (options) => {
+  const loaders = exports.cssLoaders(options);
 
-  for (var extension in loaders) {
-    var loader = loaders[extension];
-    output.push({
-      test: new RegExp('\\.' + extension + '$'),
-      use: loader
-    })
-  }
-
-  return output;
+  return Object.keys(loaders).map(key => ({
+    test: new RegExp('\\.' + key + '$'),
+    use: loaders[key],
+  }));
 }

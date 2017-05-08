@@ -7,19 +7,19 @@ const rename = require('gulp-rename');
 const package = require('../package.json');
 
 gulp.task('css', () => {
-  gulp.src(path.resolve(__dirname, '../src/styles/index.less'))
+  gulp.src(path.join(__dirname, '../src/styles/index.less'))
     .pipe(less())
     .pipe(autoprefixer({
       browsers: package.browserslist,
     }))
     .pipe(cleanCSS())
     .pipe(rename('coview.css'))
-    .pipe(gulp.dest(path.resolve(__dirname, '../lib/styles')));
+    .pipe(gulp.dest(path.join(__dirname, '../lib/styles')));
 });
 
 gulp.task('fonts', () => {
-  gulp.src(path.resolve(__dirname, '../src/styles/fonts/*.*'))
-    .pipe(gulp.dest(path.resolve(__dirname, '../lib/styles/fonts')));
+  gulp.src(path.join(__dirname, '../src/styles/fonts/*.*'))
+    .pipe(gulp.dest(path.join(__dirname, '../lib/styles/fonts')));
 });
 
 gulp.task('default', ['css', 'fonts']);
