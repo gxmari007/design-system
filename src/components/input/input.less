@@ -41,6 +41,14 @@
     border-color: @input-border-color;
     background-color: @input-disabled-background;
   }
+
+  .co-form__item--error & {
+    border-color: @input-error-border-color;
+
+    &:focus {
+      box-shadow: @input-error-focus-shadow;
+    }
+  }
 }
 
 .co-input__textarea {

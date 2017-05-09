@@ -23,7 +23,7 @@ import { CoTimeline, CoTimelineItem } from 'components/timeline';
 import CoTooltip from 'components/tooltip';
 import CoTree from 'components/tree';
 
-const coview = {
+export const coview = {
   CoAffix,
   CoBackTop,
   CoBreadcrumb,

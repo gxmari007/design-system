@@ -1,16 +1,13 @@
 .co-checkbox-group {
   display: inline-block;
   font-size: 0;
+  vertical-align: top;
 }
 
 .co-checkbox {
-  position: relative;
-
   display: inline-block;
-
-  margin-bottom: 10px;
-  padding-left: 20px;
-
+  font-size: @font-size-base;
+  vertical-align: top;
   cursor: pointer;
 
   & + .co-checkbox {
@@ -18,23 +15,24 @@
   }
 }
 
+.co-checkbox__wrapper {
+  position: relative;
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
 .co-checkbox__input {
   position: absolute;
   z-index: -1;
-
   opacity: 0;
 }
 
 .co-checkbox__indicator {
-  position: absolute;
-  top: 2px;
-  left: 0;
-
+  position: relative;
+  display: block;
   width: @checkbox-indicator-width;
   height: @checkbox-indicator-height;
-
   transition: border-color .15s linear, background-color .15s linear;
-
   border: 1px solid @checkbox-border-color;
   border-radius: @checkbox-border-radius;
 
@@ -63,7 +61,8 @@
 }
 
 .co-checkbox__description {
-  font-size: @font-size-base;
+  padding-right: 6px;
+  padding-left: 6px;
 }
 
 .co-checkbox--checked {

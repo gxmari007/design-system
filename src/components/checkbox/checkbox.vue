@@ -1,32 +1,30 @@
 <template>
   <label :class="classes">
-    <input
-      v-if="trueLabel || falseLabel"
-      type="checkbox"
-      class="co-checkbox__input"
-      v-model="model"
-      :true-value="trueLabel"
-      :false-value="falseLabel"
-      :disabled="disabled">
-    <input
-      v-else
-      type="checkbox"
-      class="co-checkbox__input"
-      v-model="model"
-      :value="label"
-      :disabled="disabled">
-    <span class="co-checkbox__indicator"></span>
-    <span v-if="$slots.default || label" class="co-checkbox__description">
-      <slot></slot>
-      <template v-if="!$slots.default">{{ label }}</template>
+    <span class="co-checkbox__wrapper">
+      <input
+        v-if="trueLabel && falseLabel"
+        type="checkbox"
+        class="co-checkbox__input"
+        v-model="model"
+        :true-value="trueLabel"
+        :false-value="falseLabel"
+        :disabled="disabled">
+      <input
+        v-else
+        type="checkbox"
+        class="co-checkbox__input"
+        v-model="model"
+        :value="label"
+        :disabled="disabled">
+      <span class="co-checkbox__indicator"></span>
+    </span><span v-if="$slots.default || label" class="co-checkbox__description">
+      <slot>{{ label }}</slot>
     </span>
   </label>
 </template>
 
 <script>
 import emitter from 'mixins/emitter';
-
-const prefixClass = 'co-checkbox';
 
 export default {
   name: 'co-checkbox',
@@ -48,9 +46,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 是否触发表单验证规则
+    validate: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
+      // 内部使用的 value 值
       selfModel: false,
       checkboxGroup: null,
     };
@@ -69,7 +73,7 @@ export default {
       set(val) {
         if (this.isGroup) {
           this.dispatch('co-checkbox-group', 'input', val);
-        } else if (this.value !== undefined) {
+        } else if (typeof this.value !== 'undefined') {
           this.$emit('input', val);
         } else {
           this.selfModel = val;
@@ -80,7 +84,7 @@ export default {
       let parent = this.$parent;
 
       while (parent) {
-        if (parent.$options.componentName !== 'co-checkbox-group') {
+        if (parent.$options.name !== 'co-checkbox-group') {
           parent = parent.$parent;
         } else {
           this.checkboxGroup = parent;
@@ -104,6 +108,8 @@ export default {
       return false;
     },
     classes() {
+      const prefixClass = 'co-checkbox';
+
       return {
         [prefixClass]: true,
         [`${prefixClass}--checked`]: this.isChecked,
@@ -112,17 +118,27 @@ export default {
       };
     },
   },
+  watch: {
+    model(newVal, oldVal) {
+      if (newVal === oldVal) return;
+      if (this.validate) {
+        this.dispatch('co-form-item', 'form-item-change', newVal);
+      }
+    },
+  },
   created() {
     if (this.checked) {
-      this.setModel();
+      this.setChecked();
     }
   },
   methods: {
-    setModel() {
-      if (Array.isArray(this.model) && this.model.indexOf(this.label) === -1) {
+    setChecked() {
+      if (this.isGroup && this.model.indexOf(this.label) === -1) {
         this.model.push(this.label);
+      } else if (typeof this.trueLabel !== 'undefined') {
+        this.model = this.trueLabel;
       } else {
-        this.model = this.trueLabel || true;
+        this.model = true;
       }
     },
   },

@@ -59,6 +59,7 @@ export default {
       return {
         [prefix]: true,
         [`${prefix}--required`]: this.required || this.isRequired,
+        [`${prefix}--error`]: this.validateState === 'error',
       };
     },
     labelStyles() {
@@ -110,6 +111,30 @@ export default {
     hasLabel() {
       return this.label || this.$slots.label;
     },
+  },
+  mounted() {
+    if (this.prop) {
+      this.dispatch('co-form', 'add-form-item', this);
+
+      this.initialValue = this.fieldValue;
+
+      if (this.fieldRules.length > 0) {
+        this.fieldRules.some((rule) => {
+          if (rule.required) {
+            this.isRequired = true;
+            return true;
+          }
+
+          return false;
+        });
+
+        this.$on('form-item-blur', this.onFieldBlur);
+        this.$on('form-item-change', this.onFieldChange);
+      }
+    }
+  },
+  beforeDestroy() {
+    this.dispatch('co-form', 'remove-form-item', this);
   },
   methods: {
     // 这里把规则集中没有 trigger 或者含有 trigger 的规则筛选出来
@@ -176,30 +201,6 @@ export default {
 
       this.validate('change');
     },
-  },
-  mounted() {
-    if (this.prop) {
-      this.dispatch('co-form', 'add-form-item', this);
-
-      this.initialValue = this.fieldValue;
-
-      if (this.fieldRules.length > 0) {
-        this.fieldRules.some((rule) => {
-          if (rule.required) {
-            this.isRequired = true;
-            return true;
-          }
-
-          return false;
-        });
-
-        this.$on('form-item-blur', this.onFieldBlur);
-        this.$on('form-item-change', this.onFieldChange);
-      }
-    }
-  },
-  beforeDestroy() {
-    this.dispatch('co-form', 'remove-form-item', this);
   },
 };
 </script>

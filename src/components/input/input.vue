@@ -83,7 +83,6 @@ export default {
         return oneOf(value, ['small', 'large']);
       },
     },
-    // private
     // 是否触发表单项的验证事件
     validate: {
       type: Boolean,
