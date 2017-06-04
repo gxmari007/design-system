@@ -56,3 +56,37 @@
     opacity: 0;
   }
 }
+
+
+// Badge 组件
+.co-zoom-enter-active {
+  animation: zoom-in .2s ease-in;
+}
+
+.co-zoom-leave-active {
+  animation: zoom-out .2s ease-out;
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(0) translateX(50%);
+  }
+  70% {
+    transform: scale(1.2) translateX(50%);
+  }
+  100% {
+    transform: scale(1) translateX(50%);
+  }
+}
+
+@keyframes zoom-out {
+  0% {
+    transform: scale(1) translateX(50%);
+  }
+  70% {
+    transform: scale(1.2) translateX(50%);
+  }
+  100% {
+    transform: scale(0) translateX(50%);
+  }
+}

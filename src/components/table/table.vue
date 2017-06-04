@@ -6,11 +6,13 @@
     </div>
     <div v-if="showHeader" class="co-table__header" ref="header">
       <co-table-header
+        :style="{ width: layout.bodyWidth ? `${layout.bodyWidth}px` : '' }"
+        :layout="layout"
         :columns="columns"
         :origin-columns="originColumns"
         :sorting-column="sortingColumn"
         :sort-prop="sortProp"
-        :style="{ width: layout.bodyWidth ? `${layout.bodyWidth}px` : '' }"
+        :border="border"
         @sorting-column-change="onSortingColumnChange"
         @no-sort="onNoSort"
         @column-display="onColumnDisplay"></co-table-header>
@@ -30,17 +32,16 @@
         </span>
       </div>
     </div>
+    <div class="co-table__column-resize-proxy" ref="resizeProxy" v-show="resizeProxyVisible"></div>
     <table-display v-if="displayColumn" v-model="display" :column="displayColumn"></table-display>
   </div>
 </template>
 
 <script>
 // libs
-import width from 'dom-helpers/query/width';
-import height from 'dom-helpers/query/height';
-import listen from 'dom-helpers/events/listen';
-import throttle from 'lodash/throttle';
 import orderBy from 'lodash/orderBy';
+import throttle from 'lodash/throttle';
+import { addResizeListener, removeResizeListener } from 'utils/resize';
 // mixins
 import fixedMixin from './fixedMixin';
 import layoutMixin from './layoutMixin';
@@ -48,7 +49,7 @@ import layoutMixin from './layoutMixin';
 import CoTableHeader from './table-header';
 import TableBody from './table-body';
 import TableDisplay from './table-display';
-
+// utils
 import { makeFlattenColumns } from './utils';
 
 const prefixClass = 'co-table';
@@ -59,6 +60,11 @@ export default {
   props: {
     // 数据项
     data: Array,
+    // 表格列是否自适应撑开
+    fit: {
+      type: Boolean,
+      default: true,
+    },
     // 是否显示条纹间隔
     stripe: {
       type: Boolean,
@@ -74,10 +80,8 @@ export default {
       type: Boolean,
       default: false,
     },
-    // 表格宽度
-    width: [String, Number],
     // 表格高度，设置之后会固定表头
-    height: [String, Number],
+    height: Number,
     // 是否显示表头
     showHeader: {
       type: Boolean,
@@ -107,11 +111,10 @@ export default {
       sortingColumn: null,
       // 排序列的属性名称
       sortProp: '',
-      tableWidth: 0,
-      headerHeight: 0,
-      resizeOff: null,
       display: false, // 列显示设置窗口开关
       displayColumn: null, // 当前显示设置的列
+      resizeHandler: null,
+      resizeProxyVisible: false, // 控制列边框代理的显示与隐藏
     };
   },
   computed: {
@@ -124,15 +127,19 @@ export default {
       };
     },
     styles() {
-      const { width, height } = this;
       const styles = {};
+      let { height } = this;
 
-      if (width) {
-        styles.width = `${width}px`;
+      if (typeof height === 'string' && /^\d+$/.test(height)) {
+        height = Number(height);
       }
 
-      if (height) {
-        styles.height = `${height}px`;
+      if (typeof height === 'number') {
+        styles.height = `${this.height}px`;
+      }
+
+      if (typeof height === 'string') {
+        styles.height = '';
       }
 
       return styles;
@@ -141,12 +148,12 @@ export default {
       const styles = {};
 
       if (this.height) {
-        styles.height = `${this.height - this.headerHeight - 1}px`;
+        styles.height = `${this.layout.bodyHeight}px`;
       }
 
       return styles;
     },
-    // 原始列中没有 children 组成的数组
+    // 原始列中没有 children 的列组成的数组
     columns() {
       return makeFlattenColumns(this.originColumns);
     },
@@ -166,27 +173,34 @@ export default {
     },
   },
   watch: {
-    // bug: 初始化的时候无法获取高度
-    // 需要重新设计
     showHeader() {
-      this.computedTableHeight();
+      this.updateHeight();
+    },
+    height() {
+      this.updateHeight();
     },
   },
   mounted() {
+    // 初始化
+    this.bindEvent();
     this.doUpdateLayout();
-    this.tableWidth = width(this.$refs.body);
-    // 改变窗口大小重新计算表格布局
-    this.resizeOff = listen(window, 'resize', throttle(() => {
-      this.tableWidth = width(this.$refs.body);
-    }, 17));
-    this.computedTableHeight();
   },
   beforeDestroy() {
-    if (this.resizeOff) {
-      this.resizeOff();
+    if (typeof this.resizeHandler === 'function') {
+      removeResizeListener(this.$el, this.resizeHandler);
     }
   },
   methods: {
+    // 绑定事件
+    bindEvent() {
+      if (this.fit) {
+        this.resizeHandler = throttle(() => {
+          this.doUpdateLayout();
+        }, 16);
+
+        addResizeListener(this.$el, this.resizeHandler);
+      }
+    },
     // 从 co-table-column 添加列信息到 columns
     addColumn(instance, index, parent) {
       let array = this.originColumns;
@@ -217,15 +231,6 @@ export default {
         }
       }
     },
-    computedTableHeight() {
-      this.$nextTick(() => {
-        if (this.showHeader) {
-          this.headerHeight = height(this.$refs.header);
-        } else {
-          this.headerHeight = 0;
-        }
-      });
-    },
     onSortingColumnChange(column) {
       this.sortingColumn = column;
       this.sortProp = column.prop;
@@ -240,6 +245,8 @@ export default {
       this.sortProp = '';
     },
     onBodyScroll() {
+      if (!this.showHeader) return;
+
       const { header, body } = this.$refs;
 
       header.scrollLeft = body.scrollLeft;

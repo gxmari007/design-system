@@ -8,7 +8,7 @@ module.exports = merge(baseWebpackConfig, {
   entry: utils.resolve('src/index.js'),
   output: {
     path: config.build.assetsRoot,
-    filename: 'coview.min.js',
+    filename: 'coview.js',
     library: 'coview',
     libraryTarget: 'umd',
     umdNamedDefine: true,

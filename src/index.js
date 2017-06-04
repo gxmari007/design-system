@@ -1,10 +1,11 @@
 import CoAffix from 'components/affix';
 import CoBackTop from 'components/back_top';
+import CoBadge from 'components/badge';
 import { CoBreadcrumb, CoBreadcrumbItem } from 'components/breadcrumb';
 import { CoButtonGroup, CoButton } from 'components/button';
 import CoCascader from 'components/cascader';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
-// import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
+import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
 import { CoForm, CoFormItem } from 'components/form';
 import CoInput from 'components/input';
 import CoInputNumber from 'components/input_number';
@@ -23,9 +24,10 @@ import { CoTimeline, CoTimelineItem } from 'components/timeline';
 import CoTooltip from 'components/tooltip';
 import CoTree from 'components/tree';
 
-export const coview = {
+const coview = {
   CoAffix,
   CoBackTop,
+  CoBadge,
   CoBreadcrumb,
   CoBreadcrumbItem,
   CoButtonGroup,
@@ -33,9 +35,9 @@ export const coview = {
   CoCascader,
   CoCheckboxGroup,
   CoCheckbox,
-  // CoDropdown,
-  // CoDropdownMenu,
-  // CoDropdownItem,
+  CoDropdown,
+  CoDropdownMenu,
+  CoDropdownItem,
   CoForm,
   CoFormItem,
   CoInput,
@@ -80,4 +82,43 @@ export default {
   version: require('../package.json').version,
   install,
   ...coview,
+};
+
+export {
+  CoAffix,
+  CoBackTop,
+  CoBadge,
+  CoBreadcrumb,
+  CoBreadcrumbItem,
+  CoButtonGroup,
+  CoButton,
+  CoCascader,
+  CoCheckboxGroup,
+  CoCheckbox,
+  CoDropdown,
+  CoDropdownMenu,
+  CoDropdownItem,
+  CoForm,
+  CoFormItem,
+  CoInput,
+  CoInputNumber,
+  CoIcon,
+  CoRow,
+  CoCol,
+  CoModal,
+  CoPagination,
+  CoPopover,
+  CoRadioGroup,
+  CoRadio,
+  CoSelect,
+  CoOption,
+  CoSwitch,
+  CoTable,
+  CoTableColumn,
+  CoTabs,
+  CoTabPane,
+  CoTimeline,
+  CoTimelineItem,
+  CoTooltip,
+  CoTree,
 };

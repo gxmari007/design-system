@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     onClick() {
-      const dropdownTrigger = this.$parent && this.$parent.$options.componentName === 'co-dropdown';
+      const dropdownTrigger = this.$parent && this.$parent.$options.name === 'co-dropdown';
 
       if (!this.disabled && !dropdownTrigger) {
         this.dispatch('co-dropdown', 'on-click', this.label);

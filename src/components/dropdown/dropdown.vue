@@ -2,32 +2,38 @@
   <div
     class="co-dropdown"
     v-clickoutside="closeMenu"
-    @mouseenter="onMouseEnter"
-    @mouseleave="onMouseLeave">
+    @mouseenter="onMouseenter"
+    @mouseleave="onMouseleave">
     <div
       class="co-dropdown__trigger"
       ref="reference"
       @click="onClick">
       <slot></slot>
     </div>
-    <dropdown :show="show" :placement="placement" :transition="transition">
-      <slot name="menu"></slot>
-    </dropdown>
+    <transition name="co-scale">
+      <div
+        class="co-dropdown__wrapper"
+        v-show="visible"
+        ref="popper"
+        @mouseenter="onMouseenter"
+        @mouseleave="onMouseleave">
+        <slot name="menu"></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import { oneOf } from 'utils/help';
-// components
-import Dropdown from 'components/select/select-dropdown';
 // directives
 import clickoutside from 'directives/clickoutside';
 // mixins
 import emitter from 'mixins/emitter';
+import popper from 'mixins/popper';
 
 export default {
   name: 'co-dropdown',
-  mixins: [emitter],
+  mixins: [emitter, popper],
   directives: { clickoutside },
   props: {
     // 触发方式
@@ -38,45 +44,33 @@ export default {
         return oneOf(val, ['hover', 'click', 'custom']);
       },
     },
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-    // 菜单的位置
-    placement: {
-      type: String,
-      default: 'bottom',
-      validate(val) {
-        return oneOf(val, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start',
-          'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end']);
-      },
-    },
+    // visible: {
+    //   type: Boolean,
+    //   default: false,
+    // },
   },
   data() {
     return {
       show: false,
-      timeId: null,
+      timeoutID: null,
     };
   },
   computed: {
-    isSubDropdown() {
-      const parent = this.$parent.$parent.$parent;
+    // isSubDropdown() {
+    //   const parent = this.$parent.$parent.$parent;
 
-      if (parent.$options.componentName === 'co-dropdown') {
-        return parent;
-      }
+    //   if (parent.$options.name === 'co-dropdown') {
+    //     return parent;
+    //   }
 
-      return false;
-    },
-    transition() {
-      return this.isSubDropdown ? 'co-fade' : 'co-select--slide';
-    },
+    //   return false;
+    // },
   },
   watch: {
     visible(newVal) {
-      if (this.trigger !== 'custom') return;
-
-      this.show = newVal;
+      if (this.trigger === 'custom') {
+        this.show = newVal;
+      }
     },
   },
   created() {
@@ -86,31 +80,31 @@ export default {
     closeMenu() {
       if (this.trigger !== 'click') return;
 
-      this.show = false;
+      this.visible = false;
     },
     onClick() {
       if (this.trigger !== 'click') return;
 
-      this.show = !this.show;
+      this.visible = !this.visible;
     },
-    onMouseEnter() {
+    onMouseenter() {
       if (this.trigger !== 'hover') return;
-      if (this.timeId) {
-        clearTimeout(this.timeId);
+      if (this.timeoutID) {
+        clearTimeout(this.timeoutID);
       }
 
-      this.timeId = setTimeout(() => {
-        this.show = true;
+      this.timeoutID = setTimeout(() => {
+        this.visible = true;
       }, 250);
     },
-    onMouseLeave() {
+    onMouseleave() {
       if (this.trigger !== 'hover') return;
-      if (this.timeId) {
-        clearTimeout(this.timeId);
+      if (this.timeoutID) {
+        clearTimeout(this.timeoutID);
       }
 
-      this.timeId = setTimeout(() => {
-        this.show = false;
+      this.timeoutID = setTimeout(() => {
+        this.visible = false;
       }, 150);
     },
     onDropdownClick(label) {
@@ -120,11 +114,8 @@ export default {
         this.$emit('dropdown-click', label);
       }
 
-      this.show = false;
+      this.visible = false;
     },
-  },
-  components: {
-    Dropdown,
   },
 };
 </script>

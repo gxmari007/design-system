@@ -30,6 +30,11 @@ export default {
         };
       },
     },
+    // 是否插入到 body 标签尾部
+    appendBody: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -38,8 +43,6 @@ export default {
       // popper 实例
       popperJS: null,
       popperElm: null,
-      // 是否插入到 body 标签尾部
-      appendBody: true,
     };
   },
   watch: {

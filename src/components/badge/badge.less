@@ -1,0 +1,43 @@
+.co-badge {
+  position: relative;
+  display: inline-block;
+  vertical-align: @vertical-align-base;
+}
+
+.co-badge__count,
+.co-badge__dot {
+  right: 0;
+  position: absolute;
+  background-color: @error;
+  text-align: center;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 0 0 1px #fff;
+  transform: translateX(50%);
+  transform-origin: 100% center;
+  // font-family: tahoma;
+}
+
+.co-badge__count {
+  top: -10px;
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 6px;
+}
+
+.co-badge__dot {
+  top: -4px;
+  width: 8px;
+  height: 8px;
+}
+
+
+.co-badge__count--alone {
+  position: static;
+  top: auto;
+  display: block;
+  transform: none;
+}

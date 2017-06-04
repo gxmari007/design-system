@@ -1,14 +1,15 @@
 {
   "name": "coview",
   "description": "A ui components library with vue.js",
-  "version": "0.2.27",
+  "version": "0.2.30",
   "author": "gxmari007 <392041299@qq.com>",
   "scripts": {
     "docs": "node build/docs-server.js",
     "lint": "eslint --ext .js,.vue src",
     "build:js": "node build/build.js",
     "build:css": "node_modules/.bin/gulp --gulpfile build/build-style.js",
-    "build": "npm run build:js && npm run build:css"
+    "build": "npm run build:js && npm run build:css",
+    "prepublish": "npm run build"
   },
   "main": "lib/coview.js",
   "files": [

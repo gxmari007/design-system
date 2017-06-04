@@ -63,11 +63,11 @@ export default {
     this.resizeOff = listen(window, 'resize', callback);
   },
   beforeDestroy() {
-    if (this.scrollOff) {
+    if (typeof this.scrollOff === 'function') {
       this.scrollOff();
     }
 
-    if (this.resizeOff) {
+    if (typeof this.resizeOff === 'function') {
       this.resizeOff();
     }
   },

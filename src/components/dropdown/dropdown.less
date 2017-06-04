@@ -1,11 +1,6 @@
 .co-dropdown {
   display: inline-block;
 
-  & & {
-    display: block;
-    width: 100%;
-  }
-
   .co-select__dropdown {
     max-height: none;
     overflow: visible;
@@ -13,14 +8,24 @@
 }
 
 
+.co-dropdown__wrapper {
+  &:extend(.co-select__dropdown);
+}
+
 .co-dropdown__menu {
   &:extend(.co-select__list);
   min-width: 115px;
+
+  & .co-dropdown {
+    display: block;
+    width: 100%;
+  }
 }
 
 
 .co-dropdown__item {
   &:extend(.co-option all);
+  clear: both;
 }
 
 .co-dropdown__item--disabled {

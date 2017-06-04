@@ -18,6 +18,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 是否可以调整列宽
+    resizeable: {
+      type: Boolean,
+      default: true,
+    },
     // 固定此列在左侧或者右侧，默认左侧
     fixed: {
       type: [Boolean, String],
@@ -47,6 +52,7 @@ export default {
       // 是否为子表头
       isSubColumn: false,
       order: '',
+      fixedWidth: this.width,
       realWidth: this.width || this.minWidth || 80,
       // 显示设置参数
       display: {
@@ -65,7 +71,7 @@ export default {
     };
   },
   computed: {
-    tableParent() {
+    table() {
       let parent = this.$parent;
 
       while (parent && parent.$options.name !== 'co-table') {
@@ -84,8 +90,17 @@ export default {
       return [].indexOf.call(parent.$refs.hiddenColumns.children, this.$el);
     },
   },
+  watch: {
+    width(newVal) {
+      this.fixedWidth = newVal;
+      this.table.updateLayout();
+    },
+    minWidth() {
+      this.table.updateLayout();
+    },
+  },
   created() {
-    this.isSubColumn = this.$parent !== this.tableParent;
+    this.isSubColumn = this.$parent !== this.table;
     this.columnId = `${this.$parent.tableId || this.$parent.columnId}_column_${id += 1}`;
   },
   mounted() {
@@ -98,17 +113,7 @@ export default {
       columnIndex = [].indexOf.call(parent.$refs.hiddenColumns.children, this.$el);
     }
 
-    this.tableParent.addColumn(this, columnIndex, this.isSubColumn ? parent : null);
-
-    this.$watch('display.charLength', (newVal) => {
-      if (newVal > 0) {
-        this.realWidth = (newVal * 12) + 12;
-      } else {
-        this.realWidth = this.width || this.minWidth || 80;
-      }
-
-      this.tableParent.updateLayout();
-    });
+    this.table.addColumn(this, columnIndex, this.isSubColumn ? parent : null);
   },
   render(h) {
     return h('div', this.$slots.default);

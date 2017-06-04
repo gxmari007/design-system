@@ -2,12 +2,6 @@
   <co-dialog v-model="model" ref="modal" title="列显示设置" width="420" center @on-cancel="onCancel">
     <co-form :model="display" :label-width="86">
       <header class="co-table__head">
-        <span>列宽</span>
-      </header>
-      <co-form-item label="最多显示字数">
-        <co-input-number v-model="display.charLength" :min="0"></co-input-number>
-      </co-form-item>
-      <header class="co-table__head">
         <span>颜色</span>
       </header>
       <co-form-item label="最小值后">

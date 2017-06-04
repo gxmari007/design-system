@@ -1,7 +1,7 @@
 <template>
   <table class="co-table__body-table">
     <colgroup>
-      <col v-for="column in columns" :style="{ width: `${column.realWidth || column.width}px` }">
+      <col v-for="column in columns" :style="{ width: `${column.realWidth}px` }">
     </colgroup>
     <tbody>
       <tr v-for="item in currentData" @click="onClick($event, item.row)">

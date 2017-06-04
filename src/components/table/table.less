@@ -5,9 +5,11 @@
   border-right: 0;
   border-bottom: 0;
   background-color: @table-background;
+  overflow: hidden;
 
   table {
     table-layout: fixed;
+    border-spacing: 0;
   }
 
   th,
@@ -143,6 +145,18 @@
 
     border-top: @table-caret-border-width solid @table-th-icon-color;
   }
+}
+
+
+// 列边框拖动代理样式
+.co-table__column-resize-proxy {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  border-left: @table-border-width solid @table-border-color;
+  z-index: 10;
 }
 
 
