@@ -6,8 +6,9 @@
 
 .co-badge__count,
 .co-badge__dot {
-  right: 0;
   position: absolute;
+  right: 0;
+  z-index: 10;
   background-color: @error;
   text-align: center;
   color: #fff;
@@ -17,6 +18,8 @@
   box-shadow: 0 0 0 1px #fff;
   transform: translateX(50%);
   transform-origin: 100% center;
+  // 单独设置 badge 的字体为 tahoma
+  // 但中文显示不佳
   // font-family: tahoma;
 }
 
@@ -40,4 +43,5 @@
   top: auto;
   display: block;
   transform: none;
+  transform-origin: center;
 }

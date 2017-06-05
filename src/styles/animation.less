@@ -58,7 +58,7 @@
 }
 
 
-// Badge 组件
+// Badge 组件动效
 .co-zoom-enter-active {
   animation: zoom-in .2s ease-in;
 }
@@ -88,5 +88,37 @@
   }
   100% {
     transform: scale(0) translateX(50%);
+  }
+}
+
+.co-zoom-alone-enter-active {
+  animation: zoom-in-alone .2s ease-in;
+}
+
+.co-zoom-alone-leave-active {
+  animation: zoom-out-alone .2s ease-out;
+}
+
+@keyframes zoom-in-alone {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoom-out-alone {
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0);
   }
 }

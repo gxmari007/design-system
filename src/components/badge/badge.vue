@@ -1,10 +1,10 @@
 <template>
   <div class="co-badge">
     <slot></slot>
-    <transition name="co-zoom">
+    <transition :name="transitionName">
       <sup :class="countClasses" v-if="!dot" v-show="visible">{{ currentCount }}</sup>
     </transition>
-    <transition name="co-zoom">
+    <transition :name="transitionName">
       <sup class="co-badge__dot" v-if="dot" v-show="visible"></sup>
     </transition>
   </div>
@@ -59,6 +59,9 @@ export default {
         [prefixClass]: true,
         [`${prefixClass}--alone`]: !this.$slots.default,
       };
+    },
+    transitionName() {
+      return this.$slots.default ? 'co-zoom' : 'co-zoom-alone';
     },
   },
   watch: {
