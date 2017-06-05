@@ -1,30 +1,11 @@
 .co-option {
-  &:extend(.text-overflow);
-  padding: @option-padding-y @option-padding-x;
-
-  cursor: @option-cursor;
-  transition: background-color .15s linear;
-
-  font-size: @option-font-size;
-
-  &:hover {
-    background-color: @option-background-hover;
-  }
+  &:extend(.co-dropdown__item all);
 }
 
 .co-option--disabled {
-  &,
-  &:hover {
-    cursor: @option-disabled-cursor;
-    color: @option-disabled-color;
-    background-color: #fff;
-  }
+  &:extend(.co-dropdown__item--disabled all);
 }
 
 .co-option--active {
-  &,
-  &:hover {
-    color: #fff;
-    background-color: @option-active-background;
-  }
+  &:extend(.co-dropdown__item--active all);
 }

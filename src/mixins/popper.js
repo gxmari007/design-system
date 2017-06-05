@@ -30,16 +30,13 @@ export default {
         };
       },
     },
-    // 是否插入到 body 标签尾部
-    appendBody: {
-      type: Boolean,
-      default: true,
-    },
   },
   data() {
     return {
       // 控制 popper 显示或隐藏
       visible: false,
+      // 是否插入到 body 标签尾部
+      appendBody: true,
       // popper 实例
       popperJS: null,
       popperElm: null,

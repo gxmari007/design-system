@@ -16,7 +16,7 @@
         readonly
         @click.native="switchDropdown"></co-input>
     </div>
-    <transition name="co-select--slide">
+    <transition name="co-slide">
       <div
         v-show="visible"
         class="co-select__dropdown"
@@ -42,8 +42,6 @@ import clickoutside from 'directives/clickoutside';
 import listen from 'dom-helpers/events/listen';
 // mixins
 import popper from 'mixins/popper';
-
-const prefixClass = 'co-select';
 
 export default {
   name: 'co-select',
@@ -88,6 +86,8 @@ export default {
   },
   computed: {
     classes() {
+      const prefixClass = 'co-select';
+
       return {
         [prefixClass]: true,
         [`${prefixClass}--${this.size}`]: this.size !== undefined,

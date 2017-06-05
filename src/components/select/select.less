@@ -28,21 +28,15 @@
   }
 }
 
-.co-select__list {
-  list-style-type: none;
-  padding-left: 0;
-  margin-bottom: 0;
+.co-select__dropdown {
+  &:extend(.co-dropdown__wrapper);
+  max-height: 200px;
+  overflow-y: auto;
 }
 
-.co-select__dropdown {
-  width: auto;
-  max-height: 200px;
-  background-color: #fff;
-  margin: 4px 0;
-  border: 1px solid #d2d2d2;
-  box-shadow: 0 0 6px rgba(0, 0, 0, .25);
-  z-index: @select-dropdown-z-index;
-  overflow-y: auto;
+.co-select__list {
+  &:extend(.co-dropdown__menu);
+  min-width: none;
 }
 
 
@@ -89,36 +83,4 @@
 // 获取焦点
 .co-select--open .co-icon-arrow-down-b {
   transform: rotate(180deg);
-}
-
-
-// 动效
-.co-select--slide-enter-active {
-  animation: co-select-in .2s ease-in-out;
-}
-
-.co-select--slide-leave-active {
-  animation: co-select-out .2s ease-in-out;
-}
-
-@keyframes co-select-in {
-  from {
-    opacity: 0;
-    transform: scaleY(.8);
-  }
-  to {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-}
-
-@keyframes co-select-out {
-  from {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-  to {
-    opacity: 0;
-    transform: scaleY(.8);
-  }
 }

@@ -10,13 +10,13 @@
       @click="onClick">
       <slot></slot>
     </div>
-    <transition name="co-scale">
+    <transition name="co-slide">
       <div
         class="co-dropdown__wrapper"
         v-show="visible"
         ref="popper"
-        @mouseenter="onMouseenter"
-        @mouseleave="onMouseleave">
+        @mouseenter="onMenuMouseenter"
+        @mouseleave="onMenuMouseleave">
         <slot name="menu"></slot>
       </div>
     </transition>
@@ -44,36 +44,32 @@ export default {
         return oneOf(val, ['hover', 'click', 'custom']);
       },
     },
-    // visible: {
-    //   type: Boolean,
-    //   default: false,
-    // },
+    show: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
-      show: false,
       timeoutID: null,
     };
   },
   computed: {
-    // isSubDropdown() {
-    //   const parent = this.$parent.$parent.$parent;
+    isSubDropdown() {
+      const parent = this.$parent.$parent;
 
-    //   if (parent.$options.name === 'co-dropdown') {
-    //     return parent;
-    //   }
-
-    //   return false;
-    // },
+      return parent.$options.name === 'co-dropdown';
+    },
   },
   watch: {
-    visible(newVal) {
+    show(newVal) {
       if (this.trigger === 'custom') {
-        this.show = newVal;
+        this.visible = newVal;
       }
     },
   },
   created() {
+    this.appendBody = !this.isSubDropdown;
     this.$on('on-click', this.onDropdownClick);
   },
   methods: {
@@ -106,6 +102,16 @@ export default {
       this.timeoutID = setTimeout(() => {
         this.visible = false;
       }, 150);
+    },
+    onMenuMouseenter() {
+      if (this.isSubDropdown) return;
+
+      this.onMouseenter();
+    },
+    onMenuMouseleave() {
+      if (this.isSubDropdown) return;
+
+      this.onMouseleave();
     },
     onDropdownClick(label) {
       if (this.isSubDropdown) {
