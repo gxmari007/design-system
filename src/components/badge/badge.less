@@ -7,34 +7,34 @@
 .co-badge__count,
 .co-badge__dot {
   position: absolute;
+  z-index: @badge-z-index;
   right: 0;
-  z-index: 10;
-  background-color: @error;
-  text-align: center;
-  color: #fff;
-  border-radius: 10px;
-  font-size: 12px;
-  white-space: nowrap;
-  box-shadow: 0 0 0 1px #fff;
   transform: translateX(50%);
   transform-origin: 100% center;
+  text-align: center;
+  white-space: nowrap;
+  color: @badge-color;
+  border-radius: @badge-count-border-radius;
+  background-color: @badge-count-bg;
+  box-shadow: @badge-box-shadow;
+  font-size: @badge-font-size;
   // 单独设置 badge 的字体为 tahoma
   // 但中文显示不佳
   // font-family: tahoma;
 }
 
 .co-badge__count {
-  top: -10px;
-  min-width: 20px;
-  height: 20px;
-  line-height: 20px;
-  padding: 0 6px;
+  top: @badge-count-top;
+  min-width: @badge-count-min-width;
+  height: @badge-count-height;
+  padding: @badge-count-padding-y @badge-count-padding-x;
+  line-height: @badge-count-line-height;
 }
 
 .co-badge__dot {
-  top: -4px;
-  width: 8px;
-  height: 8px;
+  top: @badge-dot-top;
+  width: @badge-dot-size;
+  height: @badge-dot-size;
 }
 
 

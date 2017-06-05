@@ -74,7 +74,7 @@ export default {
           }
 
           this.timeoutID = setTimeout(() => {
-            this.currentCount = newVal;
+            this.currentCount = this._count;
           }, 200);
         } else {
           this.currentCount = newVal;

@@ -306,6 +306,24 @@
 @switch-sm-indicator-size: @switch-sm-height - @switch-sm-indicator-top * 2;
 
 
+// Badge
+@badge-font-size: @font-size-base;
+@badge-color: #fff;
+@badge-box-shadow: 0 0 0 1px #fff;
+
+@badge-count-bg: @error;
+@badge-count-min-width: 20px;
+@badge-count-height: 20px;
+@badge-count-line-height: @badge-count-height;
+@badge-count-border-radius: 10px;
+@badge-count-top: round(-(@badge-count-height / 2));
+@badge-count-padding-x: 6px;
+@badge-count-padding-y: 0;
+
+@badge-dot-size: 8px;
+@badge-dot-top: round(-(@badge-dot-size / 2));
+
+
 // Timing
 @ease-in: cubic-bezier(0.08, 0.82, 0.17, 1);
 @ease-out: cubic-bezier(0.78, 0.14, 0.15, 0.86);
@@ -314,6 +332,7 @@
 // Z-index
 @affix-z-index: 10;
 @back-top-z-index: 10;
+@badge-z-index: 10;
 @modal-z-index: 911;
 @modal-mask-z-index: 910;
 @tooltip-z-index: 1060;
