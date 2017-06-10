@@ -1,25 +1,33 @@
 <template>
   <div>
-    <co-dropdown placement="bottom-start">
-      <co-button>下拉菜单</co-button>
-      <co-dropdown-menu slot="menu">
-        <co-dropdown-item>测试 item</co-dropdown-item>
-        <co-dropdown-item>测试 item</co-dropdown-item>
-        <co-dropdown-item>测试 item</co-dropdown-item>
-        <co-dropdown-item>测试 item</co-dropdown-item>
-        <co-dropdown-item>测试 item</co-dropdown-item>
-        <co-dropdown-item>测试 item</co-dropdown-item>
-        <co-dropdown-item divided>测试 item</co-dropdown-item>
-        <co-dropdown-item>测试 item</co-dropdown-item>
-        <co-dropdown placement="right-start">
-          <co-dropdown-item>子目录 <co-icon type="ios-arrow-right"></co-icon></co-dropdown-item>
-          <co-dropdown-menu slot="menu">
-            <co-dropdown-item>item 1</co-dropdown-item>
-            <co-dropdown-item>item 2</co-dropdown-item>
-          </co-dropdown-menu>
-        </co-dropdown>
-      </co-dropdown-menu>
-    </co-dropdown>
+    <co-carousel style="width: 500px;" autoplay trigger="click" dots="outside">
+      <co-carousel-item>
+        <div class="carousel-demo">1</div>
+      </co-carousel-item>
+      <co-carousel-item>
+        <div class="carousel-demo">2</div>
+      </co-carousel-item>
+      <co-carousel-item>
+        <div class="carousel-demo">3</div>
+      </co-carousel-item>
+      <co-carousel-item>
+        <div class="carousel-demo">4</div>
+      </co-carousel-item>
+    </co-carousel>
+    <co-carousel trigger="hover">
+      <co-carousel-item>
+        <div class="carousel-demo">1</div>
+      </co-carousel-item>
+      <co-carousel-item>
+        <div class="carousel-demo">2</div>
+      </co-carousel-item>
+      <co-carousel-item>
+        <div class="carousel-demo">3</div>
+      </co-carousel-item>
+      <co-carousel-item>
+        <div class="carousel-demo">4</div>
+      </co-carousel-item>
+    </co-carousel>
   </div>
 </template>
 
@@ -42,5 +50,13 @@ export default {
 <style>
 body {
   padding: 50px;
+}
+.carousel-demo {
+  height: 220px;
+  line-height: 220px;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+  background-color: #364d79;
 }
 </style>
