@@ -1,0 +1,41 @@
+.co-card {
+  position: relative;
+  background-color: @card-bg;
+  font-size: @card-font-size;
+  transition: @card-transition;
+
+  &:hover {
+    box-shadow: @card-hover-box-shadow;
+  }
+}
+
+.co-card__head {
+  border-bottom: @card-head-border;
+  padding: @card-padding;
+}
+
+.co-card__extra {
+  position: absolute;
+  top: @card-padding;
+  right: @card-padding;
+}
+
+.co-card__body {
+  padding: @card-padding;
+}
+
+
+.co-card--border {
+  border: @card-border;
+}
+
+.co-card--dis-hover:hover {
+  box-shadow: none;
+}
+
+.co-card--shadow {
+  &,
+  &:hover {
+    box-shadow: @card-shadow;
+  }
+}

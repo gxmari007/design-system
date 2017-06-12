@@ -14,20 +14,14 @@
         <div class="carousel-demo">4</div>
       </co-carousel-item>
     </co-carousel>
-    <co-carousel trigger="hover">
-      <co-carousel-item>
-        <div class="carousel-demo">1</div>
-      </co-carousel-item>
-      <co-carousel-item>
-        <div class="carousel-demo">2</div>
-      </co-carousel-item>
-      <co-carousel-item>
-        <div class="carousel-demo">3</div>
-      </co-carousel-item>
-      <co-carousel-item>
-        <div class="carousel-demo">4</div>
-      </co-carousel-item>
-    </co-carousel>
+
+    <co-card style="width: 200px;" :padding="16">
+      <p style="margin-bottom: 0;" slot="title">
+        标题
+      </p>
+      <a slot="extra" href="">右侧内容</a>
+      card content
+    </co-card>
   </div>
 </template>
 

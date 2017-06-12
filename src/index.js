@@ -3,6 +3,7 @@ import CoBackTop from 'components/back_top';
 import CoBadge from 'components/badge';
 import { CoBreadcrumb, CoBreadcrumbItem } from 'components/breadcrumb';
 import { CoButtonGroup, CoButton } from 'components/button';
+import CoCard from 'components/card';
 import { CoCarousel, CoCarouselItem } from 'components/carousel';
 import CoCascader from 'components/cascader';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
@@ -33,6 +34,7 @@ const coview = {
   CoBreadcrumbItem,
   CoButtonGroup,
   CoButton,
+  CoCard,
   CoCarousel,
   CoCarouselItem,
   CoCascader,
@@ -95,6 +97,7 @@ export {
   CoBreadcrumbItem,
   CoButtonGroup,
   CoButton,
+  CoCard,
   CoCarousel,
   CoCarouselItem,
   CoCascader,
