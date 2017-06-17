@@ -7,6 +7,7 @@ import CoCard from 'components/card';
 import { CoCarousel, CoCarouselItem } from 'components/carousel';
 import CoCascader from 'components/cascader';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
+import { CoCollapse, CoCollapsePanel } from 'components/collapse';
 import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
 import { CoForm, CoFormItem } from 'components/form';
 import CoInput from 'components/input';
@@ -14,6 +15,7 @@ import CoInputNumber from 'components/input_number';
 import CoIcon from 'components/icon';
 import { CoRow, CoCol } from 'components/layout';
 import CoLoading from 'components/loading';
+import { CoMenu, CoMenuItem } from 'components/menu';
 import CoModal from 'components/modal';
 import CoPagination from 'components/pagination';
 import CoPopover from 'components/popover';
@@ -40,6 +42,8 @@ const coview = {
   CoCascader,
   CoCheckboxGroup,
   CoCheckbox,
+  CoCollapse,
+  CoCollapsePanel,
   CoDropdown,
   CoDropdownMenu,
   CoDropdownItem,
@@ -50,6 +54,8 @@ const coview = {
   CoIcon,
   CoRow,
   CoCol,
+  CoMenu,
+  CoMenuItem,
   CoModal,
   CoPagination,
   CoPopover,
@@ -103,6 +109,8 @@ export {
   CoCascader,
   CoCheckboxGroup,
   CoCheckbox,
+  CoCollapse,
+  CoCollapsePanel,
   CoDropdown,
   CoDropdownMenu,
   CoDropdownItem,
@@ -113,6 +121,8 @@ export {
   CoIcon,
   CoRow,
   CoCol,
+  CoMenu,
+  CoMenuItem,
   CoModal,
   CoPagination,
   CoPopover,

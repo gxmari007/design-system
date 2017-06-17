@@ -12,7 +12,7 @@
           :data-id="column.columnId"
           :style="setTdStyles(column, item.row)">
           <co-tooltip
-            v-if="column.overflowTooltip || column.display.charLength > 0"
+            v-if="column.overflowTooltip"
             placement="left"
             :delay="1000"
             :content="item.row[column.prop]"

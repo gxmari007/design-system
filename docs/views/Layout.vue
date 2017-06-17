@@ -1,27 +1,6 @@
 <template>
   <div>
-    <co-carousel style="width: 500px;" autoplay trigger="click" dots="outside">
-      <co-carousel-item>
-        <div class="carousel-demo">1</div>
-      </co-carousel-item>
-      <co-carousel-item>
-        <div class="carousel-demo">2</div>
-      </co-carousel-item>
-      <co-carousel-item>
-        <div class="carousel-demo">3</div>
-      </co-carousel-item>
-      <co-carousel-item>
-        <div class="carousel-demo">4</div>
-      </co-carousel-item>
-    </co-carousel>
-
-    <co-card style="width: 200px;" :padding="16">
-      <p style="margin-bottom: 0;" slot="title">
-        标题
-      </p>
-      <a slot="extra" href="">右侧内容</a>
-      card content
-    </co-card>
+    <co-switch v-model="value"></co-switch>
   </div>
 </template>
 
@@ -29,14 +8,16 @@
 export default {
   data() {
     return {
-      count: 100,
-      visible: false,
+      value: true,
     };
   },
   methods: {
-    onClick() {
-      this.count = this.count === 100 ? 0 : 100;
-    },
+    // move(e) {
+    //   const minLeft = 0;
+    //   const maxLeft = parentWidth - this.$el.width;
+    //   const minTop = 0;
+    //   const maxTop = parentHeight - this.$el.height;
+    // },
   },
 };
 </script>
@@ -45,12 +26,36 @@ export default {
 body {
   padding: 50px;
 }
-.carousel-demo {
-  height: 220px;
-  line-height: 220px;
-  text-align: center;
-  font-size: 18px;
-  color: #fff;
-  background-color: #364d79;
+.container {
+  position: relative;
+  width: 1000px;
+  height: 1000px;
+  background-color: #ddd;
+}
+.box {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: orange;
+}
+.right-handle {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 2px;
+  height: 50%;
+  transform: translateY(-50%);
+  background-color: #555;
+  cursor: ew-resize;
+}
+.bottom-handle {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 50%;
+  height: 2px;
+  background-color: #555;
+  transform: translateX(-50%);
+  cursor: ns-resize;
 }
 </style>

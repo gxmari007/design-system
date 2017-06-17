@@ -1,5 +1,6 @@
 // 颜色
 @primary: #0e90d2;
+@primary-dark: #0d81bd;
 @success: #10a100;
 @error: #f33b32;
 
@@ -273,9 +274,9 @@
 
 // Switch
 @switch-min-width: 44px;
-@switch-height: 22px;
+@switch-height: 20px;
 @switch-cursor: pointer;
-@switch-vertical-align: middle;
+@switch-vertical-align: @vertical-align-base;
 @switch-border-radius: @switch-height / 2;
 @switch-bg: rgba(0, 0, 0, .25);
 @switch-line-height: @switch-height;
@@ -286,8 +287,8 @@
 @switch-indicator-border-radius: @switch-indicator-size;
 @switch-indicator-bg: #fff;
 
-@switch-content-margin-right: 6px;
-@switch-content-margin-left: 24px;
+@switch-content-margin-right: 4px;
+@switch-content-margin-left: @switch-content-margin-right + @switch-indicator-top + @switch-indicator-size;
 @switch-content-text-align: center;
 @switch-content-color: #fff;
 @switch-content-font-size: 12px;

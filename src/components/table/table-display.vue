@@ -7,7 +7,7 @@
       <co-form-item label="最小值后">
         <co-row>
           <co-col span="8">
-            <co-input-number v-model="display.minLength" :min="0"></co-input-number>
+            <co-input-number v-model="display.minLength" :min="0" :max="10000"></co-input-number>
             <span>个</span>
           </co-col>
           <co-col span="16">
@@ -25,7 +25,7 @@
       <co-form-item label="最大值前">
         <co-row>
           <co-col span="8">
-            <co-input-number v-model="display.maxLength" :min="0"></co-input-number>
+            <co-input-number v-model="display.maxLength" :min="0" :max="10000"></co-input-number>
             <span>个</span>
           </co-col>
           <co-col span="16">

@@ -101,6 +101,7 @@ export default {
           Object.keys(value).indexOf('prop') !== -1;
       },
     },
+    defaultDisplay: Object,
   },
   data() {
     return {
@@ -184,6 +185,7 @@ export default {
     // 初始化
     this.bindEvent();
     this.doUpdateLayout();
+    this.$on('column-display-change', this.onDisplayChange);
   },
   beforeDestroy() {
     if (typeof this.resizeHandler === 'function') {
@@ -256,6 +258,9 @@ export default {
       this.$nextTick(() => {
         this.display = true;
       });
+    },
+    onDisplayChange(prop, display) {
+      this.$emit('on-display-change', prop, display);
     },
   },
   components: {

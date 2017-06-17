@@ -1,8 +1,8 @@
 .co-card {
   position: relative;
+  transition: @card-transition;
   background-color: @card-bg;
   font-size: @card-font-size;
-  transition: @card-transition;
 
   &:hover {
     box-shadow: @card-hover-box-shadow;
@@ -10,8 +10,8 @@
 }
 
 .co-card__head {
-  border-bottom: @card-head-border;
   padding: @card-padding;
+  border-bottom: @card-head-border;
 }
 
 .co-card__extra {

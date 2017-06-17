@@ -1,0 +1,43 @@
+.co-collapse {
+  border: 1px solid #dcdcdc;
+  background-color: #f7f7f7;
+}
+
+.co-collapse__panel {
+  border-bottom: 1px solid #dcdcdc;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.co-collapse__head {
+  position: relative;
+  height: 38px;
+  padding-left: 30px;
+  cursor: pointer;
+  color: #666;
+  line-height: 38px;
+}
+
+.co-collapse__icon {
+  position: absolute;
+  top: 0;
+  left: 14px;
+  line-height: 38px;
+  transition: transform .2s ease;
+  font-size: 14px;
+
+  &--open {
+    transform: rotate(90deg);
+  }
+}
+
+.co-collapse__body {
+  padding: 0 14px;
+  background-color: #fff;
+}
+
+.co-collapse__content {
+  padding: 14px 0;
+}

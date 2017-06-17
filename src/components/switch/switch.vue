@@ -10,7 +10,7 @@
         <slot name="on"></slot>
       </template>
       <template v-if="$slots.off && !model">
-        <slot name="off"></slot>
+        <slot name="off">否</slot>
       </template>
     </span>
   </label>
@@ -52,8 +52,9 @@ export default {
         return this.value;
       },
       set(val) {
-        this.$emit('input', val);
+        this.dispatch('co-form-item', 'form-item-change', val);
         this.$emit('on-change', val);
+        this.$emit('input', val);
       },
     },
     classes() {
@@ -65,13 +66,6 @@ export default {
         [`${prefixClass}--${this.size}`]: typeof this.size !== 'undefined',
         [`${prefixClass}--disabled`]: this.disabled,
       };
-    },
-  },
-  watch: {
-    value(newVal) {
-      if (this.validate) {
-        this.dispatch('co-form-item', 'form-item-change', newVal);
-      }
     },
   },
 };

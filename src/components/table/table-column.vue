@@ -1,8 +1,11 @@
 <script>
+import emitter from 'mixins/emitter';
+
 let id = 1;
 
 export default {
   name: 'co-table-column',
+  mixins: [emitter],
   props: {
     // 对应数据项的属性名称
     prop: String,
@@ -44,6 +47,28 @@ export default {
     },
   },
   data() {
+    let display = {
+      minLength: 0, // 单元格前多少字符
+      minColor: '', // 单元格前多少字符颜色
+      maxLength: 0,
+      maxColor: '',
+      middleValue: '',
+      rangeEnabled: false,
+      rangeType: '',
+      min: 0,
+      max: 0,
+      rangeColor: '',
+    };
+    let parent = this.$parent;
+
+    while (parent && parent.$options.name !== 'co-table') {
+      parent = parent.$parent;
+    }
+
+    if (parent.defaultDisplay && parent.defaultDisplay[this.prop]) {
+      display = JSON.parse(JSON.stringify(parent.defaultDisplay[this.prop]));
+    }
+
     return {
       /*
        * Global values
@@ -55,19 +80,7 @@ export default {
       fixedWidth: this.width,
       realWidth: this.width || this.minWidth || 80,
       // 显示设置参数
-      display: {
-        charLength: 0,
-        minLength: 0, // 单元格前多少字符
-        minColor: '', // 单元格前多少字符颜色
-        maxLength: 0,
-        maxColor: '',
-        middleValue: '',
-        rangeEnabled: false,
-        rangeType: '',
-        min: 0,
-        max: 0,
-        rangeColor: '',
-      },
+      display,
     };
   },
   computed: {
@@ -97,6 +110,12 @@ export default {
     },
     minWidth() {
       this.table.updateLayout();
+    },
+    display: {
+      deep: true,
+      handler(newVal) {
+        this.dispatch('co-table', 'column-display-change', this.prop, newVal);
+      },
     },
   },
   created() {
