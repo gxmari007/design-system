@@ -1,6 +1,15 @@
 <template>
   <div>
-    <co-switch v-model="value"></co-switch>
+    <co-breadcrumb>
+      <co-breadcrumb-item to="/">
+        首页
+      </co-breadcrumb-item>
+      <co-breadcrumb-item to="/">我的分析</co-breadcrumb-item>
+      <co-breadcrumb-item to="/">
+        已发布报表
+      </co-breadcrumb-item>
+      <co-breadcrumb-item>学生报表</co-breadcrumb-item>
+    </co-breadcrumb>
   </div>
 </template>
 
@@ -26,36 +35,8 @@ export default {
 body {
   padding: 50px;
 }
-.container {
-  position: relative;
-  width: 1000px;
-  height: 1000px;
-  background-color: #ddd;
-}
-.box {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background-color: orange;
-}
-.right-handle {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 2px;
-  height: 50%;
-  transform: translateY(-50%);
-  background-color: #555;
-  cursor: ew-resize;
-}
-.bottom-handle {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 50%;
-  height: 2px;
-  background-color: #555;
-  transform: translateX(-50%);
-  cursor: ns-resize;
+.demo {
+  color: #ff5500;
+  padding: 0 5px;
 }
 </style>

@@ -1,67 +1,64 @@
 <template>
   <span class="co-breadcrumb__item">
-    <a class="co-breadcrumb__text" v-if="href" :href="href">
+    <a v-if="to" class="co-breadcrumb__text" @click="onClick">
       <slot></slot>
     </a>
-    <span class="co-breadcrumb__text" v-else ref="text">
+    <span v-else class="co-breadcrumb__text">
       <slot></slot>
     </span>
-    <span class="co-breadcrumb__separator" v-html="separator"></span>
+    <span v-if="!showSlot" class="co-breadcrumb__separator" v-html="separator"></span>
+    <span v-else class="co-breadcrumb__separator">
+      <slot name="separator"></slot>
+    </span>
   </span>
 </template>
 
 <script>
-import listen from 'dom-helpers/events/listen';
-
 export default {
   name: 'co-breadcrumb-item',
   props: {
-    href: String,
-    // 配合 vue-router 使用的属性
-    // 跳转到的路由
-    to: [String, Object],
-    // 跳转页面并且不向 history 里添加记录
+    to: null,
     replace: {
       type: Boolean,
       default: false,
     },
   },
   data() {
-    const separator = this.$parent && this.$parent.$options.componentName === 'co-breadcrumb'
-      ? this.$parent.separator
-      : '/';
-
     return {
-      separator,
-      clickEvent: null,
+      showSlot: false,
     };
   },
   computed: {
     breadcrumb() {
       let parent = this.$parent;
 
-      while (parent && parent.$options.componentName !== 'co-breadcrumb') {
+      while (parent && parent.$options.name !== 'co-breadcrumb') {
         parent = parent.$parent;
       }
 
       return parent;
     },
+    separator() {
+      if (this.breadcrumb && this.breadcrumb.separator) {
+        return this.breadcrumb.separator;
+      }
+
+      return '';
+    },
   },
   mounted() {
-    const { to, replace } = this;
-
-    if (to !== undefined) {
-      const textDom = this.$refs.text;
-
-      this.clickEvent = listen(textDom, 'click', () => {
-        replace ? this.$router.replace(to) : this.$router.push(to);
-      });
-    }
+    this.showSlot = typeof this.$slots.separator !== 'undefined';
   },
-  beforeDestroy() {
-    if (typeof this.clickEvent === 'function') {
-      this.clickEvent();
-    }
+  methods: {
+    onClick() {
+      const { to, replace } = this;
+
+      if (this.$router) {
+        replace ? this.$router.replace(to) : this.$router.push(to);
+      } else {
+        window.location.href = to;
+      }
+    },
   },
 };
 </script>
