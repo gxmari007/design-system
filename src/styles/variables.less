@@ -4,6 +4,11 @@
 @success: #10a100;
 @error: #f33b32;
 
+@gray-dark: #333;
+@gray: #555;
+@gray-light: #999;
+@gray-lighter: #bebebe;
+
 @body-bg: #fff;
 
 
@@ -21,7 +26,7 @@
 
 @font-size-base: 12px;
 @font-weight-base: 400;
-@font-color-base: #333;
+@font-color-base: @gray-dark;
 
 @line-height-base: 1.5;
 
@@ -41,12 +46,12 @@
 
 @button-disabled-bg: #fafafa;
 @button-disabled-border-color: #dcdcdc;
-@button-disabled-color: #bebebe;
+@button-disabled-color: @gray-lighter;
 @button-disabled-cursor: not-allowed;
 
 @button-default-border-color: #dcdcdc;
 @button-default-bg: #fafafa;
-@button-default-hover-border-color: #bebebe;
+@button-default-hover-border-color: @gray-lighter;
 @button-default-hover-bg: #fff;
 
 @button-primary-border-color: @primary;
@@ -66,7 +71,7 @@
 
 // Input
 @input-font-color: @font-color-base;
-@input-placeholder-color: #bebebe;
+@input-placeholder-color: @gray-lighter;
 
 @input-line-height: 1.5;
 
@@ -86,7 +91,7 @@
 
 @input-disabled-background: #fafafa;
 @input-disabled-cursor: not-allowed;
-@input-disabled-color: #bebebe;
+@input-disabled-color: @gray-lighter;
 
 @input-icon-font-size: 14px;
 @input-icon-color: #909fa8;
@@ -100,7 +105,7 @@
 @input-number-default-width: 80px;
 
 @input-number-btn-border-color: #dcdcdc;
-@input-number-btn-color: #bebebe;
+@input-number-btn-color: @gray-lighter;
 @input-number-btn-width: 20px;
 @input-number-btn-height: 12px;
 @input-number-btn-height-sm: 11px;
@@ -143,7 +148,7 @@
 @option-background-hover: #f4f5f6;
 @option-cursor: pointer;
 
-@option-disabled-color: #999;
+@option-disabled-color: @gray-light;
 @option-disabled-cursor: not-allowed;
 
 @option-active-background: @primary;
@@ -191,7 +196,7 @@
 @pagination-item-margin: 4px;
 @pagination-margin-bottom: 10px;
 
-@pagination-font-color: #555;
+@pagination-font-color: @gray;
 @pagination-font-active-color: @primary;
 @pagination-size: 22px;
 @pagination-line-height: 22px;
@@ -204,7 +209,7 @@
 @pagination-cursor: pointer;
 
 @pagination-disabled-cursor: not-allowed;
-@pagination-disabled-color: #bebebe;
+@pagination-disabled-color: @gray-lighter;
 @pagination-disabled-border-color: #e6e6e6;
 
 
@@ -354,7 +359,7 @@
 
 
 // Breadcrumb
-@breadcrumb-color: #999;
+@breadcrumb-color: @gray-light;
 @breadcrumb-font-size: 12px;
 @breadcrumb-last-font-weight: 700;
 @breadcrumb-cursor: pointer;

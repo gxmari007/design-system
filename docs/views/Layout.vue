@@ -20,14 +20,6 @@ export default {
       value: true,
     };
   },
-  methods: {
-    // move(e) {
-    //   const minLeft = 0;
-    //   const maxLeft = parentWidth - this.$el.width;
-    //   const minTop = 0;
-    //   const maxTop = parentHeight - this.$el.height;
-    // },
-  },
 };
 </script>
 
