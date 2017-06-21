@@ -1,15 +1,6 @@
 <template>
   <div>
-    <co-breadcrumb>
-      <co-breadcrumb-item to="/">
-        首页
-      </co-breadcrumb-item>
-      <co-breadcrumb-item to="/">我的分析</co-breadcrumb-item>
-      <co-breadcrumb-item to="/">
-        已发布报表
-      </co-breadcrumb-item>
-      <co-breadcrumb-item>学生报表</co-breadcrumb-item>
-    </co-breadcrumb>
+    <co-pagination :total="1000" :max-pages="5" ellipsis></co-pagination>
   </div>
 </template>
 

@@ -1,15 +1,13 @@
 .co-pagination {
   &:extend(.clearfix all);
-
-  margin-bottom: @pagination-margin-bottom;
-
+  font-size: 12px;
   user-select: none;
 }
 
 .co-pagination__total {
   float: left;
   color: #999;
-  line-height: @pagination-line-height;
+  line-height: @pagination-total-line-height;
   margin-right: 4px;
 }
 
@@ -23,13 +21,19 @@
 
 .co-pagination__ellipsis {
   float: left;
+  width: @pagination-size;
   height: @pagination-size;
-  font-size: 14px;
-  line-height: @pagination-line-height + 1;
-  padding: 0 5px;
+  font-size: 16px;
+  line-height: @pagination-line-height;
+  text-align: center;
+
+  .co-icon {
+    vertical-align: text-bottom;
+  }
 }
 
 .co-pagination__item {
+  display: inline-block;
   float: left;
 
   min-width: @pagination-size;
@@ -44,6 +48,10 @@
   background-color: @pagination-bg;
 
   line-height: @pagination-line-height;
+
+  .co-icon {
+    vertical-align: inherit;
+  }
 
   & + & {
     margin-left: @pagination-item-margin;

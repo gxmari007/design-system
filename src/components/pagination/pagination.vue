@@ -7,7 +7,7 @@
         class="co-pagination__item"
         :class="{ 'co-pagination__item--disabled': activePage === 1 }"
         @click="selectPrev">
-        <co-icon type="angle-left"></co-icon>
+        <co-icon type="ios-arrow-left"></co-icon>
       </li>
       <template v-for="item in pageButtons">
         <li
@@ -15,17 +15,13 @@
           class="co-pagination__item"
           :class="{ active: activePage === item }"
           @click="selectPage(item)">{{ item }}</li>
-        <li v-else class="co-pagination__ellipsis">
-          <co-icon type="ellipsis-h"></co-icon>
-        </li>
+        <li v-else class="co-pagination__ellipsis"><co-icon type="ios-more"></co-icon></li>
       </template>
       <li
         v-if="next"
         class="co-pagination__item"
         :class="{ 'co-pagination__item--disabled': activePage === pageCount }"
-        @click="selectNext">
-        <co-icon type="angle-right"></co-icon>
-      </li>
+        @click="selectNext"><co-icon type="ios-arrow-right"></co-icon></li>
     </ul>
   </div>
 </template>
