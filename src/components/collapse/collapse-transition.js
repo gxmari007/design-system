@@ -70,7 +70,7 @@ const transition = {
 };
 
 export default {
-  name: 'collapse-transition',
+  name: 'co-collapse-transition',
   functional: true,
   render(h, { children }) {
     const data = {

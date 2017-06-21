@@ -4,19 +4,19 @@
       <co-icon :class="iconClasses" type="ios-arrow-right"></co-icon>
       <slot name="head"></slot>
     </div>
-    <collapse-transition>
+    <co-collapse-transition>
       <div v-show="visible" class="co-collapse__body">
         <div class="co-collapse__content">
           <slot></slot>
         </div>
       </div>
-    </collapse-transition>
+    </co-collapse-transition>
   </div>
 </template>
 
 <script>
 import CoIcon from 'components/icon';
-import CollapseTransition from './collapse-transition';
+import CoCollapseTransition from './collapse-transition';
 
 export default {
   name: 'co-collapse-panel',
@@ -63,7 +63,7 @@ export default {
   },
   components: {
     CoIcon,
-    CollapseTransition,
+    CoCollapseTransition,
   },
 };
 </script>

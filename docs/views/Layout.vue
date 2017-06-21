@@ -1,6 +1,6 @@
 <template>
   <div>
-    <co-pagination :total="1000" :max-pages="5" ellipsis></co-pagination>
+    <co-tree :data="tree"></co-tree>
   </div>
 </template>
 
@@ -8,7 +8,17 @@
 export default {
   data() {
     return {
-      value: true,
+      tree: [
+        { label: '一级 1', children: [ { label: '一级 1-1' } ] },
+        {
+          label: '一级 2',
+          children: [
+            { label: '子节点', children: [ { label: '二级子节点' } ] },
+            { label: '子节点' },
+          ],
+        },
+        { label: '一级 3' },
+      ],
     };
   },
 };
@@ -17,9 +27,5 @@ export default {
 <style>
 body {
   padding: 50px;
-}
-.demo {
-  color: #ff5500;
-  padding: 0 5px;
 }
 </style>
