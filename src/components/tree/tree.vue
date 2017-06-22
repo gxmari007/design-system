@@ -14,6 +14,14 @@ export default {
   name: 'co-tree',
   props: {
     data: Array,
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
+    checkable: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     CoTreeItem,

@@ -1,13 +1,13 @@
 .co-checkbox-group {
   display: inline-block;
   font-size: 0;
-  vertical-align: top;
+  vertical-align: @checkbox-vertical-align;
 }
 
 .co-checkbox {
   display: inline-block;
   font-size: @font-size-base;
-  vertical-align: top;
+  vertical-align: @checkbox-vertical-align;
   cursor: pointer;
 
   & + .co-checkbox {
@@ -32,7 +32,7 @@
   display: block;
   width: @checkbox-indicator-width;
   height: @checkbox-indicator-height;
-  transition: border-color .15s linear, background-color .15s linear;
+  transition: .2s ease;
   border: 1px solid @checkbox-border-color;
   border-radius: @checkbox-border-radius;
 

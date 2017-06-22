@@ -1,6 +1,6 @@
 <template>
   <div>
-    <co-tree :data="tree"></co-tree>
+    <co-tree style="margin-bottom: 10px;" :data="tree" checkable></co-tree>
   </div>
 </template>
 
@@ -13,8 +13,11 @@ export default {
         {
           label: '一级 2',
           children: [
-            { label: '子节点', children: [ { label: '二级子节点' } ] },
-            { label: '子节点' },
+            { label: '一级 2-1', children: [
+              { label: '一级 2-1-1' },
+              { label: '2-1-2' },
+            ] },
+            { label: '2-2' },
           ],
         },
         { label: '一级 3' },

@@ -6,11 +6,11 @@
 
   & &__sub-tree {
     clear: both;
-    margin-left: 18px;
+    margin-left: @tree-sub-margin-left;
   }
 
   & & {
-    padding-top: 8px;
+    padding-top: @tree-sub-padding-top;
   }
 }
 
@@ -41,6 +41,12 @@
   &--open {
     transform: rotate(90deg);
   }
+}
+
+.co-tree__check {
+  float: left;
+  margin-right: @tree-check-margin-right;
+  margin-left: @tree-check-margin-left;
 }
 
 .co-tree__label {
