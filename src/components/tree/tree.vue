@@ -13,7 +13,10 @@ import CoTreeItem from './tree-item';
 export default {
   name: 'co-tree',
   props: {
-    data: Array,
+    data: {
+      type: Array,
+      default() { return []; },
+    },
     multiple: {
       type: Boolean,
       default: false,
@@ -21,6 +24,10 @@ export default {
     checkable: {
       type: Boolean,
       default: false,
+    },
+    indent: {
+      type: Number,
+      default: 18,
     },
   },
   components: {

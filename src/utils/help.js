@@ -40,9 +40,7 @@ let scrollBarWidth;
 // 获取滚动条宽度
 // 缓存结果方便下次获取
 export function getScrollBarWidth() {
-  if (Vue.prototype.$isServer) {
-    return 0;
-  }
+  if (Vue.prototype.$isServer) return 0;
 
   if (typeof scrollBarWidth === 'undefined') {
     const outer = document.createElement('div');

@@ -14,8 +14,11 @@ export default {
           label: '一级 2',
           children: [
             { label: '一级 2-1', children: [
-              { label: '一级 2-1-1' },
-              { label: '2-1-2' },
+              { label: '2-1-1' },
+              { label: '2-1-2', children: [
+                { label: '2-2-1' },
+                { label: '2-2-2' },
+              ] },
             ] },
             { label: '2-2' },
           ],

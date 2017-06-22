@@ -4,14 +4,14 @@
       <co-icon v-if="isFolder" class="co-tree__arrow" type="arrow-right-b"></co-icon>
     </span>
     <co-checkbox
-      v-if="checkable"
+      v-if="tree.checkable"
       class="co-tree__check"
       :value="checked"
       :indeterminate="indeterminate"
       @input="onInput"></co-checkbox>
     <span class="co-tree__label">{{ data.label }}</span>
     <co-collapse-transition>
-      <div v-if="isFolder" v-show="visible" class="co-tree__sub-tree">
+      <div v-if="isFolder" v-show="visible" class="co-tree__sub-tree" :style="subTreeStyles">
         <ul class="co-tree">
           <co-tree-item
             ref="childs"
@@ -54,6 +54,11 @@ export default {
         [`${prefixClass}--open`]: this.visible,
       };
     },
+    subTreeStyles() {
+      return {
+        marginLeft: `${this.tree.indent}px`,
+      };
+    },
     tree() {
       let parent = this.$parent;
 
@@ -68,9 +73,6 @@ export default {
     },
     isSubItem() {
       return this.$parent.$options.name === 'co-tree-item';
-    },
-    checkable() {
-      return this.tree.checkable;
     },
     indeterminate() {
       if (this.childs.every(child => !child.checked && !child.indeterminate)) {
@@ -107,7 +109,6 @@ export default {
       }
     },
     onChecked() {
-      this.childrenChange();
       this.checked = this.childs.every(child => child.checked);
     },
     onInput(value) {
