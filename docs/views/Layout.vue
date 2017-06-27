@@ -1,12 +1,13 @@
 <template>
   <div>
-    <co-tree
+    <!-- <co-tree
       style="margin-bottom: 10px;"
       :data="tree"
       :props="defaultProps"
       node-key="id"
       checkable
-      :default-expand-keys="[1, 2]"></co-tree>
+      :default-expand-keys="[1, 6]"></co-tree> -->
+    <co-rate v-model="value" @on-change="onChange"></co-rate>
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 export default {
   data() {
     return {
+      value: 3,
       tree: [
         { id: 1, title: '一级 1', children: [ { id: 4, title: '一级 1-1' } ] },
         {
@@ -37,6 +39,11 @@ export default {
         children: 'children',
       },
     };
+  },
+  methods: {
+    onChange(count) {
+      console.log(count);
+    },
   },
 };
 </script>

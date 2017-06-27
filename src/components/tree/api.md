@@ -12,6 +12,8 @@ checkable | 节点是否可被选择 | Boolean | false
 indent | 相邻节点之间缩进的距离，单位像素 | Number | 18
 defaultExpandAll | 是否默认展开所有节点 | Boolean | false
 defaultExpandKeys | 默认展开的节点 | Array |
+autoExpandParent | 否自动展开父节点 | Boolean | true
+defaultCheckedKeys | 默认选中的节点 | Array |
 
 
 ### props

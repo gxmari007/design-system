@@ -20,6 +20,7 @@ import CoModal from 'components/modal';
 import CoPagination from 'components/pagination';
 import CoPopover from 'components/popover';
 import { CoRadioGroup, CoRadio } from 'components/radio';
+import CoRate from 'components/rate';
 import { CoSelect, CoOption } from 'components/select';
 import CoSwitch from 'components/switch';
 import { CoTable, CoTableColumn } from 'components/table';
@@ -61,6 +62,7 @@ const coview = {
   CoPopover,
   CoRadioGroup,
   CoRadio,
+  CoRate,
   CoSelect,
   CoOption,
   CoSwitch,
@@ -128,6 +130,7 @@ export {
   CoPopover,
   CoRadioGroup,
   CoRadio,
+  CoRate,
   CoSelect,
   CoOption,
   CoSwitch,

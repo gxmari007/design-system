@@ -25,6 +25,8 @@
             :indent="indent"
             :default-expand-all="defaultExpandAll"
             :default-expand-keys="defaultExpandKeys"
+            :auto-expand-parent="autoExpandParent"
+            :default-checked-keys="defaultCheckedKeys"
             @on-checked="onChecked"></co-tree-item>
         </ul>
       </div>
@@ -36,7 +38,7 @@
 import CoIcon from 'components/icon';
 import { CoCheckbox } from 'components/checkbox';
 import CoCollapseTransition from 'components/collapse/collapse-transition';
-import setChildren from './utils';
+import { setChildren, isExpand } from './utils';
 
 export default {
   name: 'co-tree-item',
@@ -49,13 +51,22 @@ export default {
     indent: Number,
     defaultExpandAll: Boolean,
     defaultExpandKeys: Array,
+    autoExpandParent: Boolean,
+    defaultCheckedKeys: Array,
   },
   data() {
-    const { data, nodeKey, defaultExpandAll, defaultExpandKeys } = this;
+    const {
+      data,
+      props,
+      nodeKey,
+      defaultExpandAll,
+      defaultExpandKeys,
+      autoExpandParent,
+    } = this;
     let visible = false;
 
     if (defaultExpandKeys) {
-      visible = defaultExpandKeys.indexOf(data[nodeKey]) > -1;
+      visible = isExpand(data, nodeKey, props.children, defaultExpandKeys, autoExpandParent);
     }
 
     return {

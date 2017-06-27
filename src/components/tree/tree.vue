@@ -10,7 +10,9 @@
       :checkable="checkable"
       :indent="indent"
       :default-expand-all="defaultExpandAll"
-      :default-expand-keys="defaultExpandKeys"></co-tree-item>
+      :default-expand-keys="defaultExpandKeys"
+      :auto-expand-parent="autoExpandParent"
+      :default-checked-keys="defaultCheckedKeys"></co-tree-item>
   </ul>
 </template>
 
@@ -53,6 +55,11 @@ export default {
       default: false,
     },
     defaultExpandKeys: Array,
+    autoExpandParent: {
+      type: Boolean,
+      default: true,
+    },
+    defaultCheckedKeys: Array,
   },
   components: {
     CoTreeItem,
