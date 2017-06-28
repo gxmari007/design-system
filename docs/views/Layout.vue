@@ -6,8 +6,9 @@
       :props="defaultProps"
       node-key="id"
       checkable
-      :default-expand-keys="[1, 6]"></co-tree> -->
-    <co-rate v-model="value" @on-change="onChange"></co-rate>
+      :default-expand-keys="[1, 6]"
+      :default-checked-keys="[4, 7]"></co-tree> -->
+    <co-rate v-model="value" :allow-half="true" disabled @on-change="onChange"></co-rate>
   </div>
 </template>
 
@@ -15,7 +16,7 @@
 export default {
   data() {
     return {
-      value: 3,
+      value: 3.8,
       tree: [
         { id: 1, title: '一级 1', children: [ { id: 4, title: '一级 1-1' } ] },
         {

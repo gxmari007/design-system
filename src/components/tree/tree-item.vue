@@ -119,6 +119,12 @@ export default {
     }
   },
   mounted() {
+    const { defaultCheckedKeys, data, nodeKey } = this;
+
+    if (defaultCheckedKeys) {
+      this.checked = defaultCheckedKeys.indexOf(data[nodeKey]) > -1;
+    }
+
     this.childrenChange();
   },
   methods: {

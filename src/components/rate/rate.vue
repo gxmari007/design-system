@@ -1,17 +1,17 @@
 <template>
-  <div class="co-rate" @mouseleave="onMouseleave">
+  <div :class="classes" @mouseleave="onMouseleave">
     <div class="co-rate__item" v-for="(item, index) in max" :key="index">
       <co-icon
+        :style="iconStyles(index)"
         type="star"
-        :style="iconStyles(index + 1)"
-        @mouseenter.native="onMouseenter(index + 1)"
-        @click.native="onClick(index + 1)"></co-icon>
+        @mouseenter.native="onMouseenter(index)"
+        @click.native="onClick(index)"></co-icon>
       <co-icon
-        class="co-rate__item--half"
-        :style="iconStyles(index + 1)"
+        class="co-rate__icon-half"
+        :style="iconStyles(index, true)"
         type="star"
-        @mouseenter.native="onMouseenter(index + 1)"
-        @click.native="onClick(index + 1)"></co-icon>
+        @mouseenter.native="onMouseenter(index, true)"
+        @click.native="onClick(index, true)"></co-icon>
     </div>
   </div>
 </template>
@@ -32,15 +32,42 @@ export default {
     },
     voidColor: {
       type: String,
-      default: '#C6D1DE',
+      default: '#e9e9e9',
     },
-    color: {
-      type: String,
-      default: '#F7BA2A',
+    colors: {
+      type: Array,
+      default() {
+        return ['#f7ba2a', '#f7ba2a', '#f7ba2a'];
+      },
+      validator(value) {
+        return value.length === 3;
+      },
+    },
+    lowThreshold: {
+      type: Number,
+      default: 2,
+    },
+    highThreshold: {
+      type: Number,
+      default: 4,
     },
     allowHalf: {
       type: Boolean,
       default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    icons: {
+      type: Array,
+      default() {
+        return ['star', 'star', 'star'];
+      },
+    },
+    voidIcon: {
+      type: String,
+      default: 'star',
     },
   },
   data() {
@@ -53,30 +80,68 @@ export default {
   },
   watch: {
     value(newVal) {
-      this.currentValue = newVal;
-      this.hoverCount = newVal;
+      if (newVal !== this.currentValue) {
+        this.currentValue = newVal;
+      }
+    },
+  },
+  computed: {
+    classes() {
+      const prefixClass = 'co-rate';
+
+      return [prefixClass, {
+        [`${prefixClass}--disabled`]: this.disabled,
+      }];
     },
   },
   methods: {
-    iconStyles(index) {
-      const { hoverCount, color, voidColor } = this;
+    iconStyles(count, half = false) {
+      const styles = {};
+      const { hoverCount, lowThreshold, highThreshold, colors, voidColor } = this;
+      const n = half ? count + 0.5 : count + 1;
 
-      return {
-        color: hoverCount >= index ? color : voidColor,
-      };
+      if (n <= hoverCount) {
+        if (hoverCount <= lowThreshold) {
+          styles.color = colors[0];
+        } else if (hoverCount > lowThreshold && hoverCount < highThreshold) {
+          styles.color = colors[1];
+        } else {
+          styles.color = colors[2];
+        }
+      } else {
+        styles.color = voidColor;
+      }
+
+      return styles;
     },
-    onMouseenter(index) {
-      this.hoverCount = index;
+    onMouseenter(count, half = false) {
+      if (this.disabled) return;
+
+      if (this.allowHalf && half) {
+        this.hoverCount = count + 0.5;
+      } else {
+        this.hoverCount = count + 1;
+      }
     },
     onMouseleave() {
+      if (this.disabled) return;
+
       this.hoverCount = this.currentValue;
     },
-    onClick(index) {
-      if (index === this.currentValue) return;
+    onClick(count, half = false) {
+      if (this.disabled) return;
 
-      this.currentValue = index;
-      this.$emit('on-change', index);
-      this.$emit('input', index);
+      let n = count + 1;
+
+      if (this.allowHalf && half) {
+        n = count + 0.5;
+      }
+
+      if (this.currentValue === n) return;
+
+      this.currentValue = n;
+      this.$emit('on-change', n);
+      this.$emit('input', n);
     },
   },
   components: {

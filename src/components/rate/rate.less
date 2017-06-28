@@ -13,7 +13,7 @@
   transition: all .2s ease-in-out;
 
   &:hover .co-icon::before {
-    transform: scale(1.15);
+    transform: scale(1.1);
   }
 
   & + & {
@@ -27,12 +27,25 @@
       transition: all .2s ease-in-out;
     }
   }
+}
 
-  &--half {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    overflow: hidden;
+.co-rate__icon-half {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+// modified
+.co-rate--disabled {
+  .co-rate__item {
+    cursor: default;
+
+    &:hover .co-icon::before {
+      transform: scale(1);
+    }
   }
 }
