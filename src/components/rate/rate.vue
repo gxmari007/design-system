@@ -3,13 +3,13 @@
     <div class="co-rate__item" v-for="(item, index) in max" :key="index">
       <co-icon
         :style="iconStyles(index)"
-        type="star"
+        :type="iconType(index)"
         @mouseenter.native="onMouseenter(index)"
         @click.native="onClick(index)"></co-icon>
       <co-icon
         class="co-rate__icon-half"
         :style="iconStyles(index, true)"
-        type="star"
+        :type="iconType(index)"
         @mouseenter.native="onMouseenter(index, true)"
         @click.native="onClick(index, true)"></co-icon>
     </div>
@@ -64,6 +64,9 @@ export default {
       default() {
         return ['star', 'star', 'star'];
       },
+      validator(value) {
+        return value.length === 3;
+      },
     },
     voidIcon: {
       type: String,
@@ -113,6 +116,22 @@ export default {
       }
 
       return styles;
+    },
+    iconType(index) {
+      const { hoverCount, lowThreshold, highThreshold, icons } = this;
+      const count = index + 1;
+
+      if (count <= hoverCount) {
+        if (hoverCount <= lowThreshold) {
+          return icons[0];
+        } else if (count > lowThreshold && count < highThreshold) {
+          return icons[1];
+        }
+
+        return icons[2];
+      }
+
+      return this.voidIcon;
     },
     onMouseenter(count, half = false) {
       if (this.disabled) return;
