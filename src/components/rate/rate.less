@@ -1,15 +1,15 @@
 .co-rate {
   display: inline-block;
-  vertical-align: @vertical-align-base;
-  font-size: 20px;
-  font-weight: 400;
-  font-style: normal;
+  vertical-align: @rate-vertical-align;
+  font-size: @rate-font-size;
+  font-weight: @rate-font-weight;
+  font-style: @rate-font-style;
 }
 
 .co-rate__item {
   position: relative;
   display: inline-block;
-  cursor: pointer;
+  cursor: @rate-cursor;
   transition: all .2s ease-in-out;
 
   &:hover .co-icon::before {
@@ -17,7 +17,7 @@
   }
 
   & + & {
-    margin-left: 6px;
+    margin-left: @rate-item-margin-left;
   }
 
   & .co-icon {

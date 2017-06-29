@@ -8,7 +8,7 @@
       checkable
       :default-expand-keys="[1, 6]"
       :default-checked-keys="[4, 7]"></co-tree> -->
-    <co-rate v-model="value" :allow-half="true" disabled @on-change="onChange"></co-rate>
+    <co-rate v-model="value" :allow-half="true" :icons="['social-apple', 'social-apple', 'social-apple']" void-icon="social-apple-outline" @on-change="onChange"></co-rate>
   </div>
 </template>
 
