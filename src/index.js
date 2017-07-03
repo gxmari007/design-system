@@ -25,6 +25,7 @@ import { CoSelect, CoOption } from 'components/select';
 import CoSwitch from 'components/switch';
 import { CoTable, CoTableColumn } from 'components/table';
 import { CoTabs, CoTabPane } from 'components/tabs';
+import CoTag from 'components/tag';
 import { CoTimeline, CoTimelineItem } from 'components/timeline';
 import CoTooltip from 'components/tooltip';
 import CoTree from 'components/tree';
@@ -70,6 +71,7 @@ const coview = {
   CoTableColumn,
   CoTabs,
   CoTabPane,
+  CoTag,
   CoTimeline,
   CoTimelineItem,
   CoTooltip,
@@ -138,6 +140,7 @@ export {
   CoTableColumn,
   CoTabs,
   CoTabPane,
+  CoTag,
   CoTimeline,
   CoTimelineItem,
   CoTooltip,
