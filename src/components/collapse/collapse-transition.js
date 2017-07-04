@@ -1,7 +1,6 @@
 import addClass from 'dom-helpers/class/addClass';
 import removeClass from 'dom-helpers/class/removeClass';
 
-/* eslint-disable class-methods-use-this */
 const transition = {
   beforeEnter(el) {
     addClass(el, 'collapse-transition');
@@ -65,7 +64,7 @@ const transition = {
     el.style.height = '';
     el.style.paddingTop = el.dataset.oldPaddingTop;
     el.style.paddingBottom = el.dataset.oldPaddingBottom;
-    el.style.overflow = el.style.oldOverflow;
+    el.style.overflow = el.dataset.oldOverflow;
   },
 };
 

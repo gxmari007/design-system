@@ -1,6 +1,13 @@
 <template>
   <div>
     <co-tag v-for="tag in tags" :key="tag" closeable @on-close="onClose(tag)">{{ tag.label }}</co-tag>
+    <br>
+    <co-button @click.native="onAdd" size="small">add item</co-button>
+    <co-tag type="primary">标签</co-tag>
+    <co-tag type="warning" closeable>标签</co-tag>
+    <co-tag type="info" size="large" closeable>标签</co-tag>
+    <co-tag type="success" size="large" closeable>标签</co-tag>
+    <co-switch v-model="show"></co-switch>
   </div>
 </template>
 
@@ -8,6 +15,7 @@
 export default {
   data() {
     return {
+      show: true,
       tags: [
         { label: '标签1' },
         { label: '标签2' },
@@ -22,6 +30,10 @@ export default {
     onClose(tag) {
       this.tags.splice(this.tags.indexOf(tag), 1);
     },
+    onAdd() {
+      const tag = { label: '标签' };
+      this.tags.push(tag);
+    },
   },
 };
 </script>
@@ -29,8 +41,5 @@ export default {
 <style>
 body {
   padding: 50px;
-}
-.co-tag {
-  margin-right: 8px;
 }
 </style>
