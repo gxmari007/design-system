@@ -20,7 +20,7 @@
               <i class="co-table__caret co-table__caret--asc" @click.stop="onSort(column, 'asc')"></i>
               <i class="co-table__caret co-table__caret--desc" @click.stop="onSort(column, 'desc')"></i>
             </span>
-            <div v-if="column.colSpan === 1" class="co-table__display" @click="setColumnDisplay(column)">
+            <div v-if="column.colSpan === 1 && column.displaySetting" class="co-table__display" @click="setColumnDisplay(column)">
               <co-icon class="co-table__display-icon" type="eye"></co-icon>
             </div>
           </div>
