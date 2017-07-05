@@ -1,13 +1,12 @@
 <template>
   <div>
-    <co-tag v-for="tag in tags" :key="tag" closeable @on-close="onClose(tag)">{{ tag.label }}</co-tag>
-    <br>
-    <co-button @click.native="onAdd" size="small">add item</co-button>
-    <co-tag type="primary">标签</co-tag>
-    <co-tag type="warning" closeable>标签</co-tag>
-    <co-tag type="info" size="large" closeable>标签</co-tag>
-    <co-tag type="success" size="large" closeable>标签</co-tag>
-    <co-switch v-model="show"></co-switch>
+    <co-popover v-model="show">
+      <co-button>按钮</co-button>
+      <div slot="content">
+        测试
+        <co-button @click.native="show = false">关闭</co-button>
+      </div>
+    </co-popover>
   </div>
 </template>
 

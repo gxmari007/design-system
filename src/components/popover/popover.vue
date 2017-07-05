@@ -33,20 +33,20 @@
 </template>
 
 <script>
-// utils
-import { oneOf } from 'utils/help';
-// mixins
-import popper from 'mixins/popper';
-// directives
-import clickoutside from 'directives/clickoutside';
-// libs
 import listen from 'dom-helpers/events/listen';
+import { oneOf } from 'utils/help';
+import popper from 'mixins/popper';
+import clickoutside from 'directives/clickoutside';
 
 export default {
   name: 'co-popover',
   mixins: [popper],
   directives: { clickoutside },
   props: {
+    value: {
+      type: Boolean,
+      default: false,
+    },
     trigger: {
       type: String,
       default: 'click',
@@ -84,12 +84,22 @@ export default {
     };
   },
   watch: {
+    value: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal === this.visible) return;
+
+        this.visible = newVal;
+      },
+    },
     visible(newVal) {
       if (newVal) {
         this.$emit('on-show');
       } else {
         this.$emit('on-hide');
       }
+
+      this.$emit('input', newVal);
     },
   },
   computed: {
