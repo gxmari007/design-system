@@ -1,0 +1,60 @@
+.co-message {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  min-width: 190px;
+  transform: translateX(-50%);
+  z-index: 1010;
+  font-size: 14px;
+  padding: 6px 20px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.co-message__icon {
+  vertical-align: top;
+  font-size: 22px;
+}
+
+.co-message__content {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+
+.co-message--info {
+  color: #338c9e;
+  border-color: #bce5ed;
+  background-color: #e5f2f5;
+}
+
+.co-message--success {
+  color: #10a110;
+  border-color: #cfebd3;
+  background-color: #f1fbf3;
+}
+
+.co-message--error {
+  color: #f33b32;
+  border-color: #f9e5e5;
+  background-color: #fff2f2;
+}
+
+.co-message--warning {
+  color: #eeae00;
+  border-color: #f6ecce;
+  background-color: #fffbed;
+}
+
+.co-message-fade-enter-active,
+.co-message-fade-leave-active {
+  transition: opacity .3s, transform .4s;
+}
+
+.co-message-fade-enter,
+.co-message-fade-leave-active {
+  opacity: 0;
+  transform: translate(-50%, -150%);
+}

@@ -16,6 +16,7 @@ import CoIcon from 'components/icon';
 import { CoRow, CoCol } from 'components/layout';
 import CoLoading from 'components/loading';
 import { CoMenu, CoMenuItem } from 'components/menu';
+import CoMessage from 'components/message';
 import CoModal from 'components/modal';
 import CoPagination from 'components/pagination';
 import CoPopover from 'components/popover';
@@ -86,6 +87,7 @@ function install(Vue) {
   });
 
   Vue.prototype.$loading = CoLoading;
+  Vue.prototype.$message = CoMessage;
 }
 
 // 在浏览器 script 标签引入的情况下自动安装
@@ -127,6 +129,7 @@ export {
   CoCol,
   CoMenu,
   CoMenuItem,
+  CoMessage,
   CoModal,
   CoPagination,
   CoPopover,
