@@ -27,10 +27,11 @@ export default {
   data() {
     return {
       visible: false,
+      timeoutID: null,
       type: 'info',
       message: '',
       duration: 3,
-      timeoutID: null,
+      onClose: null,
     };
   },
   computed: {
@@ -50,6 +51,10 @@ export default {
     close() {
       this.visible = false;
       this.$el.addEventListener('transitionend', this.removeElement);
+
+      if (typeof this.onClose === 'function') {
+        this.onClose();
+      }
     },
     removeElement() {
       this.$el.removeEventListener('transitionend', this.removeElement);
