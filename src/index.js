@@ -15,7 +15,7 @@ import CoInputNumber from 'components/input_number';
 import CoIcon from 'components/icon';
 import { CoRow, CoCol } from 'components/layout';
 import CoLoading from 'components/loading';
-import { CoMenu, CoMenuItem } from 'components/menu';
+import { CoMenu, CoMenuItem, CoSubmenu, CoMenuGroup } from 'components/menu';
 import CoMessage from 'components/message';
 import CoModal from 'components/modal';
 import CoPagination from 'components/pagination';
@@ -59,6 +59,8 @@ const coview = {
   CoCol,
   CoMenu,
   CoMenuItem,
+  CoSubmenu,
+  CoMenuGroup,
   CoModal,
   CoPagination,
   CoPopover,
@@ -129,6 +131,8 @@ export {
   CoCol,
   CoMenu,
   CoMenuItem,
+  CoSubmenu,
+  CoMenuGroup,
   CoMessage,
   CoModal,
   CoPagination,

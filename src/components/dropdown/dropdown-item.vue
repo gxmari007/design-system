@@ -5,10 +5,7 @@
 </template>
 
 <script>
-// mixins
 import emitter from 'mixins/emitter';
-
-const prefixClass = 'co-dropdown__item';
 
 export default {
   name: 'co-dropdown-item',
@@ -34,12 +31,13 @@ export default {
   },
   computed: {
     classes() {
-      return {
-        [prefixClass]: true,
+      const prefixClass = 'co-dropdown__item';
+
+      return [prefixClass, {
         [`${prefixClass}--disabled`]: this.disabled,
         [`${prefixClass}--active`]: this.active,
         [`${prefixClass}--divided`]: this.divided,
-      };
+      }];
     },
   },
   methods: {

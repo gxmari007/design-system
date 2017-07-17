@@ -16,11 +16,10 @@
             <slot></slot>
           </div>
           <div class="co-modal__footer">
-            <slot name="footer" v-if="$slots.footer"></slot>
-            <template v-else>
+            <slot name="footer">
               <co-button type="ghost" @click.native="onCancel">{{ cancelText }}</co-button>
               <co-button type="primary" @click.native="onOk">{{ okText }}</co-button>
-            </template>
+            </slot>
           </div>
         </div>
       </div>

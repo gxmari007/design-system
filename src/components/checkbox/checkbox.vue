@@ -17,7 +17,8 @@
         :value="label"
         :disabled="disabled">
       <span class="co-checkbox__indicator"></span>
-    </span><span v-if="$slots.default || label" class="co-checkbox__description">
+    </span>
+    <span v-if="$slots.default || label" class="co-checkbox__description">
       <slot>{{ label }}</slot>
     </span>
   </label>

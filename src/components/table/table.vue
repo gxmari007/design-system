@@ -47,7 +47,7 @@ import fixedMixin from './fixedMixin';
 import layoutMixin from './layoutMixin';
 // components
 import CoTableHeader from './table-header';
-import TableBody from './table-body';
+import TableBody from './table-body.vue';
 import TableDisplay from './table-display';
 // utils
 import { makeFlattenColumns } from './utils';

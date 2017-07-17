@@ -1,4 +1,3 @@
-<script>
 import emitter from 'mixins/emitter';
 
 let id = 1;
@@ -134,8 +133,23 @@ export default {
 
     this.table.addColumn(this, columnIndex, this.isSubColumn ? parent : null);
   },
+  methods: {
+    renderCell(data) {
+      let cell = this.renderDefaultCell(data);
+
+      if (this.$scopedSlots.default) {
+        cell = this.$scopedSlots.default(data);
+      }
+
+      return (
+        <div class="co-table__cell">{cell}</div>
+      );
+    },
+    renderDefaultCell({ row, column }) {
+      return row[column.prop];
+    },
+  },
   render(h) {
     return h('div', this.$slots.default);
   },
 };
-</script>
