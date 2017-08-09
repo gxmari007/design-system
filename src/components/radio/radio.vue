@@ -8,7 +8,10 @@
         :value="label"
         :disabled="disabled">
       <span class="co-radio__indicator"></span>
-    </span><span class="co-radio__description"><slot>{{ label }}</slot></span>
+    </span>
+    <span class="co-radio__description">
+      <slot>{{ label }}</slot>
+    </span>
   </label>
 </template>
 
@@ -22,10 +25,7 @@ export default {
   mixins: [emitter],
   props: {
     value: null,
-    label: {
-      type: null,
-      required: true,
-    },
+    label: null,
     disabled: {
       type: Boolean,
       default: false,

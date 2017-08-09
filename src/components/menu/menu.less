@@ -19,6 +19,14 @@
   transition: .2s ease-in-out;
 }
 
+.co-menu__submenu-icon {
+  transition: transform .2s;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
 .co-menu__group-title {
   font-size: 14px;
   color: @gray-light;
@@ -33,6 +41,7 @@
 
 .co-menu__dropdown {
   &:extend(.co-dropdown__wrapper);
+  list-style: none;
   padding-left: 0;
 
   .co-menu__item {
@@ -45,6 +54,11 @@
         background-color: @primary;
       }
     }
+  }
+
+  .co-menu__group-title {
+    font-size: 12px;
+    padding: 4px 10px;
   }
 }
 
@@ -99,7 +113,9 @@
       border-right: 2px solid transparent;
 
       &.active {
+        color: @primary;
         border-color: @primary;
+        z-index: 2;
       }
     }
 
@@ -116,12 +132,27 @@
       width: 1px;
       height: 100%;
       background-color: #dcdcdc;
+      z-index: 1;
     }
   }
 
   .co-menu__item,
   .co-menu__submenu-title {
     padding: 9px 20px;
+  }
+
+  .co-menu__submenu-icon {
+    position: relative;
+    float: right;
+    top: 4px;
+  }
+
+  .co-menu__group-title {
+    padding-left: 24px;
+  }
+
+  .co-menu__submenu .co-menu__item {
+    padding-left: 36px;
   }
 }
 

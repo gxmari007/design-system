@@ -1,0 +1,143 @@
+.co-steps {
+
+}
+
+.co-steps__item:last-child {
+  .co-steps__line {
+    display: none;
+  }
+}
+
+.co-steps__head {
+  position: relative;
+}
+
+.co-steps__line {
+  position: absolute;
+}
+
+.co-steps__line-inner {
+  transition: width .15s;
+}
+
+.co-steps__icon {
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  line-height: 28px;
+  text-align: center;
+  background-color: #fff;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50%;
+  transition: .15s;
+}
+
+.co-steps__finish {
+  font-size: 20px;
+  line-height: inherit;
+}
+
+.co-steps__main {
+  transition: color .15s;
+}
+
+.co-steps__title {
+  font-size: 13px;
+  line-height: 29px;
+}
+
+.co-steps__description {
+  font-size: 12px;
+}
+
+
+// modified
+.co-steps--horizontal {
+  .co-steps__item {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .co-steps__line {
+    top: 15px;
+    right: 0;
+    left: 32px;
+    height: 2px;
+  }
+
+  .co-steps__line-inner {
+    height: 100%;
+  }
+}
+
+.co-steps__item--wait {
+  .co-steps__line {
+    background-color: #c1ccd9;
+  }
+
+  .co-steps__icon {
+    border-color: #c1ccd9;
+    color: #c1ccd9;
+  }
+
+  .co-steps__main {
+    color: #c1ccd9;
+  }
+}
+
+.co-steps__item--process {
+  .co-steps__line {
+    &:extend(.co-steps__item--wait .co-steps__line);
+  }
+
+  .co-steps__icon {
+    &:extend(.co-steps__item--wait .co-steps__icon);
+    color: #fff;
+    background-color: #c1ccd9;
+  }
+
+  .co-steps__main {
+    color: #333;
+  }
+}
+
+.co-steps__item--finish {
+  .co-steps__line {
+    &:extend(.co-steps__item--wait .co-steps__line);
+  }
+
+  .co-steps__line-inner {
+    background-color: @success;
+  }
+
+  .co-steps__icon {
+    border-color: @success;
+    color: #fff;
+    background-color: @success;
+  }
+
+  .co-steps__main {
+    color: @success;
+  }
+}
+
+.co-steps__item--error {
+  .co-steps__line {
+    &:extend(.co-steps__item--wait .co-steps__line);
+  }
+
+  .co-steps__line-inner {
+    background-color: @error;
+  }
+
+  .co-steps__icon {
+    border-color: @error;
+    color: #fff;
+    background-color: @error;
+  }
+
+  .co-steps__main {
+    color: @error;
+  }
+}

@@ -27,6 +27,7 @@
         :autocomplete="autocomplete"
         :autofocus="autofocus"
         @input="onInput"
+        @focus="onFocus"
         @blur="onBlur"
         @change="onChange">
     </template>
@@ -119,6 +120,9 @@ export default {
 
       this.$emit('input', value);
       this.$emit('on-change', event);
+    },
+    onFocus() {
+      this.$emit('on-focus');
     },
     onBlur(event) {
       this.$emit('on-blur', event);

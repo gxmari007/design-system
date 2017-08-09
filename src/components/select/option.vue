@@ -1,16 +1,12 @@
 <template>
   <li :class="classes" @click="onClick">
-    <slot></slot>
-    <template v-if="!$slots.default && label">{{ label }}</template>
-    <template v-if="!$slots.default && !label">{{ value }}</template>
+    <slot>{{ label || value }}</slot>
   </li>
 </template>
 
 <script>
 // mixins
 import emitter from 'mixins/emitter';
-
-const prefixClass = 'co-option';
 
 export default {
   name: 'co-option',
@@ -34,19 +30,26 @@ export default {
   },
   computed: {
     classes() {
-      return {
-        [prefixClass]: true,
+      const prefixClass = 'co-option';
+
+      return [prefixClass, {
         [`${prefixClass}--disabled`]: this.disabled,
         [`${prefixClass}--active`]: this.active,
-      };
+      }];
     },
-    // 获取 select 父组件实例
-    // 由于 option 组件可能在 option-group 中
-    // 所以这里需要循环取值
     parent() {
       let parent = this.$parent;
 
-      while (parent && parent.$options.componentName !== 'co-select') {
+      while (parent && parent.$options.name !== 'co-select') {
+        parent = parent.$parent;
+      }
+
+      return parent;
+    },
+    select() {
+      let parent = this.$parent;
+
+      while (parent && parent.$options.name !== 'co-select') {
         parent = parent.$parent;
       }
 
@@ -65,11 +68,11 @@ export default {
       return false;
     },
   },
-  created() {
-    this.parent.items.push({
-      label: this.label,
-      value: this.value,
-    });
+  mounted() {
+    this.parent.slotChange();
+  },
+  beforeDestroy() {
+    this.parent.slotChange();
   },
   methods: {
     onClick() {

@@ -33,6 +33,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    router: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {

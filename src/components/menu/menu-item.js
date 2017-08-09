@@ -1,10 +1,3 @@
-<template>
-  <li :class="classes" @click="onClick">
-    <slot></slot>
-  </li>
-</template>
-
-<script>
 import emitter from 'mixins/emitter';
 
 export default {
@@ -41,7 +34,10 @@ export default {
       return parent;
     },
     active() {
-      return this.menu.active === this.name;
+      return this.menu ? this.menu.active === this.name : false;
+    },
+    router() {
+      return this.menu ? this.menu.router : false;
     },
   },
   created() {
@@ -65,5 +61,19 @@ export default {
       this.dispatch('co-menu', 'on-menu-item-click', this.name);
     },
   },
+  render() {
+    if (this.router) {
+      return (
+        <router-link class="co-menu__item" to={this.name} tag="li" nativeOnClick={this.onClick}>
+          {this.$slots.default}
+        </router-link>
+      );
+    }
+
+    return (
+      <li class={this.classes} onClick={this.onClick}>
+        {this.$slots.default}
+      </li>
+    );
+  },
 };
-</script>

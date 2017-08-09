@@ -8,6 +8,7 @@ import { CoCarousel, CoCarouselItem } from 'components/carousel';
 import CoCascader from 'components/cascader';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
 import { CoCollapse, CoCollapsePanel } from 'components/collapse';
+import CoDatePicker from 'components/date_picker';
 import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
 import { CoForm, CoFormItem } from 'components/form';
 import CoInput from 'components/input';
@@ -23,6 +24,7 @@ import CoPopover from 'components/popover';
 import { CoRadioGroup, CoRadio } from 'components/radio';
 import CoRate from 'components/rate';
 import { CoSelect, CoOption } from 'components/select';
+import { CoSteps, CoStep } from 'components/steps';
 import CoSwitch from 'components/switch';
 import { CoTable, CoTableColumn } from 'components/table';
 import { CoTabs, CoTabPane } from 'components/tabs';
@@ -47,6 +49,7 @@ const coview = {
   CoCheckbox,
   CoCollapse,
   CoCollapsePanel,
+  CoDatePicker,
   CoDropdown,
   CoDropdownMenu,
   CoDropdownItem,
@@ -69,6 +72,8 @@ const coview = {
   CoRate,
   CoSelect,
   CoOption,
+  CoSteps,
+  CoStep,
   CoSwitch,
   CoTable,
   CoTableColumn,
@@ -119,6 +124,7 @@ export {
   CoCheckbox,
   CoCollapse,
   CoCollapsePanel,
+  CoDatePicker,
   CoDropdown,
   CoDropdownMenu,
   CoDropdownItem,
@@ -142,6 +148,8 @@ export {
   CoRate,
   CoSelect,
   CoOption,
+  CoSteps,
+  CoStep,
   CoSwitch,
   CoTable,
   CoTableColumn,

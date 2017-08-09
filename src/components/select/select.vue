@@ -79,7 +79,7 @@ export default {
       // keydown 事件解绑
       keydownOff: null,
       // 所有 option 集合
-      items: [],
+      childs: [],
       width: 0,
       clearShow: false,
     };
@@ -109,18 +109,19 @@ export default {
       },
       set(val) {
         this.$emit('input', val);
+        this.$emit('on-change', val);
       },
     },
     label() {
       if (this.isSelected) {
-        return this.items.find(item => item.value === this.model).label;
+        return this.childs.find(child => child.value === this.model).label;
       }
 
       return '';
     },
     // 是否有值被选中
     isSelected() {
-      return this.items.some(item => item.value === this.model);
+      return this.childs.some(child => child.value === this.model);
     },
     icon() {
       return this.clearShow ? null : 'arrow-down-b';
@@ -136,6 +137,9 @@ export default {
   created() {
     this.$on('select-option', this.onSelectOption);
     this.keydownOff = listen(document, 'keydown', this.onKeydown);
+  },
+  mounted() {
+    this.updateChilds();
   },
   beforeDestroy() {
     if (this.keydownOff) {
@@ -178,6 +182,14 @@ export default {
       this.model = '';
       this.clearShow = false;
       this.closeDropdown();
+    },
+    updateChilds() {
+      this.childs = this.$children.filter(child => child.$options.name === 'co-option');
+    },
+    slotChange() {
+      this.$nextTick(() => {
+        this.updateChilds();
+      });
     },
   },
   components: {
