@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 20px; width: 800px;">
-    <co-steps :active="active" direction="horizontal">
+    <co-steps :active="active" direction="horizontal" process-status="wait">
       <co-step title="步骤 1" description="这是一段很长很长很长的描述性文字"></co-step>
       <co-step title="步骤 2" description="这是一段很长很长很长的描述性文字"></co-step>
       <co-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></co-step>
@@ -16,7 +16,7 @@
 export default {
   data() {
     return {
-      active: 0,
+      active: 1,
     };
   },
   methods: {

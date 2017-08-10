@@ -5,28 +5,11 @@
         <div class="co-steps__line-inner" :style="innerStyles"></div>
       </div>
       <div class="co-steps__icon">
-        <template v-if="finish">
-          <co-icon
-            v-if="steps.finishStatus === 'finish'"
-            class="co-steps__finish"
-            type="android-done"></co-icon>
-          <co-icon
-            v-if="steps.finishStatus === 'error'"
-            class="co-steps__finish"
-            type="android-close"></co-icon>
-          <template v-if="steps.finishStatus === 'wait' || steps.finishStatus === 'process'">{{ index }}</template>
-        </template>
-        <template v-else>
-          <co-icon
-            v-if="steps.processStatus === 'finish'"
-            class="co-steps__finish"
-            type="android-done"></co-icon>
-          <co-icon
-            v-if="steps.processStatus === 'error'"
-            class="co-steps__finish"
-            type="android-close"></co-icon>
-          <template v-if="steps.processStatus === 'wait' || steps.processStatus === 'process'">{{ index }}</template>
-        </template>
+        <step-icon
+          :status="status"
+          :finish-status="steps.finishStatus"
+          :process-status="steps.processStatus"
+          :index="index"></step-icon>
       </div>
     </div>
     <div class="co-steps__main">
@@ -42,6 +25,7 @@
 
 <script>
 import CoIcon from 'components/icon';
+import StepIcon from './step-icon';
 
 export default {
   name: 'co-step',
@@ -52,20 +36,24 @@ export default {
   computed: {
     classes() {
       const prefixClass = 'co-steps__item';
-      const { index, finish } = this;
-      const { active, processStatus, finishStatus } = this.steps;
+      const {
+        status,
+        steps: {
+          processStatus,
+          finishStatus,
+        },
+      } = this;
       const classes = [prefixClass];
 
-      if (index > active + 1) {
-        classes.push(`${prefixClass}--wait`);
-      }
-
-      if (finish) {
-        classes.push(`${prefixClass}--${finishStatus}`);
-      }
-
-      if (index === active + 1) {
-        classes.push(`${prefixClass}--${processStatus}`);
+      switch (status) {
+        case 'wait':
+          classes.push(`${prefixClass}--wait`);
+          break;
+        case 'process':
+          classes.push(`${prefixClass}--${processStatus}`);
+          break;
+        default:
+          classes.push(`${prefixClass}--${finishStatus}`);
       }
 
       return classes;
@@ -81,14 +69,30 @@ export default {
     },
     innerStyles() {
       const { index } = this;
-      const { active } = this.steps;
-      const style = { width: 0 };
+      const { active, direction } = this.steps;
+      const style = {};
+
+      if (direction === 'horizontal') {
+        style.width = 0;
+      } else {
+        style.height = 0;
+      }
 
       if (index === active) {
-        style.width = '50%';
+        if (direction === 'horizontal') {
+          style.width = '50%';
+        } else {
+          style.height = '50%';
+        }
+
         style.transitionDelay = '150ms';
       } else if (index < active) {
-        style.width = '100%';
+        if (direction === 'horizontal') {
+          style.width = '100%';
+        } else {
+          style.height = '100%';
+        }
+
         style.transitionDelay = '0ms';
       }
 
@@ -108,8 +112,13 @@ export default {
         this.steps.childs.indexOf(this) + 1 :
         1;
     },
-    finish() {
-      return this.index <= this.steps.active;
+    status() {
+      const { index, steps: { active } } = this;
+
+      if (index <= active) return 'finish';
+      if (index > active + 1) return 'wait';
+
+      return 'process';
     },
   },
   mounted() {
@@ -124,6 +133,7 @@ export default {
   },
   components: {
     CoIcon,
+    StepIcon,
   },
 };
 </script>
