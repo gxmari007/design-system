@@ -1,7 +1,3 @@
-.co-steps {
-
-}
-
 .co-steps__item {
   position: relative;
 
@@ -17,24 +13,33 @@
 }
 
 .co-steps__line-inner {
-  transition: .15s;
+  transition: 150ms;
+}
+
+.co-steps__icon,
+.co-steps__custom-icon {
+  width: @steps-icon-size;
+  height: @steps-icon-size;
+  transition: 150ms;
+  text-align: center;
 }
 
 .co-steps__icon {
-  width: 32px;
-  height: 32px;
-  font-size: 14px;
-  line-height: 28px;
-  text-align: center;
-  background-color: #fff;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 50%;
-  transition: .15s;
+  border-width: @steps-icon-border-width;
+  border-style: @steps-icon-border-style;
+  border-radius: @steps-icon-border-radius;
+  background-color: @steps-icon-bg;
+  font-size: @steps-icon-text-font-size;
+  line-height: @steps-icon-line-height;
+}
+
+.co-steps__custom-icon {
+  font-size: @steps-custom-icon-font-size;
+  line-height: @steps-custom-icon-line-height;
 }
 
 .co-steps__icon-inner {
-  font-size: 20px;
+  font-size: @steps-icon-font-size;
   line-height: inherit;
 }
 
@@ -43,12 +48,12 @@
 }
 
 .co-steps__title {
-  font-size: 13px;
-  line-height: 29px;
+  font-size: @steps-title-font-size;
+  line-height: @steps-title-line-height;
 }
 
 .co-steps__description {
-  font-size: 12px;
+  font-size: @steps-description-font-size;
 }
 
 
@@ -60,10 +65,10 @@
   }
 
   .co-steps__line {
-    top: 15px;
-    right: 0;
-    left: 32px;
-    height: 2px;
+    top: @steps-line-h-top;
+    right: @steps-line-h-right;
+    left: @steps-line-h-left;
+    height: @steps-line-height;
   }
 
   .co-steps__line-inner {
@@ -72,23 +77,21 @@
 }
 
 .co-steps--vertical {
-  .co-steps__head,
-  .co-steps__main {
-    display: inline-block;
-    vertical-align: top;
+  .co-steps__head {
+    float: left;
   }
 
   .co-steps__main {
-    min-height: 50px;
-    padding-right: 10px;
-    padding-left: 10px;
+    min-height: @steps-main-v-min-height;
+    padding-right: @steps-main-v-padding-right;
+    padding-left: @steps-main-v-padding-left;
   }
 
   .co-steps__line {
-    top: 32px;
-    bottom: 0;
-    left: 15px;
-    width: 2px;
+    top: @steps-line-v-top;
+    bottom: @steps-line-v-bottom;
+    left: @steps-line-v-left;
+    width: @steps-line-v-width;
   }
 
   .co-steps__line-inner {
@@ -96,26 +99,30 @@
   }
 
   .co-steps__title {
-    margin-bottom: 4px;
+    margin-bottom: @steps-title-v-margin-bottom;
   }
 
   .co-steps__description {
-    padding-bottom: 10px;
+    padding-bottom: @steps-description-v-padding-bottom;
   }
 }
 
 .co-steps__item--wait {
   .co-steps__line {
-    background-color: #c1ccd9;
+    background-color: @steps-line-wait-bg;
   }
 
   .co-steps__icon {
-    border-color: #c1ccd9;
-    color: #c1ccd9;
+    color: @steps-icon-wait-color;
+    border-color: @steps-icon-wait-border-color;
+  }
+
+  .co-steps__custom-icon {
+    color: @steps-custom-icon-wait-color;
   }
 
   .co-steps__main {
-    color: #c1ccd9;
+    color: @steps-main-wait-color;
   }
 }
 
@@ -126,12 +133,13 @@
 
   .co-steps__icon {
     &:extend(.co-steps__item--wait .co-steps__icon);
-    color: #fff;
-    background-color: #c1ccd9;
+    color: @steps-icon-process-color;
+    background-color: @steps-icon-process-bg;
   }
 
+  .co-steps__custom-icon,
   .co-steps__main {
-    color: #333;
+    color: @steps-main-process-color;
   }
 }
 
@@ -141,17 +149,21 @@
   }
 
   .co-steps__line-inner {
-    background-color: @success;
+    background-color: @steps-line-inner-finish-bg;
   }
 
   .co-steps__icon {
-    border-color: @success;
-    color: #fff;
-    background-color: @success;
+    color: @steps-icon-finish-color;
+    border-color: @steps-icon-finish-border-color;
+    background-color: @steps-icon-finish-bg;
+  }
+
+  .co-steps__custom-icon {
+    color: @steps-custom-icon-finish-color;
   }
 
   .co-steps__main {
-    color: @success;
+    color: @steps-main-finish-color;
   }
 }
 
@@ -161,16 +173,20 @@
   }
 
   .co-steps__line-inner {
-    background-color: @error;
+    background-color: @steps-line-inner-error-bg;
   }
 
   .co-steps__icon {
-    border-color: @error;
-    color: #fff;
-    background-color: @error;
+    color: @steps-icon-error-color;
+    border-color: @steps-icon-error-border-color;
+    background-color: @steps-icon-error-bg;
+  }
+
+  .co-steps__custom-icon {
+    color: @steps-custom-icon-error-color;
   }
 
   .co-steps__main {
-    color: @error;
+    color: @steps-main-error-color;
   }
 }

@@ -4,12 +4,15 @@
       <div class="co-steps__line">
         <div class="co-steps__line-inner" :style="innerStyles"></div>
       </div>
-      <div class="co-steps__icon">
-        <step-icon
-          :status="status"
-          :finish-status="steps.finishStatus"
-          :process-status="steps.processStatus"
-          :index="index"></step-icon>
+      <div :class="iconClasses">
+        <slot name="icon">
+          <step-icon
+            :status="status"
+            :finish-status="steps.finishStatus"
+            :process-status="steps.processStatus"
+            :index="index"
+            :icon="icon"></step-icon>
+        </slot>
       </div>
     </div>
     <div class="co-steps__main">
@@ -24,7 +27,6 @@
 </template>
 
 <script>
-import CoIcon from 'components/icon';
 import StepIcon from './step-icon';
 
 export default {
@@ -32,6 +34,7 @@ export default {
   props: {
     title: String,
     description: String,
+    icon: String,
   },
   computed: {
     classes() {
@@ -57,6 +60,9 @@ export default {
       }
 
       return classes;
+    },
+    iconClasses() {
+      return this.icon ? 'co-steps__custom-icon' : 'co-steps__icon';
     },
     styles() {
       const style = { width: '100%' };
@@ -132,7 +138,6 @@ export default {
     }
   },
   components: {
-    CoIcon,
     StepIcon,
   },
 };

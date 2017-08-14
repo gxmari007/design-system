@@ -47,7 +47,7 @@ export default {
   height: 100%;
   object-fit: cover;
 }
-.co-picture__placeholder {
+.picture__placeholder {
   flex-grow: 100;
   flex-basis: 240px;
   height: 0;

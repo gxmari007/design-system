@@ -19,9 +19,10 @@ export default {
       type: Number,
       default: 1,
     },
+    icon: String,
   },
   render(h, { props }) {
-    const { status, processStatus, finishStatus, index } = props;
+    const { status, processStatus, finishStatus, index, icon } = props;
 
     function renderIcon(statusType) {
       if (statusType === 'finish') {
@@ -52,6 +53,12 @@ export default {
         default:
           return <span>{index}</span>;
       }
+    }
+
+    if (icon) {
+      return (
+        <co-icon type={icon}></co-icon>
+      );
     }
 
     return (
