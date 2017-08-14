@@ -17,8 +17,8 @@
           </div>
           <div class="co-modal__footer">
             <slot name="footer">
-              <co-button type="ghost" @click.native="onCancel">{{ cancelText }}</co-button>
               <co-button type="primary" @click.native="onOk">{{ okText }}</co-button>
+              <co-button type="ghost" @click.native="onCancel">{{ cancelText }}</co-button>
             </slot>
           </div>
         </div>
