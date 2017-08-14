@@ -1,32 +1,38 @@
 .co-card {
-  position: relative;
   transition: @card-transition;
+  border-width: @card-border-width;
+  border-style: @card-border-style;
+  border-color: @card-border-color-default;
   background-color: @card-bg;
-  font-size: @card-font-size;
 
   &:hover {
     box-shadow: @card-hover-box-shadow;
   }
 }
 
-.co-card__head {
-  padding: @card-padding;
-  border-bottom: @card-head-border;
+.co-card__title {
+  position: relative;
+  padding: @card-padding-y @card-padding-x;
+  color: @card-title-color;
+  border-bottom: @card-title-border;
+  font-size: @card-title-font-size;
 }
 
 .co-card__extra {
   position: absolute;
-  top: @card-padding;
-  right: @card-padding;
+  top: 50%;
+  right: @card-extra-right;
+  transform: translateY(-50%);
 }
 
 .co-card__body {
-  padding: @card-padding;
+  padding: @card-padding-y @card-padding-x;
 }
 
 
+// Modified
 .co-card--border {
-  border: @card-border;
+  border-color: @card-border-color;
 }
 
 .co-card--dis-hover:hover {

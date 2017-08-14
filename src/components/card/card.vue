@@ -1,12 +1,12 @@
 <template>
   <div :class="classes">
-    <div v-if="$slots.title" class="co-card__head" :style="styles">
+    <div v-if="$slots.title" class="co-card__title">
       <slot name="title"></slot>
+      <div v-if="$slots.extra" class="co-card__extra">
+        <slot name="extra"></slot>
+      </div>
     </div>
-    <div v-if="$slots.extra" class="co-card__extra" :style="extraStyles">
-      <slot name="extra"></slot>
-    </div>
-    <div class="co-card__body" :style="styles">
+    <div class="co-card__body">
       <slot></slot>
     </div>
   </div>
@@ -28,41 +28,17 @@ export default {
       type: Boolean,
       default: false,
     },
-    padding: {
-      type: Number,
-      default: 14,
-    },
   },
   computed: {
     classes() {
       const prefix = 'co-card';
       const { border, disHover, shadow } = this;
 
-      return {
-        [prefix]: true,
+      return [prefix, {
         [`${prefix}--border`]: border && !shadow,
         [`${prefix}--dis-hover`]: disHover && !shadow,
         [`${prefix}--shadow`]: shadow,
-      };
-    },
-    styles() {
-      const styles = {};
-
-      if (this.padding !== 14) {
-        styles.padding = `${this.padding}px`;
-      }
-
-      return styles;
-    },
-    extraStyles() {
-      const styles = {};
-
-      if (this.padding !== 14) {
-        styles.top = `${this.padding}px`;
-        styles.right = `${this.padding}px`;
-      }
-
-      return styles;
+      }];
     },
   },
 };

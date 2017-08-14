@@ -1,18 +1,10 @@
 <template>
   <div style="padding: 20px; width: 500px;">
-    <co-steps style="margin-bottom: 20px;" :active="active" process-status="process">
-      <co-step icon="social-nodejs" title="步骤 1" description="这是一段很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的描述性文字"></co-step>
-      <co-step icon="social-sass" title="步骤 2" description="这是一段很长很长很长的描述性文字"></co-step>
-      <co-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></co-step>
-      <co-step title="步骤 4">
-        <!-- <co-icon slot="icon" type="android-close"></co-icon> -->
-        <span slot="description">哈哈哈</span>
-      </co-step>
-    </co-steps>
-    <co-button @click.native="onClick">下一步</co-button>
-    <!-- <div class="hold">
-      <picture :imgs="imgs"></picture>
-    </div> -->
+    <co-card>
+      <div slot="title">标题</div>
+      <a href="#" slot="extra">按钮文本</a>
+      测试文本
+    </co-card>
   </div>
 </template>
 
@@ -53,9 +45,4 @@ export default {
 </script>
 
 <style lang="less">
-.hold {
-  height: 500px;
-  overflow-y: auto;
-  background-color: gray;
-}
 </style>
