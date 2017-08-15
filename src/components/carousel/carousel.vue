@@ -114,6 +114,9 @@ export default {
     autoplaySpeed() {
       this.setAutoplay();
     },
+    height() {
+      this.updateLayout();
+    },
   },
   mounted() {
     this.updateItems();

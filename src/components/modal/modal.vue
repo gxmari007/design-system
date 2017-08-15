@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <div :data-transfer="transfer">
     <transition name="co-fade">
       <div v-show="visible" class="co-modal__mask" @click="clickMask"></div>
     </transition>
@@ -24,7 +24,7 @@
         </div>
       </div>
     </transition>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -38,7 +38,7 @@ import { getScrollBarWidth } from 'utils/help';
 const prefixClass = 'co-modal';
 
 export default {
-  name: 'co-dialog',
+  name: 'co-modal',
   props: {
     // 控制模态框显示与隐藏
     value: {
@@ -79,6 +79,10 @@ export default {
     center: {
       type: Boolean,
       default: false,
+    },
+    transfer: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -123,6 +127,14 @@ export default {
       }
     },
   },
+  mounted() {
+    this.keydownOff = listen(document, 'keydown', this.onEscClose);
+  },
+  beforeDestroy() {
+    if (typeof this.keydownOff === 'function') {
+      this.keydownOff();
+    }
+  },
   methods: {
     close() {
       this.$emit('input', false);
@@ -166,14 +178,6 @@ export default {
         bodyStyle.overflow = '';
       }, 200);
     },
-  },
-  mounted() {
-    this.keydownOff = listen(document, 'keydown', this.onEscClose);
-  },
-  beforeDestroy() {
-    if (typeof this.keydownOff === 'function') {
-      this.keydownOff();
-    }
   },
   components: {
     CoButton,

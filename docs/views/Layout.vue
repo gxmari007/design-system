@@ -1,10 +1,16 @@
 <template>
   <div style="padding: 20px; width: 500px;">
-    <co-card>
-      <div slot="title">标题</div>
-      <a href="#" slot="extra">按钮文本</a>
-      测试文本
-    </co-card>
+    <co-button type="primary" @click.native="visible = true">显示对话框</co-button>
+    <co-modal v-model="visible" title="对话框"></co-modal>
+    <co-input-number v-model="height"></co-input-number>
+    <co-carousel :height="height">
+      <co-carousel-item>
+        <div class="item"></div>
+      </co-carousel-item>
+      <co-carousel-item>
+        <div class="item"></div>
+      </co-carousel-item>
+    </co-carousel>
   </div>
 </template>
 
@@ -14,7 +20,8 @@ import picture from './picture';
 export default {
   data() {
     return {
-      active: 1,
+      visible: false,
+      height: 200,
       imgs: [
         // { src: 'http://img4.imgtn.bdimg.com/it/u=4245345110,3192216996&fm=26&gp=0.jpg', width: 480, height: 300 },
         // { src: 'http://img4.imgtn.bdimg.com/it/u=4245345110,3192216996&fm=26&gp=0.jpg', width: 480, height: 300 },
@@ -45,4 +52,8 @@ export default {
 </script>
 
 <style lang="less">
+.item {
+  height: 100%;
+  background-color: gray;
+}
 </style>
