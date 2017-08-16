@@ -1,3 +1,4 @@
+// Components
 import CoAffix from 'components/affix';
 import CoBackTop from 'components/back_top';
 import CoBadge from 'components/badge';
@@ -32,6 +33,9 @@ import CoTag from 'components/tag';
 import { CoTimeline, CoTimelineItem } from 'components/timeline';
 import CoTooltip from 'components/tooltip';
 import CoTree from 'components/tree';
+// Directives
+import clickoutside from 'directives/clickoutside';
+import transferDom from 'directives/transfer-dom';
 
 const coview = {
   CoAffix,
@@ -95,6 +99,9 @@ function install(Vue) {
 
   Vue.prototype.$loading = CoLoading;
   Vue.prototype.$message = CoMessage;
+
+  Vue.directive(clickoutside.name, clickoutside);
+  Vue.directive(transferDom.name, transferDom);
 }
 
 // 在浏览器 script 标签引入的情况下自动安装
@@ -109,6 +116,7 @@ export default {
 };
 
 export {
+  // Components
   CoAffix,
   CoBackTop,
   CoBadge,
@@ -135,6 +143,7 @@ export {
   CoIcon,
   CoRow,
   CoCol,
+  CoLoading,
   CoMenu,
   CoMenuItem,
   CoSubmenu,
@@ -160,4 +169,7 @@ export {
   CoTimelineItem,
   CoTooltip,
   CoTree,
+  // Directives
+  clickoutside,
+  transferDom,
 };

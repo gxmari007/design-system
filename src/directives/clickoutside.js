@@ -20,6 +20,7 @@ if (!Vue.prototype.$isServer) {
 }
 
 export default {
+  name: 'clickoutside',
   bind(el, binding, vnode) {
     const index = nodes.push(el) - 1;
 
