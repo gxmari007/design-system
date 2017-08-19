@@ -4,13 +4,17 @@ import listen from 'dom-helpers/events/listen';
 import popper from 'mixins/popper';
 // directives
 import clickoutside from 'directives/clickoutside';
+import transferDom from 'directives/transfer-dom';
 // utils
 import { oneOf } from 'utils/help';
 
 export default {
   name: 'co-tooltip',
   mixins: [popper],
-  directives: { clickoutside },
+  directives: {
+    clickoutside,
+    transferDom,
+  },
   props: {
     trigger: {
       type: String,
@@ -192,14 +196,14 @@ export default {
     },
   },
   render() {
-    let popperTep = (
+    let popperTip = (
       <transition name={this.transition}>
         {this.renderPopper()}
       </transition>
     );
 
     if (!this.animation) {
-      popperTep = this.renderPopper();
+      popperTip = this.renderPopper();
     }
 
     return (
@@ -214,7 +218,9 @@ export default {
           onClick={this.onClick}>
           {this.$slots.default}
         </div>
-        {popperTep}
+        <div v-transfer-dom>
+          {popperTip}
+        </div>
       </div>
     );
   },

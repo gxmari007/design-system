@@ -10,16 +10,18 @@
       @click="onClick">
       <slot></slot>
     </div>
-    <transition name="co-slide">
-      <div
-        class="co-dropdown__wrapper"
-        v-show="visible"
-        ref="popper"
-        @mouseenter="onMenuMouseenter"
-        @mouseleave="onMenuMouseleave">
-        <slot name="menu"></slot>
-      </div>
-    </transition>
+    <div v-transfer-dom="transfer">
+      <transition name="co-slide">
+        <div
+          class="co-dropdown__wrapper"
+          v-show="visible"
+          ref="popper"
+          @mouseenter="onMenuMouseenter"
+          @mouseleave="onMenuMouseleave">
+          <slot name="menu"></slot>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -27,6 +29,7 @@
 import { oneOf } from 'utils/help';
 // directives
 import clickoutside from 'directives/clickoutside';
+import transferDom from 'directives/transfer-dom';
 // mixins
 import emitter from 'mixins/emitter';
 import popper from 'mixins/popper';
@@ -34,7 +37,10 @@ import popper from 'mixins/popper';
 export default {
   name: 'co-dropdown',
   mixins: [emitter, popper],
-  directives: { clickoutside },
+  directives: {
+    clickoutside,
+    transferDom,
+  },
   props: {
     // 触发方式
     trigger: {
@@ -56,9 +62,22 @@ export default {
   },
   computed: {
     isSubDropdown() {
-      const parent = this.$parent.$parent;
+      let parent = this.$parent;
+      let result = false;
 
-      return parent.$options.name === 'co-dropdown';
+      while (parent) {
+        if (parent.$options.name === 'co-dropdown') {
+          result = true;
+          break;
+        } else {
+          parent = parent.$parent;
+        }
+      }
+
+      return result;
+    },
+    transfer() {
+      return !this.isSubDropdown;
     },
   },
   watch: {
@@ -69,7 +88,6 @@ export default {
     },
   },
   created() {
-    this.appendBody = !this.isSubDropdown;
     this.$on('on-click', this.onDropdownClick);
   },
   methods: {

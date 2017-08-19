@@ -9,6 +9,7 @@ import { CoCarousel, CoCarouselItem } from 'components/carousel';
 import CoCascader from 'components/cascader';
 import { CoCheckboxGroup, CoCheckbox } from 'components/checkbox';
 import { CoCollapse, CoCollapsePanel } from 'components/collapse';
+import CoColorPicker from 'components/color_picker';
 import CoDatePicker from 'components/date_picker';
 import { CoDropdown, CoDropdownMenu, CoDropdownItem } from 'components/dropdown';
 import { CoForm, CoFormItem } from 'components/form';
@@ -53,6 +54,7 @@ const coview = {
   CoCheckbox,
   CoCollapse,
   CoCollapsePanel,
+  CoColorPicker,
   CoDatePicker,
   CoDropdown,
   CoDropdownMenu,
@@ -132,6 +134,7 @@ export {
   CoCheckbox,
   CoCollapse,
   CoCollapsePanel,
+  CoColorPicker,
   CoDatePicker,
   CoDropdown,
   CoDropdownMenu,

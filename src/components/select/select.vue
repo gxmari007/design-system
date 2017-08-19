@@ -1,6 +1,6 @@
 <template>
   <div :class="classes" v-clickoutside="closeDropdown">
-    <div class="co-select__input" ref="reference" @mouseenter="onMouseenter" @mouseleave="onMouseleave">
+    <div class="co-select__trigger" ref="reference" @mouseenter="onMouseenter" @mouseleave="onMouseleave">
       <co-icon
         v-if="clearable"
         v-show="clearShow"
@@ -9,6 +9,7 @@
         @click.native="clearModel"></co-icon>
       <co-input
         ref="input"
+        class="co-select__input"
         v-model="label"
         :icon="icon"
         :placeholder="placeholder"

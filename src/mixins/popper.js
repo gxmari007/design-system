@@ -35,8 +35,6 @@ export default {
     return {
       // 控制 popper 显示或隐藏
       visible: false,
-      // 是否插入到 body 标签尾部
-      appendBody: true,
       // popper 实例
       popperJS: null,
       popperElm: null,
@@ -56,10 +54,6 @@ export default {
       this.popperJS.destroy();
       this.popperJS = null;
     }
-
-    if (this.popperElm && this.popperElm.parentNode === document.body) {
-      document.body.removeChild(this.popperElm);
-    }
   },
   methods: {
     createPopper() {
@@ -68,11 +62,7 @@ export default {
         placement: this.placement,
       });
 
-      if (this.appendBody) {
-        this.popperElm = popper;
-        document.body.appendChild(popper);
-      }
-
+      this.popperElm = popper;
       this.popperJS = new Popper(reference, popper, options);
       this.popperJS.onCreate(() => {
         this.resetTransformOrigin();
