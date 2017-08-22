@@ -57,7 +57,8 @@ export default {
   },
   methods: {
     createPopper() {
-      const { popper, reference } = this.$refs;
+      const popper = this.popper || this.$refs.popper;
+      const reference = this.reference || this.$refs.reference;
       const options = Object.assign({}, this.options, {
         placement: this.placement,
       });

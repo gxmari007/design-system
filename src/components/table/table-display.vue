@@ -91,8 +91,8 @@
       </co-form-item>
     </co-form>
     <div slot="footer">
-      <co-button type="ghost" @click.native="closeModal">取消</co-button>
       <co-button type="primary" @click.native="onSave">确定</co-button>
+      <co-button type="ghost" @click.native="closeModal">取消</co-button>
     </div>
   </co-dialog>
 </template>

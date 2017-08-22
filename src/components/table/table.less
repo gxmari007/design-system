@@ -4,7 +4,7 @@
   border: @table-border-width solid @table-border-color;
   border-right: 0;
   border-bottom: 0;
-  background-color: @table-background;
+  background-color: @table-bg;
   overflow: hidden;
 
   table {
@@ -92,7 +92,7 @@
 }
 
 // 表格为空
-.co-table__empty {
+.co-table__empty-body {
   position: relative;
 
   min-height: @table-empty-min-height;
@@ -208,7 +208,7 @@
 // 条纹效果
 .co-table--stripe {
   tbody tr:nth-of-type(even) {
-    background-color: @table-background-accent;
+    background-color: @table-bg-accent;
   }
 }
 

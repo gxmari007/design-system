@@ -19,6 +19,7 @@
       <input
         ref="input"
         class="co-input__input"
+        v-bind="$props"
         :value="model"
         :type="type"
         :placeholder="placeholder"
@@ -82,6 +83,12 @@ export default {
       type: String,
       validator(value) {
         return oneOf(value, ['small', 'large']);
+      },
+    },
+    maxlength: {
+      type: Number,
+      validator(value) {
+        return value >= 0;
       },
     },
     // 是否触发表单项的验证事件

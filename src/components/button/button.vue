@@ -28,7 +28,7 @@ export default {
     size: {
       type: String,
       validator(val) {
-        return oneOf(val, ['small', 'large']);
+        return oneOf(val, ['small', 'large', 'sm', 'lg']);
       },
     },
     // 原生 type 属性

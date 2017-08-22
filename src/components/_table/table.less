@@ -1,0 +1,52 @@
+.co-table {
+  position: relative;
+  border: @table-border-width solid @table-border-color;
+  border-right: 0;
+  border-bottom: 0;
+  overflow: hidden;
+
+  // 利用伪元素模拟表格右边和底部边框
+  // 防止内部最后与最右边单元格出现双边框
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    background-color: @table-border-color;
+  }
+
+  // table right border
+  &::before {
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+  }
+
+  // table bottom border
+  &::after {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+  }
+
+  &__hidden-columns {
+    position: absolute;
+    z-index: -1;
+    visibility: hidden;
+  }
+
+  &__empty-body {
+    position: relative;
+    min-height: @table-empty-min-height;
+    text-align: center;
+  }
+
+  &__empty-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

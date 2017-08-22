@@ -25,7 +25,7 @@
         :columns="columns"
         :style="{ width: tableBodyWidth ? tableBodyWidth : '' }"></table-body>
       <!-- 表格为空时的界面 -->
-      <div v-else class="co-table__empty">
+      <div v-else class="co-table__empty-body">
         <span class="co-table__empty-text">
           <slot v-if="$slots.empty" name="empty"></slot>
           <template v-else>{{ emptyText }}</template>
