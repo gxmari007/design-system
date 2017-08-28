@@ -25,8 +25,10 @@
 </template>
 
 <script>
-import { oneOf } from 'utils/help';
+import debounce from 'lodash/debounce';
 import CoIcon from 'components/icon';
+import { oneOf } from 'utils/help';
+import { addResizeListener, removeResizeListener } from 'utils/resize';
 
 export default {
   name: 'co-carousel',
@@ -46,9 +48,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 自动切换的时间间隔（ms）
     autoplaySpeed: {
       type: Number,
       default: 2000,
+    },
+    // 动画持续的时间（ms）
+    duration: {
+      type: Number,
+      default: 500,
     },
     arrow: {
       type: String,
@@ -84,6 +92,7 @@ export default {
       listOffset: 0,
       timeoutID: null,
       items: [],
+      resizeHandler: null,
     };
   },
   computed: {
@@ -91,14 +100,15 @@ export default {
       return {
         width: `${this.listWidth}px`,
         transform: `translate3d(-${this.listOffset}px, 0, 0)`,
-        transition: `transform .5s ${this.easing}`,
+        transition: `transform ${this.duration}ms ${this.easing}`,
       };
     },
     dotsClasses() {
-      return {
-        'co-carousel__dots': true,
+      const prefixClass = 'co-carousel__dots';
+
+      return [prefixClass, {
         [`co-carousel__dots--${this.dots}`]: this.dots !== 'none',
-      };
+      }];
     },
   },
   watch: {
@@ -122,10 +132,17 @@ export default {
     this.updateItems();
     this.onResize();
     this.setAutoplay();
+    this.resizeHandler = debounce(this.onResize, 150);
+
+    addResizeListener(this.$el, this.resizeHandler);
   },
   beforeDestroy() {
     if (this.timeoutID) {
       clearInterval(this.timeoutID);
+    }
+
+    if (this.resizeHandler) {
+      removeResizeListener(this.$el, this.resizeHandler);
     }
   },
   methods: {

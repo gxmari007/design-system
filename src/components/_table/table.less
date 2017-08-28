@@ -3,7 +3,6 @@
   border: @table-border-width solid @table-border-color;
   border-right: 0;
   border-bottom: 0;
-  overflow: hidden;
 
   // 利用伪元素模拟表格右边和底部边框
   // 防止内部最后与最右边单元格出现双边框
@@ -37,9 +36,69 @@
     visibility: hidden;
   }
 
+  &__header-wrap {
+    overflow: hidden;
+  }
+
+  &__body-wrap {
+    width: 100%;
+    overflow: auto;
+  }
+
+  &__header,
+  &__body {
+    table-layout: fixed;
+    border-spacing: 0;
+
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      border-bottom: @table-border-width solid @table-border-color;
+    }
+
+    th {
+      padding: @table-th-padding;
+      vertical-align: middle;
+      background-color: @table-th-background;
+      font-size: @table-th-font-size;
+      font-weight: @table-th-font-weight;
+    }
+
+    td {
+      padding: @table-td-padding;
+      font-size: @table-td-font-size;
+    }
+  }
+
+  &__cell {
+    padding: @table-cell-padding;
+  }
+
+  &__title {
+    display: inline-block;
+  }
+
+  &__icon {
+    display: inline-block;
+    margin-left: 4px;
+    color: #5f7784;
+    transition: color .15s;
+    cursor: pointer;
+
+    &:hover {
+      color: #909fa8;
+    }
+  }
+
+  &__sort {
+    transform: scale(1.2);
+    margin-left: 5px;
+  }
+
   &__empty-body {
     position: relative;
     min-height: @table-empty-min-height;
+    height: 100%;
     text-align: center;
   }
 
@@ -48,5 +107,41 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  &__resize-proxy {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    border-left: @table-border-width solid @table-border-color;
+    z-index: 10;
+  }
+
+
+  // modified
+  &--border {
+    th,
+    td {
+      border-right: @table-border-width solid @table-border-color;
+      border-bottom: @table-border-width solid @table-border-color;
+    }
+  }
+
+  &--stripe {
+    tbody tr:nth-of-type(even) {
+      background-color: @table-bg-accent;
+    }
+  }
+
+  &--hover {
+    tbody tr {
+      transition: background-color .2s;
+
+      &:hover {
+        background-color: @table-tr-hover-bg;
+      }
+    }
   }
 }

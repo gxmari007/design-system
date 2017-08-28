@@ -5,6 +5,6 @@
 export default [
   {
     path: '/',
-    component: require('views/Layout'),
+    component: require('views/Layout').default,
   },
 ];
