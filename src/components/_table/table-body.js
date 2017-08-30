@@ -1,5 +1,8 @@
+import mixins from './mixins';
+
 export default {
   name: 'table-body',
+  mixins: [mixins],
   props: {
     columns: {
       type: Array,
@@ -11,6 +14,9 @@ export default {
     },
   },
   methods: {
+    cellStyles(column) {
+      return { textAlign: column.align };
+    },
     renderColgroup() {
       const cols = this.columns.map(column => (
         <col style={{ width: `${column.realWidth}px` }} />
@@ -19,8 +25,10 @@ export default {
       return <colgroup>{cols}</colgroup>;
     },
     renderRow(row) {
-      return this.columns.map(column => (
-        <td>{column.renderCell({ row, column })}</td>
+      return this.columns.map((column, index) => (
+        <td
+          class={this.cellClasses(column, index)}
+          style={this.cellStyles(column)}>{column.renderCell({ row, column })}</td>
       ));
     },
     renderTableBody() {

@@ -12,7 +12,7 @@ const prefixClass = 'co-button-group';
 export default {
   name: 'co-button-group',
   props: {
-    // 确定按钮组中按钮尺寸
+    // 按钮组中按钮尺寸
     size: {
       type: String,
       validator(val) {

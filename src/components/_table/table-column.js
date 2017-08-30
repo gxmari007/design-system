@@ -48,6 +48,13 @@ export default {
       type: Boolean,
       default: true,
     },
+    // 是否固定列在左侧或者右侧
+    fixed: {
+      type: String,
+      validator(value) {
+        return oneOf(value, ['left', 'right']);
+      },
+    },
   },
   data() {
     return {

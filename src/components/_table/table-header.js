@@ -1,15 +1,25 @@
 import throttle from 'lodash/throttle';
 import CoIcon from 'components/icon';
+import mixins from './mixins';
 import { getHeaderRows } from './utils';
 
 export default {
   name: 'table-header',
+  mixins: [mixins],
   props: {
     flattenColumns: {
       type: Array,
       default() { return []; },
     },
     originColumns: {
+      type: Array,
+      default() { return []; },
+    },
+    leftFixedColumns: {
+      type: Array,
+      default() { return []; },
+    },
+    rightFixedColumns: {
       type: Array,
       default() { return []; },
     },
@@ -55,6 +65,9 @@ export default {
       }
 
       return '';
+    },
+    cellStyles(column) {
+      return { textAlign: column.headerAlign || column.align };
     },
     onSort(column) {
       const { sortingColumn } = this;
@@ -199,18 +212,16 @@ export default {
 
       return null;
     },
-    renderRow(column) {
-      const style = { textAlign: column.headerAlign || column.align };
-
+    renderCell(column, index) {
       return (
         <th
-          class={column.columnId}
+          class={this.cellClasses(column, index)}
           colspan={column.colSpan}
           rowspan={column.rowSpan}
           onMousedown={e => this.onMousedown(e, column)}
           onMousemove={e => this.onMousemoveProxy(e, column)}
           onMouseout={this.onMouseout}>
-          <div class="co-table__cell" style={style}>
+          <div class="co-table__cell" style={this.cellStyles(column)}>
             <span class="co-table__title">{column.label}</span>
             {this.renderSort(column)}
           </div>
@@ -220,7 +231,7 @@ export default {
     renderHeader() {
       const { scrollY, scrollBarWidth } = this;
       const rows = this.rows.map((row) => {
-        const ths = row.map(column => this.renderRow(column));
+        const ths = row.map(this.renderCell);
 
         if (scrollY && scrollBarWidth > 0) {
           ths.push(<th style={{ width: `${scrollBarWidth}px` }}></th>);

@@ -9,6 +9,8 @@
         :style="headerStyles"
         :flatten-columns="flattenColumns"
         :origin-columns="originColumns"
+        :left-fixed-columns="leftFixedColumns"
+        :right-fixed-columns="rightFixedColumns"
         :sorting-column="sortingColumn"
         :scroll-y="layout.scrollY"
         :scroll-bar-width="layout.scrollBarWidth"
@@ -94,12 +96,12 @@ export default {
   },
   data() {
     return {
+      tableId: 'co-table',
       originColumns: [],
       resizeHandler: null,
       sortingColumn: null,
       sortProp: '',
       resizeProxyVisible: false,
-      tableId: 'co-table',
       onMousewheelProxy: throttle(this.onMousewheel, 17),
       onBodyScrollProxy: throttle(this.onBodyScroll, 17),
     };
@@ -110,6 +112,12 @@ export default {
     },
     flattenColumns() {
       return getFlattenColumns(this.originColumns);
+    },
+    leftFixedColumns() {
+      return this.originColumns.filter(column => column.fixed === 'left');
+    },
+    rightFixedColumns() {
+      return this.originColumns.filter(column => column.fixed === 'right');
     },
     filterData() {
       const { sortingColumn, sortProp, data } = this;
@@ -186,7 +194,7 @@ export default {
         addResizeListener(this.$el, this.resizeHandler);
       }
     },
-    // 当 co-table-column 变动的时候调用更新 originColumns
+    // 当增加或删除 co-table-column 的时候调用更新 originColumns
     columnChange() {
       this.$nextTick(() => {
         this.originColumns = getColumn(this.$children);
