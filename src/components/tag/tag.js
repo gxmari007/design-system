@@ -17,7 +17,7 @@ export default {
         return oneOf(value, ['large']);
       },
     },
-    closeable: {
+    closable: {
       type: Boolean,
       default: false,
     },
@@ -55,7 +55,7 @@ export default {
       return (
         <span class={this.classes}>
           {this.$slots.default}
-          {this.closeable && this.renderCloseIcon()}
+          {this.closable && this.renderCloseIcon()}
         </span>
       );
     }
@@ -64,7 +64,7 @@ export default {
       <co-tag-transition>
         <span class={this.classes}>
           {this.$slots.default}
-          {this.closeable && this.renderCloseIcon()}
+          {this.closable && this.renderCloseIcon()}
         </span>
       </co-tag-transition>
     );

@@ -17,7 +17,7 @@
 export default {
   name: 'co-breadcrumb-item',
   props: {
-    to: null,
+    to: [String, Object],
     replace: {
       type: Boolean,
       default: false,
