@@ -15,7 +15,7 @@ function getAllColumns(columns) {
 }
 
 // 递归地获取子组件
-export function getColumn(columns) {
+export function getColumns(columns) {
   const results = [];
 
   for (let i = 0; i < columns.length; i += 1) {
@@ -23,7 +23,7 @@ export function getColumn(columns) {
 
     if (column.$options.name === 'co-table-column') {
       if (column.$children.length > 0) {
-        column.children = getColumn(column.$children);
+        column.children = getColumns(column.$children);
       }
 
       results.push(column);

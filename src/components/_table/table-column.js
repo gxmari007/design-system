@@ -35,7 +35,7 @@ export default {
     },
     // 对应列是否可以排序
     sortable: {
-      type: [String, Boolean],
+      type: [Boolean, String],
       default: false,
       validator(value) {
         return oneOf(value, [true, false, 'custom']);

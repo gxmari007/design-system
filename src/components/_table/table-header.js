@@ -7,19 +7,7 @@ export default {
   name: 'table-header',
   mixins: [mixins],
   props: {
-    flattenColumns: {
-      type: Array,
-      default() { return []; },
-    },
     originColumns: {
-      type: Array,
-      default() { return []; },
-    },
-    leftFixedColumns: {
-      type: Array,
-      default() { return []; },
-    },
-    rightFixedColumns: {
       type: Array,
       default() { return []; },
     },
@@ -216,12 +204,13 @@ export default {
       return (
         <th
           class={this.cellClasses(column, index)}
+          style={this.cellStyles(column)}
           colspan={column.colSpan}
           rowspan={column.rowSpan}
           onMousedown={e => this.onMousedown(e, column)}
           onMousemove={e => this.onMousemoveProxy(e, column)}
           onMouseout={this.onMouseout}>
-          <div class="co-table__cell" style={this.cellStyles(column)}>
+          <div class="co-table__cell">
             <span class="co-table__title">{column.label}</span>
             {this.renderSort(column)}
           </div>

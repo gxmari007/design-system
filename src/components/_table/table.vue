@@ -3,6 +3,7 @@
     <div class="co-table__hidden-columns">
       <slot></slot>
     </div>
+    <!-- table header -->
     <div v-if="showHeader" ref="headerWrap" class="co-table__header-wrap" @mousewheel="onMousewheelProxy">
       <table-header
         ref="header"
@@ -19,6 +20,7 @@
         @no-sort="onNoSort"
         @sort-change="onSortChange"></table-header>
     </div>
+    <!-- table body -->
     <div ref="bodyWrap" class="co-table__body-wrap" :style="bodyWrapStyles" @scroll="onBodyScrollProxy">
       <div v-if="noData" class="co-table__empty-body">
         <span class="co-table__empty-text">
@@ -29,9 +31,16 @@
         v-else
         ref="body"
         :style="bodyStyles"
-        :columns="flattenColumns"
+        :flatten-columns="flattenColumns"
+        :left-fixed-columns="leftFixedColumns"
+        :right-fixed-columns="rightFixedColumns"
         :data="filterData"></table-body>
     </div>
+    <!-- left fixed -->
+    <div
+      v-if="leftFixedColumns.length > 0"
+      class="co-table__left-fixed"
+      :style="leftFixedStyles"></div>
     <div v-show="resizeProxyVisible" class="co-table__resize-proxy" ref="resizeProxy"></div>
   </div>
 </template>
@@ -43,7 +52,7 @@ import { addResizeListener, removeResizeListener } from 'utils/resize';
 import TableHeader from './table-header';
 import TableBody from './table-body';
 import layout from './layout';
-import { getColumn, getFlattenColumns, orderBy } from './utils';
+import { getColumns, getFlattenColumns, orderBy } from './utils';
 
 export default {
   name: 'co-table',
@@ -97,7 +106,7 @@ export default {
   data() {
     return {
       tableId: 'co-table',
-      originColumns: [],
+      columns: [],
       resizeHandler: null,
       sortingColumn: null,
       sortProp: '',
@@ -110,14 +119,21 @@ export default {
     noData() {
       return this.data.length === 0;
     },
+    originColumns() {
+      return [
+        ...this.leftFixedColumns,
+        ...this.columns.filter(column => !column.fixed),
+        ...this.rightFixedColumns,
+      ];
+    },
     flattenColumns() {
       return getFlattenColumns(this.originColumns);
     },
     leftFixedColumns() {
-      return this.originColumns.filter(column => column.fixed === 'left');
+      return this.columns.filter(column => column.fixed === 'left');
     },
     rightFixedColumns() {
-      return this.originColumns.filter(column => column.fixed === 'right');
+      return this.columns.filter(column => column.fixed === 'right');
     },
     filterData() {
       const { sortingColumn, sortProp, data } = this;
@@ -167,6 +183,9 @@ export default {
     bodyStyles() {
       return { width: `${this.layout.width}px` };
     },
+    leftFixedStyles() {
+      return { width: `${this.layout.leftFixedWidth}px` };
+    },
   },
   watch: {
     height() {
@@ -197,7 +216,7 @@ export default {
     // 当增加或删除 co-table-column 的时候调用更新 originColumns
     columnChange() {
       this.$nextTick(() => {
-        this.originColumns = getColumn(this.$children);
+        this.columns = getColumns(this.$children);
         this.doUpdateLayout();
       });
     },

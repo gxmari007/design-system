@@ -3,6 +3,7 @@
   border: @table-border-width solid @table-border-color;
   border-right: 0;
   border-bottom: 0;
+  overflow: hidden;
 
   // 利用伪元素模拟表格右边和底部边框
   // 防止内部最后与最右边单元格出现双边框
@@ -54,6 +55,10 @@
       text-align: left;
       vertical-align: top;
       border-bottom: @table-border-width solid @table-border-color;
+
+      &.hidden > * {
+        visibility: hidden;
+      }
     }
 
     th {
@@ -122,6 +127,24 @@
     width: 0;
     border-left: @table-border-width solid @table-border-color;
     z-index: 10;
+  }
+
+  &__left-fixed,
+  &__right-fixed {
+    position: absolute;
+    top: 0;
+    overflow-x: hidden;
+    height: 200px;
+  }
+
+  &__left-fixed {
+    left: 0;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
+  }
+
+  &__right-fixed {
+    right: 0;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
   }
 
 

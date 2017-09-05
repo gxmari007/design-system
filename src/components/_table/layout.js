@@ -7,6 +7,8 @@ export default {
       layout: {
         width: 0,
         height: 0,
+        leftFixedWidth: 0,
+        rightFixedWidth: 0,
         scrollX: false,
         scrollY: false,
         scrollBarWidth: getScrollBarWidth(),
@@ -50,7 +52,12 @@ export default {
       }
     },
     updateLayout() {
-      const { flattenColumns, layout: { scrollBarWidth, scrollY } } = this;
+      const {
+        flattenColumns,
+        leftFixedColumns,
+        rightFixedColumns,
+        layout: { scrollBarWidth, scrollY },
+      } = this;
       const tableWidth = this.$el.clientWidth;
       const tableRealWidth = tableWidth - (scrollY ? scrollBarWidth : 0);
       const flexColumns = flattenColumns.filter(column => (
@@ -99,6 +106,18 @@ export default {
         this.layout.width = Math.max(tableMinWidth, tableRealWidth);
       } else {
         this.layout.width = tableMinWidth;
+      }
+
+      if (leftFixedColumns.length > 0) {
+        this.layout.leftFixedWidth = leftFixedColumns.reduce((acc, column) =>
+          acc + column.realWidth,
+        0);
+      }
+
+      if (rightFixedColumns.length > 0) {
+        this.layout.rightFixedWidth = rightFixedColumns.reduce((acc, column) =>
+          acc + column.realWidth,
+        0);
       }
     },
   },

@@ -4,10 +4,6 @@ export default {
   name: 'table-body',
   mixins: [mixins],
   props: {
-    columns: {
-      type: Array,
-      default() { return []; },
-    },
     data: {
       type: Array,
       default() { return []; },
@@ -18,14 +14,14 @@ export default {
       return { textAlign: column.align };
     },
     renderColgroup() {
-      const cols = this.columns.map(column => (
+      const cols = this.flattenColumns.map(column => (
         <col style={{ width: `${column.realWidth}px` }} />
       ));
 
       return <colgroup>{cols}</colgroup>;
     },
     renderRow(row) {
-      return this.columns.map((column, index) => (
+      return this.flattenColumns.map((column, index) => (
         <td
           class={this.cellClasses(column, index)}
           style={this.cellStyles(column)}>{column.renderCell({ row, column })}</td>
