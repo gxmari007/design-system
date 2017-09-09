@@ -3,7 +3,7 @@
     <transition name="co-fade">
       <div v-show="visible" class="co-modal__mask" @click="clickMask"></div>
     </transition>
-    <transition name="co-modal__fade">
+    <transition name="co-modal">
       <div v-show="visible" :class="classes" @click.self="clickMask">
         <div class="co-modal__main" :style="contentStyles">
           <div v-if="title || $slots.header" class="co-modal__header">

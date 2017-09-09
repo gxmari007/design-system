@@ -22,7 +22,7 @@
     </div>
     <!-- table body -->
     <div ref="bodyWrap" class="co-table__body-wrap" :style="bodyWrapStyles" @scroll="onBodyScrollProxy">
-      <div v-if="noData" class="co-table__empty-body">
+      <div v-if="noData" class="co-table__empty-body" :style="bodyStyles">
         <span class="co-table__empty-text">
           <slot name="empty">{{ emptyText }}</slot>
         </span>
@@ -34,13 +34,83 @@
         :flatten-columns="flattenColumns"
         :left-fixed-columns="leftFixedColumns"
         :right-fixed-columns="rightFixedColumns"
-        :data="filterData"></table-body>
+        :hover="hover"
+        :hover-index="hoverIndex"
+        :data="filterData"
+        @hover-in="onHoverIn"
+        @hover-out="onHoverOut"></table-body>
     </div>
     <!-- left fixed -->
-    <div
-      v-if="leftFixedColumns.length > 0"
-      class="co-table__left-fixed"
-      :style="leftFixedStyles"></div>
+    <div v-if="leftFixedColumns.length > 0" class="co-table__left-fixed" :style="fixedStyles('left')">
+      <div class="co-table__fixed-header-wrap">
+        <table-header
+          :style="{ width: `${this.layout.leftFixedWidth}px` }"
+          fixed="left"
+          :flatten-columns="flattenColumns"
+          :origin-columns="originColumns"
+          :left-fixed-columns="leftFixedColumns"
+          :right-fixed-columns="rightFixedColumns"
+          :sorting-column="sortingColumn"
+          :scroll-y="layout.scrollY"
+          :scroll-bar-width="layout.scrollBarWidth"
+          :border="border"
+          @sorting-column-change="onSortingColumnChange"
+          @no-sort="onNoSort"
+          @sort-change="onSortChange"></table-header>
+      </div>
+      <div
+        class="co-table__fixed-body-wrap"
+        ref="leftFixedBodyWrap"
+        :style="{ height: `${this.layout.fixedBodyHeight}px`, top: `${this.layout.headerHeight}px` }">
+        <table-body
+          :style="{ width: `${this.layout.leftFixedWidth}px` }"
+          fixed="left"
+          :flatten-columns="flattenColumns"
+          :left-fixed-columns="leftFixedColumns"
+          :right-fixed-columns="rightFixedColumns"
+          :hover="hover"
+          :hover-index="hoverIndex"
+          :data="filterData"
+          @hover-in="onHoverIn"
+          @hover-out="onHoverOut"></table-body>
+      </div>
+    </div>
+    <!-- right fixed -->
+    <div v-if="rightFixedColumns.length > 0" class="co-table__right-fixed" :style="fixedStyles('right')">
+      <div class="co-table__fixed-header-wrap">
+        <table-header
+          :style="{ width: `${this.layout.rightFixedWidth}px` }"
+          fixed="right"
+          :flatten-columns="flattenColumns"
+          :origin-columns="originColumns"
+          :left-fixed-columns="leftFixedColumns"
+          :right-fixed-columns="rightFixedColumns"
+          :sorting-column="sortingColumn"
+          :scroll-y="layout.scrollY"
+          :scroll-bar-width="layout.scrollBarWidth"
+          :border="border"
+          @sorting-column-change="onSortingColumnChange"
+          @no-sort="onNoSort"
+          @sort-change="onSortChange"></table-header>
+      </div>
+      <div
+        class="co-table__fixed-body-wrap"
+        ref="rightFixedBodyWrap"
+        :style="{ height: `${this.layout.fixedBodyHeight}px`, top: `${this.layout.headerHeight}px` }">
+        <table-body
+          :style="{ width: `${this.layout.rightFixedWidth}px` }"
+          fixed="right"
+          :flatten-columns="flattenColumns"
+          :left-fixed-columns="leftFixedColumns"
+          :right-fixed-columns="rightFixedColumns"
+          :hover="hover"
+          :hover-index="hoverIndex"
+          :data="filterData"
+          @hover-in="onHoverIn"
+          @hover-out="onHoverOut"></table-body>
+      </div>
+    </div>
+    <div v-if="showFixedPlaceholder" class="co-table__fixed-placeholder"></div>
     <div v-show="resizeProxyVisible" class="co-table__resize-proxy" ref="resizeProxy"></div>
   </div>
 </template>
@@ -111,6 +181,7 @@ export default {
       sortingColumn: null,
       sortProp: '',
       resizeProxyVisible: false,
+      hoverIndex: null,
       onMousewheelProxy: throttle(this.onMousewheel, 17),
       onBodyScrollProxy: throttle(this.onBodyScroll, 17),
     };
@@ -183,8 +254,13 @@ export default {
     bodyStyles() {
       return { width: `${this.layout.width}px` };
     },
-    leftFixedStyles() {
-      return { width: `${this.layout.leftFixedWidth}px` };
+    showFixedPlaceholder() {
+      const {
+        rightFixedColumns,
+        layout: { scrollY, scrollBarWidth },
+      } = this;
+
+      return rightFixedColumns.length > 0 && scrollY && scrollBarWidth > 0;
     },
   },
   watch: {
@@ -238,11 +314,11 @@ export default {
       });
     },
     onBodyScroll() {
-      if (!this.showHeader || !this.layout.scrollX) return;
+      const { headerWrap, bodyWrap, leftFixedBodyWrap, rightFixedBodyWrap } = this.$refs;
 
-      const { headerWrap, bodyWrap } = this.$refs;
-
-      headerWrap.scrollLeft = bodyWrap.scrollLeft;
+      if (headerWrap) headerWrap.scrollLeft = bodyWrap.scrollLeft;
+      if (leftFixedBodyWrap) leftFixedBodyWrap.scrollTop = bodyWrap.scrollTop;
+      if (rightFixedBodyWrap) rightFixedBodyWrap.scrollTop = bodyWrap.scrollTop;
     },
     onMousewheel(event) {
       const { deltaX, deltaY } = event;
@@ -255,6 +331,25 @@ export default {
       } else if (deltaX < 0) {
         bodyWrap.scrollLeft -= 10;
       }
+    },
+    onHoverIn(index) {
+      this.hoverIndex = index;
+    },
+    onHoverOut(index) {
+      this.hoverIndex = index;
+    },
+    fixedStyles(type) {
+      const { scrollY, scrollBarWidth } = this.layout;
+      const style = {
+        width: `${type === 'left' ? this.layout.leftFixedWidth : this.layout.rightFixedWidth}px`,
+        height: `${this.layout.fixedHeight}px`,
+      };
+
+      if (type === 'right') {
+        style.right = `${scrollY && scrollBarWidth > 0 ? scrollBarWidth : 0}px`;
+      }
+
+      return style;
     },
   },
   components: {

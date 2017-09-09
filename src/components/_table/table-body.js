@@ -8,10 +8,27 @@ export default {
       type: Array,
       default() { return []; },
     },
+    hover: Boolean,
+    hoverIndex: null,
   },
   methods: {
+    rowClasses(index) {
+      return {
+        hover: this.hover && this.hoverIndex === index,
+      };
+    },
     cellStyles(column) {
       return { textAlign: column.align };
+    },
+    onMouseenter(index) {
+      if (this.hover) {
+        this.$emit('hover-in', index);
+      }
+    },
+    onMouseleave() {
+      if (this.hover) {
+        this.$emit('hover-out', null);
+      }
     },
     renderColgroup() {
       const cols = this.flattenColumns.map(column => (
@@ -27,11 +44,12 @@ export default {
           style={this.cellStyles(column)}>{column.renderCell({ row, column })}</td>
       ));
     },
-    renderTableBody() {
-      const rows = this.data.map(row => (
-        <tr>
-          {this.renderRow(row)}
-        </tr>
+    renderBody() {
+      const rows = this.data.map((row, index) => (
+        <tr
+          class={this.rowClasses(index)}
+          onMouseenter={() => this.onMouseenter(index)}
+          onMouseleave={this.onMouseleave}>{this.renderRow(row)}</tr>
       ));
 
       return <tbody>{rows}</tbody>;
@@ -41,7 +59,7 @@ export default {
     return (
       <table class="co-table__body">
         {this.renderColgroup()}
-        {this.renderTableBody()}
+        {this.renderBody()}
       </table>
     );
   },

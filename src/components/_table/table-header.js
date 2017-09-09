@@ -82,7 +82,7 @@ export default {
         const table = this.$parent;
         const resizeProxy = table.$refs.resizeProxy;
         const tableLeft = table.$el.getBoundingClientRect().left;
-        const columnRect = table.$el.querySelector(`.${column.columnId}`).getBoundingClientRect();
+        const columnRect = this.$el.querySelector(`.${column.columnId}`).getBoundingClientRect();
         const minLeft = columnRect.left - tableLeft + 60;
 
         table.resizeProxyVisible = true;
@@ -163,12 +163,12 @@ export default {
       }
     },
     renderColgroup() {
-      const { scrollY, scrollBarWidth } = this;
+      const { scrollY, scrollBarWidth, fixed } = this;
       const cols = this.flattenColumns.map(column => (
         <col style={{ width: `${column.realWidth}px` }} />
       ));
 
-      if (scrollY && scrollBarWidth > 0) {
+      if (!fixed && scrollY && scrollBarWidth > 0) {
         cols.push(<col style={{ width: `${scrollBarWidth}px` }} />);
       }
 
@@ -200,7 +200,7 @@ export default {
 
       return null;
     },
-    renderCell(column, index) {
+    renderTh(column, index) {
       return (
         <th
           class={this.cellClasses(column, index)}
@@ -218,11 +218,11 @@ export default {
       );
     },
     renderHeader() {
-      const { scrollY, scrollBarWidth } = this;
+      const { scrollY, scrollBarWidth, fixed } = this;
       const rows = this.rows.map((row) => {
-        const ths = row.map(this.renderCell);
+        const ths = row.map(this.renderTh);
 
-        if (scrollY && scrollBarWidth > 0) {
+        if (!fixed && scrollY && scrollBarWidth > 0) {
           ths.push(<th style={{ width: `${scrollBarWidth}px` }}></th>);
         }
 

@@ -52,8 +52,8 @@
     border-spacing: 0;
 
     th, td {
-      text-align: left;
-      vertical-align: top;
+      height: 30px;
+      vertical-align: middle;
       border-bottom: @table-border-width solid @table-border-color;
 
       &.hidden > * {
@@ -61,27 +61,26 @@
       }
     }
 
+    tr {
+      background-color: #fff;
+    }
+
     th {
-      padding: @table-th-padding;
-      vertical-align: middle;
+      padding: 0;
       background-color: @table-th-background;
       font-size: @table-th-font-size;
       font-weight: @table-th-font-weight;
     }
 
     td {
-      padding: @table-td-padding;
+      padding: 0;
       font-size: @table-td-font-size;
     }
   }
 
   &__cell {
     padding: @table-cell-padding;
-
-    .co-table th.hidden,
-    .co-table td.hidden {
-      visibility: hidden;
-    }
+    word-break: break-all;
   }
 
   &__title {
@@ -134,17 +133,47 @@
     position: absolute;
     top: 0;
     overflow-x: hidden;
-    height: 200px;
   }
 
   &__left-fixed {
     left: 0;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
+    box-shadow: 1px 0 5px 0 rgba(0, 0, 0, .15);
   }
 
   &__right-fixed {
+    box-shadow: -1px 0 5px 0 rgba(0, 0, 0, .15);
+  }
+
+  &__fixed-header-wrap {
+    position: absolute;
+    top: 0;
+
+    .co-table__left-fixed & {
+      left: 0;
+    }
+
+    .co-table__right-fixed & {
+      right: 0;
+    }
+  }
+
+  &__fixed-body-wrap {
+    position: absolute;
+    overflow: hidden;
+
+    .co-table__left-fixed & {
+      left: 0;
+    }
+
+    .co-table__right-fixed & {
+      right: 0;
+    }
+  }
+
+  &__fixed-placeholder {
+    position: absolute;
+    top: 0;
     right: 0;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
   }
 
 
@@ -153,7 +182,6 @@
     th,
     td {
       border-right: @table-border-width solid @table-border-color;
-      border-bottom: @table-border-width solid @table-border-color;
     }
   }
 
@@ -167,7 +195,7 @@
     tbody tr {
       transition: background-color .2s;
 
-      &:hover {
+      &.hover {
         background-color: @table-tr-hover-bg;
       }
     }

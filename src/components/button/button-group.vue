@@ -6,8 +6,7 @@
 
 <script>
 import { oneOf } from 'utils/help';
-
-const prefixClass = 'co-button-group';
+import { SIZE } from 'utils/style';
 
 export default {
   name: 'co-button-group',
@@ -16,7 +15,7 @@ export default {
     size: {
       type: String,
       validator(val) {
-        return oneOf(val, ['small', 'large']);
+        return oneOf(val, SIZE);
       },
     },
     // 是否垂直排列按钮，默认水平排列
@@ -27,10 +26,11 @@ export default {
   },
   computed: {
     classes() {
-      return {
-        [prefixClass]: true,
+      const prefixClass = 'co-button-group';
+
+      return [prefixClass, {
         [`${prefixClass}--vertical`]: this.vertical,
-      };
+      }];
     },
   },
 };

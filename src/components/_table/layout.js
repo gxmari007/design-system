@@ -7,8 +7,11 @@ export default {
       layout: {
         width: 0,
         height: 0,
+        headerHeight: 0,
         leftFixedWidth: 0,
         rightFixedWidth: 0,
+        fixedHeight: 0,
+        fixedBodyHeight: 0,
         scrollX: false,
         scrollY: false,
         scrollBarWidth: getScrollBarWidth(),
@@ -39,17 +42,31 @@ export default {
     updateHeight() {
       const height = this.$el.clientHeight;
       const { header } = this.$refs;
+      const { scrollX, scrollBarWidth } = this.layout;
 
-      if (typeof this.height === 'number') {
-        // 数据更新时可能 header 实例还未生成
-        if (this.showHeader && header) {
-          const headerHeight = header.$el.offsetHeight;
+      // 数据更新时可能 header 实例还未生成
+      if (!header) return;
 
-          this.layout.height = height - headerHeight;
-        } else {
+      if (this.showHeader) {
+        const headerHeight = header.$el.offsetHeight;
+        const bodyHeight = height - headerHeight;
+
+        if (typeof this.height === 'number') {
+          this.layout.height = bodyHeight;
+        }
+
+        this.layout.headerHeight = headerHeight;
+        this.layout.fixedBodyHeight = scrollX ? bodyHeight - scrollBarWidth : bodyHeight;
+      } else {
+        if (typeof this.height === 'number') {
           this.layout.height = height;
         }
+
+        this.layout.headerHeight = 0;
+        this.layout.fixedBodyHeight = scrollX ? height - scrollBarWidth : height;
       }
+
+      this.layout.fixedHeight = scrollX ? height - scrollBarWidth : height;
     },
     updateLayout() {
       const {

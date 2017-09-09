@@ -4,14 +4,17 @@
     :type="htmlType"
     :disabled="disabled"
     @click="onClick">
+    <transition name="co-fade">
+      <co-icon v-if="loading" class="co-button__loading" type="load-c"></co-icon>
+    </transition>
     <slot></slot>
   </button>
 </template>
 
 <script>
+import CoIcon from 'components/icon';
 import { oneOf } from 'utils/help';
-
-const prefixClass = 'co-button';
+import { sizeMap, SIZE } from 'utils/style';
 
 export default {
   name: 'co-button',
@@ -20,23 +23,23 @@ export default {
     type: {
       type: String,
       default: 'default',
-      validator(val) {
-        return oneOf(val, ['default', 'primary', 'ghost', 'success', 'error', 'link']);
+      validator(value) {
+        return oneOf(value, ['default', 'primary', 'ghost', 'success', 'error', 'link']);
       },
     },
     // 按钮尺寸
     size: {
       type: String,
-      validator(val) {
-        return oneOf(val, ['small', 'large']);
+      validator(value) {
+        return oneOf(value, SIZE);
       },
     },
     // 原生 type 属性
     htmlType: {
       type: String,
       default: 'button',
-      validator(val) {
-        return oneOf(val, ['button', 'submit', 'reset']);
+      validator(value) {
+        return oneOf(value, ['button', 'submit', 'reset']);
       },
     },
     // 是否为块级按钮，宽度为 100%
@@ -49,23 +52,30 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 开启按钮载入状态
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       buttonGroup: null,
-      buttonClick: false,
+      clicked: false,
       timeoutID: null,
     };
   },
   computed: {
     classes() {
-      return {
-        [prefixClass]: true,
+      const prefixClass = 'co-button';
+
+      return [prefixClass, {
         [`${prefixClass}--${this.type}`]: true,
         [`${prefixClass}--block`]: this.block,
-        [`${prefixClass}--${this.buttonSize}`]: this.buttonSize,
-        [`${prefixClass}--clicked`]: this.buttonClick,
-      };
+        [`${prefixClass}--${sizeMap[this.buttonSize]}`]: !!this.buttonSize,
+        [`${prefixClass}--loading`]: this.loading,
+        [`${prefixClass}--clicked`]: this.clicked,
+      }];
     },
     isGroup() {
       let parent = this.$parent;
@@ -92,18 +102,21 @@ export default {
   },
   methods: {
     onClick() {
-      // link 按钮没有点击动画
       if (this.type === 'link') return;
+
+      this.clicked = true;
 
       if (this.timeoutID) {
         clearTimeout(this.timeoutID);
       }
 
-      this.buttonClick = true;
       this.timeoutID = setTimeout(() => {
-        this.buttonClick = false;
+        this.clicked = false;
       }, 400);
     },
+  },
+  components: {
+    CoIcon,
   },
 };
 </script>

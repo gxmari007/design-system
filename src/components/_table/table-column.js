@@ -85,14 +85,14 @@ export default {
   },
   watch: {
     width(newVal) {
-      // 当 width 参数更新时，拖拽宽度失效
+      // 当 width 参数更新时，重置拖拽宽度
       this.resizeWidth = null;
       this.realWidth = newVal;
-      this.table.updateLayout();
+      this.table.doUpdateLayout();
     },
     minWidth() {
       this.resizeWidth = null;
-      this.table.updateLayout();
+      this.table.doUpdateLayout();
     },
   },
   created() {

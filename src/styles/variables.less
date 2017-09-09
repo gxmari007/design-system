@@ -27,7 +27,7 @@
 
 
 // 字体
-@font-family-base: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "WenQuanYi Micro Hei", Arial, sans-serif;
+@font-family-base: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", SimSun, sans-serif;
 
 @font-size-base: 12px;
 @font-weight-base: 400;
@@ -43,13 +43,18 @@
 
 
 // Button
+@button-height: 26px;
 @button-font-size: @font-size-base;
-@button-font-weight: @font-weight-base;
+@button-font-weight: 500;
 @button-line-height: @line-height-base;
 @button-border-radius: 2px;
-@button-padding: 3px 17px;
+@button-padding: 0 9px;
+@button-loading-padding-left: 24px;
 @button-cursor: pointer;
-@button-click-shadow: 0 0 0 6px fade(@primary, 20%);
+@button-default-clicked: 0 0 0 5px @gray-lighter;
+@button-primary-clicked: 0 0 0 5px @primary;
+@button-success-clicked: 0 0 0 5px @success;
+@button-error-clicked: 0 0 0 5px @error;
 
 @button-disabled-bg: #fafafa;
 @button-disabled-border-color: @brown;
@@ -64,16 +69,30 @@
 @button-primary-border-color: @primary;
 @button-primary-bg: @primary;
 @button-primary-color: #fff;
-@button-primary-hover-border-color: #0d81bd;
-@button-primary-hover-bg: #0d81bd;
+@button-primary-hover-border-color: @primary-dark;
+@button-primary-hover-bg: @primary-dark;
 
 @button-ghost-border-color: @primary;
 @button-ghost-bg: #fff;
 @button-ghost-color: @primary;
 @button-ghost-hover-bg: #ebf3f7;
 
-@button-small-padding: 2px 17px;
-@button-large-padding: 5px 17px;
+@button-success-border-color: @success;
+@button-success-bg: @success;
+@button-success-color: #fff;
+@button-success-hover-border-color: darken(@success, 5%);
+@button-success-hover-bg: darken(@success, 5%);
+
+@button-error-border-color: @error;
+@button-error-bg: @error;
+@button-error-color: #fff;
+@button-error-hover-border-color: darken(@error, 10%);
+@button-error-hover-bg: darken(@error, 10%);
+
+@button-small-height: 24px;
+
+@button-large-height: 30px;
+@button-large-font-size: 13px;
 
 
 // Input
@@ -183,12 +202,10 @@
 @table-th-font-size: 13px;
 @table-th-font-weight: @font-weight-base;
 @table-th-background: #e3e8ef;
-@table-th-padding: 5px 0;
 
 @table-td-font-size: 12px;
-@table-td-padding: 6px 0;
 
-@table-cell-padding: 0 20px;
+@table-cell-padding: 0 10px;
 
 @table-empty-min-height: 60px;
 
