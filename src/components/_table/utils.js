@@ -118,3 +118,33 @@ export function orderBy(array = [], sortKey, reverse, sortMethod) {
     return a[sortKey] > b[sortKey] ? order : -order;
   });
 }
+
+// 获取表格单元格 dom 元素，没有则返回 null
+export function getCellDom(event) {
+  let dom = event.target;
+
+  while (dom && dom.tagName.toUpperCase() !== 'HTML') {
+    if (dom.tagName.toUpperCase() === 'TD') {
+      return dom;
+    }
+
+    dom = dom.parentNode;
+  }
+
+  return null;
+}
+
+export function getColumnByCell(columns, cell) {
+  const matches = (cell.className || '').match(/co-table_column_[^\s]+/gm);
+  let column = null;
+
+  if (matches) {
+    columns.forEach((item) => {
+      if (item.columnId === matches[0]) {
+        column = item;
+      }
+    });
+  }
+
+  return column;
+}

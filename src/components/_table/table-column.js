@@ -117,6 +117,14 @@ export default {
     this.table.columnChange();
   },
   methods: {
+    renderDefaultHeader(column) {
+      return <span class="co-table__title">{column.label}</span>;
+    },
+    renderHeader(column) {
+      return this.$scopedSlots.header ?
+        this.$scopedSlots.header(column) :
+        this.renderDefaultHeader(column);
+    },
     renderDefaultCell({ row, column }) {
       return row[column.prop];
     },

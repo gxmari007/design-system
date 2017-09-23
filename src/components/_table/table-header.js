@@ -211,7 +211,8 @@ export default {
           onMousemove={e => this.onMousemoveProxy(e, column)}
           onMouseout={this.onMouseout}>
           <div class="co-table__cell">
-            <span class="co-table__title">{column.label}</span>
+            {/* <span class="co-table__title">{column.label}</span> */}
+            {column.renderHeader(column)}
             {this.renderSort(column)}
           </div>
         </th>

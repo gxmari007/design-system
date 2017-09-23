@@ -1,4 +1,5 @@
 import mixins from './mixins';
+import { getCellDom, getColumnByCell } from './utils';
 
 export default {
   name: 'table-body',
@@ -11,6 +12,11 @@ export default {
     hover: Boolean,
     hoverIndex: null,
   },
+  computed: {
+    table() {
+      return this.$parent;
+    },
+  },
   methods: {
     rowClasses(index) {
       return {
@@ -19,6 +25,23 @@ export default {
     },
     cellStyles(column) {
       return { textAlign: column.align };
+    },
+    handleEvent(event, row, eventName) {
+      const cell = getCellDom(event);
+      let column = null;
+
+      if (cell) {
+        column = getColumnByCell(this.flattenColumns, cell);
+
+        if (column) {
+          this.table.$emit(`on-cell-${eventName}`, event, row, column, cell);
+        }
+      }
+
+      this.table.$emit(`on-row-${eventName}`, event, row, column);
+    },
+    onClick(event, row) {
+      this.handleEvent(event, row, 'click');
     },
     onMouseenter(index) {
       if (this.hover) {
@@ -48,6 +71,7 @@ export default {
       const rows = this.data.map((row, index) => (
         <tr
           class={this.rowClasses(index)}
+          onClick={e => this.onClick(e, row)}
           onMouseenter={() => this.onMouseenter(index)}
           onMouseleave={this.onMouseleave}>{this.renderRow(row)}</tr>
       ));

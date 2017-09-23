@@ -28,6 +28,12 @@
       background-color: @button-disabled-bg;
     }
   }
+
+  // 图标与文字的样式
+  & > .co-icon + span,
+  & > span + .co-icon {
+    margin-left: @button-icon-margin;
+  }
 }
 
 .co-button__loading {
@@ -38,7 +44,7 @@
 
   &::before {
     // 修复 loading 图表无法居中旋转的问题
-    transform-origin: 48% 47%;
+    transform-origin: 48% 46%;
     animation: button-loading 1s infinite linear;
   }
 }
@@ -172,6 +178,11 @@
 // loading 状态
 .co-button--loading {
   padding-left: @button-loading-padding-left;
+
+  // 重置文字外边距
+  & > .co-icon + span {
+    margin-left: 0;
+  }
 }
 
 

@@ -1,12 +1,13 @@
 <template>
   <button
     :class="classes"
-    :type="htmlType"
+    :type="nativeType"
     :disabled="disabled"
     @click="onClick">
     <transition name="co-fade">
       <co-icon v-if="loading" class="co-button__loading" type="load-c"></co-icon>
     </transition>
+    <co-icon v-if="showIcon" :type="icon"></co-icon>
     <slot></slot>
   </button>
 </template>
@@ -35,7 +36,7 @@ export default {
       },
     },
     // 原生 type 属性
-    htmlType: {
+    nativeType: {
       type: String,
       default: 'button',
       validator(value) {
@@ -57,6 +58,8 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 设置按钮的图标
+    icon: String,
   },
   data() {
     return {
@@ -93,6 +96,10 @@ export default {
     },
     buttonSize() {
       return this.isGroup ? this.buttonGroup.size : this.size;
+    },
+    showIcon() {
+      if (this.icon && !this.loading) return true;
+      return false;
     },
   },
   beforeDestroy() {
