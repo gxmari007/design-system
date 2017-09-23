@@ -10,8 +10,8 @@
 
 <script>
 // libs
-import listen from 'dom-helpers/events/listen';
 import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 // utils
 import { scrollTo } from 'utils/help';
 // components
@@ -44,8 +44,8 @@ export default {
   data() {
     return {
       show: false,
-      scrollOff: null,
-      resizeOff: null,
+      scrollHandler: throttle(this.onScroll, 17),
+      resizeHandler: debounce(this.onScroll, 150),
     };
   },
   computed: {
@@ -56,20 +56,13 @@ export default {
       };
     },
   },
-  created() {
-    const callback = throttle(this.onScroll, 17);
-
-    this.scrollOff = listen(window, 'scroll', callback);
-    this.resizeOff = listen(window, 'resize', callback);
+  mounted() {
+    window.addEventListener('scroll', this.scrollHandler);
+    window.addEventListener('resize', this.resizeHandler);
   },
   beforeDestroy() {
-    if (typeof this.scrollOff === 'function') {
-      this.scrollOff();
-    }
-
-    if (typeof this.resizeOff === 'function') {
-      this.resizeOff();
-    }
+    window.removeEventListener('scroll', this.scrollHandler);
+    window.removeEventListener('resize', this.resizeHandler);
   },
   methods: {
     onScroll() {
