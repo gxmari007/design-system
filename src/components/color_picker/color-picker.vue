@@ -10,18 +10,15 @@
       </span>
       <co-icon class="co-color-picker__icon" type="arrow-down-b"></co-icon>
     </div>
-    <div v-transfer-dom>
-      <color-dropdown
-        ref="popper"
-        v-model="visible"></color-dropdown>
-    </div>
+    <color-dropdown
+      ref="popper"
+      v-model="visible"></color-dropdown>
   </div>
 </template>
 
 <script>
 import CoIcon from 'components/icon';
 import clickoutside from 'directives/clickoutside';
-import transferDom from 'directives/transfer-dom';
 import popper from 'mixins/popper';
 import { oneOf } from 'utils/help';
 import ColorDropdown from './color-dropdown';
@@ -31,7 +28,6 @@ export default {
   mixins: [popper],
   directives: {
     clickoutside,
-    transferDom,
   },
   props: {
     value: {

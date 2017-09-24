@@ -10,18 +10,16 @@
       @click="onClick">
       <slot></slot>
     </div>
-    <div v-transfer-dom="transfer">
-      <transition name="co-slide">
-        <div
-          class="co-dropdown__wrapper"
-          v-show="visible"
-          ref="popper"
-          @mouseenter="onMenuMouseenter"
-          @mouseleave="onMenuMouseleave">
-          <slot name="menu"></slot>
-        </div>
-      </transition>
-    </div>
+    <transition name="co-slide">
+      <div
+        class="co-dropdown__wrapper"
+        v-show="visible"
+        ref="popper"
+        @mouseenter="onMenuMouseenter"
+        @mouseleave="onMenuMouseleave">
+        <slot name="menu"></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -29,7 +27,6 @@
 import { oneOf } from 'utils/help';
 // directives
 import clickoutside from 'directives/clickoutside';
-import transferDom from 'directives/transfer-dom';
 // mixins
 import emitter from 'mixins/emitter';
 import popper from 'mixins/popper';
@@ -39,7 +36,6 @@ export default {
   mixins: [emitter, popper],
   directives: {
     clickoutside,
-    transferDom,
   },
   props: {
     // 触发方式

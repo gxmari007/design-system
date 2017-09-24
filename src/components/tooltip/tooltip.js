@@ -4,7 +4,6 @@ import listen from 'dom-helpers/events/listen';
 import popper from 'mixins/popper';
 // directives
 import clickoutside from 'directives/clickoutside';
-import transferDom from 'directives/transfer-dom';
 // utils
 import { oneOf } from 'utils/help';
 
@@ -13,7 +12,6 @@ export default {
   mixins: [popper],
   directives: {
     clickoutside,
-    transferDom,
   },
   props: {
     trigger: {
@@ -218,9 +216,7 @@ export default {
           onClick={this.onClick}>
           {this.$slots.default}
         </div>
-        <div v-transfer-dom>
-          {popperTip}
-        </div>
+        {popperTip}
       </div>
     );
   },

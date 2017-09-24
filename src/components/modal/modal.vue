@@ -31,8 +31,6 @@
 // components
 import { CoButton } from 'components/button';
 import CoIcon from 'components/icon';
-// directives
-import transferDom from 'directives/transfer-dom';
 // libs
 import listen from 'dom-helpers/events/listen';
 import { getScrollBarWidth } from 'utils/help';
@@ -41,7 +39,6 @@ const prefixClass = 'co-modal';
 
 export default {
   name: 'co-modal',
-  directives: { transferDom },
   props: {
     // 控制模态框显示与隐藏
     value: {

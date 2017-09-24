@@ -10,27 +10,25 @@
       @click="onClick">
       <slot></slot>
     </div>
-    <div v-transfer-dom>
-      <transition :name="transition">
-        <div
-          v-show="visible"
-          class="co-popover__popper"
-          :style="styles"
-          ref="popper"
-          @mouseenter="onMouseenter"
-          @mouseleave="onMouseleave">
-          <div class="co-popover__arrow"></div>
-          <div class="co-popover__inner">
-            <div v-if="$slots.title || title" class="co-popover__title">
-              <slot name="title" class="co-popover__title">{{ title }}</slot>
-            </div>
-            <div v-if="$slots.content || content" class="co-popover__content">
-              <slot name="content">{{ content }}</slot>
-            </div>
+    <transition :name="transition">
+      <div
+        v-show="visible"
+        class="co-popover__popper"
+        :style="styles"
+        ref="popper"
+        @mouseenter="onMouseenter"
+        @mouseleave="onMouseleave">
+        <div class="co-popover__arrow"></div>
+        <div class="co-popover__inner">
+          <div v-if="$slots.title || title" class="co-popover__title">
+            <slot name="title" class="co-popover__title">{{ title }}</slot>
+          </div>
+          <div v-if="$slots.content || content" class="co-popover__content">
+            <slot name="content">{{ content }}</slot>
           </div>
         </div>
-      </transition>
-    </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -39,14 +37,12 @@ import listen from 'dom-helpers/events/listen';
 import { oneOf } from 'utils/help';
 import popper from 'mixins/popper';
 import clickoutside from 'directives/clickoutside';
-import transferDom from 'directives/transfer-dom';
 
 export default {
   name: 'co-popover',
   mixins: [popper],
   directives: {
     clickoutside,
-    transferDom,
   },
   props: {
     value: {

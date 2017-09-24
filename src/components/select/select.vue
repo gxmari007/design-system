@@ -17,19 +17,17 @@
         readonly
         @click.native="switchDropdown"></co-input>
     </div>
-    <div v-transfer-dom>
-      <transition name="co-slide">
-        <div
-          v-show="visible"
-          class="co-select__dropdown"
-          :style="dropdownStyles"
-          ref="popper">
-          <ul class="co-select__list">
-            <slot></slot>
-          </ul>
-        </div>
-      </transition>
-    </div>
+    <transition name="co-slide">
+      <div
+        v-show="visible"
+        class="co-select__dropdown"
+        :style="dropdownStyles"
+        ref="popper">
+        <ul class="co-select__list">
+          <slot></slot>
+        </ul>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -41,7 +39,6 @@ import CoIcon from 'components/icon';
 import { oneOf } from 'utils/help';
 // directives
 import clickoutside from 'directives/clickoutside';
-import transferDom from 'directives/transfer-dom';
 // libs
 import listen from 'dom-helpers/events/listen';
 // mixins
@@ -53,7 +50,6 @@ export default {
   mixins: [popper],
   directives: {
     clickoutside,
-    transferDom,
   },
   props: {
     // v-model
