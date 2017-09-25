@@ -35,8 +35,8 @@ import { CoTimeline, CoTimelineItem } from 'components/timeline';
 import CoTooltip from 'components/tooltip';
 import CoTree from 'components/tree';
 // Directives
-import clickoutside from 'directives/clickoutside';
-import transferDom from 'directives/transfer-dom';
+// import clickoutside from 'directives/clickoutside';
+// import transferDom from 'directives/transfer-dom';
 
 const coview = {
   CoAffix,
@@ -102,8 +102,8 @@ function install(Vue) {
   Vue.prototype.$loading = CoLoading;
   Vue.prototype.$message = CoMessage;
 
-  Vue.directive(clickoutside.name, clickoutside);
-  Vue.directive(transferDom.name, transferDom);
+  // Vue.directive(clickoutside.name, clickoutside);
+  // Vue.directive(transferDom.name, transferDom);
 }
 
 // 在浏览器 script 标签引入的情况下自动安装
@@ -173,6 +173,6 @@ export {
   CoTooltip,
   CoTree,
   // Directives
-  clickoutside,
-  transferDom,
+  // clickoutside,
+  // transferDom,
 };

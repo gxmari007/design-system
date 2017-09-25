@@ -32,7 +32,6 @@
 import { CoButton } from 'components/button';
 import CoIcon from 'components/icon';
 // libs
-import listen from 'dom-helpers/events/listen';
 import { getScrollBarWidth } from 'utils/help';
 
 const prefixClass = 'co-modal';
