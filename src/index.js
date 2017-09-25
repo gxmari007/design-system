@@ -36,7 +36,7 @@ import CoTooltip from 'components/tooltip';
 import CoTree from 'components/tree';
 // Directives
 import clickoutside from 'directives/clickoutside';
-import transferDom from 'directives/transfer-dom';
+// import transferDom from 'directives/transfer-dom';
 
 const coview = {
   CoAffix,
@@ -103,7 +103,7 @@ function install(Vue) {
   Vue.prototype.$message = CoMessage;
 
   Vue.directive(clickoutside.name, clickoutside);
-  Vue.directive(transferDom.name, transferDom);
+  // Vue.directive(transferDom.name, transferDom);
 }
 
 // 在浏览器 script 标签引入的情况下自动安装
@@ -174,5 +174,5 @@ export {
   CoTree,
   // Directives
   clickoutside,
-  transferDom,
+  // transferDom,
 };
