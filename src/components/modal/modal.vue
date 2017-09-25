@@ -83,8 +83,6 @@ export default {
   },
   data() {
     return {
-      // keydown unbind function
-      keydownOff: null,
       // body 标签是否有滚动条
       bodyOverflow: false,
       // 滚动条的宽度
@@ -112,24 +110,20 @@ export default {
       };
     },
   },
-  watch: {
-    visible(val) {
-      if (val) {
-        if (!this.scrollable) {
-          this.addScrollEffect();
-        }
+  mounted() {
+    document.addEventListener('keydown', this.onEscClose);
+
+    // 为了支持 ssr，操作 window 对象的地方需要放到 mounted 钩子方法中
+    this.$watch('visible', (newVal) => {
+      if (newVal) {
+        this.addScrollEffect();
       } else {
         this.removeScrollEffect();
       }
-    },
-  },
-  mounted() {
-    this.keydownOff = listen(document, 'keydown', this.onEscClose);
+    });
   },
   beforeDestroy() {
-    if (typeof this.keydownOff === 'function') {
-      this.keydownOff();
-    }
+    document.removeEventListener('keydown', this.onEscClose);
   },
   methods: {
     close() {
@@ -149,11 +143,13 @@ export default {
       }
     },
     onEscClose(e) {
-      if (this.value && e.keyCode === 27) {
+      if (this.visible && e.keyCode === 27) {
         this.onCancel();
       }
     },
     addScrollEffect() {
+      if (this.scrollable) return;
+
       this.bodyOverflow = window.innerWidth > document.body.clientWidth;
 
       if (this.bodyOverflow) {

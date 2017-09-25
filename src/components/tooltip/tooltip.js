@@ -10,9 +10,7 @@ import { oneOf } from 'utils/help';
 export default {
   name: 'co-tooltip',
   mixins: [popper],
-  directives: {
-    clickoutside,
-  },
+  directives: { clickoutside },
   props: {
     trigger: {
       type: String,
