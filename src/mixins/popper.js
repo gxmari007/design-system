@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import Popper from 'popper.js';
 import width from 'dom-helpers/query/width';
 import { oneOf } from '../utils/help';
 
 const isServer = Vue.prototype.$isServer;
+const Popper = isServer ? () => {} : require('popper.js');
 
 const placementValues = [
   'top', 'top-start', 'top-end',
