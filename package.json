@@ -1,7 +1,7 @@
 {
   "name": "coview",
   "description": "A ui components library with vue.js",
-  "version": "0.3.28",
+  "version": "0.3.29",
   "author": "gxmari007 <392041299@qq.com>",
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
