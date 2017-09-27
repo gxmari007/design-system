@@ -1,6 +1,6 @@
 // Components
-import CoAffix from './components/affix';
-import CoBackTop from './components/back_top';
+// import CoAffix from './components/affix';
+// import CoBackTop from './components/back_top';
 import CoBadge from './components/badge';
 import { CoBreadcrumb, CoBreadcrumbItem } from './components/breadcrumb';
 import { CoButtonGroup, CoButton } from './components/button';
@@ -39,8 +39,8 @@ import clickoutside from './directives/clickoutside';
 import transferDom from './directives/transfer-dom';
 
 const coview = {
-  CoAffix,
-  CoBackTop,
+  // CoAffix,
+  // CoBackTop,
   CoBadge,
   CoBreadcrumb,
   CoBreadcrumbItem,
@@ -119,8 +119,8 @@ export default {
 
 export {
   // Components
-  CoAffix,
-  CoBackTop,
+  // CoAffix,
+  // CoBackTop,
   CoBadge,
   CoBreadcrumb,
   CoBreadcrumbItem,
