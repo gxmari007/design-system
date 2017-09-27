@@ -11,7 +11,6 @@ const prefixClass = 'co-row';
 
 export default {
   name: 'co-row',
-  componentName: 'co-row',
   props: {
     // 布局类型
     // 浮动布局和 flex 布局

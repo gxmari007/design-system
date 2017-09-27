@@ -1,8 +1,9 @@
-// libs
+import Vue from 'vue';
 import Popper from 'popper.js';
 import width from 'dom-helpers/query/width';
-// utils
 import { oneOf } from '../utils/help';
+
+const isServer = Vue.prototype.$isServer;
 
 const placementValues = [
   'top', 'top-start', 'top-end',
@@ -57,6 +58,8 @@ export default {
   },
   methods: {
     createPopper() {
+      if (isServer) return;
+
       const popper = this.popper || this.$refs.popper;
       const reference = this.reference || this.$refs.reference;
       const options = Object.assign({}, this.options, {
