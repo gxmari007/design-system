@@ -14,15 +14,15 @@ module.exports = {
   plugins: ['html'],
   globals: {
     window: false,
-    document: false,
+    document: false
   },
   // check if imports actually resolve
   settings: {
     'import/resolver': {
       webpack: {
-        config: 'build/webpack.config.resolve.js',
-      },
-    },
+        config: 'build/webpack.config.resolve.js'
+      }
+    }
   },
   // add your custom rules here
   rules: {
@@ -38,6 +38,6 @@ module.exports = {
     'no-shadow': 0,
     'no-mixed-operators': 0,
     'global-require': 0,
-    'no-underscore-dangle': ['error', { allowAfterThis: true }],
-  },
-};
+    'no-underscore-dangle': ['error', { allowAfterThis: true }]
+  }
+}

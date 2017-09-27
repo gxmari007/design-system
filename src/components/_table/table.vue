@@ -118,7 +118,7 @@
 <script>
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
-import { addResizeListener, removeResizeListener } from 'utils/resize';
+import { addResizeListener, removeResizeListener } from '../../utils/resize';
 import TableHeader from './table-header';
 import TableBody from './table-body';
 import layout from './layout';

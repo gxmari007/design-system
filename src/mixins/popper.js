@@ -2,7 +2,7 @@
 import Popper from 'popper.js';
 import width from 'dom-helpers/query/width';
 // utils
-import { oneOf } from 'utils/help';
+import { oneOf } from '../utils/help';
 
 const placementValues = [
   'top', 'top-start', 'top-end',

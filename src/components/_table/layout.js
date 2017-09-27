@@ -1,5 +1,5 @@
 // mixin
-import { getScrollBarWidth } from 'utils/help';
+import { getScrollBarWidth } from '../../utils/help';
 
 export default {
   data() {

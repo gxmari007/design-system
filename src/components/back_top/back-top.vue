@@ -13,9 +13,9 @@
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 // utils
-import { scrollTo } from 'utils/help';
+import { scrollTo } from '../../utils/help';
 // components
-import CoIcon from 'components/icon';
+import CoIcon from '../icon';
 
 export default {
   name: 'co-back-top',

@@ -1,5 +1,5 @@
 import throttle from 'lodash/throttle';
-import CoIcon from 'components/icon';
+import CoIcon from '../icon';
 import mixins from './mixins';
 import { getHeaderRows } from './utils';
 
