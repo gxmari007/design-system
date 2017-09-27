@@ -1,8 +1,8 @@
 // Components
-// import CoAffix from './components/affix';
-// import CoBackTop from './components/back_top';
+import CoAffix from './components/affix';
+import CoBackTop from './components/back_top';
 import CoBadge from './components/badge';
-import { CoBreadcrumb, CoBreadcrumbItem } from './components/breadcrumb';
+// import { CoBreadcrumb, CoBreadcrumbItem } from './components/breadcrumb';
 import { CoButtonGroup, CoButton } from './components/button';
 import CoCard from './components/card';
 import { CoCarousel, CoCarouselItem } from './components/carousel';
@@ -20,7 +20,7 @@ import { CoRow, CoCol } from './components/layout';
 import CoLoading from './components/loading';
 import { CoMenu, CoMenuItem, CoSubmenu, CoMenuGroup } from './components/menu';
 import CoMessage from './components/message';
-import CoModal from './components/modal';
+// import CoModal from './components/modal';
 import CoPagination from './components/pagination';
 import CoPopover from './components/popover';
 import { CoRadioGroup, CoRadio } from './components/radio';
@@ -39,11 +39,11 @@ import clickoutside from './directives/clickoutside';
 import transferDom from './directives/transfer-dom';
 
 const coview = {
-  // CoAffix,
-  // CoBackTop,
+  CoAffix,
+  CoBackTop,
   CoBadge,
-  CoBreadcrumb,
-  CoBreadcrumbItem,
+  // CoBreadcrumb,
+  // CoBreadcrumbItem,
   CoButtonGroup,
   CoButton,
   CoCard,
@@ -70,7 +70,7 @@ const coview = {
   CoMenuItem,
   CoSubmenu,
   CoMenuGroup,
-  CoModal,
+  // CoModal,
   CoPagination,
   CoPopover,
   CoRadioGroup,
@@ -119,11 +119,11 @@ export default {
 
 export {
   // Components
-  // CoAffix,
-  // CoBackTop,
+  CoAffix,
+  CoBackTop,
   CoBadge,
-  CoBreadcrumb,
-  CoBreadcrumbItem,
+  // CoBreadcrumb,
+  // CoBreadcrumbItem,
   CoButtonGroup,
   CoButton,
   CoCard,
@@ -152,7 +152,7 @@ export {
   CoSubmenu,
   CoMenuGroup,
   CoMessage,
-  CoModal,
+  // CoModal,
   CoPagination,
   CoPopover,
   CoRadioGroup,
