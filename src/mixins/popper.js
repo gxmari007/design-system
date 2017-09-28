@@ -31,6 +31,11 @@ export default {
         };
       },
     },
+    // popper 是否插入到 body 尾部
+    appendBody: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -65,6 +70,10 @@ export default {
       const options = Object.assign({}, this.options, {
         placement: this.placement,
       });
+
+      if (this.appendBody) {
+        document.body.appendChild(popper);
+      }
 
       this.popperElm = popper;
       this.popperJS = new Popper(reference, popper, options);
