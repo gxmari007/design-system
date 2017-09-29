@@ -169,8 +169,27 @@ export default {
       type: Object,
       validator(value) {
         return Object.prototype.toString.call(value) === '[object Object]' &&
-          Object.keys(value).indexOf('prop') !== -1;
+          Object.keys(value).indexOf('prop') > -1;
       },
+    },
+    // 表格子列的属性名
+    childrenColumnName: {
+      type: String,
+      default: 'children',
+    },
+    // 行数据的 key，优化表格渲染，用于树形表格与带展开功能的表格
+    // String 类型则返回 row[rowKey] 作为 key
+    // Function 类型则是 rowKey(row) 的返回值作为 key
+    rowKey: {
+      type: [String, Function],
+      default: 'key',
+    },
+    // 设置表格展开行，需要设置 rowKey 属性才有效，其值为展开行的 keys 数组
+    expandRowKeys: Array,
+    // 是否默认展开所有表格行，只在具有展开行功能的表格中有效
+    defaultExpandAll: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

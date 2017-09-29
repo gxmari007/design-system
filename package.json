@@ -4,6 +4,7 @@
   "version": "0.3.33",
   "author": "gxmari007 <392041299@qq.com>",
   "scripts": {
+    "dev": "node build/docs-server.js",
     "lint": "eslint --ext .js,.vue src",
     "build:js": "node build/build.js",
     "build:css": "node_modules/.bin/gulp --gulpfile build/build-style.js",

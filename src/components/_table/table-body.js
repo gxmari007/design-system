@@ -11,6 +11,15 @@ export default {
     },
     hover: Boolean,
     hoverIndex: null,
+    rowKey: {
+      type: [String, Function],
+      default: 'key',
+    },
+    defaultExpandAll: {
+      type: Boolean,
+      default: false,
+    },
+    expandRowKeys: Array,
   },
   computed: {
     table() {
@@ -67,23 +76,53 @@ export default {
           style={this.cellStyles(column)}>{column.renderCell({ row, column })}</td>
       ));
     },
-    renderBody() {
-      const rows = this.data.map((row, index) => (
-        <tr
-          class={this.rowClasses(index)}
-          onClick={e => this.onClick(e, row)}
-          onMouseenter={() => this.onMouseenter(index)}
-          onMouseleave={this.onMouseleave}>{this.renderRow(row)}</tr>
-      ));
+    // 获取
+    getRowKey(record, index) {
+      const { rowKey } = this;
+      const key = typeof rowKey === 'function' ? rowKey(record, index) : record[rowKey];
 
-      return <tbody>{rows}</tbody>;
+      return typeof key === 'undefined' ? index : key;
+    },
+    // 判断表格行是否展开
+    isRowExpand(record, index) {
+      // this.table.expandRowKeys.filter(key => key);
+    },
+    // 获取表格行数组
+    getRowsByData(data, visible, indent) {
+      let rows = [];
+      const { childrenColumnName } = this.table;
+
+      data.forEach((record, index) => {
+        const childrenColumn = record[childrenColumnName];
+        const isRowExpand = this.isRowExpand(record, index);
+
+        rows.push(this.renderRow(record));
+
+        const subVisble = visible && isRowExpand;
+
+        if (childrenColumn) {
+          rows = rows.concat(this.renderRows(childrenColumn, subVisble, indent + 1));
+        }
+      });
+
+      // const rows = this.data.map((row, index) => (
+      //   <tr
+      //     class={this.rowClasses(index)}
+      //     onClick={e => this.onClick(e, row)}
+      //     onMouseenter={() => this.onMouseenter(index)}
+      //     onMouseleave={this.onMouseleave}>{this.renderRow(row)}</tr>
+      // ));
+
+      return rows;
     },
   },
   render() {
+    const rows = this.getRowsByData(this.data, true, 0);
+
     return (
       <table class="co-table__body">
         {this.renderColgroup()}
-        {this.renderBody()}
+        <tbody>{rows}</tbody>
       </table>
     );
   },
