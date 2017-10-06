@@ -1,5 +1,5 @@
 import mixins from './mixins';
-import { getCellDom, getColumnByCell } from './utils';
+import { getCellDom, getColumnByCell, getFlattenRows } from './utils';
 
 export default {
   name: 'table-body',
@@ -11,19 +11,31 @@ export default {
     },
     hover: Boolean,
     hoverIndex: null,
-    rowKey: {
-      type: [String, Function],
-      default: 'key',
-    },
+    rowKey: [String, Function],
+    // 是否默认展开所有表格行，只在具有展开行功能的表格中有效
     defaultExpandAll: {
       type: Boolean,
       default: false,
     },
+    // 设置表格展开行，需要设置 rowKey 属性才有效，其值为展开行的 keys 数组
     expandRowKeys: Array,
+    // 表格子列的属性名
+    childrenColumnName: {
+      type: String,
+      default: 'children',
+    },
+  },
+  data() {
+    return {
+      expandRows: this.getExpandRows(),
+    };
   },
   computed: {
     table() {
       return this.$parent;
+    },
+    childrenColumnName() {
+      return this.table.childrenColumnName;
     },
   },
   methods: {
@@ -76,27 +88,57 @@ export default {
           style={this.cellStyles(column)}>{column.renderCell({ row, column })}</td>
       ));
     },
-    // 获取
-    getRowKey(record, index) {
-      const { rowKey } = this;
-      const key = typeof rowKey === 'function' ? rowKey(record, index) : record[rowKey];
+    getExpandRows() {
+      let expandRows = [];
+      const { defaultExpandAll, expandRowKeys, rowKey } = this;
+      const rows = getFlattenRows(this.data, this.childrenColumnName);
 
-      return typeof key === 'undefined' ? index : key;
+      if (expandRowKeys) {
+        if (!rowKey) throw new Error('[co-table] prop row-key should be set!');
+
+        const keysMap = this.getKeysMap(rows, rowKey);
+
+        expandRowKeys.forEach((key) => {
+          const row = keysMap[key];
+
+          if (row) {
+            expandRows.push(row);
+          }
+        });
+      } else if (defaultExpandAll) {
+        expandRows = [...rows];
+      }
+
+      return expandRows;
+    },
+    // 获取行数据的 key 值
+    getRowKey(row, rowKey) {
+      return typeof rowKey === 'function' ? rowKey(row) : row[rowKey];
+    },
+    // 获取 rows 中每个元素以 rowKey 值为属性名的对象映射
+    getKeysMap(rows, rowKey) {
+      const map = {};
+
+      rows.forEach((row) => {
+        map[this.getRowKey(row, rowKey)] = row;
+      });
+
+      return map;
     },
     // 判断表格行是否展开
-    isRowExpand(record, index) {
-      // this.table.expandRowKeys.filter(key => key);
+    isRowExpand(row) {
+      return this.expandRows.indexOf(row) > -1;
     },
     // 获取表格行数组
     getRowsByData(data, visible, indent) {
       let rows = [];
       const { childrenColumnName } = this.table;
 
-      data.forEach((record, index) => {
-        const childrenColumn = record[childrenColumnName];
-        const isRowExpand = this.isRowExpand(record, index);
+      data.forEach((row) => {
+        const childrenColumn = row[childrenColumnName];
+        const isRowExpand = this.isRowExpand(row);
 
-        rows.push(this.renderRow(record));
+        rows.push(this.renderRow(row));
 
         const subVisble = visible && isRowExpand;
 

@@ -32,7 +32,7 @@ export default {
   },
   data() {
     return {
-      isInRow: this.$parent && this.$parent.$options.componentName === 'co-row',
+      isInRow: this.$parent && this.$parent.$options.name === 'co-row',
     };
   },
   computed: {

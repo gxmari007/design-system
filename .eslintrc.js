@@ -38,6 +38,7 @@ module.exports = {
     'no-shadow': 0,
     'no-mixed-operators': 0,
     'global-require': 0,
-    'no-underscore-dangle': ['error', { allowAfterThis: true }]
+    'no-underscore-dangle': ['error', { allowAfterThis: true }],
+    'no-plusplus': [2, { allowForLoopAfterthoughts: true }]
   }
 }

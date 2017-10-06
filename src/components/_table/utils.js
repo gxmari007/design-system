@@ -148,3 +148,18 @@ export function getColumnByCell(columns, cell) {
 
   return column;
 }
+
+// 获取拉平的 data 数据
+export function getFlattenRows(rows = [], childrenName = '') {
+  const results = [];
+  let array = rows;
+
+  for (let i; i < array.length; i++) {
+    const row = array[i];
+
+    results.push(row);
+    array = array.concat(row[childrenName] || []);
+  }
+
+  return results;
+}
