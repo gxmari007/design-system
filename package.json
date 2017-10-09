@@ -1,7 +1,7 @@
 {
   "name": "coview",
   "description": "A ui components library with vue.js",
-  "version": "0.3.37",
+  "version": "0.3.38",
   "author": "gxmari007 <392041299@qq.com>",
   "scripts": {
     "dev": "node build/docs-server.js",
