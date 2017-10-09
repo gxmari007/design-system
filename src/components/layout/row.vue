@@ -5,9 +5,7 @@
 </template>
 
 <script>
-import { oneOf } from 'utils/help';
-
-const prefixClass = 'co-row';
+import { oneOf, isUndefined } from 'utils/help';
 
 export default {
   name: 'co-row',
@@ -16,7 +14,7 @@ export default {
     // 浮动布局和 flex 布局
     type: {
       type: String,
-      validate(value) {
+      validator(value) {
         return oneOf(value, ['flex']);
       },
     },
@@ -28,14 +26,14 @@ export default {
     // flex 水平布局
     justify: {
       type: String,
-      validate(value) {
+      validator(value) {
         return oneOf(value, ['start', 'end', 'center', 'space-round', 'space-between']);
       },
     },
     // flex 垂直布局
     align: {
       type: String,
-      validate(value) {
+      validator(value) {
         return oneOf(value, ['top', 'middle', 'bottom']);
       },
     },
@@ -43,13 +41,12 @@ export default {
   computed: {
     classes() {
       const { type, justify, align } = this;
+      const prefixClass = type === 'flex' ? 'co-row-flex' : 'co-row';
 
-      return {
-        [`${prefixClass}`]: true,
-        [`${prefixClass}--flex`]: type === 'flex',
-        [`${prefixClass}--flex-${justify}`]: type === 'flex' && justify !== undefined,
-        [`${prefixClass}--flex-${align}`]: type === 'flex' && align !== undefined,
-      };
+      return [prefixClass, {
+        [`${prefixClass}--${justify}`]: type === 'flex' && !isUndefined(justify),
+        [`${prefixClass}--${align}`]: type === 'flex' && !isUndefined(align),
+      }];
     },
     styles() {
       const { gutter } = this;

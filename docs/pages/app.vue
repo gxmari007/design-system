@@ -1,6 +1,11 @@
 <template>
   <div id="demo">
-    <co-tree :data="tree" checkable></co-tree>
+    <co-row class="box" type="flex" justify="space-between">
+      <co-col span="4" class="item">col-6</co-col>
+      <co-col span="4" class="item">col-6</co-col>
+      <co-col span="4" class="item">col-6</co-col>
+      <co-col span="4" class="item">col-6</co-col>
+    </co-row>
   </div>
 </template>
 
@@ -27,5 +32,14 @@ export default {
 <style lang="less">
 #demo {
   padding: 20px;
+}
+.box {
+  background-color: gray;
+}
+.item {
+  height: 30px;
+  background-color: #0e90d2;
+  color: #fff;
+  text-align: center;
 }
 </style>
