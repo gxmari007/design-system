@@ -1,3 +1,4 @@
+import TableRow from './table-row';
 import mixins from './mixins';
 import { getCellDom, getColumnByCell, getFlattenRows } from './utils';
 
@@ -13,17 +14,12 @@ export default {
     hoverIndex: null,
     rowKey: [String, Function],
     // 是否默认展开所有表格行，只在具有展开行功能的表格中有效
-    defaultExpandAll: {
-      type: Boolean,
-      default: false,
-    },
+    defaultExpandAll: Boolean,
     // 设置表格展开行，需要设置 rowKey 属性才有效，其值为展开行的 keys 数组
     expandRowKeys: Array,
     // 表格子列的属性名
-    childrenColumnName: {
-      type: String,
-      default: 'children',
-    },
+    childrenColumnName: String,
+    indentSize: Number,
   },
   data() {
     return {
@@ -34,9 +30,14 @@ export default {
     table() {
       return this.$parent;
     },
-    childrenColumnName() {
-      return this.table.childrenColumnName;
+    isNeedIndent() {
+      const { data, childrenColumnName } = this;
+
+      return data.some(row => row[childrenColumnName]);
     },
+  },
+  created() {
+    this.$on('on-expanded', this.onExpanded);
   },
   methods: {
     rowClasses(index) {
@@ -81,13 +82,13 @@ export default {
 
       return <colgroup>{cols}</colgroup>;
     },
-    renderRow(row) {
-      return this.flattenColumns.map((column, index) => (
-        <td
-          class={this.cellClasses(column, index)}
-          style={this.cellStyles(column)}>{column.renderCell({ row, column })}</td>
-      ));
-    },
+    // renderRow(row) {
+    //   return this.flattenColumns.map((column, index) => (
+    //     <td
+    //       class={this.cellClasses(column, index)}
+    //       style={this.cellStyles(column)}>{column.renderCell({ row, column })}</td>
+    //   ));
+    // },
     getExpandRows() {
       let expandRows = [];
       const { defaultExpandAll, expandRowKeys, rowKey } = this;
@@ -132,18 +133,33 @@ export default {
     // 获取表格行数组
     getRowsByData(data, visible, indent) {
       let rows = [];
-      const { childrenColumnName } = this.table;
+      const {
+        childrenColumnName,
+        flattenColumns,
+        indentSize,
+        isNeedIndent,
+      } = this;
 
       data.forEach((row) => {
         const childrenColumn = row[childrenColumnName];
         const isRowExpand = this.isRowExpand(row);
 
-        rows.push(this.renderRow(row));
+        rows.push(
+          <table-row
+            row={row}
+            columns={flattenColumns}
+            visible={visible}
+            indent={indent}
+            indentSize={indentSize}
+            expandable={!!childrenColumn}
+            isNeedIndent={isNeedIndent}
+            expanded={isRowExpand}></table-row>,
+        );
 
         const subVisble = visible && isRowExpand;
 
         if (childrenColumn) {
-          rows = rows.concat(this.renderRows(childrenColumn, subVisble, indent + 1));
+          rows = rows.concat(this.getRowsByData(childrenColumn, subVisble, indent + 1));
         }
       });
 
@@ -157,6 +173,15 @@ export default {
 
       return rows;
     },
+    onExpanded(expanded, row) {
+      const hasExpand = this.isRowExpand(row);
+
+      if (hasExpand && !expanded) {
+        this.expandRows = this.expandRows.filter(record => row !== record);
+      } else if (!hasExpand && expanded) {
+        this.expandRows.push(row);
+      }
+    },
   },
   render() {
     const rows = this.getRowsByData(this.data, true, 0);
@@ -164,8 +189,11 @@ export default {
     return (
       <table class="co-table__body">
         {this.renderColgroup()}
-        <tbody>{rows}</tbody>
+        {<tbody>{rows}</tbody>}
       </table>
     );
+  },
+  components: {
+    TableRow,
   },
 };

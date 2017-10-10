@@ -28,7 +28,7 @@ import CoRate from './components/rate';
 import { CoSelect, CoOption } from './components/select';
 import { CoSteps, CoStep } from './components/steps';
 import CoSwitch from './components/switch';
-import { CoTable, CoTableColumn } from './components/table';
+import { CoTable, CoTableColumn } from './components/_table';
 import { CoTabs, CoTabPane } from './components/tabs';
 import CoTag from './components/tag';
 import { CoTimeline, CoTimelineItem } from './components/timeline';

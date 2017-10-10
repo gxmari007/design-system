@@ -37,6 +37,11 @@
         :hover="hover"
         :hover-index="hoverIndex"
         :data="filterData"
+        :row-key="rowKey"
+        :default-expand-all="defaultExpandAll"
+        :expand-row-keys="expandRowKeys"
+        :children-column-name="childrenColumnName"
+        :indent-size="indentSize"
         @hover-in="onHoverIn"
         @hover-out="onHoverOut"></table-body>
     </div>

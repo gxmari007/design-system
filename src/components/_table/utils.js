@@ -154,7 +154,7 @@ export function getFlattenRows(rows = [], childrenName = '') {
   const results = [];
   let array = rows;
 
-  for (let i; i < array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     const row = array[i];
 
     results.push(row);

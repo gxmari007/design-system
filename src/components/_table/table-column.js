@@ -133,7 +133,7 @@ export default {
         this.$scopedSlots.default(data) :
         this.renderDefaultCell(data);
 
-      return <div class="co-table__cell" style={this.styles}>{cell}</div>;
+      return cell;
     },
   },
   render() {

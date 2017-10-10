@@ -1,11 +1,8 @@
 <template>
   <div id="demo">
-    <co-row class="box" type="flex" justify="space-between">
-      <co-col span="4" class="item">col-6</co-col>
-      <co-col span="4" class="item">col-6</co-col>
-      <co-col span="4" class="item">col-6</co-col>
-      <co-col span="4" class="item">col-6</co-col>
-    </co-row>
+    <co-table :data="data" hover border default-expand-all>
+      <co-table-column v-for="(column, index) in columns" :key="index" :label="column.label" :prop="column.prop"></co-table-column>
+    </co-table>
   </div>
 </template>
 
@@ -14,32 +11,42 @@ export default {
   name: 'app',
   data() {
     return {
-      tree: [
-        {
-          label: '一级',
-          children: [
-            { label: '二级 1' },
-            { label: '二级 2' },
-          ],
-        },
-        { label: '一级 2' },
+      columns: [
+        { label: '区／学校', prop: 'name' },
+        { label: '分数', prop: 'count' }
       ],
+      data: [
+        {
+          name: '1区',
+          count: 100,
+          children: [
+            { name: '1学校', count: 88 },
+            {
+              name: '2学校',
+              count: 78,
+              children: [
+                { name: '1班', count: 92 }
+              ]
+            }
+          ]
+        },
+        {
+          name: '2区',
+          count: 100,
+          children: [
+            { name: '3学校', count: 88 },
+            { name: '4学校', count: 88 }
+          ]
+        },
+        { name: '3区', count: 90 }
+      ]
     };
   },
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 #demo {
   padding: 20px;
-}
-.box {
-  background-color: gray;
-}
-.item {
-  height: 30px;
-  background-color: #0e90d2;
-  color: #fff;
-  text-align: center;
 }
 </style>
