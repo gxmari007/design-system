@@ -11,6 +11,7 @@ export default {
     expandable: Boolean,
     isNeedIndent: Boolean,
     expanded: Boolean,
+    cellClasses: Function,
   },
   data() {
     return {
@@ -28,6 +29,7 @@ export default {
         isNeedIndent,
         expandColumnIndex,
         expanded,
+        cellClasses,
       } = this;
 
       return columns.map((column, index) => (
@@ -39,7 +41,8 @@ export default {
           hasExpandIcon={index === expandColumnIndex}
           expandable={expandable}
           isNeedIndent={isNeedIndent}
-          expanded={expanded}></table-cell>
+          expanded={expanded}
+          cellClasses={cellClasses}></table-cell>
       ));
     },
   },

@@ -14,6 +14,7 @@ export default {
     onClick(e) {
       if (e.target !== e.currentTarget) return;
 
+      e.stopPropagation();
       this.dispatch('table-body', 'on-expanded', !this.expanded, this.row);
     },
   },

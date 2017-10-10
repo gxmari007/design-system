@@ -45,9 +45,6 @@ export default {
         hover: this.hover && this.hoverIndex === index,
       };
     },
-    cellStyles(column) {
-      return { textAlign: column.align };
-    },
     handleEvent(event, row, eventName) {
       const cell = getCellDom(event);
       let column = null;
@@ -82,13 +79,6 @@ export default {
 
       return <colgroup>{cols}</colgroup>;
     },
-    // renderRow(row) {
-    //   return this.flattenColumns.map((column, index) => (
-    //     <td
-    //       class={this.cellClasses(column, index)}
-    //       style={this.cellStyles(column)}>{column.renderCell({ row, column })}</td>
-    //   ));
-    // },
     getExpandRows() {
       let expandRows = [];
       const { defaultExpandAll, expandRowKeys, rowKey } = this;
@@ -133,28 +123,19 @@ export default {
     // 获取表格行数组
     getRowsByData(data, visible, indent) {
       let rows = [];
-      const {
-        childrenColumnName,
-        flattenColumns,
-        indentSize,
-        isNeedIndent,
-      } = this;
+      const { childrenColumnName } = this;
 
       data.forEach((row) => {
         const childrenColumn = row[childrenColumnName];
         const isRowExpand = this.isRowExpand(row);
 
-        rows.push(
-          <table-row
-            row={row}
-            columns={flattenColumns}
-            visible={visible}
-            indent={indent}
-            indentSize={indentSize}
-            expandable={!!childrenColumn}
-            isNeedIndent={isNeedIndent}
-            expanded={isRowExpand}></table-row>,
-        );
+        rows.push({
+          row,
+          visible,
+          indent,
+          expandable: !!childrenColumn,
+          expanded: isRowExpand,
+        });
 
         const subVisble = visible && isRowExpand;
 
@@ -162,14 +143,6 @@ export default {
           rows = rows.concat(this.getRowsByData(childrenColumn, subVisble, indent + 1));
         }
       });
-
-      // const rows = this.data.map((row, index) => (
-      //   <tr
-      //     class={this.rowClasses(index)}
-      //     onClick={e => this.onClick(e, row)}
-      //     onMouseenter={() => this.onMouseenter(index)}
-      //     onMouseleave={this.onMouseleave}>{this.renderRow(row)}</tr>
-      // ));
 
       return rows;
     },
@@ -181,15 +154,48 @@ export default {
       } else if (!hasExpand && expanded) {
         this.expandRows.push(row);
       }
+      // 这里需要暴露 expand 事件
+    },
+    renderRows() {
+      const {
+        flattenColumns,
+        indentSize,
+        isNeedIndent,
+        onMouseenter,
+        onMouseleave,
+        cellClasses,
+        rowClasses,
+        onClick,
+      } = this;
+      const records = this.getRowsByData(this.data, true, 0);
+
+      return records.map((record, index) => {
+        const { row, visible, indent, expandable, expanded } = record;
+
+        return (
+          <table-row
+            class={rowClasses(index)}
+            row={row}
+            columns={flattenColumns}
+            visible={visible}
+            indent={indent}
+            indentSize={indentSize}
+            expandable={expandable}
+            isNeedIndent={isNeedIndent}
+            expanded={expanded}
+            cellClasses={cellClasses}
+            nativeOnClick={e => onClick(e, row)}
+            nativeOnMouseenter={() => onMouseenter(index)}
+            nativeOnMouseleave={onMouseleave}></table-row>
+        );
+      });
     },
   },
   render() {
-    const rows = this.getRowsByData(this.data, true, 0);
-
     return (
       <table class="co-table__body">
         {this.renderColgroup()}
-        {<tbody>{rows}</tbody>}
+        <tbody>{this.renderRows()}</tbody>
       </table>
     );
   },

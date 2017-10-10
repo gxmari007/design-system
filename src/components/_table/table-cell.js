@@ -11,8 +11,13 @@ export default {
     expandable: Boolean,
     isNeedIndent: Boolean,
     expanded: Boolean,
+    index: Number,
+    cellClasses: Function,
   },
   methods: {
+    cellStyles(column) {
+      return { textAlign: column.align };
+    },
     renderExpandIcon() {
       const { row, expandable, isNeedIndent, expanded } = this;
 
@@ -26,11 +31,13 @@ export default {
     },
   },
   render() {
-    const { row, column, hasExpandIcon, indent, indentSize } = this;
-    const indentHolder = hasExpandIcon ? <span style={{ paddingLeft: `${indent * indentSize}px` }}></span> : null;
+    const { row, column, hasExpandIcon, indent, indentSize, index } = this;
+    const indentHolder = hasExpandIcon ?
+      <span style={{ paddingLeft: `${indent * indentSize}px` }}></span> :
+      null;
 
     return (
-      <td>
+      <td class={this.cellClasses(column, index)} style={this.cellStyles(column)}>
         <div class="co-table__cell" style={column.styles}>
           {indentHolder}
           {this.renderExpandIcon()}

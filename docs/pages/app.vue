@@ -1,6 +1,6 @@
 <template>
   <div id="demo">
-    <co-table :data="data" hover border default-expand-all>
+    <co-table :data="data" :indent-size="10" hover border @on-cell-click="onClick">
       <co-table-column v-for="(column, index) in columns" :key="index" :label="column.label" :prop="column.prop"></co-table-column>
     </co-table>
   </div>
@@ -42,6 +42,11 @@ export default {
       ]
     };
   },
+  methods: {
+    onClick(e, row, column) {
+      // console.log(e, row, column);
+    }
+  }
 }
 </script>
 
