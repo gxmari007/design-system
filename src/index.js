@@ -16,6 +16,7 @@ import { CoForm, CoFormItem } from './components/form';
 import { CoRow, CoCol } from './components/grid';
 import CoInput from './components/input';
 import CoInputNumber from './components/input_number';
+import { CoLayout, CoHeader, CoAside, CoMain, CoFooter } from './components/layout';
 import CoIcon from './components/icon';
 import CoLoading from './components/loading';
 import { CoMenu, CoMenuItem, CoSubmenu, CoMenuGroup } from './components/menu';
@@ -64,6 +65,11 @@ const coview = {
   CoFormItem,
   CoInput,
   CoInputNumber,
+  CoLayout,
+  CoHeader,
+  CoAside,
+  CoMain,
+  CoFooter,
   CoIcon,
   CoRow,
   CoCol,
@@ -145,6 +151,11 @@ export {
   CoFormItem,
   CoInput,
   CoInputNumber,
+  CoLayout,
+  CoHeader,
+  CoAside,
+  CoMain,
+  CoFooter,
   CoIcon,
   CoRow,
   CoCol,
