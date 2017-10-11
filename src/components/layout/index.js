@@ -1,4 +1,7 @@
-import CoRow from './row';
-import CoCol from './col';
+import CoLayout from './layout';
+import CoHeader from './header';
+import CoAside from './aside';
+import CoMain from './main';
+import CoFooter from './footer';
 
-export { CoRow, CoCol };
+export { CoLayout, CoHeader, CoAside, CoMain, CoFooter };
