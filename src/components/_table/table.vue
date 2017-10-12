@@ -150,6 +150,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 是否开启表格行 hover 效果
     hover: {
       type: Boolean,
       default: false,
@@ -164,12 +165,12 @@ export default {
       type: Boolean,
       default: true,
     },
-    // 表格是否自适应
+    // 列的宽度是否自动撑开
     fit: {
       type: Boolean,
       default: true,
     },
-    // 默认排序列的 prop 与 order
+    // 默认排序列的 `prop` 和 `order`，`prop` 指定默认排序的列，`order` 决定排序的顺序
     defaultSort: {
       type: Object,
       validator(value) {
@@ -177,13 +178,13 @@ export default {
           Object.keys(value).indexOf('prop') > -1;
       },
     },
-    // 表格子列的属性名
+    // 树形结构表格行数据子列的属性名
     childrenColumnName: {
       type: String,
       default: 'children',
     },
     // 行数据的 key，优化表格渲染，用于树形表格与带展开功能的表格
-    // String 类型则返回 row[rowKey] 作为 key
+    // String 类型返回 row[rowKey] 作为 key
     // Function 类型则是 rowKey(row) 的返回值作为 key
     rowKey: [String, Function],
     // 是否默认展开所有表格行，只在具有展开行功能的表格中有效
@@ -193,7 +194,7 @@ export default {
     },
     // 设置表格展开行，需要设置 rowKey 属性才有效，其值为展开行的 keys 数组
     expandRowKeys: Array,
-    // 展示树形数据时每层数据的缩进宽度（单位：px）
+    // 展示树形数据时每层数据的缩进宽度，单位 px
     indentSize: {
       type: Number,
       default: 18,

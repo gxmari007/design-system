@@ -9,7 +9,7 @@ export default {
     label: String,
     // 对应列内容的字段名
     prop: String,
-    // 对齐方式
+    // 列内容的对齐方式
     align: {
       type: String,
       default: 'left',

@@ -3,6 +3,23 @@
     <co-table :data="data" :indent-size="10" hover border @on-cell-click="onClick">
       <co-table-column v-for="(column, index) in columns" :key="index" :label="column.label" :prop="column.prop"></co-table-column>
     </co-table>
+
+    <co-dropdown>
+      <co-button>下拉</co-button>
+      <co-dropdown-menu slot="menu">
+        <co-dropdown-item>item</co-dropdown-item>
+        <co-dropdown-item>item</co-dropdown-item>
+        <co-dropdown-item>item</co-dropdown-item>
+        <co-dropdown placement="right-start">
+          <co-dropdown-item>slide</co-dropdown-item>
+          <co-dropdown-menu slot="menu">
+            <co-dropdown-item>item</co-dropdown-item>
+            <co-dropdown-item>item</co-dropdown-item>
+            <co-dropdown-item>item</co-dropdown-item>
+          </co-dropdown-menu>
+        </co-dropdown>
+      </co-dropdown-menu>
+    </co-dropdown>
   </div>
 </template>
 

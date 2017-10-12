@@ -72,9 +72,6 @@ export default {
 
       return result;
     },
-    transfer() {
-      return !this.isSubDropdown;
-    },
   },
   watch: {
     show(newVal) {
@@ -84,6 +81,10 @@ export default {
     },
   },
   created() {
+    if (this.isSubDropdown) {
+      this.appendBody = false;
+    }
+
     this.$on('on-click', this.onDropdownClick);
   },
   methods: {

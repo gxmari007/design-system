@@ -32,10 +32,10 @@ export default {
       },
     },
     // popper 是否插入到 body 尾部
-    appendBody: {
-      type: Boolean,
-      default: true,
-    },
+    // appendBody: {
+    //   type: Boolean,
+    //   default: true,
+    // },
   },
   data() {
     return {
@@ -44,6 +44,7 @@ export default {
       // popper 实例
       popperJS: null,
       popperElm: null,
+      appendBody: true,
     };
   },
   watch: {
