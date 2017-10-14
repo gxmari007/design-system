@@ -1,42 +1,34 @@
 <template>
   <div
     class="co-dropdown"
-    v-clickoutside="closeMenu"
+    v-clickoutside="close"
     @mouseenter="onMouseenter"
     @mouseleave="onMouseleave">
-    <div
-      class="co-dropdown__trigger"
-      ref="reference"
-      @click="onClick">
+    <div class="co-dropdown__trigger" @click="onClick">
       <slot></slot>
     </div>
-    <transition name="co-slide">
-      <div
-        class="co-dropdown__wrapper"
-        v-show="visible"
-        ref="popper"
-        @mouseenter="onMenuMouseenter"
-        @mouseleave="onMenuMouseleave">
-        <slot name="menu"></slot>
-      </div>
-    </transition>
+    <dropdown-menu-wrapper
+      :class="{ 'co-dropdown__wrapper--sub-dropdown': isSubDropdown }"
+      :placement="placement"
+      :append-body="!isSubDropdown"
+      @mouseenter.native="onMenuMouseenter"
+      @mouseleave.native="onMenuMouseleave">
+      <slot name="menu"></slot>
+    </dropdown-menu-wrapper>
   </div>
 </template>
 
 <script>
 import { oneOf } from 'utils/help';
-// directives
 import clickoutside from 'directives/clickoutside';
-// mixins
 import emitter from 'mixins/emitter';
-import popper from 'mixins/popper';
+import { placementValues } from 'mixins/popper';
+import DropdownMenuWrapper from './dropdown-menu-wrapper';
 
 export default {
-  name: 'co-dropdown',
-  mixins: [emitter, popper],
-  directives: {
-    clickoutside,
-  },
+  name: 'CoDropdown',
+  mixins: [emitter],
+  directives: { clickoutside },
   props: {
     // 触发方式
     trigger: {
@@ -46,14 +38,31 @@ export default {
         return oneOf(val, ['hover', 'click', 'custom']);
       },
     },
-    show: {
+    // 菜单弹出位置
+    placement: {
+      type: String,
+      default: 'bottom',
+      validator(value) {
+        return oneOf(value, placementValues);
+      },
+    },
+    // 控制菜单的显示与隐藏，只在 trigger="custom" 时有效
+    visible: {
       type: Boolean,
       default: false,
+    },
+    // 是否在点击菜单项后隐藏菜单
+    clickHide: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
     return {
+      show: false,
       timeoutID: null,
+      popperElm: null,
+      dropdown: null,
     };
   },
   computed: {
@@ -62,7 +71,8 @@ export default {
       let result = false;
 
       while (parent) {
-        if (parent.$options.name === 'co-dropdown') {
+        if (parent.$options.name === 'CoDropdown') {
+          this.dropdown = parent;
           result = true;
           break;
         } else {
@@ -72,51 +82,65 @@ export default {
 
       return result;
     },
+    hideOnClick() {
+      return this.isSubDropdown ? this.dropdown.hideOnClick : this.clickHide;
+    },
   },
   watch: {
+    visible: {
+      immediate: true,
+      handler(newVal) {
+        this.$nextTick(() => {
+          if (this.trigger === 'custom') {
+            this.show = newVal;
+          }
+        });
+      },
+    },
     show(newVal) {
-      if (this.trigger === 'custom') {
-        this.visible = newVal;
-      }
+      this.broadcast('DropdownMenuWrapper', 'visible-change', newVal);
+      this.$emit('on-visible-change', newVal);
     },
   },
   created() {
-    if (this.isSubDropdown) {
-      this.appendBody = false;
-    }
-
-    this.$on('on-click', this.onDropdownClick);
+    this.$on('dropdown-click', this.onDropdownClick);
   },
   methods: {
-    closeMenu() {
-      if (this.trigger !== 'click') return;
+    open() {
+      if (!this.popperElm) return;
+      if (this.timeoutID) {
+        clearTimeout(this.timeoutID);
+      }
 
-      this.visible = false;
+      this.timeoutID = setTimeout(() => {
+        this.show = true;
+      }, 250);
+    },
+    close() {
+      if (this.trigger === 'custom') return;
+      if (!this.popperElm) return;
+      if (this.timeoutID) {
+        clearTimeout(this.timeoutID);
+      }
+
+      this.timeoutID = setTimeout(() => {
+        this.show = false;
+      }, 150);
     },
     onClick() {
-      if (this.trigger !== 'click') return;
+      if (!this.popperElm || this.trigger !== 'click') return;
 
-      this.visible = !this.visible;
+      this.show = !this.show;
     },
     onMouseenter() {
       if (this.trigger !== 'hover') return;
-      if (this.timeoutID) {
-        clearTimeout(this.timeoutID);
-      }
 
-      this.timeoutID = setTimeout(() => {
-        this.visible = true;
-      }, 250);
+      this.open();
     },
     onMouseleave() {
       if (this.trigger !== 'hover') return;
-      if (this.timeoutID) {
-        clearTimeout(this.timeoutID);
-      }
 
-      this.timeoutID = setTimeout(() => {
-        this.visible = false;
-      }, 150);
+      this.close();
     },
     onMenuMouseenter() {
       if (this.isSubDropdown) return;
@@ -130,13 +154,18 @@ export default {
     },
     onDropdownClick(label) {
       if (this.isSubDropdown) {
-        this.dispatch('co-dropdown', 'on-click', label);
+        this.dispatch('CoDropdown', 'dropdown-click', label);
       } else {
-        this.$emit('dropdown-click', label);
+        this.$emit('on-dropdown-click', label);
       }
 
-      this.visible = false;
+      if (this.hideOnClick) {
+        this.show = false;
+      }
     },
+  },
+  components: {
+    DropdownMenuWrapper,
   },
 };
 </script>

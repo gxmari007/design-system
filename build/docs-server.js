@@ -26,7 +26,8 @@ const devMiddleware = require('webpack-dev-middleware')(compiler, {
 
 // 代码热切换中间件
 const hotMiddleware = require('webpack-hot-middleware')(compiler, {
-  log: () => {},
+  log: false,
+  heartbeat: 2000
 });
 
 // 修改 html 文件的时候也需要刷新页面

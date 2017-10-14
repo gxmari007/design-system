@@ -1,11 +1,10 @@
 <template>
   <div id="demo">
-    <co-table :data="data" :indent-size="10" hover border @on-cell-click="onClick">
+    <!-- <co-table :data="data" :indent-size="10" hover border @on-cell-click="onClick">
       <co-table-column v-for="(column, index) in columns" :key="index" :label="column.label" :prop="column.prop"></co-table-column>
-    </co-table>
-
-    <co-dropdown>
-      <co-button>下拉</co-button>
+    </co-table> -->
+    <co-dropdown placement="bottom-start">
+      <co-button @click.native="visible = !visible">下拉</co-button>
       <co-dropdown-menu slot="menu">
         <co-dropdown-item>item</co-dropdown-item>
         <co-dropdown-item>item</co-dropdown-item>
@@ -16,6 +15,14 @@
             <co-dropdown-item>item</co-dropdown-item>
             <co-dropdown-item>item</co-dropdown-item>
             <co-dropdown-item>item</co-dropdown-item>
+            <co-dropdown placement="right-start">
+              <co-dropdown-item>slide</co-dropdown-item>
+              <co-dropdown-menu slot="menu">
+                <co-dropdown-item>item</co-dropdown-item>
+                <co-dropdown-item>item</co-dropdown-item>
+                <co-dropdown-item>item</co-dropdown-item>
+              </co-dropdown-menu>
+            </co-dropdown>
           </co-dropdown-menu>
         </co-dropdown>
       </co-dropdown-menu>
@@ -28,6 +35,7 @@ export default {
   name: 'app',
   data() {
     return {
+      visible: true,
       columns: [
         { label: '区／学校', prop: 'name' },
         { label: '分数', prop: 'count' }
@@ -58,11 +66,6 @@ export default {
         { name: '3区', count: 90 }
       ]
     };
-  },
-  methods: {
-    onClick(e, row, column) {
-      // console.log(e, row, column);
-    }
   }
 }
 </script>

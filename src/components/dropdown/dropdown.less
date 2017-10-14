@@ -3,7 +3,6 @@
   vertical-align: @vertical-align-base;
 }
 
-
 .co-dropdown__wrapper {
   width: @dropdown-width;
   background-color: @dropdown-bg;
@@ -12,6 +11,10 @@
   box-shadow: @dropdown-box-shadow;
   border-radius: 2px;
   z-index: @dropdown-z-index;
+
+  &--sub-dropdown {
+    margin: -2px 0 0 -1px;
+  }
 }
 
 .co-dropdown__menu {
@@ -25,7 +28,6 @@
     width: 100%;
   }
 }
-
 
 .co-dropdown__item {
   &:extend(.text-overflow);

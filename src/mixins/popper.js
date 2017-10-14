@@ -5,7 +5,7 @@ import { oneOf } from '../utils/help';
 const isServer = Vue.prototype.$isServer;
 const Popper = isServer ? () => {} : require('popper.js');
 
-const placementValues = [
+export const placementValues = [
   'top', 'top-start', 'top-end',
   'right', 'right-start', 'right-end',
   'bottom', 'bottom-start', 'bottom-end',
@@ -32,10 +32,10 @@ export default {
       },
     },
     // popper 是否插入到 body 尾部
-    // appendBody: {
-    //   type: Boolean,
-    //   default: true,
-    // },
+    appendBody: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -44,7 +44,7 @@ export default {
       // popper 实例
       popperJS: null,
       popperElm: null,
-      appendBody: true,
+      referenceElm: null,
     };
   },
   watch: {
@@ -66,8 +66,8 @@ export default {
     createPopper() {
       if (isServer) return;
 
-      const popper = this.popper || this.$refs.popper;
-      const reference = this.reference || this.$refs.reference;
+      const popper = this.popperElm || this.$refs.popper;
+      const reference = this.referenceElm || this.$refs.reference;
       const options = Object.assign({}, this.options, {
         placement: this.placement,
       });
@@ -77,6 +77,7 @@ export default {
       }
 
       this.popperElm = popper;
+      this.referenceElm = reference;
       this.popperJS = new Popper(reference, popper, options);
       this.popperJS.onCreate(() => {
         this.resetTransformOrigin();
@@ -100,16 +101,15 @@ export default {
       }
     },
     resetTransformOrigin() {
-      /* eslint-disable no-underscore-dangle */
       const placementMap = {
         top: 'bottom',
         right: 'left',
         bottom: 'top',
         left: 'right',
       };
-      const placement = this.popperJS._popper.getAttribute('x-placement').split('-');
+      const { popperElm } = this;
+      const placement = popperElm.getAttribute('x-placement').split('-');
       const origin = placementMap[placement[0]];
-      const popperElm = this.popperJS._popper;
       const axis = placement[1];
 
       if (['top', 'bottom'].indexOf(origin) !== -1) {

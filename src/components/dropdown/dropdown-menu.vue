@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'co-dropdown-menu',
+  name: 'CoDropdownMenu',
 };
 </script>

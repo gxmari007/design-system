@@ -10,7 +10,7 @@ import { oneOf } from 'utils/help';
 export default {
   name: 'co-layout',
   props: {
-    // 子元素排列排列方向
+    // 子元素排列方向
     direction: {
       type: String,
       validator(value) {

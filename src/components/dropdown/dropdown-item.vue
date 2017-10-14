@@ -8,7 +8,7 @@
 import emitter from 'mixins/emitter';
 
 export default {
-  name: 'co-dropdown-item',
+  name: 'CoDropdownItem',
   mixins: [emitter],
   props: {
     // 代表该项的 label 值，dropdown-click 事件中返回
@@ -42,10 +42,10 @@ export default {
   },
   methods: {
     onClick() {
-      const dropdownTrigger = this.$parent && this.$parent.$options.name === 'co-dropdown';
+      const dropdownTrigger = this.$parent && this.$parent.$options.name === 'CoDropdown';
 
       if (!this.disabled && !dropdownTrigger) {
-        this.dispatch('co-dropdown', 'on-click', this.label);
+        this.dispatch('CoDropdown', 'dropdown-click', this.label);
       }
     },
   },
