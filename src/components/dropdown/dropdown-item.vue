@@ -11,7 +11,7 @@ export default {
   name: 'CoDropdownItem',
   mixins: [emitter],
   props: {
-    // 代表该项的 label 值，dropdown-click 事件中返回
+    // 代表该项的 label 值，on-dropdown-click 事件中返回
     label: [String, Number],
     // 禁用该项
     disabled: {

@@ -3,30 +3,25 @@
     <!-- <co-table :data="data" :indent-size="10" hover border @on-cell-click="onClick">
       <co-table-column v-for="(column, index) in columns" :key="index" :label="column.label" :prop="column.prop"></co-table-column>
     </co-table> -->
-    <co-dropdown placement="bottom-start">
-      <co-button @click.native="visible = !visible">下拉</co-button>
-      <co-dropdown-menu slot="menu">
-        <co-dropdown-item>item</co-dropdown-item>
-        <co-dropdown-item>item</co-dropdown-item>
-        <co-dropdown-item>item</co-dropdown-item>
-        <co-dropdown placement="right-start">
-          <co-dropdown-item>slide</co-dropdown-item>
-          <co-dropdown-menu slot="menu">
-            <co-dropdown-item>item</co-dropdown-item>
-            <co-dropdown-item>item</co-dropdown-item>
-            <co-dropdown-item>item</co-dropdown-item>
-            <co-dropdown placement="right-start">
-              <co-dropdown-item>slide</co-dropdown-item>
-              <co-dropdown-menu slot="menu">
-                <co-dropdown-item>item</co-dropdown-item>
-                <co-dropdown-item>item</co-dropdown-item>
-                <co-dropdown-item>item</co-dropdown-item>
-              </co-dropdown-menu>
-            </co-dropdown>
-          </co-dropdown-menu>
-        </co-dropdown>
-      </co-dropdown-menu>
-    </co-dropdown>
+    <co-spin :spin-show="loading" size="sm" tip="加载中...">
+      <div class="example">
+        <p>Alert message title</p>
+        <p>Further details about the context of this alert.</p>
+      </div>
+    </co-spin>
+    <co-spin :spin-show="loading" tip="加">
+      <div class="example">
+        <p>Alert message title</p>
+        <p>Further details about the context of this alert.</p>
+      </div>
+    </co-spin>
+    <co-spin :spin-show="loading" size="lg" tip="加载中...">
+      <div class="example">
+        <p>Alert message title</p>
+        <p>Further details about the context of this alert.</p>
+      </div>
+    </co-spin>
+    <co-button type="primary" @click.native="loading = !loading">Switch</co-button>
   </div>
 </template>
 
@@ -35,7 +30,7 @@ export default {
   name: 'app',
   data() {
     return {
-      visible: true,
+      loading: true,
       columns: [
         { label: '区／学校', prop: 'name' },
         { label: '分数', prop: 'count' }
@@ -72,6 +67,13 @@ export default {
 
 <style lang="less" scoped>
 #demo {
+  width: 320px;
   padding: 20px;
+}
+.example {
+  padding: 16px;
+  border: 1px solid #d2eafb;
+  border-radius: 4px;
+  background-color: #ecf6fd;
 }
 </style>
