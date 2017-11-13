@@ -9,4 +9,4 @@ export const sizeMap = {
   },
 };
 
-export const SIZE = ['small', 'default', 'large', 'sm', 'lg'];
+export const SIZE = ['small', 'large', 'sm', 'lg'];

@@ -5,6 +5,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
+      '@': resolve('src'),
       'coview': resolve('src'),
       'src': resolve('src'),
       'components': resolve('src/components'),

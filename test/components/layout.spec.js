@@ -1,4 +1,4 @@
-import { mount, shallow } from 'vue-test-utils'
+import { mount } from 'vue-test-utils'
 import { CoLayout, CoHeader, CoAside, CoMain, CoFooter } from 'components/layout'
 
 describe('CoLayout', () => {
@@ -6,6 +6,7 @@ describe('CoLayout', () => {
     const wrapper = mount(CoLayout)
 
     expect(wrapper.hasClass('co-layout')).toBe(true)
+    expect(wrapper.is('section')).toBe(true)
   })
 
   it('设置 direction 属性控制子元素排列方向', () => {
