@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'co-header',
+  name: 'CoHeader',
   props: {
     // 页头高度
     height: {

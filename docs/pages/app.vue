@@ -1,15 +1,18 @@
 <template>
   <div id="demo">
-    <!-- <co-table :data="data" :indent-size="10" hover border @on-cell-click="onClick">
+    <co-table :data="data" :indent-size="10" hover border>
       <co-table-column v-for="(column, index) in columns" :key="index" :label="column.label" :prop="column.prop"></co-table-column>
-    </co-table> -->
-    <co-spin :spin-show="loading" size="sm" tip="加载中...">
+    </co-table>
+    <co-layout>
+      <co-header></co-header>
+    </co-layout>
+    <!-- <co-spin :spin-show="loading" size="sm" tip="加载中...">
       <div class="example">
         <p>Alert message title</p>
         <p>Further details about the context of this alert.</p>
       </div>
     </co-spin>
-    <co-spin :spin-show="loading" tip="加">
+    <co-spin :spin-show="loading" tip="加载中...">
       <div class="example">
         <p>Alert message title</p>
         <p>Further details about the context of this alert.</p>
@@ -21,7 +24,7 @@
         <p>Further details about the context of this alert.</p>
       </div>
     </co-spin>
-    <co-button type="primary" @click.native="loading = !loading">Switch</co-button>
+    <co-button type="primary" @click.native="loading = !loading">Switch</co-button> -->
   </div>
 </template>
 
@@ -67,7 +70,7 @@ export default {
 
 <style lang="less" scoped>
 #demo {
-  width: 320px;
+  // width: 320px;
   padding: 20px;
 }
 .example {

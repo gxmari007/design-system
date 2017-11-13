@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'co-footer',
+  name: 'CoFooter',
   props: {
     // 页脚高度
     height: {

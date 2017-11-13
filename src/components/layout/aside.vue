@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'co-aside',
+  name: 'CoAside',
   props: {
     width: {
       type: [String, Number],

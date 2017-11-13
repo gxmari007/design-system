@@ -43,3 +43,8 @@ module.exports = merge(resolveConfig, {
     ]
   }
 })
+
+if (process.env.NODE_ENV === 'test') {
+  module.exports.devtool = 'inline-cheap-module-source-map'
+  module.exports.externals = [require('webpack-node-externals')()]
+}

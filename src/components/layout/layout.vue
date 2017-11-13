@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import { oneOf } from 'utils/help';
+import { oneOf } from '../../utils/help';
 
 export default {
-  name: 'co-layout',
+  name: 'CoLayout',
   props: {
     // 子元素排列方向
     direction: {
@@ -35,11 +35,13 @@ export default {
         return false;
       }
 
+      // console.log($slots.default[0]);
+
       return $slots && $slots.default ?
         $slots.default.some((vnode) => {
-          const tag = vnode.componentOptions && vnode.componentOptions.tag;
+          const { tag } = vnode;
 
-          return tag === 'co-header' || tag === 'co-footer';
+          return /CoHeader$/.test(tag) || /CoFooter$/.test(tag);
         }) :
         false;
     },

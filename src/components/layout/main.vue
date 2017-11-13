@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'co-main',
+  name: 'CoMain',
 };
 </script>

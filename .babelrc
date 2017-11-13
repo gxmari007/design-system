@@ -13,5 +13,15 @@
     "transform-runtime",
     "transform-vue-jsx"
   ],
+  "env": {
+    "test": {
+      "presets": [
+        ["env", {
+          "modules": false,
+          "targets": { "node": "current" }
+        }]
+      ]
+    }
+  },
   "comments": false
 }
