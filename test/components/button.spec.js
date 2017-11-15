@@ -1,6 +1,8 @@
 import { mount } from 'vue-test-utils'
 import { CoButton } from '@/components/button'
 import CoIcon from '@/components/icon'
+import sinon from 'sinon'
+import Vue from 'vue'
 
 describe('CoButton', () => {
   it('default render', () => {
@@ -165,5 +167,50 @@ describe('CoButton', () => {
     expect(wrapper.hasClass('co-button')).toBe(true)
     expect(wrapper.hasClass('co-button--loading')).toBe(true)
     expect(wrapper.contains(CoIcon)).toBe(true)
+
+    const icon = wrapper.find(CoIcon)
+
+    expect(icon.hasProp('type', 'load-c')).toBe(true)
+  })
+
+  describe('icon prop', () => {
+    it('set icon prop', () => {
+      const wrapper = mount(CoButton, {
+        propsData: {
+          icon: 'coffee'
+        }
+      })
+      const icon = wrapper.find(CoIcon)
+
+      expect(wrapper.contains(CoIcon)).toBe(true)
+      expect(icon.hasProp('type', 'coffee')).toBe(true)
+    })
+
+    it('如果同时设置 icon 和 loading 属性，则 loading 的优先级更高', () => {
+      const wrapper = mount(CoButton, {
+        propsData: {
+          loading: true,
+          icon: 'coffee'
+        }
+      })
+      let icons = wrapper.findAll(CoIcon)
+
+      expect(wrapper.contains(CoIcon)).toBe(true)
+      expect(icons.length).toBe(1)
+
+      let icon = icons.at(0)
+
+      expect(icon.hasProp('type', 'load-c')).toBe(true)
+    })
+  })
+
+  it('点击按钮会触发点击效果并添加 clicked 类', () => {
+    const spy = sinon.spy(CoButton.methods, 'onClick')
+    const wrapper = mount(CoButton)
+
+    wrapper.trigger('click')
+
+    expect(spy.calledOnce).toBe(true)
+    expect(wrapper.hasClass('co-button--clicked')).toBe(true)
   })
 })
