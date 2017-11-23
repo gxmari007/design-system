@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { oneOf } from 'utils/help';
-import { SIZE } from 'utils/style';
+import { oneOf } from '../../utils/help';
+import { SIZE } from '../../utils/style';
 
 export default {
   name: 'co-button-group',

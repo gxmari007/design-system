@@ -17,7 +17,6 @@
     "test": {
       "presets": [
         ["env", {
-          "modules": false,
           "targets": { "node": "current" }
         }]
       ]
