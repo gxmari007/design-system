@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     onClick() {
-      if (this.type === 'link') return;
+      if (this.type === 'link' || this.disabled || this.loading) return;
 
       this.clicked = true;
 
