@@ -1,7 +1,7 @@
 # CoView
 
-[![npm](https://img.shields.io/npm/v/coview.svg?style=flat-square)](https://www.npmjs.com/package/coview)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/gxmari007/coview/master/LICENSE)
+[![npm](https://img.shields.io/npm/v/coview.svg)](https://www.npmjs.com/package/coview)
+[![GitHub license](https://img.shields.io/github/license/gxmari007/coview.svg)](https://github.com/gxmari007/coview/blob/master/LICENSE)
 
 A Vue.js 2.0 ui components for web
 
