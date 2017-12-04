@@ -95,7 +95,13 @@ export default {
       return false;
     },
     buttonSize() {
-      return this.isGroup ? this.buttonGroup.size : this.size;
+      if (this.size) {
+        return this.size;
+      } else if (this.isGroup) {
+        return this.buttonGroup.size;
+      }
+
+      return false;
     },
     showIcon() {
       if (this.icon && !this.loading) return true;
