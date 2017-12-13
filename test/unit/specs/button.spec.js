@@ -1,8 +1,44 @@
-import { shallow } from 'vue-test-utils';
+import { shallow, mount } from 'vue-test-utils';
 import { CoButton } from '@/components/button';
-// import CoIcon from '@/components/icon';
+import CoIcon from '@/components/icon';
 
 describe('CoButton', () => {
+  it('slot render', () => {
+    const wrapper = shallow(CoButton, {
+      slots: { default: '<span>button</span>' },
+    });
+
+    expect(wrapper.text()).toBe('button');
+  });
+
+  it('ghost prop', () => {
+    const wrapper = shallow(CoButton, {
+      propsData: { ghost: true },
+    });
+
+    expect(wrapper.hasClass('co-button--ghost')).toBe(true);
+  });
+
+  it('html-type prop', () => {
+    const wrapper = shallow(CoButton);
+    console.log(wrapper.html());
+
+    expect(wrapper.hasAttribute('type', 'button')).toBe(true);
+
+    wrapper.setProps({ htmlType: 'submit' });
+    expect(wrapper.hasAttribute('type', 'submit')).toBe(true);
+  });
+
+  it('icon prop', () => {
+    const wrapper = mount(CoButton, {
+      propsData: { icon: 'search' },
+    });
+    const icon = wrapper.find(CoIcon);
+
+    expect(icon.exists()).toBe(true);
+    expect(icon.hasClass('anticon-search')).toBe(true);
+  });
+
   it('type prop', () => {
     const wrapper = shallow(CoButton);
 
@@ -18,15 +54,6 @@ describe('CoButton', () => {
     });
 
     expect(wrapper.hasClass('co-button--small')).toBe(true);
-  });
-
-  it('html-type prop', () => {
-    const wrapper = shallow(CoButton);
-
-    expect(wrapper.hasAttribute('type', 'button')).toBe(true);
-
-    wrapper.setProps({ htmlType: 'submit' });
-    expect(wrapper.hasAttribute('type', 'submit')).toBe(true);
   });
 
   // describe('type prop', () => {
