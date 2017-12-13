@@ -21,7 +21,6 @@ describe('CoButton', () => {
 
   it('html-type prop', () => {
     const wrapper = shallow(CoButton);
-    console.log(wrapper.html());
 
     expect(wrapper.hasAttribute('type', 'button')).toBe(true);
 
@@ -291,4 +290,4 @@ describe('CoButton', () => {
   //     jest.useRealTimers()
   //   })
   // })
-})
+});
