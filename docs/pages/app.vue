@@ -1,10 +1,13 @@
 <template>
   <div id="demo">
-    <co-button loading>Button</co-button>
+    <co-icon type="chrome" style="font-size: 28px;" />
   </div>
 </template>
 
 <script>
+import { CoIcon } from 'coview';
+
+console.log(CoIcon);
 export default {
   name: 'app'
 }
@@ -12,7 +15,6 @@ export default {
 
 <style lang="less" scoped>
 #demo {
-  // width: 320px;
   padding: 20px;
 }
 .example {

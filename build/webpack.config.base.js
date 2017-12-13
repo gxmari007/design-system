@@ -1,6 +1,8 @@
-const merge = require('webpack-merge')
+const webpack = require('webpack');
+const merge = require('webpack-merge');
 const resolveConfig = require('./webpack.config.resolve');
-const utils = require('./utils')
+const utils = require('./utils');
+const pkg = require('../package.json');
 
 module.exports = merge(resolveConfig, {
   module: {
@@ -41,5 +43,10 @@ module.exports = merge(resolveConfig, {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      VERSION: JSON.stringify(pkg.version),
+    }),
+  ],
 })

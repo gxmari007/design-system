@@ -1,38 +1,29 @@
 <template>
-  <i :class="classes" :style="style"></i>
+  <i :class="classes" />
 </template>
 
 <script>
 export default {
-  name: 'co-icon',
+  name: 'CoIcon',
   props: {
     // 图标名称
     type: {
       type: String,
       required: true,
     },
-    // 图标大小
-    size: [String, Number],
-    // 图标颜色
-    color: String,
+    // 是否有旋转动画
+    spin: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes() {
-      return `co-icon co-icon-${this.type}`;
-    },
-    style() {
-      const { size, color } = this;
-      const style = {};
+      const prefixClass = 'anticon';
 
-      if (typeof size !== 'undefined') {
-        style.fontSize = `${size}px`;
-      }
-
-      if (typeof color !== 'undefined') {
-        style.color = color;
-      }
-
-      return style;
+      return [prefixClass, `${prefixClass}-${this.type}`, {
+        [`${prefixClass}-spin`]: this.spin,
+      }];
     },
   },
 };

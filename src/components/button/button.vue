@@ -1,7 +1,7 @@
 <template>
   <button
     :class="classes"
-    :type="nativeType"
+    :type="htmlType"
     :disabled="disabled"
     @click="onClick">
     <transition name="co-fade">
@@ -36,7 +36,7 @@ export default {
       },
     },
     // 原生 type 属性
-    nativeType: {
+    htmlType: {
       type: String,
       default: 'button',
       validator(value) {
