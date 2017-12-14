@@ -8,7 +8,7 @@ export const colorRegex = /#([\da-f]{3}){1,2}/i;
 // 组件 props 验证方法
 // 验证第一个参数是否为第二个参数中的值
 export function oneOf(value, valueList) {
-  return valueList.indexOf(value) !== -1;
+  return valueList.indexOf(value) > -1;
 }
 
 // 滚动条滚动方法（动画效果）

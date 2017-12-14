@@ -38,13 +38,39 @@ describe('CoButton', () => {
     expect(icon.hasClass('anticon-search')).toBe(true);
   });
 
-  it('type prop', () => {
-    const wrapper = shallow(CoButton);
+  describe('loading prop', () => {
+    it('default render', () => {
+      const wrapper = mount(CoButton, {
+        propsData: { loading: true },
+      });
+      const icon = wrapper.find(CoIcon);
 
-    expect(wrapper.hasClass('co-button')).toBe(true);
+      expect(icon.exists()).toBe(true);
+      expect(icon.hasClass('anticon-loading')).toBe(true);
+    });
 
-    wrapper.setProps({ type: 'primary' });
-    expect(wrapper.hasClass('co-button--primary')).toBe(true);
+    // it('设置 { delay: number } 可以');
+
+    it('当设置了 icon 属性时，再设置 loading，则 loading 图标优先显示', () => {
+      const wrapper = mount(CoButton, {
+        propsData: {
+          icon: 'search',
+          loading: true,
+        },
+      });
+      const icons = wrapper.findAll(CoIcon);
+
+      expect(icons.length).toBe(1);
+      expect(icons.at(0).hasClass('anticon-loading')).toBe(true);
+    });
+  });
+
+  it('shape prop', () => {
+    const wrapper = shallow(CoButton, {
+      propsData: { shape: 'circle' },
+    });
+
+    expect(wrapper.hasClass('co-button--circle')).toBe(true);
   });
 
   it('size prop', () => {
@@ -53,6 +79,15 @@ describe('CoButton', () => {
     });
 
     expect(wrapper.hasClass('co-button--small')).toBe(true);
+  });
+
+  it('type prop', () => {
+    const wrapper = shallow(CoButton);
+
+    expect(wrapper.hasClass('co-button')).toBe(true);
+
+    wrapper.setProps({ type: 'primary' });
+    expect(wrapper.hasClass('co-button--primary')).toBe(true);
   });
 
   // describe('type prop', () => {
