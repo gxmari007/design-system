@@ -12,9 +12,9 @@ export function oneOf(value, valueList) {
 }
 
 // 滚动条滚动方法（动画效果）
-export function scrollTo(element, from, to, duration = 600) {
+export function scrollTo(element, from, to, duration = 800) {
   const different = Math.abs(from - to);
-  const step = Math.ceil((different / duration) * 60);
+  const motionStep = Math.ceil((different / duration) * 60);
 
   function scroll(start, end, step) {
     // 从下向上滚动
@@ -32,7 +32,7 @@ export function scrollTo(element, from, to, duration = 600) {
     }
   }
 
-  scroll(from, to, step);
+  scroll(from, to, motionStep);
 }
 
 let scrollBarWidth;

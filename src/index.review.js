@@ -1,6 +1,8 @@
+import { CoButton } from './components/button';
 import CoIcon from './components/icon';
 
 const coview = {
+  CoButton,
   CoIcon,
 };
 
@@ -12,7 +14,12 @@ function install(Vue) {
   });
 }
 
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue);
+}
+
 export {
+  CoButton,
   CoIcon,
 };
 

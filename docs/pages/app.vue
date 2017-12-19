@@ -1,13 +1,11 @@
 <template>
   <div id="demo">
-    <co-icon type="chrome" style="font-size: 28px;" />
+    <co-button icon="search" target="_blank">button</co-button>
+    <co-button href="/">button</co-button>
   </div>
 </template>
 
 <script>
-import { CoIcon } from 'coview';
-
-console.log(CoIcon);
 export default {
   name: 'app'
 }
