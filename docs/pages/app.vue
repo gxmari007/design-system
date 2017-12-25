@@ -1,7 +1,7 @@
 <template>
   <div id="demo">
-    <co-button icon="search" target="_blank">button</co-button>
-    <co-button href="/">button</co-button>
+    <co-button>Button</co-button>
+    <co-button type="primary">Button</co-button>
   </div>
 </template>
 

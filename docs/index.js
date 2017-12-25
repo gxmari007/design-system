@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import coview from 'coview';
 import App from './pages/app';
 import routes from './routes';
-import '../src/styles/index.less';
+import '../src/style/index.less';
 
 Vue.config.productionTip = false;
 

@@ -98,7 +98,9 @@ export default {
     },
     renderLink() {
       return (
-        <a href={this.href} target={this.target}>{this.$slots.default}</a>
+        <a href={this.href} target={this.target}>
+          <span>{this.$slots.default}</span>
+        </a>
       );
     },
     renderButton() {
@@ -108,7 +110,7 @@ export default {
           type={this.htmlType}
           onClick={this.onClick}>
           {this.renderIcon()}
-          {this.$slots.default}
+          <span>{this.$slots.default}</span>
         </button>
       );
     },
