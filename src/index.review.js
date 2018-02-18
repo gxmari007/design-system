@@ -25,7 +25,7 @@ export {
 
 /* eslint-disable no-undef */
 export default {
-  version: VERSION,
+  version: process.VERSION,
   install,
   ...coview,
 };

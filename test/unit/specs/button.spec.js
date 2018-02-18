@@ -5,7 +5,7 @@ import CoIcon from '@/components/icon';
 describe('CoButton', () => {
   it('slot render', () => {
     const wrapper = shallow(CoButton, {
-      slots: { default: '<span>button</span>' },
+      slots: { default: 'button' },
     });
 
     expect(wrapper.text()).toBe('button');
@@ -45,8 +45,10 @@ describe('CoButton', () => {
       });
       const icon = wrapper.find(CoIcon);
 
+      expect(wrapper.hasClass('co-button--loading')).toBe(true);
       expect(icon.exists()).toBe(true);
       expect(icon.hasClass('anticon-loading')).toBe(true);
+      expect(icon.hasClass('anticon-spin')).toBe(true);
     });
 
     // it('设置 { delay: number } 可以');
@@ -107,6 +109,14 @@ describe('CoButton', () => {
     expect(wrapper.element.getAttribute('target')).toBe(null);
     wrapper.setProps({ href: '/' });
     expect(wrapper.element.getAttribute('target')).toBe('_blank');
+  });
+
+  it('disabled prop', () => {
+    const wrapper = shallow(CoButton, {
+      propsData: { disabled: true },
+    });
+
+    expect(wrapper.attributes().disabled).toBe('disabled');
   });
 
   it('点击按钮会产生点击效果', () => {

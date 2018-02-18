@@ -51,6 +51,11 @@ export default {
     href: String,
     // a 链接的 target 属性，href 属性存在时生效
     target: String,
+    // 设置按钮禁用状态
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -64,11 +69,16 @@ export default {
 
       return [prefixClass, {
         [`${prefixClass}--ghost`]: this.ghost,
-        [`${prefixClass}--circle`]: this.shape,
+        [`${prefixClass}--circle`]: !!this.shape,
         [`${prefixClass}--${sizeMap[this.size]}`]: !!this.size,
         [`${prefixClass}--${this.type}`]: !!this.type,
         [`${prefixClass}--clicked`]: this.clicked,
+        [`${prefixClass}--loading`]: this.loading,
       }];
+    },
+    // 是否含有默认插槽内容
+    hasDefault() {
+      return this.$slots.default;
     },
   },
   methods: {
@@ -91,7 +101,11 @@ export default {
       if (icon || loading) {
         const iconType = loading ? 'loading' : icon;
 
-        return <co-icon type={iconType} />;
+        return (
+          <co-icon
+            class={{ 'anticon-spin': loading }}
+            type={iconType} />
+        );
       }
 
       return null;
@@ -103,14 +117,29 @@ export default {
         </a>
       );
     },
+    // 渲染默认插槽
+    renderDefaultSlot() {
+      if (this.$slots.default) {
+        return this.$slots.default.map((vnode) => {
+          if (vnode.text) {
+            return <span>{vnode.text.trim()}</span>;
+          }
+
+          return vnode;
+        });
+      }
+
+      return null;
+    },
     renderButton() {
       return (
         <button
           class={this.classes}
           type={this.htmlType}
+          disabled={this.disabled}
           onClick={this.onClick}>
           {this.renderIcon()}
-          <span>{this.$slots.default}</span>
+          {this.renderDefaultSlot()}
         </button>
       );
     },

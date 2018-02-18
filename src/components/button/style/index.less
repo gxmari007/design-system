@@ -20,6 +20,22 @@
     .btn-primary();
   }
 
+  &--dashed {
+    .btn-dashed();
+  }
+
+  &--danger {
+    .btn-danger();
+  }
+
+  &--circle {
+    .btn-circle(@button-prefix-class);
+
+    &.@{button-prefix-class}--loading {
+      pointer-events: none;
+    }
+  }
+
   // loading 状态
   &::before {
     position: absolute;
@@ -37,8 +53,18 @@
     display: none;
   }
 
-  &--loading::before {
+  &&--loading::before {
     display: block;
+  }
+
+  &&--loading:not(&--circle) {
+    position: relative;
+    padding-left: 29px;
+    pointer-events: none;
+
+    .@{iconfont-css-prefix} {
+      margin-left: -14px;
+    }
   }
 
   // icon
@@ -71,6 +97,10 @@
     opacity: .4;
     animation: buttonEffect .4s;
     display: block;
+  }
+
+  &--danger&--clicked::after {
+    border-color: @btn-danger-color;
   }
 }
 

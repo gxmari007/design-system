@@ -1,4 +1,4 @@
-/build/
-/config/
-/lib/
-/docs/
+build/
+config/
+lib/
+nuxt.config.js

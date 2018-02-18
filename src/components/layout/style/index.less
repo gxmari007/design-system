@@ -1,0 +1,26 @@
+@import "../../../style/themes/default.less";
+@import "../../../style/mixins/index.less";
+
+@layout-prefix-class: ~"@{coview-prefix}-layout";
+
+.@{layout-prefix-class} {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  background-color: @layout-body-background;
+
+  // 单独使用组件时的重置样式
+  &,
+  * {
+    box-sizing: border-box;
+  }
+
+  &--has-sider {
+    flex-direction: row;
+
+    .@{layout-prefix-class},
+    .@{layout-prefix-class}__content {
+      overflow-x: hidden;
+    }
+  }
+}
