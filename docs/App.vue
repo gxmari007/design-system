@@ -7,7 +7,7 @@ export default {
   name: 'App',
   data() {
     return {
-      name: '123',
+      name: process.VERSION,
     };
   },
 };

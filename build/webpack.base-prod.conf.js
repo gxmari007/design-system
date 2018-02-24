@@ -21,7 +21,7 @@ module.exports = merge(baseWebpackConfig, {
         'VERSION': JSON.stringify(pkg.version)
       }
     }),
-    // 作用域提升，代码执行的更快
+    // 作用域提升，打包出来的代码更小，执行速度更快
     new webpack.optimize.ModuleConcatenationPlugin()
   ]
 });

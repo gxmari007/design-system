@@ -1,4 +1,6 @@
 'use strict';
+process.env.NODE_ENV = 'production';
+
 const path = require('path');
 const webpack = require('webpack');
 const ora = require('ora');
@@ -7,6 +9,7 @@ const rm = require('rimraf');
 const prodConfig = require('./webpack.prod.conf');
 const prodMinConfig = require('./webpack.prod-min.conf');
 const componentConfig = require('./webpack.component.conf');
+const docsConfig = require('./webpack.docs-prod.conf');
 
 const spinner = ora('Building lib for production...');
 
@@ -20,7 +23,8 @@ rm(path.join(__dirname, '../lib'), (err) => {
   webpack([
     prodConfig,
     prodMinConfig,
-    componentConfig
+    componentConfig,
+    docsConfig
   ], (err, stats) => {
     spinner.stop();
 

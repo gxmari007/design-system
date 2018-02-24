@@ -3,24 +3,36 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const portfinder = require('portfinder');
-const baseWebpackConfig = require('./webpack.base.conf');
+const baseWebpackConfig = require('./webpack.base-docs.conf');
+const config = require('./config');
 const pkg = require('../package.json');
 
+function createNotifierCallback() {
+  const notifier = require('node-notifier');
+
+  return (severity, errors) => {
+    if (severity !== 'error') return;
+
+    const error = errors[0];
+    const filename = error.file && error.file.split('!').pop();
+
+    notifier.notify({
+      title: pkg.name,
+      message: severity + ': ' + error.name,
+      subtitle: filename || ''
+    });
+  }
+}
+
 const devWebpckConfig = merge(baseWebpackConfig, {
-  devtool: 'cheap-module-eval-source-map',
-  entry: {
-    app: './docs/main.js'
-  },
-  output: {
-    filename: '[name].js',
-    publicPath: '/'
-  },
+  devtool: config.docsDev.devtool,
   devServer: {
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
-        { from: /.*/, to: path.posix.join('/', 'index.html') }
+        { from: /.*/, to: path.posix.join(config.docsDev.assetsPublicPath, 'index.html') }
       ]
     },
     // 启用 HMR
@@ -29,31 +41,27 @@ const devWebpckConfig = merge(baseWebpackConfig, {
     // 启用 gzip 压缩
     compress: true,
     // 指定 host 地址
-    host: 'localhost',
+    host: process.env.HOST || config.docsDev.host,
     // 指定要监听请求的端口号
-    port: 8080,
+    port: Number(process.env.PORT) || config.docsDev.port,
     // 编译完成的时候自动打开浏览器
-    open: false,
+    open: config.docsDev.autoOpenBrowser,
     // 当出现编译错误的时候浏览器会显示一个叠加层
-    overlay: {
-      warnings: false,
-      errors: true
-    },
-    publicPath: '/',
-    // 控制台只显示启动信息，错误信息与警告只会在浏览器中显示
+    overlay: config.docsDev.errorOverlay
+      ? { warnings: false, errors: true }
+      : false,
+    publicPath: config.docsDev.assetsPublicPath,
+    // 屏蔽 webpack 的信息，使用 FriendlyErrorsPlugin 代替
     quiet: true,
     // 文件监听 watch 在 webpack-dev-server 中默认开启
     // 监听选项
     watchOptions: {
-      poll: false
+      poll: config.docsDev.poll
     }
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process': {
-        'env': { 'NODE_ENV': JSON.stringify('development') },
-        'VERSION': JSON.stringify(pkg.version)
-      }
+      'process.env': config.docsDev.env
     }),
     // HMR
     new webpack.HotModuleReplacementPlugin(),
@@ -73,11 +81,25 @@ const devWebpckConfig = merge(baseWebpackConfig, {
 });
 
 module.exports = new Promise((resolve, reject) => {
-  portfinder.basePort = process.env.PORT;
+  portfinder.basePort = process.env.PORT || config.docsDev.port;
   portfinder.getPort((err, port) => {
     if (err) {
       reject(err);
     } else {
+      process.env.PORT = port;
+      devWebpckConfig.devServer.port = port;
+
+      // 添加 FriendlyErrorsPlugin 插件配置
+      // 用于显示更友好的错误信息
+      devWebpckConfig.plugins.push(new FriendlyErrorsPlugin({
+        compilationSuccessInfo: {
+          messages: [`You application is running here: http://${devWebpckConfig.devServer.host}:${port}`]
+        },
+        onErrors: config.docsDev.notifyOnErrors
+          ? createNotifierCallback()
+          : undefined
+      }));
+
       resolve(devWebpckConfig);
     }
   });
