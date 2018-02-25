@@ -5,13 +5,13 @@
 
 A Vue.js 2.0 ui components for web
 
-## Install
+## 安装
 
 ```` bash
 npm install coview --save
 ````
 
-## Usage
+## 使用方法
 
 ````javascript
 import Vue from 'vue';
@@ -20,7 +20,7 @@ import CoView from 'coview';
 Vue.use(CoView);
 ````
 
-or
+或者
 
 ````javascript
 import Vue from 'vue';

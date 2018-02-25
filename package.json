@@ -31,7 +31,7 @@
     "url": "https://github.com/gxmari007/coview/issues"
   },
   "engines": {
-    "node": ">=4.0.0",
+    "node": ">=7.6.0",
     "npm": ">=3.0.0"
   },
   "browserslist": [
