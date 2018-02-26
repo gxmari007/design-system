@@ -1,4 +1,4 @@
-# CoView
+# coview
 
 [![npm](https://img.shields.io/npm/v/coview.svg)](https://www.npmjs.com/package/coview)
 [![GitHub license](https://img.shields.io/github/license/gxmari007/coview.svg)](https://github.com/gxmari007/coview/blob/master/LICENSE)

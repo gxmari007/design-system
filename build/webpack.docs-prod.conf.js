@@ -16,6 +16,12 @@ module.exports = merge(baseWebpackConfig, {
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
+  module: {
+    rules: utils.styleLoaders({
+      sourceMap: config.docsBuild.sourceMap,
+      extract: true
+    })
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': config.docsBuild.env

@@ -1,6 +1,10 @@
 'use strict';
 const path = require('path');
 const webpack = require('webpack');
+const utils = require('./utils');
+const config = require('./config');
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 // 解析路径
 function resolve(dir) {
@@ -32,10 +36,12 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          loaders: {
-            css: 'vue-style-loader!css-loader',
-            less: 'vue-style-loader!css-loader!less-loader',
-          },
+          loaders: utils.cssLoaders({
+            sourceMap: isProduction
+              ? config.docsBuild.sourceMap
+              : config.docsDev.sourceMap,
+            extract: isProduction
+          }),
           preserveWhitespace: false,
           cacheBusting: true,
           transformToRequire: {

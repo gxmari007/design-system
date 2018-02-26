@@ -7,6 +7,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const portfinder = require('portfinder');
 const baseWebpackConfig = require('./webpack.base-docs.conf');
 const config = require('./config');
+const utils = require('./utils');
 const pkg = require('../package.json');
 
 function createNotifierCallback() {
@@ -28,6 +29,11 @@ function createNotifierCallback() {
 
 const devWebpckConfig = merge(baseWebpackConfig, {
   devtool: config.docsDev.devtool,
+  module: {
+    rules: utils.styleLoaders({
+      sourceMap: config.docsDev.sourceMap
+    })
+  },
   devServer: {
     clientLogLevel: 'warning',
     historyApiFallback: {
