@@ -10,7 +10,8 @@
     "lint": "eslint --ext .js,.vue src",
     "build:script": "node ./build/build.js",
     "build:style": "gulp --gulpfile build/build-style.js",
-    "build": "npm run build:script && npm run build:style"
+    "build": "npm run build:script && npm run build:style",
+    "deploy": "push-dir --dir=docs/dist --branch=gh-pages --cleanup"
   },
   "main": "lib/coview.js",
   "files": [
@@ -85,6 +86,7 @@
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.4.0",
     "portfinder": "^1.0.13",
+    "push-dir": "^0.4.1",
     "rimraf": "^2.6.2",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "url-loader": "^0.5.8",
