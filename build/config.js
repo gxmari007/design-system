@@ -26,6 +26,7 @@ module.exports = {
     assetsRoot: path.join(__dirname, '../docs/dist'),
     // 打包出来的静态文件存放的文件夹名称
     assetsSubDirectory: 'static',
+    // gh-pages 只支持相对路径
     assetsPublicPath: '',
     // source maps
     sourceMap: false,
