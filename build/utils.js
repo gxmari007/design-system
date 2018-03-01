@@ -3,12 +3,25 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = require('./config');
 
+/**
+ * @param {String} _path
+ * @returns {String}
+ */
 exports.assetsPath = (_path) => {
   const assetsSubDirectory = process.env.NODE_ENV === 'production'
     ? config.docsBuild.assetsSubDirectory
     : config.docsDev.assetsSubDirectory;
 
   return path.posix.join(assetsSubDirectory, _path);
+}
+
+/**
+ * 解析路径
+ * @param {String} _path
+ * @returns {String}
+ */
+exports.resolve = (_path) => {
+  return path.join(__dirname, '..', _path);
 }
 
 /**
@@ -55,6 +68,10 @@ exports.cssLoaders = (options) => {
   };
 }
 
+/**
+ * @param {Object} options
+ * @returns {Array}
+ */
 exports.styleLoaders = (options) => {
   const loaders = exports.cssLoaders(options);
 

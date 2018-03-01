@@ -5,11 +5,7 @@ const utils = require('./utils');
 const config = require('./config');
 
 const isProduction = process.env.NODE_ENV === 'production';
-
-// 解析路径
-function resolve(dir) {
-  return path.join(__dirname, '..', dir);
-}
+const resolve = utils.resolve;
 
 module.exports = {
   context: path.join(__dirname, '../'),
