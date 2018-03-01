@@ -5,7 +5,7 @@ const baseWebpackConfig = require('./webpack.base.conf');
 const pkg = require('../package.json');
 
 module.exports = merge(baseWebpackConfig, {
-  entry: './src/index.review.js',
+  entry: './src/index.js',
   externals: {
     vue: {
       root: 'Vue',
