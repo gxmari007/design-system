@@ -1,14 +1,3 @@
-<template>
-  <div>coview docs {{ name }}</div>
+<template functional>
+  <router-view />
 </template>
-
-<script>
-export default {
-  name: 'App',
-  data() {
-    return {
-      name: process.VERSION,
-    };
-  },
-};
-</script>
