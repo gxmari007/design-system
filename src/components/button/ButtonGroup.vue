@@ -9,7 +9,7 @@ import { oneOf } from '../../utils/help';
 import { SIZE } from '../../utils/style';
 
 export default {
-  name: 'co-button-group',
+  name: 'CoButtonGroup',
   props: {
     // 按钮组中按钮尺寸
     size: {

@@ -1,7 +1,3 @@
-import CoLayout from './layout';
-import CoHeader from './header';
-import CoAside from './aside';
-import CoMain from './main';
-import CoFooter from './footer';
+import CoLayout from './Layout';
 
-export { CoLayout, CoHeader, CoAside, CoMain, CoFooter };
+export default CoLayout;

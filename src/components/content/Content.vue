@@ -1,11 +1,11 @@
 <template>
-  <main class="co-main">
+  <div class="co-content">
     <slot></slot>
-  </main>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'CoMain',
+  name: 'CoContent',
 };
 </script>

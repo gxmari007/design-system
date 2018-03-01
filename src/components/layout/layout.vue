@@ -35,8 +35,6 @@ export default {
         return false;
       }
 
-      // console.log($slots.default[0]);
-
       return $slots && $slots.default ?
         $slots.default.some((vnode) => {
           const { tag } = vnode;

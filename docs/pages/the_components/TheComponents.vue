@@ -1,6 +1,5 @@
 <template>
   <the-default>
-    components page
   </the-default>
 </template>
 
