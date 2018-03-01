@@ -18,7 +18,7 @@ module.exports = merge(baseWebpackConfig, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.VERSION': JSON.stringify(pkg.version)
+      'process.env.VERSION': JSON.stringify(pkg.version)
     })
   ]
 });

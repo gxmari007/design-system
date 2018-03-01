@@ -17,8 +17,10 @@ module.exports = merge(baseWebpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process': {
-        'env': { 'NODE_ENV': JSON.stringify('production') },
-        'VERSION': JSON.stringify(pkg.version)
+        'env': {
+          'NODE_ENV': JSON.stringify('production'),
+          'VERSION': JSON.stringify(pkg.version)
+        }
       }
     }),
     // 作用域提升，打包出来的代码更小，执行速度更快
