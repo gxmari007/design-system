@@ -16,15 +16,6 @@ exports.assetsPath = (_path) => {
 }
 
 /**
- * 解析路径
- * @param {String} _path
- * @returns {String}
- */
-exports.resolve = (_path) => {
-  return path.join(__dirname, '..', _path);
-}
-
-/**
  * 返回 vue-loader 的 loaders 配置
  * @param {object} options
  * @param {boolean} options.sourceMap

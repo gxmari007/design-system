@@ -5,14 +5,23 @@ const utils = require('./utils');
 const config = require('./config');
 
 const isProduction = process.env.NODE_ENV === 'production';
-const resolve = utils.resolve;
+
+/**
+ * 解析路径
+ * @param {String} _path
+ * @returns {String}
+ */
+function resolve(_path) {
+  return path.join(__dirname, '..', _path);
+}
 
 module.exports = {
   context: path.join(__dirname, '../'),
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': resolve('src')
+      '@': resolve('src'),
+      '~': resolve('docs')
     }
   },
   module: {
