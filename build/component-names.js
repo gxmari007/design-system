@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const componentPath = '../src/_components';
+const componentPath = '../src/components';
 const files = fs.readdirSync(path.join(__dirname, componentPath));
 const entry = {};
 

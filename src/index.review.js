@@ -1,8 +1,10 @@
-import { CoButton } from './components/button';
+import CoButton from './components/button';
+import CoButtonGroup from './components/button-group';
 import CoIcon from './components/icon';
 
 const coview = {
   CoButton,
+  CoButtonGroup,
   CoIcon,
 };
 

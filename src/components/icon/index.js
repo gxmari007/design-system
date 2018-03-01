@@ -1,3 +1,3 @@
-import CoIcon from './icon';
+import CoIcon from './Icon';
 
 export default CoIcon;

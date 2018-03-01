@@ -1,4 +1,3 @@
-import CoButtonGroup from './button-group';
-import CoButton from './button';
+import CoButton from './Button';
 
-export { CoButtonGroup, CoButton };
+export default CoButton;
