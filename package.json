@@ -5,8 +5,9 @@
   "author": "gxmari007 <392041299@qq.com>",
   "scripts": {
     "docs": "webpack-dev-server --inline --progress --config ./build/webpack.docs-dev.conf.js",
-    "test": "jest --config test/unit/jest.conf.js --coverage",
+    "test": "jest --config test/unit/jest.conf.js",
     "test:watch": "jest --config test/unit/jest.conf.js --watch",
+    "test:coverage": "npm run test -- --coverage",
     "lint": "eslint --ext .js,.vue src",
     "build:script": "node ./build/build.js",
     "build:style": "gulp --gulpfile build/build-style.js",
