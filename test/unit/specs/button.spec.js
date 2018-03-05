@@ -1,4 +1,4 @@
-import { shallow, mount } from 'vue-test-utils';
+import { shallow, mount } from '@vue/test-utils';
 import { CoButton } from '@/components/button';
 import CoIcon from '@/components/icon';
 

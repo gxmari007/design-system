@@ -1,5 +1,5 @@
 <template>
-  <header>header</header>
+  <co-row></co-row>
 </template>
 
 <script>
