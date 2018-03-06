@@ -1,12 +1,37 @@
 <template>
   <div :class="classes" :style="styles">
+    {{ screens }}
     <slot />
   </div>
 </template>
 
 <script>
-// import Vue from 'vue';
+import Vue from 'vue';
 import { oneOf } from 'utils/help';
+
+let enquire;
+const responsiveMap = {
+  xs: '(max-width: 575px)',
+  sm: '(min-width: 576px)',
+  md: '(min-width: 768px)',
+  lg: '(min-width: 992px)',
+  xl: '(min-width: 1200px)',
+  xxl: '(min-width: 1600px)',
+};
+
+// matchMedia polyfill
+if (!Vue.prototype.$isServer) {
+  const matchMediaPolyfill = mediaQuery => ({
+    media: mediaQuery,
+    matches: false,
+    addListener() {},
+    removeListener() {},
+  });
+
+  window.matchMedia = window.matchMedia || matchMediaPolyfill;
+  /* eslint-disable global-require */
+  enquire = require('enquire.js');
+}
 
 export default {
   name: 'CoRow',
@@ -20,7 +45,7 @@ export default {
     },
     // 栅格间隔
     gutter: {
-      type: Number,
+      type: [Number, Object],
       default: 0,
     },
     // flex 布局下的水平排列方式
@@ -38,6 +63,18 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      screens: {
+        xs: false,
+        sm: false,
+        md: false,
+        lg: false,
+        xl: false,
+        xxl: false,
+      },
+    };
+  },
   computed: {
     classes() {
       const { type, align, justify } = this;
@@ -49,16 +86,62 @@ export default {
         [`${prefixClass}--${justify}`]: isFlex && justify !== undefined,
       }];
     },
+    gutterValue() {
+      const { gutter, screens } = this;
+
+      if (typeof gutter === 'object') {
+        // ['xs', 'sm', 'md', 'lg', 'xl', 'xxl']
+        const responsiveArr = Object.keys(responsiveMap);
+
+        for (let i = 0, len = responsiveArr.length; i < len; i += 1) {
+          const breakpoint = responsiveArr[i];
+
+          if (screens[breakpoint] && gutter[breakpoint] !== undefined) {
+            return gutter[breakpoint];
+          }
+        }
+      }
+
+      return gutter;
+    },
     styles() {
-      const { gutter } = this;
+      const { gutterValue } = this;
       const styles = {};
 
-      if (gutter !== 0) {
-        styles.marginLeft = `-${gutter / 2}px`;
-        styles.marginRight = `-${gutter / 2}px`;
+      if (gutterValue > 0) {
+        styles.marginLeft = `${gutterValue / -2}px`;
+        styles.marginRight = `${gutterValue / -2}px`;
       }
 
       return styles;
+    },
+  },
+  mounted() {
+    // 此步绑定浏览器响应事件，故而放在 mounted 中绑定
+    Object.keys(responsiveMap).forEach((screen) => {
+      enquire.register(responsiveMap[screen], {
+        match: () => {
+          if (typeof this.gutter !== 'object') return;
+          this.setScreens(screen);
+        },
+        unmatch: () => {
+          if (typeof this.gutter !== 'object') return;
+          this.screens[screen] = false;
+        },
+        destroy() {},
+      });
+    });
+  },
+  beforeDestroy() {
+    Object.keys(responsiveMap).forEach((screen) => {
+      enquire.unregister(responsiveMap[screen]);
+    });
+  },
+  methods: {
+    setScreens(screen) {
+      Object.keys(this.screens).forEach((breakpoint) => {
+        this.screens[breakpoint] = breakpoint === screen;
+      });
     },
   },
 };

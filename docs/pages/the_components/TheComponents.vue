@@ -1,6 +1,5 @@
 <template>
-  <the-default>
-  </the-default>
+  <the-default></the-default>
 </template>
 
 <script>
