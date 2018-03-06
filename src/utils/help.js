@@ -68,6 +68,7 @@ export function getScrollBarWidth() {
 }
 
 // 判断数值是否为 undefined
+// 准备废弃
 export function isUndefined(value) {
   return typeof value === 'undefined';
 }
