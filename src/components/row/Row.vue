@@ -10,6 +10,7 @@ import Vue from 'vue';
 import { oneOf } from 'utils/help';
 
 let enquire;
+const responsiveArray = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];
 const responsiveMap = {
   xs: '(max-width: 575px)',
   sm: '(min-width: 576px)',
@@ -90,11 +91,8 @@ export default {
       const { gutter, screens } = this;
 
       if (typeof gutter === 'object') {
-        // ['xs', 'sm', 'md', 'lg', 'xl', 'xxl']
-        const responsiveArr = Object.keys(responsiveMap);
-
-        for (let i = 0, len = responsiveArr.length; i < len; i += 1) {
-          const breakpoint = responsiveArr[i];
+        for (let i = 0, len = responsiveArray.length; i < len; i += 1) {
+          const breakpoint = responsiveArray[i];
 
           if (screens[breakpoint] && gutter[breakpoint] !== undefined) {
             return gutter[breakpoint];
@@ -122,7 +120,7 @@ export default {
       enquire.register(responsiveMap[screen], {
         match: () => {
           if (typeof this.gutter !== 'object') return;
-          this.setScreens(screen);
+          this.screens[screen] = true;
         },
         unmatch: () => {
           if (typeof this.gutter !== 'object') return;
@@ -136,13 +134,6 @@ export default {
     Object.keys(responsiveMap).forEach((screen) => {
       enquire.unregister(responsiveMap[screen]);
     });
-  },
-  methods: {
-    setScreens(screen) {
-      Object.keys(this.screens).forEach((breakpoint) => {
-        this.screens[breakpoint] = breakpoint === screen;
-      });
-    },
   },
 };
 </script>
