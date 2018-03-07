@@ -1,6 +1,5 @@
 <template>
   <div :class="classes" :style="styles">
-    {{ screens }}
     <slot />
   </div>
 </template>
