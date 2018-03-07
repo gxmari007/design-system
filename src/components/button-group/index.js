@@ -1,3 +1,3 @@
-import CoButtonGroup from '../button/ButtonGroup';
+import CoButtonGroup from './ButtonGroup';
 
 export default CoButtonGroup;
