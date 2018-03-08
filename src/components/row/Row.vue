@@ -7,9 +7,9 @@
 <script>
 import Vue from 'vue';
 import { oneOf } from 'utils/help';
+import { responsiveArray } from 'utils/style';
 
 let enquire;
-const responsiveArray = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];
 const responsiveMap = {
   xs: '(max-width: 575px)',
   sm: '(min-width: 576px)',

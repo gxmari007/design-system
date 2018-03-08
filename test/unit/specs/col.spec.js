@@ -1,5 +1,4 @@
 import { shallow } from '@vue/test-utils';
-import Vue from 'vue';
 import CoCol from '@/components/col';
 import CoRow from '@/components/row';
 
@@ -45,22 +44,28 @@ describe('CoCol 组件', () => {
   });
 
   it('嵌套在 CoRow 组件中应该根据 gutter 属性来设置 padding', () => {
-    const vm = new Vue({
-      components: {
-        CoRow,
-        CoCol,
+    const wrapper = shallow(CoRow, {
+      propsData: { gutter: 16 },
+      slots: {
+        default: CoCol,
       },
-      render() {
-        return (
-          <co-row gutter={16}>
-            <co-col span="6" />
-          </co-row>
-        );
-      },
-    }).$mount();
-    const col = vm.$el.querySelector('.co-col-6');
+    });
+    const col = wrapper.find(CoCol);
 
-    expect(col.style.paddingRight).toBe('8px');
-    expect(col.style.paddingLeft).toBe('8px');
+    expect(col.element.style.paddingRight).toBe('8px');
+    expect(col.element.style.paddingLeft).toBe('8px');
+  });
+
+  it('xs, sm, md, lg, xl, xxl prop', () => {
+    const wrapper = shallow(CoCol, {
+      propsData: { xs: 6 },
+    });
+
+    expect(wrapper.classes()).toContain('co-col-xs-6');
+
+    wrapper.setProps({ xs: { span: 8, offset: 6 } });
+
+    expect(wrapper.classes()).toContain('co-col-xs-8');
+    expect(wrapper.classes()).toContain('co-col-xs-offset-6');
   });
 });

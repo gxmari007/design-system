@@ -10,3 +10,5 @@ export const sizeMap = {
 };
 
 export const SIZE = ['small', 'large', 'sm', 'lg'];
+
+export const responsiveArray = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];
