@@ -4,5 +4,30 @@
 .make-grid-columns();
 .make-grid();
 
-
+// phone
 .make-grid(-xs);
+
+// tablet
+@media (min-width: @screen-sm-min) {
+  .make-grid(-sm);
+}
+
+// desktop
+@media (min-width: @screen-md-min) {
+  .make-grid(-md);
+}
+
+// wide desktop
+@media (min-width: @screen-lg-min) {
+  .make-grid(-lg);
+}
+
+// full hd
+@media (min-width: @screen-xl-min) {
+  .make-grid(-xl);
+}
+
+// large desktop
+@media (min-width: @screen-xxl-min) {
+  .make-grid(-xxl);
+}

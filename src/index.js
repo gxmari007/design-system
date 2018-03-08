@@ -1,11 +1,13 @@
 import CoButton from 'components/button';
 import CoButtonGroup from 'components/button-group';
+import CoCol from 'components/col';
 import CoIcon from 'components/icon';
 import CoRow from 'components/row';
 
 const coview = {
   CoButton,
   CoButtonGroup,
+  CoCol,
   CoIcon,
   CoRow,
 };
@@ -25,6 +27,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 export {
   CoButton,
   CoButtonGroup,
+  CoCol,
   CoIcon,
   CoRow,
 };

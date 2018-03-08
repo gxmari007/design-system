@@ -106,8 +106,8 @@ export default {
       const styles = {};
 
       if (gutterValue > 0) {
-        styles.marginLeft = `${gutterValue / -2}px`;
         styles.marginRight = `${gutterValue / -2}px`;
+        styles.marginLeft = styles.marginRight;
       }
 
       return styles;
