@@ -3,6 +3,7 @@
 // 用于组件类前缀
 @coview-prefix: co;
 
+
 // colors
 @primary-color: @blue-6;
 @info-color: @blue-6;
@@ -24,6 +25,7 @@
 @primary-9: color(~`colorPalette("@{primary-color}", 9)`);  // unused
 @primary-10: color(~`colorPalette("@{primary-color}", 10)`);  // unused
 
+
 // base scaffolding variables
 @body-background: #fff;
 @component-background: #fff;
@@ -42,6 +44,7 @@
 @text-color-secondary-dark: fade(#fff, 65%);
 @border-radius-base: 4px;
 @border-radius-sm: 2px;
+
 
 // vertical paddings
 @padding-lg    : 24px; // containers
@@ -93,6 +96,43 @@
 @disabled-bg            : @background-color-base;
 @disabled-color-dark    : fade(#fff, 35%);
 
+// Shadow
+@shadow-color: rgba(0, 0, 0, .15);
+@box-shadow-base: @shadow-1-down;
+@shadow-1-down: 0 2px 8px @shadow-color;
+
+// Layout
+@layout-body-background: #f0f2f5;
+
+// Grid system
+@grid-columns: 24;
+@grid-gutter-width: 0;
+
+// Media query breakpoint
+// phone
+@screen-xs: 480px;
+@screen-xs-min: @screen-xs;
+
+// tablet
+@screen-sm: 576px;
+@screen-sm-min: @screen-sm;
+
+// desktop
+@screen-md: 768px;
+@screen-md-min: @screen-md;
+
+// wide desktop
+@screen-lg: 992px;
+@screen-lg-min: @screen-lg;
+
+// full hd
+@screen-xl: 1200px;
+@screen-xl-min: @screen-xl;
+
+// large desktop
+@screen-xxl: 1600px;
+@screen-xxl-min: @screen-xxl;
+
 // Buttons
 @btn-font-weight        : 400;
 @btn-border-radius-base : @border-radius-base;
@@ -128,35 +168,3 @@
 @btn-circle-size        : @btn-height-base;
 @btn-circle-size-lg     : @btn-height-lg;
 @btn-circle-size-sm     : @btn-height-sm;
-
-// Layout
-@layout-body-background: #f0f2f5;
-
-// Grid system
-@grid-columns: 24;
-@grid-gutter-width: 0;
-
-// Media query breakpoint
-// phone
-@screen-xs: 480px;
-@screen-xs-min: @screen-xs;
-
-// tablet
-@screen-sm: 576px;
-@screen-sm-min: @screen-sm;
-
-// desktop
-@screen-md: 768px;
-@screen-md-min: @screen-md;
-
-// wide desktop
-@screen-lg: 992px;
-@screen-lg-min: @screen-lg;
-
-// full hd
-@screen-xl: 1200px;
-@screen-xl-min: @screen-xl;
-
-// large desktop
-@screen-xxl: 1600px;
-@screen-xxl-min: @screen-xxl;

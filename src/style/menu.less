@@ -1,0 +1,12 @@
+@import "./themes/default.less";
+@import "./mixins/index.less";
+
+@menu-class: ~"@{coview-prefix}-menu";
+
+.@{menu-class} {
+  .reset-component();
+  .clearfix();
+
+  outline: none;
+  box-shadow: @box-shadow-base;
+}

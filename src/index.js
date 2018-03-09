@@ -2,6 +2,7 @@ import CoButton from 'components/button';
 import CoButtonGroup from 'components/button-group';
 import CoCol from 'components/col';
 import CoIcon from 'components/icon';
+import CoMenu from 'components/menu';
 import CoRow from 'components/row';
 
 const coview = {
@@ -9,6 +10,7 @@ const coview = {
   CoButtonGroup,
   CoCol,
   CoIcon,
+  CoMenu,
   CoRow,
 };
 
@@ -23,14 +25,6 @@ function install(Vue) {
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
-
-export {
-  CoButton,
-  CoButtonGroup,
-  CoCol,
-  CoIcon,
-  CoRow,
-};
 
 /* eslint-disable no-undef */
 export default {
