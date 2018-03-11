@@ -11,6 +11,7 @@ const coview = {
   CoCol,
   CoIcon,
   CoMenu,
+  CoMenuItem: CoMenu.CoMenuItem,
   CoRow,
 };
 

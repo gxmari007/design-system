@@ -1,5 +1,9 @@
 <template>
-  <the-default></the-default>
+  <the-default>
+    <co-menu>
+      <co-menu-item>menu item</co-menu-item>
+    </co-menu>
+  </the-default>
 </template>
 
 <script>

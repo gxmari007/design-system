@@ -9,4 +9,24 @@
 
   outline: none;
   box-shadow: @box-shadow-base;
+  color: @menu-item-color;
+  background-color: @menu-bg;
+  line-height: 0; // Fix display inline-block gap
+  transition: background .3s, width .2s;
+
+  ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    position: relative;
+    display: block;
+    padding: 0 20px;
+    margin: 0;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color .3s @ease-in-out, border-color .3s @ease-in-out, background .3s @ease-in-out, padding .15s @ease-in-out;
+  }
 }
