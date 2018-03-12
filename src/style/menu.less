@@ -20,7 +20,15 @@
     padding: 0;
   }
 
+  // CoMenuItem
   &__item {
+    &:hover {
+
+    }
+  }
+
+  &__item,
+  &__submenu-title {
     position: relative;
     display: block;
     padding: 0 20px;
@@ -28,5 +36,16 @@
     white-space: nowrap;
     cursor: pointer;
     transition: color .3s @ease-in-out, border-color .3s @ease-in-out, background .3s @ease-in-out, padding .15s @ease-in-out;
+
+    .@{iconfont-css-prefix} {
+      min-width: 14px;
+      margin-right: 10px;
+      transition: font-size .15s @ease-out, margin .3s @ease-in-out;
+
+      + span {
+        transition: opacity .3s @ease-in-out, width .3s @ease-in-out;
+        opacity: 1;
+      }
+    }
   }
 }
