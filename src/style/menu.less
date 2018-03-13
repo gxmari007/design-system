@@ -20,12 +20,41 @@
     padding: 0;
   }
 
+
   // CoMenuItem
-  &__item {
-    &:hover,
-    &--active {
+  &__item:active,
+  &__submenu-title {
+    background-color: @menu-item-active-bg;
+  }
+
+  &__item > a {
+    display: block;
+    color: @menu-item-color;
+
+    &:hover {
       color: @menu-highlight-color;
     }
+
+    &:focus {
+      text-decoration: none;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+  &__item:hover,
+  &__item--active {
+    color: @menu-highlight-color;
   }
 
   &__item,
@@ -47,6 +76,28 @@
         transition: opacity .3s @ease-in-out, width .3s @ease-in-out;
         opacity: 1;
       }
+    }
+  }
+
+
+  // Horizontal
+  &--horizontal &__item,
+  &--horizontal &__submenu {
+    margin-top: -1px;
+  }
+
+  &--horizontal > &__item:hover,
+  &--horizontal > &__item--active,
+  &--horizontal > &__submenu &__submenu-title:hover {
+    background-color: transparent;
+  }
+
+  &__item--selected {
+    color: @menu-highlight-color;
+
+    & > a,
+    & > a:hover {
+      color: @menu-highlight-color;
     }
   }
 }

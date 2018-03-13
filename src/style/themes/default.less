@@ -52,9 +52,17 @@
 @padding-sm    : 12px; // Form controls and items
 @padding-xs    : 8px;  // small items
 
+
+// The background colors for active and hover states for things like
+// list items or table cells.
+@item-active-bg: @primary-1;
+@item-hover-bg: @primary-1;
+
+
 // Iconfont
 @iconfont-css-prefix: anticon;
 @icon-url: "https://at.alicdn.com/t/font_148784_r2qo40wrmaolayvi";
+
 
 // Link
 @link-color: @primary-color;
@@ -62,6 +70,7 @@
 @link-active-color: @primary-7;
 @link-decoration: none;
 @link-hover-decoration: none;
+
 
 // Animation
 @ease-out            : cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -77,11 +86,13 @@
 @ease-in-quint       : cubic-bezier(0.755, 0.05, 0.855, 0.06);
 @ease-in-out-quint   : cubic-bezier(0.86, 0, 0.07, 1);
 
+
 // Border color
 @border-color-base      : hsv(0, 0, 85%);  // base border outline a component
 @border-color-split     : hsv(0, 0, 91%);  // split border inside a component
 @border-width-base      : 1px;             // width of the border for a component
 @border-style-base      : solid;           // style of a components border
+
 
 // Outline
 @outline-blur-size      : 0;
@@ -91,22 +102,27 @@
 @background-color-light : hsv(0, 0, 98%);  // background of header and selected item
 @background-color-base  : hsv(0, 0, 96%);  // Default grey background color
 
+
 // Disabled states
 @disabled-color         : fade(#000, 25%);
 @disabled-bg            : @background-color-base;
 @disabled-color-dark    : fade(#fff, 35%);
+
 
 // Shadow
 @shadow-color: rgba(0, 0, 0, .15);
 @box-shadow-base: @shadow-1-down;
 @shadow-1-down: 0 2px 8px @shadow-color;
 
+
 // Layout
 @layout-body-background: #f0f2f5;
+
 
 // Grid system
 @grid-columns: 24;
 @grid-gutter-width: 0;
+
 
 // Media query breakpoint
 // phone
@@ -132,6 +148,7 @@
 // large desktop
 @screen-xxl: 1600px;
 @screen-xxl-min: @screen-xxl;
+
 
 // Buttons
 @btn-font-weight        : 400;
@@ -171,6 +188,8 @@
 
 
 // Menu
+@menu-item-height: 40px;
 @menu-bg: @component-background;
 @menu-item-color: @text-color;
 @menu-highlight-color: @primary-color;
+@menu-item-active-bg: @item-active-bg;
