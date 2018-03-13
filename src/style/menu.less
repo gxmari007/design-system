@@ -52,8 +52,7 @@
     }
   }
 
-  &__item:hover,
-  &__item--active {
+  &__item:hover {
     color: @menu-highlight-color;
   }
 
@@ -87,7 +86,6 @@
   }
 
   &--horizontal > &__item:hover,
-  &--horizontal > &__item--active,
   &--horizontal > &__submenu &__submenu-title:hover {
     background-color: transparent;
   }
@@ -98,6 +96,42 @@
     & > a,
     & > a:hover {
       color: @menu-highlight-color;
+    }
+  }
+
+  &:not(&--horizontal) &__item--selected {
+    background-color: @menu-item-active-bg;
+  }
+
+  &--inline,
+  &--vertical,
+  &--vertical-left {
+    border-right: @border-width-base @border-style-base @border-color-split;
+  }
+
+  &--vertical-right {
+    border-left: @border-width-base @border-style-base @border-color-split;
+  }
+
+  &--horizontal {
+    border: 0;
+    border-bottom: @border-width-base @border-style-base @border-color-split;
+    box-shadow: none;
+    line-height: 46px;
+
+    > .@{menu-class}__item,
+    > .@{menu-class}__submenu {
+      position: relative;
+      top: 1px;
+      float: left;
+      border-bottom: 2px solid transparent;
+
+      &:hover,
+      &--open,
+      &--selected {
+        border-bottom: 2px solid @menu-highlight-color;
+        color: @menu-highlight-color;
+      }
     }
   }
 }
