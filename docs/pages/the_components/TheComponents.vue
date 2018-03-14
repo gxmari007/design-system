@@ -1,6 +1,6 @@
 <template>
   <the-default>
-    <co-menu mode="horizontal">
+    <co-menu mode="inline" style="width: 256px;">
       <co-menu-item>menu item</co-menu-item>
       <co-menu-item>
         <a href="">menu link</a>

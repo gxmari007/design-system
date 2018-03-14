@@ -24,7 +24,7 @@ export default {
       const { theme, mode } = this;
       const prefixClass = 'co-menu';
 
-      return [prefixClass, `${prefixClass}--${theme}`, `${prefixClass}--${mode}`];
+      return [prefixClass, `${prefixClass}--root`, `${prefixClass}--${theme}`, `${prefixClass}--${mode}`];
     },
   },
 };
