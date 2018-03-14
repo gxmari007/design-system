@@ -1,7 +1,16 @@
 .clearfix() {
+  zoom: 1;
+
+  &::before,
   &::after {
-    display: block;
+    display: table;
+    content: " ";
+  }
+
+  &::after {
     clear: both;
-    content: "";
+    visibility: hidden;
+    height: 0;
+    font-size: 0;
   }
 }
