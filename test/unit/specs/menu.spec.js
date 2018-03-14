@@ -6,6 +6,7 @@ describe('CoMenu', () => {
     const wrapper = shallow(CoMenu);
 
     expect(wrapper.classes()).toContain('co-menu');
+    expect(wrapper.classes()).toContain('co-menu--root');
     expect(wrapper.classes()).toContain('co-menu--light');
     expect(wrapper.classes()).toContain('co-menu--vertical');
   });

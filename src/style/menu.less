@@ -23,7 +23,7 @@
 
   // CoMenuItem
   &__item:active,
-  &__submenu-title {
+  &__submenu-title:active {
     background-color: @menu-item-active-bg;
   }
 
@@ -196,5 +196,24 @@
   &--root&--vertical-left,
   &--root&--vertical-right {
     box-shadow: none;
+  }
+
+  // Disabled state
+  &__item--disabled,
+  &__submenu--disabled {
+    color: @disabled-color !important;
+    cursor: not-allowed;
+    background: none !important;
+    border-color: transparent !important;
+
+    > a {
+      color: @disabled-color !important;
+      pointer-events: none;
+    }
+
+    > .@{menu-class}__submenu-title {
+      color: @disabled-color !important;
+      cursor: not-allowed;
+    }
   }
 }

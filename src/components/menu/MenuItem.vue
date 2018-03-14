@@ -1,5 +1,5 @@
 <template>
-  <li :class="classes" role="menuitem">
+  <li :class="classes" role="menuitem" @click="onClick">
     <slot />
   </li>
 </template>
@@ -16,6 +16,11 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      selected: false,
+    };
+  },
   computed: {
     classes() {
       const { disabled } = this;
@@ -24,6 +29,11 @@ export default {
       return [prefixClass, {
         [`${prefixClass}--disabled`]: disabled,
       }];
+    },
+  },
+  methods: {
+    onClick() {
+
     },
   },
 };

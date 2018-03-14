@@ -30,4 +30,17 @@ describe('CoMenuItem 组件', () => {
 
     expect(wrapper.classes()).toContain('co-menu__item--disabled');
   });
+
+  it('点击组件可以为其添加 co-menu__item--selected 类', () => {
+    const wrapper = shallow(CoMenu, {
+      slots: {
+        default: [CoMenuItem, CoMenuItem],
+      },
+    });
+    const items = wrapper.findAll(CoMenuItem);
+
+    items.at(0).trigger('click');
+
+    expect(items.at(0).classes()).toContain('co-menu__item--selected');
+  });
 });
