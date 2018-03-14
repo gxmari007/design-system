@@ -78,8 +78,6 @@
     }
   }
 
-
-  // Horizontal
   &--horizontal &__item,
   &--horizontal &__submenu {
     margin-top: -1px;
@@ -132,6 +130,64 @@
         border-bottom: 2px solid @menu-highlight-color;
         color: @menu-highlight-color;
       }
+
+      // 这里重复重置了前面 a 标签样式
+      > a {
+        display: block;
+        color: @menu-item-color;
+
+        &:hover {
+          color: @menu-highlight-color;
+        }
+      }
+    }
+  }
+
+  &--inline,
+  &--vertical,
+  &--vertical-right,
+  &--vertical-left {
+    .@{menu-class}__item {
+      position: relative;
+
+      // menu-item 激活时显示的亮色边框
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        border-right: 3px solid @menu-highlight-color;
+        transform: scaleY(.0001);
+        opacity: 0;
+        transition: transform .15s @ease-out, opacity .15s @ease-out;
+      }
+    }
+
+    .@{menu-class}__item,
+    .@{menu-class}__submenu-title {
+      padding: 0 16px;
+      font-size: @font-size-base;
+      height: @menu-item-height;
+      line-height: @menu-item-height;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .@{menu-class}__submenu {
+      padding-bottom: .01px;
+    }
+
+    .@{menu-class}__item:not(:last-child) {
+      margin-bottom: 8px;
+    }
+
+    > .@{menu-class}__item,
+    > .@{menu-class}__submenu > .@{menu-class}__submenu-title {
+      height: @menu-inline-toplevel-item-height;
+      line-height: @menu-inline-toplevel-item-height;
     }
   }
 }
