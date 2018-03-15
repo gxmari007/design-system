@@ -4,7 +4,7 @@
 
 function broadcast(componentName, eventName, ...params) {
   this.$children.forEach((child) => {
-    const name = child.$options.name;
+    const { name } = child.$options;
 
     if (name === componentName) {
       child.$emit(eventName, ...params);
@@ -19,13 +19,13 @@ export default {
     // 事件冒泡，向父级组件冒泡事件
     dispatch(componentName, eventName, ...params) {
       let parent = this.$parent || this.$root;
-      let name = parent.$options.name;
+      let { name } = parent.$options;
 
       while (parent && (!name || name !== componentName)) {
         parent = parent.$parent;
 
         if (parent) {
-          name = parent.$options.name;
+          ({ name } = parent.$options);
         }
       }
 

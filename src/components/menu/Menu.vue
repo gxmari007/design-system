@@ -26,7 +26,8 @@ export default {
   },
   data() {
     return {
-      items: [],
+      items: {}, // 所有 menu-item 组件实例
+      selectedItems: [], // 选择的 menu-item name 数组
     };
   },
   computed: {
@@ -38,9 +39,16 @@ export default {
     },
   },
   methods: {
-    // 添加 menu-item 组件实例对象
+    // 向 items 添加 menu-item 组件实例
     addItem(item) {
-      this.items.push(item);
+      this.$set(this.items, item.name, item);
+    },
+    // 从 items 中移除 menu-item 组件实例
+    removeItem(item) {
+      this.$delete(this.items, item.name);
+    },
+    updateSelectItems(name) {
+      this.selectedItems = [name];
     },
   },
 };

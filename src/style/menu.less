@@ -191,6 +191,24 @@
     }
   }
 
+  &--inline {
+    width: 100%;
+
+    .@{menu-class}__item--selected::after {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+
+    .@{menu-class}__item,
+    .@{menu-class}__submenu-title {
+      width: calc(~"100% + 1px");
+    }
+
+    .@{menu-class}__submenu-title {
+      padding-right: 34px;
+    }
+  }
+
   &--root&--inline,
   &--root&--vertical,
   &--root&--vertical-left,
