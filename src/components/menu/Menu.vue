@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { oneOf } from 'utils/help';
+
 export default {
   name: 'CoMenu',
   provide() {
@@ -17,11 +19,17 @@ export default {
     mode: {
       type: String,
       default: 'vertical',
+      validator(value) {
+        return oneOf(value, ['vertical', 'vertical-right', 'vertical-left', 'horizontal', 'inline']);
+      },
     },
     // 主题颜色
     theme: {
       type: String,
       default: 'light',
+      validator(value) {
+        return oneOf(value, ['light', 'dark']);
+      },
     },
   },
   data() {

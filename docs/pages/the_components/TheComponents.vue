@@ -1,10 +1,11 @@
 <template>
   <the-default>
-    <co-menu mode="inline" style="width: 256px;">
+    <co-menu mode="horizontal">
       <co-menu-item name="0">menu item</co-menu-item>
-      <co-menu-item name="1">
-        <a>menu link</a>
+      <co-menu-item name="1" disabled>
+        <a href="">menu link</a>
       </co-menu-item>
+      <co-menu-item name="2">menu item</co-menu-item>
     </co-menu>
   </the-default>
 </template>

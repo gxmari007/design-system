@@ -26,4 +26,7 @@ describe('CoMenu', () => {
 
     expect(wrapper.classes()).toContain('co-menu--inline');
   });
+
+  it('default-selected-keys prop', () => {
+  });
 });

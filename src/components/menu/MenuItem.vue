@@ -42,7 +42,9 @@ export default {
   },
   methods: {
     onClick() {
-      this.rootMenu.updateSelectItems(this.name);
+      if (!this.disabled) {
+        this.rootMenu.updateSelectItems(this.name);
+      }
     },
   },
 };
