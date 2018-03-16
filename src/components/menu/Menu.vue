@@ -15,6 +15,16 @@ export default {
     };
   },
   props: {
+    // 初始选中的菜单项 name 数组
+    defaultSelectedKeys: {
+      type: Array,
+      default() { return []; },
+    },
+    // inline 模式的菜单缩进宽度
+    inlineIndent: {
+      type: Number,
+      default: 24,
+    },
     // 菜单类型，现在支持垂直、水平、和内嵌模式三种
     mode: {
       type: String,
@@ -22,6 +32,16 @@ export default {
       validator(value) {
         return oneOf(value, ['vertical', 'vertical-right', 'vertical-left', 'horizontal', 'inline']);
       },
+    },
+    // 是否允许多选
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
+    // 是否允许选中
+    selectable: {
+      type: Boolean,
+      default: true,
     },
     // 主题颜色
     theme: {
@@ -35,7 +55,7 @@ export default {
   data() {
     return {
       items: {}, // 所有 menu-item 组件实例
-      selectedItems: [], // 选择的 menu-item name 数组
+      selectedItems: this.defaultSelectedKeys, // 选择的 menu-item name 数组
     };
   },
   computed: {
@@ -56,9 +76,18 @@ export default {
       this.$delete(this.items, item.name);
     },
     updateSelectItems(name) {
-      this.selectedItems = [name];
+      if (this.multiple) {
+        const index = this.selectedItems.indexOf(name);
+
+        if (index > -1) {
+          this.selectedItems.splice(index, 1);
+        } else {
+          this.selectedItems.push(name);
+        }
+      } else {
+        this.selectedItems = [name];
+      }
     },
   },
 };
 </script>
-

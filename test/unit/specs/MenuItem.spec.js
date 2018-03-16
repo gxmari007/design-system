@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils';
+import { shallow, createLocalVue } from '@vue/test-utils';
 import CoMenu from '@/components/menu';
 
 const { CoMenuItem } = CoMenu;
@@ -9,7 +9,7 @@ describe('CoMenuItem 组件', () => {
   localVue.component(CoMenuItem.name, CoMenuItem);
 
   it('default render', () => {
-    const wrapper = mount(CoMenu, {
+    const wrapper = shallow(CoMenu, {
       slots: {
         default: '<co-menu-item name="0">menu item</co-menu-item>',
       },
@@ -22,7 +22,7 @@ describe('CoMenuItem 组件', () => {
   });
 
   it('name prop', () => {
-    const wrapper = mount(CoMenu, {
+    const wrapper = shallow(CoMenu, {
       slots: {
         default: '<co-menu-item name="0">menu item</co-menu-item>',
       },
@@ -34,7 +34,7 @@ describe('CoMenuItem 组件', () => {
   });
 
   it('disabled prop', () => {
-    const wrapper = mount(CoMenu, {
+    const wrapper = shallow(CoMenu, {
       slots: {
         default: [
           '<co-menu-item name="0" disabled>menu item</co-menu-item>',
@@ -50,7 +50,8 @@ describe('CoMenuItem 组件', () => {
   });
 
   it('点击组件可以为其添加 co-menu__item--selected 类', () => {
-    const wrapper = mount(CoMenu, {
+    const spyFn = jest.spyOn(CoMenu.methods, 'updateSelectItems');
+    const wrapper = shallow(CoMenu, {
       slots: {
         default: [
           '<co-menu-item name="0">menu-item</co-menu-item>',
@@ -62,14 +63,24 @@ describe('CoMenuItem 组件', () => {
     const items = wrapper.findAll(CoMenuItem);
 
     expect(wrapper.vm.selectedItems).toEqual([]);
+
     items.at(0).trigger('click');
+    wrapper.update();
     expect(wrapper.vm.selectedItems).toEqual(['0']);
     expect(items.at(0).classes()).toContain('co-menu__item--selected');
     expect(items.at(1).classes()).not.toContain('co-menu__item--selected');
+    expect(spyFn).toBeCalled();
+    // 已经选中的 menu-item 应该无法再次触发父组件的方法
+    items.at(0).trigger('click');
+    expect(spyFn.mock.calls.length).toBe(1);
+
     items.at(1).trigger('click');
     wrapper.update();
     expect(wrapper.vm.selectedItems).toEqual(['1']);
     expect(items.at(0).classes()).not.toContain('co-menu__item--selected');
     expect(items.at(1).classes()).toContain('co-menu__item--selected');
+
+    spyFn.mockReset();
+    spyFn.mockRestore();
   });
 });
