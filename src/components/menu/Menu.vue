@@ -16,7 +16,7 @@ export default {
   },
   props: {
     // 初始选中的菜单项 name 数组
-    defaultSelectedKeys: {
+    defaultSelectedNames: {
       type: Array,
       default: () => [],
     },
@@ -43,6 +43,11 @@ export default {
       type: Boolean,
       default: true,
     },
+    // 当前选中的菜单项 name 数组
+    selectedNames: {
+      type: Array,
+      default: () => [],
+    },
     // 主题颜色
     theme: {
       type: String,
@@ -55,7 +60,7 @@ export default {
   data() {
     return {
       items: {}, // 所有 menu-item 组件实例
-      selectedItems: this.defaultSelectedKeys, // 选择的 menu-item name 数组
+      selectedItems: this.getSelectedItems(), // 选择的 menu-item name 数组
     };
   },
   computed: {
@@ -66,16 +71,22 @@ export default {
       return [prefixClass, `${prefixClass}--root`, `${prefixClass}--${theme}`, `${prefixClass}--${mode}`];
     },
   },
+  watch: {
+    selectedNames(newVal) {
+      this.selectedItems = newVal;
+    },
+  },
   methods: {
-    // 向 items 添加 menu-item 组件实例
-    addItem(item) {
-      this.$set(this.items, item.name, item);
-    },
-    // 从 items 中移除 menu-item 组件实例
-    removeItem(item) {
-      this.$delete(this.items, item.name);
-    },
-    updateSelectItems(name) {
+    // // 向 items 添加 menu-item 组件实例
+    // addItem(item) {
+    //   this.$set(this.items, item.name, item);
+    // },
+    // // 从 items 中移除 menu-item 组件实例
+    // removeItem(item) {
+    //   this.$delete(this.items, item.name);
+    // },
+    // 子组件用来更新 selectedItems
+    updateSelectItems(name, namePath) {
       if (this.multiple) {
         const index = this.selectedItems.indexOf(name);
 
@@ -87,6 +98,16 @@ export default {
       } else {
         this.selectedItems = [name];
       }
+
+      this.$emit('on-click', {
+        name,
+        namePath,
+      });
+    },
+    getSelectedItems() {
+      const { defaultSelectedNames, selectedNames } = this;
+
+      return selectedNames.length > 0 ? selectedNames : defaultSelectedNames;
     },
   },
 };

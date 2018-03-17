@@ -50,17 +50,30 @@ export default {
 
       return parent;
     },
+    namePath() {
+      const { name } = this;
+      const path = [name];
+      let parent = this.$parent;
+
+      while (parent && parent.$options.name === 'CoSubMenu') {
+        path.push(parent.name);
+        parent = parent.$parent;
+      }
+
+      return path;
+    },
   },
-  created() {
-    this.rootMenu.addItem(this);
-  },
-  beforeDestroy() {
-    this.rootMenu.removeItem(this);
-  },
+  // created() {
+  //   this.rootMenu.addItem(this);
+  // },
+  // beforeDestroy() {
+  //   this.rootMenu.removeItem(this);
+  // },
   methods: {
     onClick() {
       const {
         name,
+        namePath,
         disabled,
         selected,
         rootMenu: { multiple, selectable },
@@ -69,7 +82,7 @@ export default {
       // 需要判断是否可以调用根组件 updateSelectItems 方法
       // 多选可以多次触发，单选只能触发一次
       if (!disabled && selectable && (multiple || !selected)) {
-        this.rootMenu.updateSelectItems(name);
+        this.rootMenu.updateSelectItems(name, namePath);
       }
     },
   },

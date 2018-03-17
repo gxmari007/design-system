@@ -33,9 +33,9 @@ describe('CoMenu', () => {
     expect(wrapper.classes()).toContain('co-menu--inline');
   });
 
-  it('defaultSelectedKeys prop', () => {
+  it('defaultSelectedNames prop', () => {
     const wrapper = shallow(CoMenu, {
-      propsData: { defaultSelectedKeys: ['1', '2'] },
+      propsData: { defaultSelectedNames: ['1', '2'] },
       slots: {
         default: [
           '<co-menu-item name="0">menu item</co-menu-item>',
@@ -51,8 +51,8 @@ describe('CoMenu', () => {
     expect(items.at(1).classes()).toContain('co-menu__item--selected');
     expect(items.at(2).classes()).toContain('co-menu__item--selected');
 
-    // 更新 defaultSelectedKeys 也无法更改初始化的值
-    wrapper.setProps({ defaultSelectedKeys: ['0'] });
+    // 更新 defaultSelectedNames 也无法更改初始化的值
+    wrapper.setProps({ defaultSelectedNames: ['0'] });
 
     expect(items.at(0).classes()).not.toContain('co-menu__item--selected');
   });
@@ -88,16 +88,14 @@ describe('CoMenu', () => {
     });
     const items = wrapper.findAll(CoMenuItem);
 
-    expect(wrapper.vm.multiple).toBe(false);
+    expect(wrapper.props().multiple).toBe(false);
 
     wrapper.setProps({ multiple: true });
     items.trigger('click');
-    wrapper.update();
 
     expect(items.contains('.co-menu__item--selected')).toBe(true);
 
     items.trigger('click');
-    wrapper.update();
 
     expect(items.contains('.co-menu__item--selected')).toBe(false);
   });
@@ -124,5 +122,42 @@ describe('CoMenu', () => {
     wrapper.update();
 
     expect(items.at(0).classes()).not.toContain('co-menu__item--selected');
+  });
+
+  it('selectedNames prop', () => {
+    const wrapper = shallow(CoMenu, {
+      propsData: { selectedNames: ['0'] },
+      slots: {
+        default: [
+          '<co-menu-item name="0">menu item</co-menu-item>',
+          '<co-menu-item name="1">menu item</co-menu-item>',
+        ],
+      },
+      localVue,
+    });
+    const items = wrapper.findAll(CoMenuItem);
+
+    expect(items.at(0).classes()).toContain('co-menu__item--selected');
+    expect(items.at(1).classes()).not.toContain('co-menu__item--selected');
+  });
+
+  it('on-click event', () => {
+    const wrapper = shallow(CoMenu, {
+      slots: {
+        default: [
+          '<co-menu-item name="0">menu item</co-menu-item>',
+        ],
+      },
+      localVue,
+    });
+    const item = wrapper.find(CoMenuItem);
+
+    item.trigger('click');
+
+    expect(wrapper.emitted('on-click').length).toBe(1);
+    expect(wrapper.emitted('on-click')[0]).toEqual([{
+      name: '0',
+      namePath: ['0'],
+    }]);
   });
 });

@@ -65,7 +65,6 @@ describe('CoMenuItem 组件', () => {
     expect(wrapper.vm.selectedItems).toEqual([]);
 
     items.at(0).trigger('click');
-    wrapper.update();
     expect(wrapper.vm.selectedItems).toEqual(['0']);
     expect(items.at(0).classes()).toContain('co-menu__item--selected');
     expect(items.at(1).classes()).not.toContain('co-menu__item--selected');
@@ -73,12 +72,6 @@ describe('CoMenuItem 组件', () => {
     // 已经选中的 menu-item 应该无法再次触发父组件的方法
     items.at(0).trigger('click');
     expect(spyFn.mock.calls.length).toBe(1);
-
-    items.at(1).trigger('click');
-    wrapper.update();
-    expect(wrapper.vm.selectedItems).toEqual(['1']);
-    expect(items.at(0).classes()).not.toContain('co-menu__item--selected');
-    expect(items.at(1).classes()).toContain('co-menu__item--selected');
 
     spyFn.mockReset();
     spyFn.mockRestore();
