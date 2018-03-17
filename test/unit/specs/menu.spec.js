@@ -103,8 +103,26 @@ describe('CoMenu', () => {
   });
 
   it('selectable prop', () => {
-    const wrapper = shallow(CoMenu);
+    const wrapper = shallow(CoMenu, {
+      slots: {
+        default: [
+          '<co-menu-item name="0">menu item</co-menu-item>',
+          '<co-menu-item name="1">menu item</co-menu-item>',
+        ],
+      },
+      localVue,
+    });
+    const items = wrapper.findAll(CoMenuItem);
 
     expect(wrapper.props().selectable).toBe(true);
+
+    wrapper.setProps({ selectable: false });
+
+    expect(wrapper.props().selectable).toBe(false);
+
+    items.at(0).trigger('click');
+    wrapper.update();
+
+    expect(items.at(0).classes()).not.toContain('co-menu__item--selected');
   });
 });

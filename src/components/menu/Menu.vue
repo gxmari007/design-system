@@ -18,7 +18,7 @@ export default {
     // 初始选中的菜单项 name 数组
     defaultSelectedKeys: {
       type: Array,
-      default() { return []; },
+      default: () => [],
     },
     // inline 模式的菜单缩进宽度
     inlineIndent: {

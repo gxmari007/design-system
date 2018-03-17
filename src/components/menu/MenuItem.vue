@@ -63,12 +63,12 @@ export default {
         name,
         disabled,
         selected,
-        rootMenu: { multiple },
+        rootMenu: { multiple, selectable },
       } = this;
 
       // 需要判断是否可以调用根组件 updateSelectItems 方法
       // 多选可以多次触发，单选只能触发一次
-      if (!disabled && (multiple || !selected)) {
+      if (!disabled && selectable && (multiple || !selected)) {
         this.rootMenu.updateSelectItems(name);
       }
     },
