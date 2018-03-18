@@ -1,6 +1,6 @@
 <template>
   <the-default>
-    <co-menu mode="inline" style="width: 256px;" @on-click="onClick">
+    <co-menu mode="inline" style="width: 256px;">
       <co-menu-item name="0">
         <co-icon type="mail" />
         Navigation One
@@ -21,11 +21,6 @@ export default {
   name: 'TheComponents',
   components: {
     TheDefault,
-  },
-  methods: {
-    onClick(o) {
-      console.log(o);
-    },
   },
 };
 </script>

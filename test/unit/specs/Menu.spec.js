@@ -154,10 +154,53 @@ describe('CoMenu', () => {
 
     item.trigger('click');
 
-    expect(wrapper.emitted('on-click').length).toBe(1);
     expect(wrapper.emitted('on-click')[0]).toEqual([{
       name: '0',
       namePath: ['0'],
+    }]);
+  });
+
+  it('on-deselect event', () => {
+    const wrapper = shallow(CoMenu, {
+      propsData: {
+        multiple: true,
+        defaultSelectedNames: ['0', '1', '2'],
+      },
+      slots: {
+        default: [
+          '<co-menu-item name="0">menu item</co-menu-item>',
+          '<co-menu-item name="1">menu item</co-menu-item>',
+          '<co-menu-item name="2">menu item</co-menu-item>',
+        ],
+      },
+      localVue,
+    });
+    const items = wrapper.findAll(CoMenuItem);
+
+    items.at(0).trigger('click');
+
+    expect(wrapper.emitted('on-deselect')[0]).toEqual([{
+      name: '0',
+      selectedNames: ['1', '2'],
+    }]);
+  });
+
+  it('on-select event', () => {
+    const wrapper = shallow(CoMenu, {
+      slots: {
+        default: [
+          '<co-menu-item name="0">menu item</co-menu-item>',
+        ],
+      },
+      localVue,
+    });
+    const item = wrapper.find(CoMenuItem);
+
+    item.trigger('click');
+
+    expect(wrapper.emitted('on-select')[0]).toEqual([{
+      name: '0',
+      selectedNames: ['0'],
     }]);
   });
 });

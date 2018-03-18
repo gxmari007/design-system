@@ -92,11 +92,23 @@ export default {
 
         if (index > -1) {
           this.selectedItems.splice(index, 1);
+          this.$emit('on-deselect', {
+            name,
+            selectedNames: this.selectedItems,
+          });
         } else {
           this.selectedItems.push(name);
+          this.$emit('on-select', {
+            name,
+            selectedNames: this.selectedItems,
+          });
         }
       } else {
         this.selectedItems = [name];
+        this.$emit('on-select', {
+          name,
+          selectedNames: this.selectedItems,
+        });
       }
 
       this.$emit('on-click', {
