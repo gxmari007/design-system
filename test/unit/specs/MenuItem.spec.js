@@ -55,23 +55,17 @@ describe('CoMenuItem 组件', () => {
       slots: {
         default: [
           '<co-menu-item name="0">menu-item</co-menu-item>',
-          '<co-menu-item name="1">menu-item</co-menu-item>',
         ],
       },
       localVue,
     });
-    const items = wrapper.findAll(CoMenuItem);
+    const item = wrapper.find(CoMenuItem);
 
-    expect(wrapper.vm.selectedItems).toEqual([]);
+    item.trigger('click');
+    item.trigger('click');
 
-    items.at(0).trigger('click');
-    expect(wrapper.vm.selectedItems).toEqual(['0']);
-    expect(items.at(0).classes()).toContain('co-menu__item--selected');
-    expect(items.at(1).classes()).not.toContain('co-menu__item--selected');
-    expect(spyFn).toBeCalled();
-    // 已经选中的 menu-item 应该无法再次触发父组件的方法
-    items.at(0).trigger('click');
-    expect(spyFn.mock.calls.length).toBe(1);
+    expect(item.classes()).toContain('co-menu__item--selected');
+    expect(spyFn).toHaveBeenCalledTimes(2);
 
     spyFn.mockReset();
     spyFn.mockRestore();

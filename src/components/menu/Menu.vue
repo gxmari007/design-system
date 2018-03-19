@@ -59,7 +59,6 @@ export default {
   },
   data() {
     return {
-      items: {}, // 所有 menu-item 组件实例
       selectedItems: this.getSelectedItems(), // 选择的 menu-item name 数组
     };
   },
@@ -77,44 +76,40 @@ export default {
     },
   },
   methods: {
-    // // 向 items 添加 menu-item 组件实例
-    // addItem(item) {
-    //   this.$set(this.items, item.name, item);
-    // },
-    // // 从 items 中移除 menu-item 组件实例
-    // removeItem(item) {
-    //   this.$delete(this.items, item.name);
-    // },
     // 子组件用来更新 selectedItems
-    updateSelectItems(name, namePath) {
-      if (this.multiple) {
-        const index = this.selectedItems.indexOf(name);
+    updateSelectItems(name, namePath, selected) {
+      const { multiple, selectable } = this;
 
-        if (index > -1) {
-          this.selectedItems.splice(index, 1);
-          this.$emit('on-deselect', {
-            name,
-            selectedNames: this.selectedItems,
-          });
-        } else {
-          this.selectedItems.push(name);
+      if (selectable) {
+        if (multiple) {
+          const index = this.selectedItems.indexOf(name);
+
+          if (index > -1) {
+            this.selectedItems.splice(index, 1);
+            this.$emit('on-deselect', {
+              name,
+              selectedNames: this.selectedItems,
+            });
+          } else {
+            this.selectedItems.push(name);
+            this.$emit('on-select', {
+              name,
+              selectedNames: this.selectedItems,
+            });
+          }
+        } else if (!selected) {
+          this.selectedItems = [name];
           this.$emit('on-select', {
             name,
             selectedNames: this.selectedItems,
           });
         }
-      } else {
-        this.selectedItems = [name];
-        this.$emit('on-select', {
+
+        this.$emit('on-click', {
           name,
-          selectedNames: this.selectedItems,
+          namePath,
         });
       }
-
-      this.$emit('on-click', {
-        name,
-        namePath,
-      });
     },
     getSelectedItems() {
       const { defaultSelectedNames, selectedNames } = this;

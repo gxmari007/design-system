@@ -105,23 +105,18 @@ describe('CoMenu', () => {
       slots: {
         default: [
           '<co-menu-item name="0">menu item</co-menu-item>',
-          '<co-menu-item name="1">menu item</co-menu-item>',
         ],
       },
       localVue,
     });
-    const items = wrapper.findAll(CoMenuItem);
+    const item = wrapper.find(CoMenuItem);
 
     expect(wrapper.props().selectable).toBe(true);
 
     wrapper.setProps({ selectable: false });
+    item.trigger('click');
 
-    expect(wrapper.props().selectable).toBe(false);
-
-    items.at(0).trigger('click');
-    wrapper.update();
-
-    expect(items.at(0).classes()).not.toContain('co-menu__item--selected');
+    expect(item.classes()).not.toContain('co-menu__item--selected');
   });
 
   it('selectedNames prop', () => {
@@ -153,7 +148,9 @@ describe('CoMenu', () => {
     const item = wrapper.find(CoMenuItem);
 
     item.trigger('click');
+    item.trigger('click');
 
+    expect(wrapper.emitted('on-click').length).toBe(2);
     expect(wrapper.emitted('on-click')[0]).toEqual([{
       name: '0',
       namePath: ['0'],
@@ -197,7 +194,9 @@ describe('CoMenu', () => {
     const item = wrapper.find(CoMenuItem);
 
     item.trigger('click');
+    item.trigger('click');
 
+    expect(wrapper.emitted('on-select').length).toBe(1);
     expect(wrapper.emitted('on-select')[0]).toEqual([{
       name: '0',
       selectedNames: ['0'],
