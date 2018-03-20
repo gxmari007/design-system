@@ -12,6 +12,7 @@ const coview = {
   CoIcon,
   CoMenu,
   CoMenuItem: CoMenu.CoMenuItem,
+  CoSubMenu: CoMenu.CoSubMenu,
   CoRow,
 };
 
