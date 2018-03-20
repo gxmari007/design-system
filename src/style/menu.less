@@ -20,11 +20,19 @@
     padding: 0;
   }
 
+  &__submenu,
+  &__submenu--inline {
+    transition: border-color .3s @ease-in-out, background .3s @ease-in-out, padding .15s @ease-in-out;
+  }
 
-  // CoMenuItem
   &__item:active,
   &__submenu-title:active {
     background-color: @menu-item-active-bg;
+  }
+
+  &__submenu &__sub {
+    cursor: initial;
+    transition: background .3s @ease-in-out, padding .3s @ease-in-out;
   }
 
   &__item > a {
@@ -52,30 +60,17 @@
     }
   }
 
-  &__item:hover {
-    color: @menu-highlight-color;
+  &__item-divider {
+    height: 1px;
+    overflow: hidden;
+    background-color: @border-color-split;
+    line-height: 0;
   }
 
-  &__item,
-  &__submenu-title {
-    position: relative;
-    display: block;
-    padding: 0 20px;
-    margin: 0;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: color .3s @ease-in-out, border-color .3s @ease-in-out, background .3s @ease-in-out, padding .15s @ease-in-out;
-
-    .@{iconfont-css-prefix} {
-      min-width: 14px;
-      margin-right: 10px;
-      transition: font-size .15s @ease-out, margin .3s @ease-in-out;
-
-      + span {
-        transition: opacity .3s @ease-in-out, width .3s @ease-in-out;
-        opacity: 1;
-      }
-    }
+  &__item:hover,
+  &:not(&--inline) &__submenu--open,
+  &__submenu-title:hover {
+    color: @menu-highlight-color;
   }
 
   &--horizontal &__item,
@@ -110,6 +105,55 @@
   &--vertical-right {
     border-left: @border-width-base @border-style-base @border-color-split;
   }
+
+  &--vertical&__sub,
+  &--vertical-left&__sub,
+  &--vertical-right&__sub {
+    border-right: 0;
+    padding: 0;
+    transform-origin: 0 0;
+    // 未完成...
+  }
+
+  &--horizontal&__sub,
+  &--vertical&__sub,
+  &--vertical-left&__sub,
+  &--vertical-right&__sub {
+    min-width: 160px;
+  }
+
+  &__item,
+  &__submenu-title {
+    position: relative;
+    display: block;
+    padding: 0 20px;
+    margin: 0;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color .3s @ease-in-out, border-color .3s @ease-in-out, background .3s @ease-in-out, padding .15s @ease-in-out;
+
+    .@{iconfont-css-prefix} {
+      min-width: 14px;
+      margin-right: 10px;
+      transition: font-size .15s @ease-out, margin .3s @ease-in-out;
+
+      + span {
+        transition: opacity .3s @ease-in-out, width .3s @ease-in-out;
+        opacity: 1;
+      }
+    }
+  }
+
+  & > &__item-divider {
+    height: 1px;
+    margin: 1px 0;
+    overflow: hidden;
+    padding: 0;
+    line-height: 0;
+    background-color: @border-color-split;
+  }
+
+  &__submenu {}
 
   &--horizontal {
     border: 0;

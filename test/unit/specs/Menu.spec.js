@@ -1,12 +1,13 @@
 import { shallow, createLocalVue } from '@vue/test-utils';
 import CoMenu from '@/components/menu';
 
-const { CoMenuItem } = CoMenu;
+const { CoMenuItem, CoSubMenu } = CoMenu;
 
 describe('CoMenu', () => {
   const localVue = createLocalVue();
 
   localVue.component(CoMenuItem.name, CoMenuItem);
+  localVue.component(CoSubMenu.name, CoSubMenu);
 
   it('default render', () => {
     const wrapper = shallow(CoMenu);
@@ -59,21 +60,20 @@ describe('CoMenu', () => {
 
   it('inlineIndent prop', () => {
     const wrapper = shallow(CoMenu, {
+      propsData: { inlineIndent: 24 },
       slots: {
         default: [
           '<co-menu-item name="0">menu item</co-menu-item>',
+          '<co-sub-menu><span slot="title">submenu title</span></co-sub-menu>',
         ],
       },
       localVue,
     });
     const item = wrapper.find(CoMenuItem);
+    const subMenuTitle = wrapper.find('.co-menu__submenu-title');
 
-    expect(wrapper.props().inlineIndent).toBe(24);
     expect(item.element.style.paddingLeft).toBe('24px');
-
-    wrapper.setProps({ inlineIndent: 48 });
-
-    expect(item.element.style.paddingLeft).toBe('48px');
+    expect(subMenuTitle.element.style.paddingLeft).toBe('24px');
   });
 
   it('multiple prop', () => {
