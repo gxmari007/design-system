@@ -9,7 +9,7 @@
         <co-icon type="calendar" />
         Navigation Two
       </co-menu-item>
-      <co-sub-menu>
+      <co-sub-menu disabled>
         <template slot="title">
           <co-icon type="appstore" />
           Navigation Three

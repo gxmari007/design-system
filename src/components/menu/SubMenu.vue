@@ -12,11 +12,23 @@
 export default {
   name: 'CoSubMenu',
   inject: ['rootMenu'],
+  props: {
+    // 是否禁用
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    // 唯一标志
+    name: String,
+  },
   computed: {
     classes() {
+      const { disabled } = this;
       const prefixClass = 'co-menu__submenu';
 
-      return [prefixClass, `${prefixClass}--${this.mode}`];
+      return [prefixClass, `${prefixClass}--${this.mode}`, {
+        [`${prefixClass}--disabled`]: disabled,
+      }];
     },
     titleStyles() {
       return {
