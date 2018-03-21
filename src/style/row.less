@@ -1,46 +1,48 @@
 @import "./themes/default.less";
 @import "./mixins/index.less";
 
+@row-class: ~"@{coview-prefix}-row";
+
 // Grid system
-.@{coview-prefix}-row {
+.@{row-class} {
   .make-row();
 
   display: block;
   box-sizing: border-box;
-}
 
-.@{coview-prefix}-row-flex {
-  display: flex;
+  &-row-flex {
+    display: flex;
 
-  &--start {
-    justify-content: flex-start;
-  }
+    &--start {
+      justify-content: flex-start;
+    }
 
-  &--end {
-    justify-content: flex-end;
-  }
+    &--end {
+      justify-content: flex-end;
+    }
 
-  &--center {
-    justify-content: center;
-  }
+    &--center {
+      justify-content: center;
+    }
 
-  &--space-round {
-    justify-content: space-around;
-  }
+    &--space-round {
+      justify-content: space-around;
+    }
 
-  &--space-between {
-    justify-content: space-between;
-  }
+    &--space-between {
+      justify-content: space-between;
+    }
 
-  &--top {
-    align-items: flex-start;
-  }
+    &--top {
+      align-items: flex-start;
+    }
 
-  &--middle {
-    align-items: center;
-  }
+    &--middle {
+      align-items: center;
+    }
 
-  &--bottom {
-    align-items: flex-end;
+    &--bottom {
+      align-items: flex-end;
+    }
   }
 }

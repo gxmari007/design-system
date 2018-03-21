@@ -2,6 +2,7 @@
   <li :class="classes">
     <div class="co-menu__submenu-title" :style="titleStyles">
       <slot name="title" />
+      <i class="co-menu__submenu-arrow"></i>
     </div>
     <slot />
   </li>

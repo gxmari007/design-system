@@ -153,7 +153,67 @@
     background-color: @border-color-split;
   }
 
-  &__submenu {}
+  &__submenu {
+    > .@{menu-class} {
+      background-color: @menu-bg;
+      border-radius: @border-radius-base;
+
+      &__submenu-title::after {
+        transition: transform .3s @ease-in-out;
+      }
+    }
+
+    &--vertical,
+    &--vertical-right,
+    &--vertical-left,
+    &--inline {
+      > .@{menu-class}__submenu-title .@{menu-class}__submenu-arrow {
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        width: 10px;
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          vertical-align: baseline;
+          background: #fff;
+          background: linear-gradient(to right, @menu-item-color, @menu-item-color);
+          width: 6px;
+          height: 2px;
+          border-radius: 2px;
+          transition: background .3s @ease-in-out, transform .3s @ease-in-out, top .3s @ease-in-out;
+        }
+
+        &::before {
+          transform: rotate(45deg) translateY(-2px);
+        }
+
+        &::after {
+          transform: rotate(-45deg) translateY(2px);
+        }
+      }
+
+      > .@{menu-class}__submenu-title:hover .@{menu-class}__submenu-arrow {
+        &::before,
+        &::after {
+          background: linear-gradient(to right, @menu-highlight-color, @menu-highlight-color);
+        }
+      }
+    }
+
+    &--inline > .@{menu-class}__submenu-title .@{menu-class}__submenu-arrow {
+      transform: translateY(2px);
+
+      &::before {
+        transform: rotate(-45deg) translateX(2px);
+      }
+      &::after {
+        transform: rotate(45deg) translateX(-2px);
+      }
+    }
+  }
 
   &--horizontal {
     border: 0;
