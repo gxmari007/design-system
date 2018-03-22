@@ -8,16 +8,19 @@ describe('CoIcon', () => {
       propsData: { type: 'ant-design' },
     });
 
-    expect(wrapper.hasClass('anticon')).toBe(true);
-    expect(wrapper.hasClass('anticon-ant-design')).toBe(true);
+    expect(wrapper.classes()).toContain('anticon');
+    expect(wrapper.classes()).toContain('anticon-ant-design');
   });
 
   it('spin prop', () => {
     const wrapper = shallow(CoIcon, {
-      propsData: { spin: true },
+      propsData: {
+        type: 'ant-design',
+        spin: true,
+      },
     });
 
-    expect(wrapper.hasClass('anticon-spin')).toBe(true);
+    expect(wrapper.classes()).toContain('anticon-spin');
   });
 
   it('match snapshot', () => {

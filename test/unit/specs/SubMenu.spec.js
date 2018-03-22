@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from '@vue/test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
 import CoMenu from '@/components/menu';
 
 const { CoSubMenu, CoMenuItem } = CoMenu;
@@ -10,14 +10,12 @@ describe('CoSubMenu', () => {
   localVue.component(CoMenuItem.name, CoMenuItem);
 
   it('default render', () => {
-    const wrapper = shallow(CoMenu, {
+    const wrapper = mount(CoMenu, {
       propsData: { mode: 'inline' },
       slots: {
         default: `
-          <co-sub-menu name="sub1">
+          <co-sub-menu name="sub0">
             <template slot="title">sub menu title</template>
-            <co-menu-item name="1">menu item</co-menu-item>
-            <co-menu-item name="2">menu item</co-menu-item>
           </co-sub-menu>
         `,
       },
@@ -29,11 +27,34 @@ describe('CoSubMenu', () => {
     expect(subMenu.classes()).toContain('co-menu__submenu--inline');
   });
 
-  it('title slot', () => {
-    const wrapper = shallow(CoMenu, {
+  it('default slot', () => {
+    const wrapper = mount(CoMenu, {
+      propsData: { mode: 'inline' },
       slots: {
         default: `
-          <co-sub-menu>
+          <co-sub-menu name="sub0">
+            <template slot="title">sub menu title</template>
+            <co-menu-item name="0">menu item</co-menu-item>
+            <co-menu-item name="1">menu item</co-menu-item>
+          </co-sub-menu>
+        `,
+      },
+      localVue,
+    });
+    const sub = wrapper.find('.co-menu__sub');
+    const menuItems = sub.findAll(CoMenuItem);
+
+    expect(sub.exists()).toBe(true);
+    expect(sub.classes()).toContain('co-menu');
+    expect(sub.classes()).toContain('co-menu--inline');
+    expect(menuItems.length).toBe(2);
+  });
+
+  it('title slot', () => {
+    const wrapper = mount(CoMenu, {
+      slots: {
+        default: `
+          <co-sub-menu name="sub0">
             <template slot="title">sub menu title</template>
           </co-sub-menu>
         `,
@@ -47,10 +68,10 @@ describe('CoSubMenu', () => {
   });
 
   it('disabled prop', () => {
-    const wrapper = shallow(CoMenu, {
+    const wrapper = mount(CoMenu, {
       slots: {
         default: `
-          <co-sub-menu disabled>
+          <co-sub-menu name="sub0" disabled>
             <template slot="title">sub menu title</template>
           </co-sub-menu>
         `,
@@ -63,10 +84,10 @@ describe('CoSubMenu', () => {
   });
 
   it('name prop', () => {
-    const wrapper = shallow(CoMenu, {
+    const wrapper = mount(CoMenu, {
       slots: {
         default: `
-          <co-sub-menu name="0">
+          <co-sub-menu name="sub0">
             <template slot="title">sub menu title</template>
           </co-sub-menu>
         `,
@@ -75,24 +96,58 @@ describe('CoSubMenu', () => {
     });
     const subMenu = wrapper.find(CoSubMenu);
 
-    expect(subMenu.props().name).toBe('0');
+    expect(subMenu.props().name).toBe('sub0');
   });
 
-  it('在 inline 模式下点击标题可以展开或收起组件', () => {
-    const wrapper = shallow(CoMenu, {
-      propsData: { mode: 'inline' },
+  describe('sub-menu 组件的状态切换', () => {
+    const wrapper = mount(CoMenu, {
       slots: {
         default: `
-          <co-sub-menu name="sub1">
+          <co-sub-menu name="sub0">
             <template slot="title">sub menu title</template>
+            <co-menu-item name="0">menu item</co-menu-item>
             <co-menu-item name="1">menu item</co-menu-item>
-            <co-menu-item name="2">menu item</co-menu-item>
           </co-sub-menu>
         `,
       },
       localVue,
     });
+    const subMenu = wrapper.find(CoSubMenu);
+    const subMenuTitle = subMenu.find('.co-menu__submenu-title');
+    const sub = subMenu.find('.co-menu__sub');
 
-    console.log(wrapper.html());
+    beforeEach(() => {
+      subMenu.setData({ visible: false });
+    });
+
+    it('click', () => {
+      wrapper.setData({ mode: 'inline' });
+      subMenuTitle.trigger('mouseenter');
+
+      expect(subMenu.vm.visible).toBe(false);
+      expect(subMenu.classes()).not.toContain('co-menu__submenu--open');
+      expect(sub.isVisible()).toBe(false);
+
+      subMenuTitle.trigger('click');
+
+      expect(subMenu.vm.visible).toBe(true);
+      expect(subMenu.classes()).toContain('co-menu__submenu--open');
+      expect(sub.isVisible()).toBe(true);
+    });
+
+    it('非 inline 模式下只会触发 hover 效果', () => {
+      wrapper.setData({ mode: 'horizontal' });
+      subMenuTitle.trigger('click');
+
+      expect(subMenu.vm.visible).toBe(false);
+
+      subMenuTitle.trigger('mouseenter');
+
+      expect(subMenu.vm.visible).toBe(true);
+
+      subMenuTitle.trigger('mouseleave');
+
+      expect(subMenu.vm.visible).toBe(false);
+    });
   });
 });

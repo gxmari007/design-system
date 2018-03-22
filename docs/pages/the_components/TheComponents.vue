@@ -9,12 +9,18 @@
         <co-icon type="calendar" />
         Navigation Two
       </co-menu-item>
-      <co-sub-menu disabled>
+      <co-sub-menu name="sub0">
         <template slot="title">
           <co-icon type="appstore" />
           Navigation Three
         </template>
+        <co-menu-item name="2">Menu Item</co-menu-item>
+        <co-menu-item name="3">Menu Item</co-menu-item>
       </co-sub-menu>
+      <co-menu-item name="4">
+        <co-icon type="calendar" />
+        Navigation Four
+      </co-menu-item>
     </co-menu>
   </the-default>
 </template>

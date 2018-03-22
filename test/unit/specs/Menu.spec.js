@@ -64,7 +64,11 @@ describe('CoMenu', () => {
       slots: {
         default: [
           '<co-menu-item name="0">menu item</co-menu-item>',
-          '<co-sub-menu><span slot="title">submenu title</span></co-sub-menu>',
+          `
+          <co-sub-menu name="sub0">
+            <span slot="title">submenu title</span>
+          </co-sub-menu>
+          `,
         ],
       },
       localVue,

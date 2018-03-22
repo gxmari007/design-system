@@ -168,6 +168,7 @@
     &--vertical-left,
     &--inline {
       > .@{menu-class}__submenu-title .@{menu-class}__submenu-arrow {
+        transition: transform .3s @ease-in-out;
         position: absolute;
         top: 50%;
         right: 16px;
@@ -209,8 +210,21 @@
       &::before {
         transform: rotate(-45deg) translateX(2px);
       }
+
       &::after {
         transform: rotate(45deg) translateX(-2px);
+      }
+    }
+
+    &--open&--inline > .@{menu-class}__submenu-title .@{menu-class}__submenu-arrow {
+      transform: translateY(-2px);
+
+      &::before {
+        transform: rotate(45deg) translateX(2px);
+      }
+
+      &::after {
+        transform: rotate(-45deg) translateX(-2px);
       }
     }
   }
@@ -318,6 +332,21 @@
   &--root&--vertical-left,
   &--root&--vertical-right {
     box-shadow: none;
+  }
+
+  &__sub&--inline {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+
+    & > .@{menu-class}__item,
+    & > .@{menu-class}__submenu > .@{menu-class}__submenu-title {
+      height: @menu-item-height;
+      line-height: @menu-item-height;
+      list-style-type: disc;
+      list-style-position: inside;
+    }
   }
 
   // Disabled state

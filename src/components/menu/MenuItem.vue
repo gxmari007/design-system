@@ -1,5 +1,5 @@
 <template>
-  <li :class="classes" :style="styles" role="menuitem" @click="onClick">
+  <li :class="classes" :style="styles" @click="onClick">
     <slot />
   </li>
 </template>

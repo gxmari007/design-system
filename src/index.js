@@ -1,6 +1,7 @@
 import CoButton from 'components/button';
 import CoButtonGroup from 'components/button-group';
 import CoCol from 'components/col';
+import CoCollapseTransition from 'components/collapse-transition';
 import CoIcon from 'components/icon';
 import CoMenu from 'components/menu';
 import CoRow from 'components/row';
@@ -10,6 +11,7 @@ const coview = {
   CoButtonGroup,
   CoCol,
   CoIcon,
+  CoCollapseTransition,
   CoMenu,
   CoMenuItem: CoMenu.CoMenuItem,
   CoSubMenu: CoMenu.CoSubMenu,
