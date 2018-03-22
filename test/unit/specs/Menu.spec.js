@@ -62,22 +62,28 @@ describe('CoMenu', () => {
     const wrapper = shallow(CoMenu, {
       propsData: { inlineIndent: 24 },
       slots: {
-        default: [
-          '<co-menu-item name="0">menu item</co-menu-item>',
-          `
+        default: `
+          <co-menu-item name="0">menu item</co-menu-item>
           <co-sub-menu name="sub0">
             <span slot="title">submenu title</span>
+            <co-menu-item name="1">menu item</co-menu-item>
+            <co-sub-menu name="sub1">
+              <span slot="title">submenu title</span>
+              <co-menu-item name="2">menu item</co-menu-item>
+            </co-sub-menu>
           </co-sub-menu>
-          `,
-        ],
+        `,
       },
       localVue,
     });
-    const item = wrapper.find(CoMenuItem);
-    const subMenuTitle = wrapper.find('.co-menu__submenu-title');
+    const items = wrapper.findAll(CoMenuItem);
+    const subMenuTitles = wrapper.findAll('.co-menu__submenu-title');
 
-    expect(item.element.style.paddingLeft).toBe('24px');
-    expect(subMenuTitle.element.style.paddingLeft).toBe('24px');
+    expect(items.at(0).element.style.paddingLeft).toBe('24px');
+    expect(items.at(1).element.style.paddingLeft).toBe('48px');
+    expect(items.at(2).element.style.paddingLeft).toBe('72px');
+    expect(subMenuTitles.at(0).element.style.paddingLeft).toBe('24px');
+    expect(subMenuTitles.at(1).element.style.paddingLeft).toBe('48px');
   });
 
   it('multiple prop', () => {

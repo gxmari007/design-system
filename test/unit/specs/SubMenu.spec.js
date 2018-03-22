@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils';
+import { shallow, createLocalVue } from '@vue/test-utils';
 import CoMenu from '@/components/menu';
 
 const { CoSubMenu, CoMenuItem } = CoMenu;
@@ -10,7 +10,7 @@ describe('CoSubMenu', () => {
   localVue.component(CoMenuItem.name, CoMenuItem);
 
   it('default render', () => {
-    const wrapper = mount(CoMenu, {
+    const wrapper = shallow(CoMenu, {
       propsData: { mode: 'inline' },
       slots: {
         default: `
@@ -28,7 +28,7 @@ describe('CoSubMenu', () => {
   });
 
   it('default slot', () => {
-    const wrapper = mount(CoMenu, {
+    const wrapper = shallow(CoMenu, {
       propsData: { mode: 'inline' },
       slots: {
         default: `
@@ -42,7 +42,7 @@ describe('CoSubMenu', () => {
       localVue,
     });
     const sub = wrapper.find('.co-menu__sub');
-    const menuItems = sub.findAll(CoMenuItem);
+    const menuItems = wrapper.findAll(CoMenuItem);
 
     expect(sub.exists()).toBe(true);
     expect(sub.classes()).toContain('co-menu');
@@ -51,7 +51,7 @@ describe('CoSubMenu', () => {
   });
 
   it('title slot', () => {
-    const wrapper = mount(CoMenu, {
+    const wrapper = shallow(CoMenu, {
       slots: {
         default: `
           <co-sub-menu name="sub0">
@@ -68,7 +68,8 @@ describe('CoSubMenu', () => {
   });
 
   it('disabled prop', () => {
-    const wrapper = mount(CoMenu, {
+    const wrapper = shallow(CoMenu, {
+      propsData: { mode: 'inline' },
       slots: {
         default: `
           <co-sub-menu name="sub0" disabled>
@@ -79,12 +80,19 @@ describe('CoSubMenu', () => {
       localVue,
     });
     const subMenu = wrapper.find(CoSubMenu);
+    const subMenuTitle = subMenu.find('.co-menu__submenu-title');
 
     expect(subMenu.classes()).toContain('co-menu__submenu--disabled');
+    // disabled 状态下 click hover 都没有效果
+    expect(subMenu.vm.visible).toBe(false);
+
+    subMenuTitle.trigger('click');
+
+    expect(subMenu.vm.visible).toBe(false);
   });
 
   it('name prop', () => {
-    const wrapper = mount(CoMenu, {
+    const wrapper = shallow(CoMenu, {
       slots: {
         default: `
           <co-sub-menu name="sub0">
@@ -100,7 +108,7 @@ describe('CoSubMenu', () => {
   });
 
   describe('sub-menu 组件的状态切换', () => {
-    const wrapper = mount(CoMenu, {
+    const wrapper = shallow(CoMenu, {
       slots: {
         default: `
           <co-sub-menu name="sub0">
@@ -132,7 +140,9 @@ describe('CoSubMenu', () => {
 
       expect(subMenu.vm.visible).toBe(true);
       expect(subMenu.classes()).toContain('co-menu__submenu--open');
-      expect(sub.isVisible()).toBe(true);
+      wrapper.vm.$nextTick(() => {
+        expect(sub.isVisible()).toBe(true);
+      });
     });
 
     it('非 inline 模式下只会触发 hover 效果', () => {

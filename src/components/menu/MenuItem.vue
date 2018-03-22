@@ -5,8 +5,11 @@
 </template>
 
 <script>
+import mixin from './mixin';
+
 export default {
   name: 'CoMenuItem',
+  mixins: [mixin],
   inject: ['rootMenu'],
   props: {
     // item 的唯一标志
@@ -32,23 +35,12 @@ export default {
     },
     styles() {
       return {
-        paddingLeft: `${this.parentVm.inlineIndent}px`,
+        paddingLeft: `${this.indent}px`,
       };
     },
     // 判断是否选中
     selected() {
       return this.rootMenu.selectedItems.indexOf(this.name) > -1;
-    },
-    // 获取父级组件实例
-    // 父级组件包括 menu submenu 组件
-    parentVm() {
-      let parent = this.$parent;
-
-      while (parent && !(parent.$options.name === 'CoMenu' || parent.$options.name === 'CoSubMenu')) {
-        parent = parent.$parent;
-      }
-
-      return parent;
     },
     namePath() {
       const { name } = this;

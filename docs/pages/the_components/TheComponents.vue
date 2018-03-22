@@ -16,6 +16,11 @@
         </template>
         <co-menu-item name="2">Menu Item</co-menu-item>
         <co-menu-item name="3">Menu Item</co-menu-item>
+        <co-sub-menu name="sub0">
+          <template slot="title">Navigation Three</template>
+          <co-menu-item name="2">Menu Item</co-menu-item>
+          <co-menu-item name="3">Menu Item</co-menu-item>
+        </co-sub-menu>
       </co-sub-menu>
       <co-menu-item name="4">
         <co-icon type="calendar" />
