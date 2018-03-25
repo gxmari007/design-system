@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import width from 'dom-helpers/query/width';
-import { oneOf } from '../utils/help';
+import { oneOf } from 'utils/help';
 
 const isServer = Vue.prototype.$isServer;
 const Popper = isServer ? () => {} : require('popper.js');
