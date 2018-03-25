@@ -146,6 +146,64 @@ describe('CoMenu', () => {
     expect(items.at(1).classes()).not.toContain('co-menu__item--selected');
   });
 
+  it('defaultOpenNames prop', () => {
+    const wrapper = shallow(CoMenu, {
+      propsData: { defaultOpenNames: ['sub1'] },
+      slots: {
+        default: `
+          <co-sub-menu name="sub0">
+            <span slot="title">submenu title</span>
+            <co-menu-item name="0">menu item</co-menu-item>
+          </co-sub-menu>
+          <co-sub-menu name="sub1">
+            <span slot="title">submenu title</span>
+            <co-menu-item name="1">menu item</co-menu-item>
+          </co-sub-menu>
+        `,
+      },
+      localVue,
+    });
+    const subMenus = wrapper.findAll(CoSubMenu);
+
+    expect(wrapper.vm.defaultOpenNames).toEqual(['sub1']);
+    expect(subMenus.at(0).vm.visible).toBe(false);
+    expect(subMenus.at(1).vm.visible).toBe(true);
+
+    wrapper.setProps({ defaultOpenNames: ['sub0'] });
+
+    expect(subMenus.at(0).vm.visible).toBe(false);
+    expect(subMenus.at(1).vm.visible).toBe(true);
+  });
+
+  it('openNames prop', () => {
+    const wrapper = shallow(CoMenu, {
+      propsData: { openNames: ['sub1'] },
+      slots: {
+        default: `
+          <co-sub-menu name="sub0">
+            <span slot="title">submenu title</span>
+            <co-menu-item name="0">menu item</co-menu-item>
+          </co-sub-menu>
+          <co-sub-menu name="sub1">
+            <span slot="title">submenu title</span>
+            <co-menu-item name="1">menu item</co-menu-item>
+          </co-sub-menu>
+        `,
+      },
+      localVue,
+    });
+    const subMenus = wrapper.findAll(CoSubMenu);
+
+    expect(wrapper.props().openNames).toEqual(['sub1']);
+    expect(subMenus.at(0).vm.visible).toBe(false);
+    expect(subMenus.at(1).vm.visible).toBe(true);
+
+    wrapper.setProps({ openNames: ['sub0'] });
+
+    expect(subMenus.at(0).vm.visible).toBe(true);
+    expect(subMenus.at(1).vm.visible).toBe(false);
+  });
+
   it('on-click event', () => {
     const wrapper = shallow(CoMenu, {
       slots: {

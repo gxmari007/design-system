@@ -2,6 +2,9 @@ import Vue from 'vue';
 import requestAnimationFrame from 'dom-helpers/util/requestAnimationFrame';
 import scrollTop from 'dom-helpers/query/scrollTop';
 
+// 判断是否为服务端渲染
+export const isServer = Vue.prototype.$isServer;
+
 // 验证十六进制颜色值
 export const colorRegex = /#([\da-f]{3}){1,2}/i;
 
@@ -44,7 +47,7 @@ let scrollBarWidth;
 // 获取滚动条宽度
 // 缓存结果方便下次获取
 export function getScrollBarWidth() {
-  if (Vue.prototype.$isServer) return 0;
+  if (isServer) return 0;
 
   if (typeof scrollBarWidth === 'undefined') {
     const outer = document.createElement('div');
@@ -69,10 +72,4 @@ export function getScrollBarWidth() {
   }
 
   return scrollBarWidth;
-}
-
-// 判断数值是否为 undefined
-// 准备废弃
-export function isUndefined(value) {
-  return typeof value === 'undefined';
 }

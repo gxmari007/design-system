@@ -1728,7 +1728,7 @@ clone-stats@^0.0.1, clone-stats@~0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/clone-stats/-/clone-stats-0.0.1.tgz#b88f94a82cf38b8791d58046ea4029ad88ca99d1"
 
-clone@2.x, clone@^2.1.1:
+clone@2.x:
   version "2.1.1"
   resolved "https://registry.npmjs.org/clone/-/clone-2.1.1.tgz#d217d1e961118e3ac9a4b8bba3285553bf647cdb"
 
@@ -1739,6 +1739,10 @@ clone@^0.2.0:
 clone@^1.0.0, clone@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/clone/-/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
+
+clone@^2.1.1:
+  version "2.1.2"
+  resolved "http://registry.npm.taobao.org/clone/download/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
 
 co@^4.6.0:
   version "4.6.0"
@@ -4987,13 +4991,13 @@ left-pad@^1.2.0:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/left-pad/download/left-pad-1.2.0.tgz#d30a73c6b8201d8f7d8e7956ba9616087a68e0ee"
 
-less-loader@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.npmjs.org/less-loader/-/less-loader-4.0.5.tgz#ae155a7406cac6acd293d785587fcff0f478c4dd"
+less-loader@^4.1.0:
+  version "4.1.0"
+  resolved "http://registry.npm.taobao.org/less-loader/download/less-loader-4.1.0.tgz#2c1352c5b09a4f84101490274fd51674de41363e"
   dependencies:
     clone "^2.1.1"
     loader-utils "^1.1.0"
-    pify "^2.3.0"
+    pify "^3.0.0"
 
 "less@2.6.x || ^3.0.0", less@^3.0.1:
   version "3.0.1"
@@ -6353,9 +6357,9 @@ pn@^1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/pn/download/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
 
-popper.js@0.6.4:
-  version "0.6.4"
-  resolved "https://registry.npmjs.org/popper.js/-/popper.js-0.6.4.tgz#1837c4760af54d2bb20b66f9c09b92993d84c629"
+popper.js@^1.14.1:
+  version "1.14.1"
+  resolved "http://registry.npm.taobao.org/popper.js/download/popper.js-1.14.1.tgz#b8815e5cda6f62fc2042e47618649f75866e6753"
 
 portfinder@^1.0.13, portfinder@^1.0.9:
   version "1.0.13"

@@ -125,7 +125,8 @@ describe('CoSubMenu', () => {
     const sub = subMenu.find('.co-menu__sub');
 
     beforeEach(() => {
-      subMenu.setData({ visible: false });
+      // visible 已经是计算属性
+      wrapper.setData({ openSubMenus: [] });
     });
 
     it('click', () => {

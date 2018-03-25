@@ -1,5 +1,6 @@
 <template>
   <li :class="classes">
+    <!-- sub menu title -->
     <div
       class="co-menu__submenu-title"
       :style="titleStyles"
@@ -9,6 +10,7 @@
       <slot name="title" />
       <i class="co-menu__submenu-arrow"></i>
     </div>
+    <!-- sub menu list -->
     <co-collapse-transition>
       <ul :class="subClasses" v-show="visible">
         <slot />
@@ -40,11 +42,6 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      visible: false,
-    };
-  },
   computed: {
     classes() {
       const { mode, disabled, visible } = this;
@@ -73,17 +70,16 @@ export default {
     subIndent() {
       return this.indent + this.rootMenu.inlineIndent;
     },
+    visible() {
+      return this.rootMenu.openSubMenus.indexOf(this.name) > -1;
+    },
   },
   methods: {
     // title 的 click 和 hover 事件回掉，切换 sub 的显示或隐藏
     toggleSubState(type, state) {
       if (this.disabled) return;
 
-      if (type === 'click' && this.mode === 'inline') {
-        this.visible = !this.visible;
-      } else if (type === 'hover' && this.mode !== 'inline') {
-        this.visible = state === 'enter';
-      }
+      this.rootMenu.updateOpenSubNames(type, this.name, state);
     },
   },
 };

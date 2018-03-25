@@ -15,6 +15,11 @@ export default {
     };
   },
   props: {
+    // 初始展开的 SubMenu 菜单项 name 数组
+    defaultOpenNames: {
+      type: Array,
+      default: () => [],
+    },
     // 初始选中的菜单项 name 数组
     defaultSelectedNames: {
       type: Array,
@@ -38,6 +43,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 当前展开的 SubMenu 菜单项 name 数组
+    openNames: {
+      type: Array,
+      default: () => [],
+    },
     // 是否允许选中
     selectable: {
       type: Boolean,
@@ -59,7 +69,8 @@ export default {
   },
   data() {
     return {
-      selectedItems: this.getSelectedItems(), // 选择的 menu-item name 数组
+      selectedItems: this.getSelectedItems(), // 选择的 menu-item 组件 name 数组
+      openSubMenus: this.getOpenSubMenus(), // 展开的 sub-menu 组件 name 数组
     };
   },
   computed: {
@@ -74,9 +85,17 @@ export default {
     selectedNames(newVal) {
       this.selectedItems = newVal;
     },
+    openNames(newVal) {
+      this.openSubMenus = newVal;
+    },
   },
   methods: {
-    // 子组件用来更新 selectedItems
+    /**
+     * 控制 menu-item 组件的选择
+     * @param {String} name
+     * @param {String} namePath
+     * @param {Boolean} selected
+     */
     updateSelectItems(name, namePath, selected) {
       const { multiple, selectable } = this;
 
@@ -111,10 +130,39 @@ export default {
         });
       }
     },
+    /**
+     * 控制 sub-menu 组件展开或收起
+     * @param {String} type 事件类型
+     * @param {String} name sub-menu 组件的 name 值
+     * @param {String} hover 事件移入移出状态
+     */
+    updateOpenSubNames(type, name, state) {
+      const index = this.openSubMenus.indexOf(name);
+
+      if (type === 'click' && this.mode === 'inline') {
+        if (index > -1) {
+          this.openSubMenus.splice(index, 1);
+        } else {
+          this.openSubMenus.push(name);
+        }
+      } else if (type === 'hover' && this.mode !== 'inline') {
+        if (state === 'enter' && index === -1) {
+          this.openSubMenus.push(name);
+        } else if (state === 'leave' && index > -1) {
+          this.openSubMenus.splice(index, 1);
+        }
+      }
+    },
+    // 获取初始化 selectedNames
     getSelectedItems() {
       const { defaultSelectedNames, selectedNames } = this;
 
       return selectedNames.length > 0 ? selectedNames : defaultSelectedNames;
+    },
+    getOpenSubMenus() {
+      const { defaultOpenNames, openNames } = this;
+
+      return openNames.length > 0 ? openNames : defaultOpenNames;
     },
   },
 };
