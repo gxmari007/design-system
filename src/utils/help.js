@@ -73,3 +73,32 @@ export function getScrollBarWidth() {
 
   return scrollBarWidth;
 }
+
+/**
+ * 为指定的 element 元素添加 class
+ * @param {Object} element 需要操作的 dom 元素
+ * @param {String} className 添加到 dom 元素上的 class
+ */
+export function addClass(element, className) {
+  const el = element;
+  const classes = el.className.split(' ');
+
+  classes.push(className);
+  el.className = classes.join(' ');
+}
+
+/**
+ * 为指定的 element 元素移除 class
+ * @param {Object} element 需要操作的 dom 元素
+ * @param {String} className 移除的 class
+ */
+export function removeClass(element, className) {
+  const el = element;
+  const classes = el.className.split(' ');
+  const index = classes.indexOf(className);
+
+  if (index > -1) {
+    classes.splice(index, 1);
+    el.className = classes.join(' ');
+  }
+}

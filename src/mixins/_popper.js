@@ -14,4 +14,36 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      visible: false,
+      popperJS: null,
+    };
+  },
+  watch: {
+    visible(newVal) {
+      if (newVal) {
+        this.updatePopper();
+      } else {
+        this.destroyPopper();
+      }
+    },
+  },
+  methods: {
+    createPopper() {
+      if (isServer) return;
+
+      const reference = this.$refs.reference;
+      const popper = this.$refs.popper;
+    },
+    updatePopper() {
+      const { popperJS } = this;
+
+      if (popperJS) {
+        // popperJS.update();
+      } else {
+        this.createPopper();
+      }
+    },
+  },
 };

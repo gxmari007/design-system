@@ -25,7 +25,7 @@
  */
 
 /* eslint-disable */
-const isServer = typeof window === 'undefined';
+import { isServer } from './help';
 
 /* istanbul ignore next */
 const requestFrame = (function() {

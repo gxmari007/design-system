@@ -1,10 +1,10 @@
+import { addClass, removeClass } from 'utils/help';
+
 const transitionEvents = {
   beforeEnter(element) {
     const el = element;
-    const classes = el.className.split(' ');
 
-    classes.push('co-collapse-transition');
-    el.className = classes.join(' ');
+    addClass(el, 'co-collapse-transition');
 
     if (!el.dataset) {
       el.dataset = {};
@@ -33,9 +33,8 @@ const transitionEvents = {
   },
   afterEnter(element) {
     const el = element;
-    const classes = el.className.split(' ');
 
-    el.className = classes.filter(item => item !== 'co-collapse-transition').join(' ');
+    removeClass(el, 'co-collapse-transition');
     el.style.height = '';
     el.style.overflow = el.dataset.oldOverflow;
   },
@@ -56,10 +55,7 @@ const transitionEvents = {
     const el = element;
 
     if (el.scrollHeight !== 0) {
-      const classes = el.className.split(' ');
-
-      classes.push('co-collapse-transition');
-      el.className = classes.join(' ');
+      addClass(el, 'co-collapse-transition');
       el.style.height = '0';
       el.style.paddingTop = '0';
       el.style.paddingBottom = '0';
@@ -67,9 +63,8 @@ const transitionEvents = {
   },
   afterLeave(element) {
     const el = element;
-    const classes = el.className.split(' ');
 
-    el.className = classes.filter(item => item !== 'co-collapse-transition').join(' ');
+    removeClass(el, 'co-collapse-transition');
     el.style.height = '';
     el.style.paddingTop = el.dataset.oldPaddingTop;
     el.style.paddingBottom = el.dataset.oldPaddingBottom;
