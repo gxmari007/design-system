@@ -13,28 +13,67 @@ export default {
         return oneOf(value, placements);
       },
     },
+    // v-model
+    value: {
+      type: Boolean,
+      default: false,
+    },
+    // 是否插入到 body 尾部
+    appendToBody: {
+      type: Boolean,
+      default: true,
+    },
+    options: {
+      type: Object,
+      default: () => ({
+        modifiers: {
+          computedStyle: {
+            gpuAcceleration: false,
+          },
+        },
+      }),
+    },
   },
   data() {
     return {
-      visible: false,
+      visible: this.value,
       popperJS: null,
+      referenceElm: null,
+      popperElm: null,
     };
   },
   watch: {
+    value(newVal) {
+      this.visible = newVal;
+    },
     visible(newVal) {
       if (newVal) {
         this.updatePopper();
       } else {
         this.destroyPopper();
       }
+
+      this.$emit('input', newVal);
     },
   },
   methods: {
     createPopper() {
       if (isServer) return;
 
-      const reference = this.$refs.reference;
-      const popper = this.$refs.popper;
+      const options = Object.assign({}, this.options, {
+        placement: this.placement,
+      });
+
+      this.referenceElm = this.$refs.reference;
+      this.popperElm = this.$refs.popper;
+
+      if (!this.referenceElm || !this.popperElm) return;
+
+      if (this.appendToBody) {
+        document.body.appendChild(this.popperElm);
+      }
+
+      this.popperJS = new Popper(this.referenceElm, this.popperElm, options);
     },
     updatePopper() {
       const { popperJS } = this;
