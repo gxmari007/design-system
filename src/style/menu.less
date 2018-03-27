@@ -154,6 +154,11 @@
   }
 
   &__submenu {
+    &-popper {
+      border-radius: @border-radius-base;
+      z-index: @zindex-dropdown;
+    }
+
     > .@{menu-class} {
       background-color: @menu-bg;
       border-radius: @border-radius-base;

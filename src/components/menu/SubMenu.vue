@@ -1,32 +1,13 @@
-<template>
-  <li :class="classes">
-    <!-- sub menu title -->
-    <div
-      class="co-menu__submenu-title"
-      :style="titleStyles"
-      @click="toggleSubState('click')"
-      @mouseenter="toggleSubState('hover', 'enter')"
-      @mouseleave="toggleSubState('hover', 'leave')">
-      <slot name="title" />
-      <i class="co-menu__submenu-arrow"></i>
-    </div>
-    <!-- sub menu list -->
-    <co-collapse-transition>
-      <ul :class="subClasses" v-show="visible">
-        <slot />
-      </ul>
-    </co-collapse-transition>
-  </li>
-</template>
-
 <script>
 import CoCollapseTransition from 'components/collapse-transition';
+import SubMenuPopper from './SubMenuPopper';
 import mixin from './mixin';
 
 export default {
   name: 'CoSubMenu',
   components: {
     CoCollapseTransition,
+    SubMenuPopper,
   },
   mixins: [mixin],
   inject: ['rootMenu'],
@@ -81,6 +62,61 @@ export default {
 
       this.rootMenu.updateOpenSubNames(type, this.name, state);
     },
+    onInput(value) {
+      this.toggleSubState(
+        'hover',
+        this.name,
+        value ? 'enter' : 'leave',
+      );
+    },
+    // 渲染 sub menu title
+    renderTitle() {
+      const { titleStyles, toggleSubState } = this;
+
+      return (
+        <div
+          class="co-menu__submenu-title"
+          style={titleStyles}
+          onClick={() => toggleSubState('click')}
+          onMouseenter={() => toggleSubState('hover', 'enter')}
+          onMouseleave={() => toggleSubState('hover', 'leave')}>
+          {this.$slots.title}
+          <i class="co-menu__submenu-arrow"></i>
+        </div>
+      );
+    },
+    // 渲染 sub menu list
+    renderList() {
+      if (this.mode === 'inline') {
+        return (
+          <co-collapse-transition>
+            <ul
+              class={this.subClasses}
+              v-show={this.visible}>
+              {this.$slots.default}
+            </ul>
+          </co-collapse-transition>
+        );
+      }
+
+      return (
+        <sub-menu-popper
+          class={this.subClasses}
+          value={this.visible}
+          placement="right-start"
+          onInput={this.onInput}>
+          {this.$slots.default}
+        </sub-menu-popper>
+      );
+    },
+  },
+  render() {
+    return (
+      <li class={this.classes}>
+        {this.renderTitle()}
+        {this.renderList()}
+      </li>
+    );
   },
 };
 </script>

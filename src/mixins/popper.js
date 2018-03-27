@@ -1,16 +1,7 @@
-import Vue from 'vue';
-import width from 'dom-helpers/query/width';
-import { oneOf } from 'utils/help';
+import { isServer, oneOf } from 'utils/help';
+import { placements } from 'utils/style';
 
-const isServer = Vue.prototype.$isServer;
-const Popper = isServer ? () => {} : require('popper.js');
-
-export const placementValues = [
-  'top', 'top-start', 'top-end',
-  'right', 'right-start', 'right-end',
-  'bottom', 'bottom-start', 'bottom-end',
-  'left', 'left-start', 'left-end',
-];
+const Popper = isServer ? () => {} : require('popper.js').default;
 
 export default {
   props: {
@@ -19,78 +10,86 @@ export default {
       type: String,
       default: 'bottom',
       validator(value) {
-        return oneOf(value, placementValues);
+        return oneOf(value, placements);
       },
     },
-    // popper options
-    options: {
-      type: Object,
-      default() {
-        return {
-          gpuAcceleration: false,
-        };
-      },
+    // v-model
+    value: {
+      type: Boolean,
+      default: false,
     },
-    // popper 是否插入到 body 尾部
-    appendBody: {
+    // 是否插入到 body 尾部
+    appendToBody: {
       type: Boolean,
       default: true,
+    },
+    // popper 插件配置参数
+    options: {
+      type: Object,
+      default: () => ({
+        modifiers: {
+          computeStyle: {
+            gpuAcceleration: false, // 默认关闭 3d transformation 定位
+          },
+        },
+      }),
     },
   },
   data() {
     return {
-      // 控制 popper 显示或隐藏
       visible: false,
-      // popper 实例
       popperJS: null,
-      popperElm: null,
       referenceElm: null,
+      popperElm: null,
     };
   },
   watch: {
+    value: {
+      immediate: true,
+      handler(newVal) {
+        // 当 value 初始值为 true 时必须等 dom 元素都插入到文档中才能创建 popper 元素
+        this.$nextTick(() => {
+          this.visible = newVal;
+        });
+      },
+    },
     visible(newVal) {
       if (newVal) {
         this.updatePopper();
       } else {
         this.destroyPopper();
       }
+
+      this.$emit('input', newVal);
     },
-  },
-  beforeDestroy() {
-    if (this.popperJS) {
-      this.popperJS.destroy();
-      this.popperJS = null;
-    }
   },
   methods: {
     createPopper() {
       if (isServer) return;
 
-      const popper = this.popperElm || this.$refs.popper;
-      const reference = this.referenceElm || this.$refs.reference;
       const options = Object.assign({}, this.options, {
         placement: this.placement,
       });
 
-      if (this.appendBody) {
+      /* eslint-disable no-multi-assign */
+      const reference = this.referenceElm = this.referenceElm || this.$refs.reference;
+      const popper = this.popperElm = this.popperElm || this.$refs.popper;
+
+      if (!reference || !popper) return;
+
+      if (this.appendToBody) {
         document.body.appendChild(popper);
       }
 
-      this.popperElm = popper;
-      this.referenceElm = reference;
-      this.popperJS = new Popper(reference, popper, options);
-      this.popperJS.onCreate(() => {
-        this.resetTransformOrigin();
-        this.$nextTick(this.updatePopper);
-      });
-
-      if (this.$options.name === 'co-select') {
-        this.width = width(this.$el);
-      }
+      this.popperJS = new Popper(this.referenceElm, this.popperElm, options);
+      console.log(this.popperJS.destroy);
     },
+    resetTransformOrigin() {},
     updatePopper() {
-      if (this.popperJS) {
-        this.popperJS.update();
+      const { popperJS } = this;
+
+      if (popperJS) {
+        popperJS.update();
       } else {
         this.createPopper();
       }
@@ -99,48 +98,6 @@ export default {
       if (this.popperJS) {
         this.resetTransformOrigin();
       }
-    },
-    resetTransformOrigin() {
-      const placementMap = {
-        top: 'bottom',
-        right: 'left',
-        bottom: 'top',
-        left: 'right',
-      };
-      const { popperElm } = this;
-      const placement = popperElm.getAttribute('x-placement').split('-');
-      const origin = placementMap[placement[0]];
-      const axis = placement[1];
-
-      if (['top', 'bottom'].indexOf(origin) !== -1) {
-        const map = {
-          start: 'left',
-          end: 'right',
-        };
-
-        popperElm.style.transformOrigin = `${axis ? map[axis] : 'center'} ${origin}`;
-      } else {
-        const map = {
-          start: 'top',
-          end: 'bottom',
-        };
-
-        popperElm.style.transformOrigin = `${origin} ${axis ? map[axis] : 'center'}`;
-      }
-    },
-    findInput() {
-      const reference = this.$refs.reference;
-      const inputElm = reference.querySelector('input');
-      const textareaElm = reference.querySelector('textarea');
-      let elm = null;
-
-      if (inputElm) {
-        elm = inputElm;
-      } else if (textareaElm) {
-        elm = textareaElm;
-      }
-
-      return elm;
     },
   },
 };
