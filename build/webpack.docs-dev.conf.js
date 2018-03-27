@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const WebpackBar = require('webpackbar');
 const portfinder = require('portfinder');
 const baseWebpackConfig = require('./webpack.base-docs.conf');
 const config = require('./config');
@@ -82,6 +83,9 @@ const devWebpckConfig = merge(baseWebpackConfig, {
       template: './docs/index.html',
       // 是否自动在 body 标签末尾插入编译的脚本文件
       inject: true
+    }),
+    new WebpackBar({
+      name: `${pkg.name} docs`,
     })
   ]
 });
