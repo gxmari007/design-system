@@ -7,6 +7,7 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^utils/(.*)$': '<rootDir>/src/utils/$1',
     '^components/(.*)$': '<rootDir>/src/components/$1',
+    '^mixins/(.*)$': '<rootDir>/src/mixins/$1',
   },
   transform: {
     '^.+\\.js$': '<rootDir>/node_modules/babel-jest',

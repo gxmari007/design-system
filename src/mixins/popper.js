@@ -1,23 +1,10 @@
-import { isServer, oneOf } from 'utils/help';
+import { isServer, isTest, oneOf } from 'utils/help';
 import { placements } from 'utils/style';
 
-const Popper = isServer ? () => {} : require('popper.js').default;
+const Popper = isServer || isTest ? () => {} : require('popper.js').default;
 
 export default {
   props: {
-    // popper 出现的位置
-    placement: {
-      type: String,
-      default: 'bottom',
-      validator(value) {
-        return oneOf(value, placements);
-      },
-    },
-    // v-model
-    value: {
-      type: Boolean,
-      default: false,
-    },
     // 是否插入到 body 尾部
     appendToBody: {
       type: Boolean,
@@ -33,6 +20,24 @@ export default {
           },
         },
       }),
+    },
+    // popper 出现的位置
+    placement: {
+      type: String,
+      default: 'bottom',
+      validator(value) {
+        return oneOf(value, placements);
+      },
+    },
+    // 设置 popper 元素的 transform-origin 属性
+    transformOrigin: {
+      type: [Boolean, String],
+      default: true,
+    },
+    // v-model
+    value: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -65,11 +70,7 @@ export default {
   },
   methods: {
     createPopper() {
-      if (isServer) return;
-
-      const options = Object.assign({}, this.options, {
-        placement: this.placement,
-      });
+      if (isServer || isTest) return;
 
       /* eslint-disable no-multi-assign */
       const reference = this.referenceElm = this.referenceElm || this.$refs.reference;
@@ -81,10 +82,31 @@ export default {
         document.body.appendChild(popper);
       }
 
-      this.popperJS = new Popper(this.referenceElm, this.popperElm, options);
-      console.log(this.popperJS.destroy);
+      this.popperJS = new Popper(
+        this.referenceElm,
+        this.popperElm,
+        Object.assign({}, this.options, {
+          placement: this.placement,
+          onCreate: () => {
+            this.resetTransformOrigin();
+            this.$nextTick(this.updatePopper);
+          },
+        }),
+      );
     },
-    resetTransformOrigin() {},
+    // 设置 popper 元素的 transform-origin 属性
+    resetTransformOrigin() {
+      if (!this.transformOrigin) return;
+
+      const placementMap = {
+        top: 'bottom',
+        bottom: 'top',
+        right: 'left',
+        left: 'right',
+      };
+      const placement = this.popperJS.popper.getAttribute('x-placement').split('-')[0];
+      const origin = placementMap[placement];
+    },
     updatePopper() {
       const { popperJS } = this;
 

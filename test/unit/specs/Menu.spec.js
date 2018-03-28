@@ -58,32 +58,37 @@ describe('CoMenu', () => {
     expect(items.at(0).classes()).not.toContain('co-menu__item--selected');
   });
 
-  it('inlineIndent prop', () => {
-    const wrapper = shallow(CoMenu, {
-      propsData: { inlineIndent: 24 },
-      slots: {
-        default: `
-          <co-menu-item name="0">menu item</co-menu-item>
-          <co-sub-menu name="sub0">
-            <span slot="title">submenu title</span>
-            <co-menu-item name="1">menu item</co-menu-item>
-            <co-sub-menu name="sub1">
+  describe('inlineIndent prop', () => {
+    it('inline 模式下才有缩进效果', () => {
+      const wrapper = shallow(CoMenu, {
+        propsData: {
+          mode: 'inline',
+          inlineIndent: 24,
+        },
+        slots: {
+          default: `
+            <co-menu-item name="0">menu item</co-menu-item>
+            <co-sub-menu name="sub0">
               <span slot="title">submenu title</span>
-              <co-menu-item name="2">menu item</co-menu-item>
+              <co-menu-item name="1">menu item</co-menu-item>
+              <co-sub-menu name="sub1">
+                <span slot="title">submenu title</span>
+                <co-menu-item name="2">menu item</co-menu-item>
+              </co-sub-menu>
             </co-sub-menu>
-          </co-sub-menu>
-        `,
-      },
-      localVue,
-    });
-    const items = wrapper.findAll(CoMenuItem);
-    const subMenuTitles = wrapper.findAll('.co-menu__submenu-title');
+          `,
+        },
+        localVue,
+      });
+      const items = wrapper.findAll(CoMenuItem);
+      const subMenuTitles = wrapper.findAll('.co-menu__submenu-title');
 
-    expect(items.at(0).element.style.paddingLeft).toBe('24px');
-    expect(items.at(1).element.style.paddingLeft).toBe('48px');
-    expect(items.at(2).element.style.paddingLeft).toBe('72px');
-    expect(subMenuTitles.at(0).element.style.paddingLeft).toBe('24px');
-    expect(subMenuTitles.at(1).element.style.paddingLeft).toBe('48px');
+      expect(items.at(0).element.style.paddingLeft).toBe('24px');
+      expect(items.at(1).element.style.paddingLeft).toBe('48px');
+      expect(items.at(2).element.style.paddingLeft).toBe('72px');
+      expect(subMenuTitles.at(0).element.style.paddingLeft).toBe('24px');
+      expect(subMenuTitles.at(1).element.style.paddingLeft).toBe('48px');
+    });
   });
 
   it('multiple prop', () => {

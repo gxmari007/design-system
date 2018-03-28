@@ -122,7 +122,6 @@ describe('CoSubMenu', () => {
     });
     const subMenu = wrapper.find(CoSubMenu);
     const subMenuTitle = subMenu.find('.co-menu__submenu-title');
-    const sub = subMenu.find('.co-menu__sub');
 
     beforeEach(() => {
       // visible 已经是计算属性
@@ -135,15 +134,11 @@ describe('CoSubMenu', () => {
 
       expect(subMenu.vm.visible).toBe(false);
       expect(subMenu.classes()).not.toContain('co-menu__submenu--open');
-      expect(sub.isVisible()).toBe(false);
 
       subMenuTitle.trigger('click');
 
       expect(subMenu.vm.visible).toBe(true);
       expect(subMenu.classes()).toContain('co-menu__submenu--open');
-      wrapper.vm.$nextTick(() => {
-        expect(sub.isVisible()).toBe(true);
-      });
     });
 
     it('非 inline 模式下只会触发 hover 效果', () => {

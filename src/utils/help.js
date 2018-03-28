@@ -5,6 +5,8 @@ import scrollTop from 'dom-helpers/query/scrollTop';
 // 判断是否为服务端渲染
 export const isServer = Vue.prototype.$isServer;
 
+export const isTest = process.env.NODE_ENV === 'test';
+
 // 验证十六进制颜色值
 export const colorRegex = /#([\da-f]{3}){1,2}/i;
 
