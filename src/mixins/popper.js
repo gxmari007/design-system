@@ -106,6 +106,11 @@ export default {
       };
       const placement = this.popperJS.popper.getAttribute('x-placement').split('-')[0];
       const origin = placementMap[placement];
+
+      /* eslint-disable no-nested-ternary */
+      this.popperJS.popper.style.transformOrigin = typeof this.transformOrigin === 'string'
+        ? this.transformOrigin
+        : ['top', 'bottom'].indexOf(placement) > -1 ? `center ${origin}` : `${origin} center`;
     },
     updatePopper() {
       const { popperJS } = this;

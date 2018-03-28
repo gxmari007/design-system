@@ -17,5 +17,8 @@ export default {
 
       return name === 'CoMenu' ? parentVm.inlineIndent : parentVm.subIndent;
     },
+    mode() {
+      return this.rootMenu.mode;
+    },
   },
 };

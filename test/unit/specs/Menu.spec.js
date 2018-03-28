@@ -89,6 +89,30 @@ describe('CoMenu', () => {
       expect(subMenuTitles.at(0).element.style.paddingLeft).toBe('24px');
       expect(subMenuTitles.at(1).element.style.paddingLeft).toBe('48px');
     });
+
+    it('非 inline 模式设置 inlineIndent 无效', () => {
+      const wrapper = shallow(CoMenu, {
+        propsData: {
+          mode: 'horizontal',
+          inlineIndent: 24,
+        },
+        slots: {
+          default: `
+            <co-menu-item name="0">menu item</co-menu-item>
+            <co-sub-menu name="sub0">
+              <span slot="title">submenu title</span>
+              <co-menu-item name="1">menu item</co-menu-item>
+            </co-sub-menu>
+          `,
+        },
+        localVue,
+      });
+      const item = wrapper.find(CoMenuItem);
+      const subMenuTitle = wrapper.find('.co-menu__submenu-title');
+
+      expect(item.element.style.paddingLeft).toBe('');
+      expect(subMenuTitle.element.style.paddingLeft).toBe('');
+    });
   });
 
   it('multiple prop', () => {

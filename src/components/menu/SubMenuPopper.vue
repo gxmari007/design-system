@@ -1,7 +1,7 @@
 <template>
-  <ul class="co-menu__submenu-popper" v-show="visible" ref="popper">
+  <div class="co-menu__submenu co-menu__submenu-popper" v-show="visible" ref="popper">
     <slot />
-  </ul>
+  </div>
 </template>
 
 <script>

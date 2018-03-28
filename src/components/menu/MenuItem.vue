@@ -34,9 +34,13 @@ export default {
       }];
     },
     styles() {
-      return {
-        paddingLeft: `${this.indent}px`,
-      };
+      const styles = {};
+
+      if (this.mode === 'inline') {
+        styles.paddingLeft = `${this.indent}px`;
+      }
+
+      return styles;
     },
     // 判断是否选中
     selected() {

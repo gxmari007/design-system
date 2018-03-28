@@ -40,12 +40,13 @@ export default {
       return [`${prefixClass}`, `${prefixClass}__sub`, `${prefixClass}--${mode}`];
     },
     titleStyles() {
-      return {
-        paddingLeft: `${this.indent}px`,
-      };
-    },
-    mode() {
-      return this.rootMenu.mode;
+      const styles = {};
+
+      if (this.mode === 'inline') {
+        styles.paddingLeft = `${this.indent}px`;
+      }
+
+      return styles;
     },
     // 子组件的 indent 值
     subIndent() {
@@ -105,7 +106,9 @@ export default {
           value={this.visible}
           placement="right-start"
           onInput={this.onInput}>
-          {this.$slots.default}
+          <ul>
+            {this.$slots.default}
+          </ul>
         </sub-menu-popper>
       );
     },
