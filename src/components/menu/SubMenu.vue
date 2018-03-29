@@ -122,12 +122,22 @@ export default {
       );
     },
     renderPopper() {
+      let placement = 'bottom';
+      let transformOrigin = 'center bottom';
+
+      // 根据 mode 的类型设置 popper 弹出的位置
+      if (['vertical', 'vertical-left', 'vertical-right'].indexOf(this.mode) > -1) {
+        placement = 'right-start';
+        transformOrigin = '0 0';
+      }
+
       return (
         <sub-menu-popper
           class={this.popperClasses}
           value={this.visible}
-          placement="right-start"
+          placement={placement}
           appendToBody={this.isRootSubMenu}
+          transformOrigin={transformOrigin}
           onInput={this.onInput}
           nativeOnMouseenter={() => this.toggleSubState('hover', 'enter')}
           nativeOnMouseleave={() => this.toggleSubState('hover', 'leave')}>

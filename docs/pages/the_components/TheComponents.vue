@@ -1,6 +1,6 @@
 <template>
   <the-default>
-    <co-menu mode="horizontal" :sub-menu-close-delay="0.5">
+    <co-menu mode="inline" style="width: 256px;">
       <co-menu-item name="0">
         <co-icon type="mail" />
         Navigation One
