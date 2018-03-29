@@ -68,6 +68,16 @@ export default {
       this.$emit('input', newVal);
     },
   },
+  beforeDestroy() {
+    if (this.popperJS) {
+      this.popperJS.destroy();
+      this.popperJS = null;
+    }
+
+    if (this.popperElm && this.popperElm.parentNode === document.body) {
+      document.body.removeChild(this.popperElm);
+    }
+  },
   methods: {
     createPopper() {
       if (isServer || isTest) return;

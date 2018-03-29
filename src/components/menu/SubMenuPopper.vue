@@ -1,5 +1,5 @@
 <template>
-  <div class="co-menu__submenu co-menu__submenu-popper" v-show="visible" ref="popper">
+  <div v-show="visible" ref="popper">
     <slot />
   </div>
 </template>

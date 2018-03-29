@@ -107,8 +107,9 @@ describe('CoSubMenu', () => {
     expect(subMenu.props().name).toBe('sub0');
   });
 
-  describe('sub-menu 组件的状态切换', () => {
+  it('inline 模式下通过 click 切换菜单的展开与收起', () => {
     const wrapper = shallow(CoMenu, {
+      propsData: { mode: 'inline' },
       slots: {
         default: `
           <co-sub-menu name="sub0">
@@ -123,37 +124,14 @@ describe('CoSubMenu', () => {
     const subMenu = wrapper.find(CoSubMenu);
     const subMenuTitle = subMenu.find('.co-menu__submenu-title');
 
-    beforeEach(() => {
-      // visible 已经是计算属性
-      wrapper.setData({ openSubMenus: [] });
-    });
+    subMenuTitle.trigger('mouseenter');
 
-    it('click', () => {
-      wrapper.setData({ mode: 'inline' });
-      subMenuTitle.trigger('mouseenter');
+    expect(subMenu.vm.visible).toBe(false);
+    expect(subMenu.classes()).not.toContain('co-menu__submenu--open');
 
-      expect(subMenu.vm.visible).toBe(false);
-      expect(subMenu.classes()).not.toContain('co-menu__submenu--open');
+    subMenuTitle.trigger('click');
 
-      subMenuTitle.trigger('click');
-
-      expect(subMenu.vm.visible).toBe(true);
-      expect(subMenu.classes()).toContain('co-menu__submenu--open');
-    });
-
-    it('非 inline 模式下只会触发 hover 效果', () => {
-      wrapper.setData({ mode: 'horizontal' });
-      subMenuTitle.trigger('click');
-
-      expect(subMenu.vm.visible).toBe(false);
-
-      subMenuTitle.trigger('mouseenter');
-
-      expect(subMenu.vm.visible).toBe(true);
-
-      subMenuTitle.trigger('mouseleave');
-
-      expect(subMenu.vm.visible).toBe(false);
-    });
+    expect(subMenu.vm.visible).toBe(true);
+    expect(subMenu.classes()).toContain('co-menu__submenu--open');
   });
 });

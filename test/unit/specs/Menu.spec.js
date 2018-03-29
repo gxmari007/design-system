@@ -233,6 +233,44 @@ describe('CoMenu', () => {
     expect(subMenus.at(1).vm.visible).toBe(false);
   });
 
+  it('subMenuCloseDelay and subMenuOpenDelay prop', () => {
+    jest.useFakeTimers();
+
+    const wrapper = shallow(CoMenu, {
+      propsData: { mode: 'vertical' },
+      slots: {
+        default: `
+          <co-sub-menu name="sub0">
+            <span slot="title">submenu title</span>
+            <co-menu-item name="0">menu item</co-menu-item>
+          </co-sub-menu>
+        `,
+      },
+      localVue,
+    });
+    const subMenu = wrapper.find(CoSubMenu);
+    const subMenuTitle = subMenu.find('.co-menu__submenu-title');
+
+    expect(wrapper.vm.subMenuOpenDelay).toBe(0);
+    expect(wrapper.vm.subMenuCloseDelay).toBe(0.1);
+
+    wrapper.setProps({
+      subMenuOpenDelay: 0.3,
+      subMenuCloseDelay: 0.5,
+    });
+    subMenuTitle.trigger('mouseenter');
+    jest.advanceTimersByTime(300);
+
+    expect(subMenu.vm.visible).toBe(true);
+
+    subMenuTitle.trigger('mouseleave');
+    jest.advanceTimersByTime(500);
+
+    expect(subMenu.vm.visible).toBe(false);
+
+    jest.clearAllTimers();
+  });
+
   it('on-click event', () => {
     const wrapper = shallow(CoMenu, {
       slots: {

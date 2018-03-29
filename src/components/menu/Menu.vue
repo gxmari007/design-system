@@ -58,6 +58,16 @@ export default {
       type: Array,
       default: () => [],
     },
+    // 用户鼠标离开子菜单后关闭延时，单位：秒
+    subMenuCloseDelay: {
+      type: Number,
+      default: 0.1,
+    },
+    // 用户鼠标进入子菜单后开启延时，单位：秒
+    subMenuOpenDelay: {
+      type: Number,
+      default: 0,
+    },
     // 主题颜色
     theme: {
       type: String,
@@ -68,9 +78,19 @@ export default {
     },
   },
   data() {
+    const {
+      defaultSelectedNames,
+      selectedNames,
+      defaultOpenNames,
+      openNames,
+    } = this;
+
     return {
-      selectedItems: this.getSelectedItems(), // 选择的 menu-item 组件 name 数组
-      openSubMenus: this.getOpenSubMenus(), // 展开的 sub-menu 组件 name 数组
+      // 选择的 menu-item 组件 name 数组
+      selectedItems: this.getInitParam(defaultSelectedNames, selectedNames),
+      // 展开的 sub-menu 组件 name 数组
+      openSubMenus: this.getInitParam(defaultOpenNames, openNames),
+      timeoutID: null,
     };
   },
   computed: {
@@ -134,7 +154,7 @@ export default {
      * 控制 sub-menu 组件展开或收起
      * @param {String} type 事件类型
      * @param {String} name sub-menu 组件的 name 值
-     * @param {String} hover 事件移入移出状态
+     * @param {String} state 事件移入移出状态
      */
     updateOpenSubNames(type, name, state) {
       const index = this.openSubMenus.indexOf(name);
@@ -146,23 +166,29 @@ export default {
           this.openSubMenus.push(name);
         }
       } else if (type === 'hover' && this.mode !== 'inline') {
+        if (this.timeoutID) {
+          clearTimeout(this.timeoutID);
+        }
+
         if (state === 'enter' && index === -1) {
-          this.openSubMenus.push(name);
+          this.timeoutID = setTimeout(() => {
+            this.openSubMenus.push(name);
+          }, this.subMenuOpenDelay * 1000);
         } else if (state === 'leave' && index > -1) {
-          this.openSubMenus.splice(index, 1);
+          this.timeoutID = setTimeout(() => {
+            this.openSubMenus.splice(index, 1);
+          }, this.subMenuCloseDelay * 1000);
         }
       }
     },
-    // 获取初始化 selectedNames
-    getSelectedItems() {
-      const { defaultSelectedNames, selectedNames } = this;
-
-      return selectedNames.length > 0 ? selectedNames : defaultSelectedNames;
-    },
-    getOpenSubMenus() {
-      const { defaultOpenNames, openNames } = this;
-
-      return openNames.length > 0 ? openNames : defaultOpenNames;
+    /**
+     * 根据传入的参数判断应该返回什么样的初始值
+     * @param {Array} defaultParam prop 传入的初始化默认参数
+     * @param {Array} param prop 传入的参数
+     * @returns {Boolean}
+     */
+    getInitParam(defaultParam = [], param = []) {
+      return param.length > 0 ? param : defaultParam;
     },
   },
 };

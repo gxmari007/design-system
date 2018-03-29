@@ -37,7 +37,16 @@ export default {
       const { mode } = this;
       const prefixClass = 'co-menu';
 
-      return [`${prefixClass}`, `${prefixClass}__sub`, `${prefixClass}--${mode}`];
+      return [prefixClass, `${prefixClass}__sub`, `${prefixClass}--${mode}`];
+    },
+    popperClasses() {
+      const prefixClass = 'co-menu';
+
+      return [
+        `${prefixClass}__submenu`,
+        `${prefixClass}__submenu-popper`,
+        `${prefixClass}--${this.theme}`,
+      ];
     },
     titleStyles() {
       const styles = {};
@@ -52,8 +61,36 @@ export default {
     subIndent() {
       return this.indent + this.rootMenu.inlineIndent;
     },
+    // submenu 的显示和隐藏状态
     visible() {
       return this.rootMenu.openSubMenus.indexOf(this.name) > -1;
+    },
+    // menu 的主题颜色
+    theme() {
+      return this.rootMenu.theme;
+    },
+    // 判断是否为 menu 组件中的根 submenu
+    // popper 中子 submenu 不需要插入到 body 底部
+    isRootSubMenu() {
+      let parent = this.$parent;
+      let result = true;
+
+      while (parent) {
+        const { name } = parent.$options;
+
+        if (name === 'CoSubMenu') {
+          result = false;
+          break;
+        }
+
+        if (name === 'CoMenu') {
+          break;
+        }
+
+        parent = parent.$parent;
+      }
+
+      return result;
     },
   },
   methods: {
@@ -72,22 +109,35 @@ export default {
     },
     // 渲染 sub menu title
     renderTitle() {
-      const { titleStyles, toggleSubState } = this;
-
       return (
         <div
           class="co-menu__submenu-title"
-          style={titleStyles}
-          onClick={() => toggleSubState('click')}
-          onMouseenter={() => toggleSubState('hover', 'enter')}
-          onMouseleave={() => toggleSubState('hover', 'leave')}>
+          style={this.titleStyles}
+          onClick={() => this.toggleSubState('click')}
+          onMouseenter={() => this.toggleSubState('hover', 'enter')}
+          onMouseleave={() => this.toggleSubState('hover', 'leave')}>
           {this.$slots.title}
           <i class="co-menu__submenu-arrow"></i>
         </div>
       );
     },
+    renderPopper() {
+      return (
+        <sub-menu-popper
+          class={this.popperClasses}
+          value={this.visible}
+          placement="right-start"
+          appendToBody={this.isRootSubMenu}
+          onInput={this.onInput}
+          nativeOnMouseenter={() => this.toggleSubState('hover', 'enter')}
+          nativeOnMouseleave={() => this.toggleSubState('hover', 'leave')}>
+          <ul class={this.subClasses}>{this.$slots.default}</ul>
+        </sub-menu-popper>
+      );
+    },
     // 渲染 sub menu list
-    renderList() {
+    renderSubList() {
+      // 只有 inline 模式为展开类型
       if (this.mode === 'inline') {
         return (
           <co-collapse-transition>
@@ -100,24 +150,15 @@ export default {
         );
       }
 
-      return (
-        <sub-menu-popper
-          class={this.subClasses}
-          value={this.visible}
-          placement="right-start"
-          onInput={this.onInput}>
-          <ul>
-            {this.$slots.default}
-          </ul>
-        </sub-menu-popper>
-      );
+      // 其他模式为 popper 窗口
+      return this.renderPopper();
     },
   },
   render() {
     return (
       <li class={this.classes}>
         {this.renderTitle()}
-        {this.renderList()}
+        {this.renderSubList()}
       </li>
     );
   },
