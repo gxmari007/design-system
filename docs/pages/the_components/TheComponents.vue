@@ -1,6 +1,6 @@
 <template>
   <the-default>
-    <co-menu mode="inline" style="width: 256px;">
+    <co-menu mode="vertical" style="width: 256px;">
       <co-menu-item name="0">
         <co-icon type="mail" />
         Navigation One
@@ -16,11 +16,14 @@
         </template>
         <co-menu-item name="2">Menu Item</co-menu-item>
         <co-menu-item name="3">Menu Item</co-menu-item>
-        <co-sub-menu name="sub1">
-          <template slot="title">Navigation Three</template>
-          <co-menu-item name="4">Menu Item</co-menu-item>
-          <co-menu-item name="5">Menu Item</co-menu-item>
-        </co-sub-menu>
+      </co-sub-menu>
+      <co-sub-menu name="sub1">
+        <template slot="title">
+          <co-icon type="search" />
+          Navigation Three
+        </template>
+        <co-menu-item name="4">Menu Item</co-menu-item>
+        <co-menu-item name="5">Menu Item</co-menu-item>
       </co-sub-menu>
       <co-menu-item name="6">
         <co-icon type="calendar" />

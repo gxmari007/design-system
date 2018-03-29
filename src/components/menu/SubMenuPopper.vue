@@ -1,7 +1,9 @@
 <template>
-  <div v-show="visible" ref="popper">
-    <slot />
-  </div>
+  <transition name="zoom-big">
+    <div v-show="visible" ref="popper">
+      <slot />
+    </div>
+  </transition>
 </template>
 
 <script>

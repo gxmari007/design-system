@@ -1,3 +1,12 @@
-.make-motion() {
+// 构建 css 动画类
+.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+  .@{className}-appear-active,
+  .@{className}-enter-active {
+    animation: ~"@{keyframeName}In" @duration @ease-out-circ both;
+  }
 
+  .@{className}-leave-active {
+    animation: ~"@{keyframeName}Out" @duration @ease-in-out-circ both;
+    pointer-events: none;
+  }
 }

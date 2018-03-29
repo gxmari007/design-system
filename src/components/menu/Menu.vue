@@ -90,7 +90,6 @@ export default {
       selectedItems: this.getInitParam(defaultSelectedNames, selectedNames),
       // 展开的 sub-menu 组件 name 数组
       openSubMenus: this.getInitParam(defaultOpenNames, openNames),
-      timeoutID: null,
     };
   },
   computed: {
@@ -166,16 +165,12 @@ export default {
           this.openSubMenus.push(name);
         }
       } else if (type === 'hover' && this.mode !== 'inline') {
-        if (this.timeoutID) {
-          clearTimeout(this.timeoutID);
-        }
-
         if (state === 'enter' && index === -1) {
-          this.timeoutID = setTimeout(() => {
+          setTimeout(() => {
             this.openSubMenus.push(name);
           }, this.subMenuOpenDelay * 1000);
         } else if (state === 'leave' && index > -1) {
-          this.timeoutID = setTimeout(() => {
+          setTimeout(() => {
             this.openSubMenus.splice(index, 1);
           }, this.subMenuCloseDelay * 1000);
         }
