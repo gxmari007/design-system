@@ -23,6 +23,11 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      timeoutID: null,
+    };
+  },
   computed: {
     classes() {
       const { mode, disabled, visible } = this;
@@ -70,7 +75,7 @@ export default {
       return this.rootMenu.theme;
     },
     // 判断是否为 menu 组件中的根 submenu
-    // popper 中子 submenu 不需要插入到 body 底部
+    // popper 中的子 submenu 不需要插入到 body 底部
     isRootSubMenu() {
       let parent = this.$parent;
       let result = true;
@@ -94,18 +99,29 @@ export default {
     },
   },
   methods: {
-    // title 的 click 和 hover 事件回掉，切换 sub 的显示或隐藏
-    toggleSubState(type, state) {
-      if (this.disabled) return;
+    // inline 模式下 click 事件方法
+    onClick() {
+      if (this.disabled || this.mode !== 'inline') return;
 
-      this.rootMenu.updateOpenSubNames(type, this.name, state);
+      this.rootMenu.updateOpenSubNames('click', this.name);
     },
-    onInput(value) {
-      this.toggleSubState(
-        'hover',
-        this.name,
-        value ? 'enter' : 'leave',
-      );
+    /**
+     * 非 inline 模式下 hover 事件方法
+     * @param {String} state 代表移入或移出的状态
+     */
+    onHover(state) {
+      if (this.disabled || this.mode === 'inline') return;
+      if (this.timeoutID) {
+        clearTimeout(this.timeoutID);
+      }
+
+      const timeout = state === 'enter'
+        ? this.rootMenu.subMenuOpenDelay
+        : this.rootMenu.subMenuCloseDelay;
+
+      this.timeoutID = setTimeout(() => {
+        this.rootMenu.updateOpenSubNames('hover', this.name, state);
+      }, timeout);
     },
     // 渲染 sub menu title
     renderTitle() {
@@ -113,9 +129,9 @@ export default {
         <div
           class="co-menu__submenu-title"
           style={this.titleStyles}
-          onClick={() => this.toggleSubState('click')}
-          onMouseenter={() => this.toggleSubState('hover', 'enter')}
-          onMouseleave={() => this.toggleSubState('hover', 'leave')}>
+          onClick={this.onClick}
+          onMouseenter={() => this.onHover('enter')}
+          onMouseleave={() => this.onHover('leave')}>
           {this.$slots.title}
           <i class="co-menu__submenu-arrow"></i>
         </div>
@@ -138,9 +154,8 @@ export default {
           placement={placement}
           appendToBody={this.isRootSubMenu}
           transformOrigin={transformOrigin}
-          onInput={this.onInput}
-          nativeOnMouseenter={() => this.toggleSubState('hover', 'enter')}
-          nativeOnMouseleave={() => this.toggleSubState('hover', 'leave')}>
+          nativeOnMouseenter={() => this.onHover('enter')}
+          nativeOnMouseleave={() => this.onHover('leave')}>
           <ul class={this.subClasses}>{this.$slots.default}</ul>
         </sub-menu-popper>
       );

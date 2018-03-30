@@ -143,10 +143,7 @@ export default {
           });
         }
 
-        this.$emit('on-click', {
-          name,
-          namePath,
-        });
+        this.$emit('on-click', { name, namePath });
       }
     },
     /**
@@ -158,22 +155,10 @@ export default {
     updateOpenSubNames(type, name, state) {
       const index = this.openSubMenus.indexOf(name);
 
-      if (type === 'click' && this.mode === 'inline') {
-        if (index > -1) {
-          this.openSubMenus.splice(index, 1);
-        } else {
-          this.openSubMenus.push(name);
-        }
-      } else if (type === 'hover' && this.mode !== 'inline') {
-        if (state === 'enter' && index === -1) {
-          setTimeout(() => {
-            this.openSubMenus.push(name);
-          }, this.subMenuOpenDelay * 1000);
-        } else if (state === 'leave' && index > -1) {
-          setTimeout(() => {
-            this.openSubMenus.splice(index, 1);
-          }, this.subMenuCloseDelay * 1000);
-        }
+      if ((type === 'click' && index > -1) || (type === 'hover' && state === 'leave' && index > -1)) {
+        this.openSubMenus.splice(index, 1);
+      } else if ((type === 'click' && index === -1) || (type === 'hover' && state === 'enter' && index === -1)) {
+        this.openSubMenus.push(name);
       }
     },
     /**
