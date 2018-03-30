@@ -1,5 +1,5 @@
 <template>
-  <transition name="zoom-big">
+  <transition name="zoom-big" appear>
     <div v-show="visible" ref="popper">
       <slot />
     </div>

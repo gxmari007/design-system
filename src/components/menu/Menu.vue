@@ -119,6 +119,11 @@ export default {
       const { multiple, selectable } = this;
 
       if (selectable) {
+        // 选择 item 的时候会收起展开的 submenu
+        if (this.mode !== 'inline') {
+          this.openSubMenus = [];
+        }
+
         if (multiple) {
           const index = this.selectedItems.indexOf(name);
 

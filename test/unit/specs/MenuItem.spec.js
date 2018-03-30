@@ -1,11 +1,12 @@
 import { shallow, createLocalVue } from '@vue/test-utils';
 import CoMenu from '@/components/menu';
 
-const { CoMenuItem } = CoMenu;
+const { CoSubMenu, CoMenuItem } = CoMenu;
 
 describe('CoMenuItem 组件', () => {
   const localVue = createLocalVue();
 
+  localVue.component(CoSubMenu.name, CoSubMenu);
   localVue.component(CoMenuItem.name, CoMenuItem);
 
   it('default render', () => {
@@ -69,5 +70,36 @@ describe('CoMenuItem 组件', () => {
 
     spyFn.mockReset();
     spyFn.mockRestore();
+  });
+
+  it('在非 inline 模式下点击组件会清空 menu 组件中 openSubMenus 的值', () => {
+    const wrapper = shallow(CoMenu, {
+      propsData: {
+        mode: 'inline',
+        openNames: ['sub0'],
+      },
+      slots: {
+        default: `
+          <co-menu-item name="0">menu item</co-menu-item>
+          <co-sub-menu name="sub0">
+            <span slot="title">submenu title</span>
+            <co-menu-item name="1">menu item</co-menu-item>
+          </co-sub-menu>
+        `,
+      },
+      localVue,
+    });
+    const item = wrapper.find(CoMenuItem);
+
+    expect(wrapper.vm.openSubMenus).toEqual(['sub0']);
+
+    item.trigger('click');
+
+    expect(wrapper.vm.openSubMenus).toEqual(['sub0']);
+
+    wrapper.setProps({ mode: 'vertical' });
+    item.trigger('click');
+
+    expect(wrapper.vm.openSubMenus).toEqual([]);
   });
 });

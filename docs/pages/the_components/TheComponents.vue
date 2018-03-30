@@ -1,6 +1,6 @@
 <template>
   <the-default>
-    <co-menu mode="vertical" style="width: 256px;">
+    <co-menu mode="inline" style="width: 256px;" :open-names="['sub0']">
       <co-menu-item name="0">
         <co-icon type="mail" />
         Navigation One
