@@ -14,6 +14,7 @@ const coview = {
   CoCollapseTransition,
   CoMenu,
   CoMenuItem: CoMenu.CoMenuItem,
+  CoItemGroup: CoMenu.CoItemGroup,
   CoSubMenu: CoMenu.CoSubMenu,
   CoRow,
 };

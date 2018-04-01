@@ -5,11 +5,12 @@
 </template>
 
 <script>
+import emitter from 'mixins/emitter';
 import mixin from './mixin';
 
 export default {
   name: 'CoMenuItem',
-  mixins: [mixin],
+  mixins: [mixin, emitter],
   inject: ['rootMenu'],
   props: {
     // item 的唯一标志
@@ -57,6 +58,15 @@ export default {
       }
 
       return path;
+    },
+  },
+  watch: {
+    selected: {
+      immediate: true,
+      handler(newVal) {
+        // 把选中状态传给 submenu 组件判断是否应该添加
+        this.dispatch('CoSubMenu', 'menu-item-selected', this.name, newVal);
+      },
     },
   },
   methods: {

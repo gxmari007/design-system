@@ -26,16 +26,23 @@ export default {
   data() {
     return {
       timeoutID: null,
+      selectedChilds: [], // 选中的 menu-item 组件
     };
   },
   computed: {
     classes() {
-      const { mode, disabled, visible } = this;
+      const {
+        mode,
+        disabled,
+        visible,
+        selectedChilds,
+      } = this;
       const prefixClass = 'co-menu__submenu';
 
       return [prefixClass, `${prefixClass}--${mode}`, {
         [`${prefixClass}--disabled`]: disabled,
         [`${prefixClass}--open`]: visible,
+        [`${prefixClass}--selected`]: selectedChilds.length > 0,
       }];
     },
     subClasses() {
@@ -98,7 +105,20 @@ export default {
       return result;
     },
   },
+  created() {
+    // 监听子组件是否被选中，添加 selected 类
+    this.$on('menu-item-selected', this.onMenuItemSelected);
+  },
   methods: {
+    onMenuItemSelected(name, selected) {
+      const index = this.selectedChilds.indexOf(name);
+
+      if (selected && index === -1) {
+        this.selectedChilds.push(name);
+      } else if (!selected && index > -1) {
+        this.selectedChilds.splice(index, 1);
+      }
+    },
     // inline 模式下 click 事件方法
     onClick() {
       if (this.disabled || this.mode !== 'inline') return;

@@ -35,7 +35,7 @@ export default {
       type: String,
       default: 'vertical',
       validator(value) {
-        return oneOf(value, ['vertical', 'vertical-left', 'vertical-right', 'horizontal', 'inline']);
+        return oneOf(value, ['vertical', 'vertical-right', 'horizontal', 'inline']);
       },
     },
     // 是否允许多选

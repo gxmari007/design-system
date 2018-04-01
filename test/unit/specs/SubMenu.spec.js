@@ -134,4 +134,24 @@ describe('CoSubMenu', () => {
     expect(subMenu.vm.visible).toBe(true);
     expect(subMenu.classes()).toContain('co-menu__submenu--open');
   });
+
+  // 测试工具渲染问题无法得到想要的 html 结构
+  // it('CoSubMenu 中的 CoMenuItem 组件被选中状态下应该在 CoSubMenu 根标签上添加 co-menu__submenu--selected 类', () => {
+  //   const wrapper = shallow(CoMenu, {
+  //     propsData: { selectNames: ['0'] },
+  //     slots: {
+  //       default: `
+  //         <co-sub-menu name="sub0">
+  //           <template slot="title">sub menu title</template>
+  //           <co-menu-item name="0">menu item</co-menu-item>
+  //         </co-sub-menu>
+  //       `,
+  //     },
+  //     localVue,
+  //   });
+  //   const submenu = wrapper.find(CoSubMenu);
+  //   wrapper.update();
+
+  //   expect(submenu.classes()).toContain('co-menu__submenu--selected');
+  // });
 });
