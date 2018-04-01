@@ -50,7 +50,7 @@
     "popper.js": "^1.14.1"
   },
   "devDependencies": {
-    "@vue/test-utils": "^1.0.0-beta.12",
+    "@vue/test-utils": "^1.0.0-beta.13",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.2",
