@@ -4,8 +4,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = require('./config');
 
 /**
- * @param {string} _path
- * @returns {string}
+ * @param {String} _path
+ * @returns {String}
  */
 exports.assetsPath = (_path) => {
   const assetsSubDirectory = process.env.NODE_ENV === 'production'
@@ -17,10 +17,10 @@ exports.assetsPath = (_path) => {
 
 /**
  * 返回 vue-loader 的 loaders 配置
- * @param {object} options
- * @param {boolean} options.sourceMap
- * @param {boolean} options.extract
- * @returns {object}
+ * @param {Object} options
+ * @param {Boolean} options.sourceMap
+ * @param {Boolean} options.extract
+ * @returns {Object}
  */
 exports.cssLoaders = (options) => {
   const opts = options || {};
@@ -61,8 +61,8 @@ exports.cssLoaders = (options) => {
 
 /**
  * 返回 webpack 的样式 loader 配置
- * @param {object} options
- * @returns {array}
+ * @param {Object} options
+ * @returns {Array}
  */
 exports.styleLoaders = (options) => {
   const loaders = exports.cssLoaders(options);

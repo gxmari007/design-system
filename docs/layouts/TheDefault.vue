@@ -1,7 +1,9 @@
 <template>
   <div>
     <the-header />
-    <slot />
+    <div class="main-wrapper">
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -15,3 +17,9 @@ export default {
   },
 };
 </script>
+
+<style lang="less">
+.main-wrapper {
+  padding: 40px 0 0;
+}
+</style>

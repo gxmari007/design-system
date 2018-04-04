@@ -3,6 +3,7 @@ const path = require('path');
 
 module.exports = {
   docsDev: {
+    assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     // 指定 host 地址
     host: 'localhost',
