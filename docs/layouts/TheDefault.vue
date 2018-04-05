@@ -2,7 +2,12 @@
   <div>
     <the-header />
     <div class="main-wrapper">
-      <slot />
+      <co-row>
+        <co-col :xs="24" :sm="24" :md="6" :lg="5" :xl="5" :xxl="4"></co-col>
+        <co-col >
+          <slot />
+        </co-col>
+      </co-row>
     </div>
   </div>
 </template>

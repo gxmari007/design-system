@@ -3,7 +3,7 @@
     <co-row>
       <co-col :xs="24" :sm="24" :md="6" :lg="5" :xl="5" :xxl="4">
         <router-link to="/" id="logo" exact>
-          <img src="../../assets/vue.svg" alt="Vue logo" />
+          <img src="../../assets/ant-design.svg" alt="Vue logo" />
           <span>CoView</span>
         </router-link>
       </co-col>
@@ -31,13 +31,19 @@ export default {
   padding-left: 40px;
   text-decoration: none;
 
+  img, span {
+    vertical-align: middle;
+  }
+
   img {
     height: 32px;
     margin-right: 16px;
   }
 
   span {
-    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    color: #0d1a26;
   }
 }
 </style>
