@@ -280,15 +280,16 @@
         color: @menu-highlight-color;
       }
 
-      // 这里重复重置了前面 a 标签样式
-      > a {
-        display: block;
-        color: @menu-item-color;
+      // @deprecated
+      // 这些样式会造成水平状态下 a 标签选中时字体无法变为蓝色
+      // > a {
+      //   display: block;
+      //   color: @menu-item-color;
 
-        &:hover {
-          color: @menu-highlight-color;
-        }
-      }
+      //   &:hover {
+      //     color: @menu-highlight-color;
+      //   }
+      // }
     }
   }
 
