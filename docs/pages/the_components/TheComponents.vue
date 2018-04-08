@@ -1,9 +1,8 @@
 <template>
   <the-default>
-    <co-menu mode="inline" style="width: 256px;" :open-names="[]" :default-selected-names="['2']">
+    <co-menu mode="inline" style="width: 256px;" :open-names="[]" :default-selected-names="['0']">
       <co-menu-item name="0">
-        <co-icon type="mail" />
-        Navigation One
+        <a href="/"><co-icon type="mail" /> Navigation One</a>
       </co-menu-item>
       <co-menu-item name="1">
         <co-icon type="calendar" />
