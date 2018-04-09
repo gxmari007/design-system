@@ -14,7 +14,14 @@ const routes = [
   },
 ];
 
-export default new VueRouter({
+const router = new VueRouter({
   routes,
   linkActiveClass: 'active',
 });
+
+// 设置后置钩子改变页面 title
+router.afterEach((to) => {
+  document.title = `${to.name} - CoView`;
+});
+
+export default router;
