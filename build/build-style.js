@@ -8,7 +8,7 @@ const pkg = require('../package.json');
 
 gulp.task('style', () => {
   return gulp.src(path.join(__dirname, '../src/style/*.less'))
-    .pipe(less())
+    .pipe(less({ javascriptEnabled: true }))
     .pipe(autoprefixer({ browsers: pkg.browserslist }))
     .pipe(cssmin())
     .pipe(gulp.dest('../lib'));
