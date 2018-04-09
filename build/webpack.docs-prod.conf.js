@@ -57,25 +57,25 @@ module.exports = merge(baseWebpackConfig, {
     }),
     // 作用域提升，浏览器中代码执行的更快
     // new webpack.optimize.ModuleConcatenationPlugin(),
-    // 确保 vendor 模块没有变化的情况下 module.id 不会变化
-    new webpack.HashedModuleIdsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks(module) {
-        return module.resource
-          && /\.js/.test(module.resource)
-          && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
-      async: 'vendor-async',
-      children: true,
-      minChunks: 3
-    })
+    // // 确保 vendor 模块没有变化的情况下 module.id 不会变化
+    // new webpack.HashedModuleIdsPlugin(),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor',
+    //   minChunks(module) {
+    //     return module.resource
+    //       && /\.js/.test(module.resource)
+    //       && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
+    //   }
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'manifest',
+    //   minChunks: Infinity
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'app',
+    //   async: 'vendor-async',
+    //   children: true,
+    //   minChunks: 3
+    // })
   ]
 });
