@@ -26,13 +26,13 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': config.docsBuild.env
     }),
-    // new UglifyJsPlugin({
-    //   uglifyOptions: {
-    //     warnings: false
-    //   },
-    //   sourceMap: config.docsBuild.sourceMap,
-    //   parallel: true
-    // }),
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        warnings: false
+      },
+      sourceMap: config.docsBuild.sourceMap,
+      parallel: true
+    }),
     // 提取 chunk 中的样式部分打包进单独 css 文件
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css'),
