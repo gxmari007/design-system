@@ -1,7 +1,7 @@
 <script>
-import CoIcon from 'components/icon';
-import { oneOf } from 'utils/help';
-import { sizeMap, SIZE } from 'utils/style';
+import CoIcon from '../icon';
+import { oneOf } from '../../utils/help';
+import { sizeMap, SIZE } from '../../utils/style';
 
 export default {
   name: 'CoButton',

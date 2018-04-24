@@ -1,5 +1,5 @@
 <script>
-import CoCollapseTransition from 'components/collapse-transition';
+import CoCollapseTransition from '../collapse-transition';
 import SubMenuPopper from './SubMenuPopper';
 import mixin from './mixin';
 

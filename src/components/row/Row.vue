@@ -6,8 +6,8 @@
 
 <script>
 import Vue from 'vue';
-import { oneOf } from 'utils/help';
-import { responsiveArray } from 'utils/style';
+import { oneOf } from '../../utils/help';
+import { responsiveArray } from '../../utils/style';
 
 let enquire;
 const responsiveMap = {

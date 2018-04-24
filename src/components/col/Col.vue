@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { responsiveArray } from 'utils/style';
+import { responsiveArray } from '../../utils/style';
 
 export default {
   name: 'CoCol',

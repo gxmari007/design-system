@@ -3,7 +3,7 @@
     <co-row>
       <co-col :xs="24" :sm="24" :md="6" :lg="5" :xl="5" :xxl="4">
         <router-link to="/" id="logo" exact>
-          <img src="../../assets/vue.svg" alt="Vue logo" />
+          <img src="~/assets/vue.svg" alt="Vue logo" />
           <span>CoView</span>
         </router-link>
       </co-col>
@@ -29,24 +29,25 @@ export default {
       selectedNames: [this.$route.name],
       links: [
         { key: 'home', name: '首页', link: '/' },
-        { key: 'components', name: '组件', link: '/components' },
-      ],
+        { key: 'components', name: '组件', link: '/components' }
+      ]
     };
   },
   methods: {
     onSelect() {
       this.selectedNames = [this.$route.name];
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="less">
-@import "../../../src/style/themes/default.less";
+@import "../../src/style/themes/default.less";
 
 #header {
   position: relative;
   box-shadow: 0 2px 8px #f0f1f2;
+  background-color: #fff;
   z-index: 10;
 }
 

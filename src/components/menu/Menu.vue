@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { oneOf } from 'utils/help';
+import { oneOf } from '../../utils/help';
 
 export default {
   name: 'CoMenu',

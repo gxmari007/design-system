@@ -55,7 +55,7 @@ exports.cssLoaders = (options) => {
 
   return {
     css: generateLoaders(),
-    less: generateLoaders('less', { javascriptEnabled: true }) // less 3 javascript 默认关闭
+    less: generateLoaders('less') // less 3 javascript 默认关闭
   };
 }
 

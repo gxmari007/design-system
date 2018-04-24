@@ -1,5 +1,5 @@
-import { isServer, isTest, oneOf } from 'utils/help';
-import { placements } from 'utils/style';
+import { isServer, isTest, oneOf } from '../utils/help';
+import { placements } from '../utils/style';
 
 const Popper = isServer || isTest ? () => {} : require('popper.js').default;
 

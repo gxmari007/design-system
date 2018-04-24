@@ -1,4 +1,4 @@
-import { addClass, removeClass } from 'utils/help';
+import { addClass, removeClass } from '../../utils/help';
 
 const transitionEvents = {
   beforeEnter(element) {

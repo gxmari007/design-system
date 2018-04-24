@@ -20,12 +20,12 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': resolve('src'),
-      '~': resolve('docs'),
-      'components': resolve('src/components'),
-      'directives': resolve('src/directives'),
-      'mixins': resolve('src/mixins'),
-      'utils': resolve('src/utils')
+      components: resolve('src/components'),
+      directives: resolve('src/directives'),
+      mixins: resolve('src/mixins'),
+      utils: resolve('src/utils'),
+      // eslint docs 需要
+      coview: resolve('src/index.js')
     }
   },
   module: {
@@ -35,7 +35,7 @@ module.exports = {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        include: [resolve('docs'), resolve('src')],
+        exclude: /(node_modules)/,
         options: {
           formatter: require('eslint-friendly-formatter')
         }

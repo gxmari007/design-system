@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import popper from 'mixins/popper';
+import popper from '../../mixins/popper';
 
 export default {
   name: 'SubMenuPopper',
