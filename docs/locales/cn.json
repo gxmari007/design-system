@@ -1,0 +1,35 @@
+{
+  "header": {
+    "navs": [
+      { "name": "首页", "path": "/" },
+      { "name": "组件", "path": "/introduce" }
+    ]
+  },
+  "sidebar": [
+    { "name": "Ant Design of Vue", "path": "/introduce", "type": "item" },
+    { "name": "快速上手", "path": "/getting-started", "type": "item" },
+    {
+      "name": "Components",
+      "key": "components",
+      "type": "submenu",
+      "childs": [
+        {
+          "name": "General",
+          "type": "group",
+          "childs": [
+            { "name": "Button 按钮", "path": "/components/button", "type": "item" },
+            { "name": "Icon 图标", "path": "/components/icon", "type": "item" }
+          ]
+        },
+        {
+          "name": "Layout",
+          "type": "group",
+          "childs": [
+            { "name": "Grid 删格", "path": "/components/grid", "type": "item" },
+            { "name": "Layout 布局", "path": "/components/layout", "type": "item" }
+          ]
+        }
+      ]
+    }
+  ]
+}

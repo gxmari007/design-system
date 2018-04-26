@@ -2,18 +2,18 @@
   <header id="header">
     <co-row>
       <co-col :xs="24" :sm="24" :md="6" :lg="5" :xl="5" :xxl="4">
-        <router-link to="/" id="logo" exact>
+        <nuxt-link to="/" id="logo" exact>
           <img src="~/assets/vue.svg" alt="Vue logo" />
           <span>CoView</span>
-        </router-link>
+        </nuxt-link>
       </co-col>
       <co-col :xs="0" :sm="0" :md="18" :lg="19" :xl="19" :xxl="20">
-        <co-menu id="nav" mode="horizontal" :selected-names="selectedNames" @on-select="onSelect">
+        <co-menu id="nav" mode="horizontal" @on-select="onSelect">
           <co-menu-item
-            v-for="item in links"
-            :key="item.key"
-            :name="item.key">
-            <router-link :to="item.link" exact>{{ item.name }}</router-link>
+            v-for="{ name, path } in links"
+            :key="path"
+            :name="name">
+            <nuxt-link :to="path" exact>{{ name }}</nuxt-link>
           </co-menu-item>
         </co-menu>
       </co-col>
@@ -22,22 +22,21 @@
 </template>
 
 <script>
+import cn from '~/locales/cn.json';
+
 export default {
   name: 'TheHeader',
   data() {
     return {
       selectedNames: [this.$route.name],
-      links: [
-        { key: 'home', name: '首页', link: '/' },
-        { key: 'components', name: '组件', link: '/components' }
-      ]
+      links: cn.header.navs,
     };
   },
   methods: {
     onSelect() {
       this.selectedNames = [this.$route.name];
-    }
-  }
+    },
+  },
 };
 </script>
 

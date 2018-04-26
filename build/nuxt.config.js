@@ -11,9 +11,18 @@ module.exports = {
       { name: 'renderer', content: 'webkit' },
     ],
     link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' },
     ],
+  },
+
+  // 应用模式改为单页应用
+  // mode: 'spa',
+
+  // 路由配置
+  router: {
+    linkActiveClass: 'active',
   },
 
   // 配置文档源文件路径
@@ -33,6 +42,9 @@ module.exports = {
           loader: 'eslint-loader',
           enforce: 'pre',
           exclude: /(node_modules)/,
+          options: {
+            formatter: require('eslint-friendly-formatter'),
+          },
         });
       }
     },
@@ -40,16 +52,24 @@ module.exports = {
     extractCSS: { allChunks: true },
     // 将 coview 打包进 vendor 中
     vendor: [
-      '~/../src'
-    ]
+      '~/../src',
+    ],
   },
 
   css: [
-    '~/../src/style/index.less'
+    '~/../src/style/index.less',
   ],
 
   // 插件
   plugins: [
     '~/plugins/coview',
   ],
+
+  modules: [
+    '@nuxtjs/markdownit',
+  ],
+
+  markdownit: {
+    injected: true,
+  },
 };
