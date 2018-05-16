@@ -66,10 +66,27 @@ module.exports = {
   ],
 
   modules: [
-    '@nuxtjs/markdownit',
-  ],
+    ['@nuxtjs/markdownit', {
+      use: [
+        ['markdown-it-container', 'demo', {
+          validate: function(params) {
+            return params.trim().match(/^demo\s+(.*)$/);
+          },
 
-  markdownit: {
-    injected: true,
-  },
+          render: function (tokens, idx) {
+            var m = tokens[idx].info.trim().match(/^demo\s+(.*)$/);
+
+            if (tokens[idx].nesting === 1) {
+              // opening tag
+              return '<details><summary>' + md.utils.escapeHtml(m[1]) + '</summary>\n';
+
+            } else {
+              // closing tag
+              return '</details>\n';
+            }
+          }
+        }],
+      ],
+    }],
+  ],
 };

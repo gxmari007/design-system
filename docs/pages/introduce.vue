@@ -1,15 +1,15 @@
 <template>
-  <section class="markdown">{{doc}}</section>
+  <component :is="'button'">button</component>
 </template>
 
 <script>
 import doc from '~/doc.md';
 
 export default {
-  data() {
-    return {
-      doc,
-    };
+  computed: {
+    doc() {
+      return doc;
+    },
   },
 };
 </script>

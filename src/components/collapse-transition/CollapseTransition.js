@@ -13,6 +13,7 @@ const transitionEvents = {
     el.dataset.oldPaddingTop = el.style.paddingTop;
     el.dataset.oldPaddingBottom = el.style.paddingBottom;
     el.style.height = '0';
+    el.style.opacity = '0';
     el.style.paddingTop = '0';
     el.style.paddingBottom = '0';
   },
@@ -23,8 +24,10 @@ const transitionEvents = {
 
     if (el.scrollHeight !== 0) {
       el.style.height = `${el.scrollHeight}px`;
+      el.style.opacity = '1';
     } else {
       el.style.height = '';
+      el.style.opacity = '';
     }
 
     el.style.paddingTop = el.dataset.oldPaddingTop;
@@ -36,6 +39,7 @@ const transitionEvents = {
 
     removeClass(el, 'co-collapse-transition');
     el.style.height = '';
+    el.style.opacity = '';
     el.style.overflow = el.dataset.oldOverflow;
   },
   beforeLeave(element) {
@@ -49,6 +53,7 @@ const transitionEvents = {
     el.dataset.oldPaddingBottom = el.style.paddingBottom;
     el.dataset.oldOverflow = el.style.overflow;
     el.style.height = `${el.scrollHeight}px`;
+    el.style.opacity = '1';
     el.style.overflow = 'hidden';
   },
   leave(element) {
@@ -57,6 +62,7 @@ const transitionEvents = {
     if (el.scrollHeight !== 0) {
       addClass(el, 'co-collapse-transition');
       el.style.height = '0';
+      el.style.opacity = '0';
       el.style.paddingTop = '0';
       el.style.paddingBottom = '0';
     }
@@ -66,6 +72,7 @@ const transitionEvents = {
 
     removeClass(el, 'co-collapse-transition');
     el.style.height = '';
+    el.style.opacity = '';
     el.style.paddingTop = el.dataset.oldPaddingTop;
     el.style.paddingBottom = el.dataset.oldPaddingBottom;
     el.style.overflow = el.dataset.oldOverflow;
