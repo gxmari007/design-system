@@ -4,7 +4,6 @@
 
 ::: demo
 click me
-*content*
 :::
 
 # API
