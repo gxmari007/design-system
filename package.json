@@ -4,8 +4,8 @@
   "version": "0.3.44",
   "author": "gxmari007 <392041299@qq.com>",
   "scripts": {
-    "docs:dev": "nuxt -c build/nuxt.config.js",
-    "docs:build": "nuxt generate -c build/nuxt.config.js",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "test": "jest --config test/unit/jest.conf.js",
     "test:watch": "jest --config test/unit/jest.conf.js --watchAll",
     "test:coverage": "npm run test -- --coverage",
@@ -51,7 +51,6 @@
     "popper.js": "^1.14.1"
   },
   "devDependencies": {
-    "@nuxtjs/markdownit": "^1.2.0",
     "@vue/test-utils": "^1.0.0-beta.15",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
@@ -90,7 +89,6 @@
     "less-loader": "^4.1.0",
     "markdown-it-container": "^2.0.0",
     "node-notifier": "^5.2.1",
-    "nuxt": "^1.4.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.4.0",
     "portfinder": "^1.0.13",
@@ -105,6 +103,7 @@
     "vue-server-renderer": "^2.5.13",
     "vue-style-loader": "^4.0.2",
     "vue-template-compiler": "^2.5.13",
+    "vuepress": "^0.10.0",
     "webpack": "^3.11.0",
     "webpack-bundle-analyzer": "^2.10.0",
     "webpack-dev-server": "^2.11.1",
