@@ -12,15 +12,15 @@ export default {
   mixins: [mixin],
   inject: ['rootMenu'],
   props: {
-    // 是否禁用
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
     // 唯一标志
     name: {
       type: String,
       required: true,
+    },
+    // 是否禁用
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

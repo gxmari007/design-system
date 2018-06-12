@@ -2,10 +2,6 @@
 
 这里是 Ant Design 的 React 实现，开发和服务于企业级后台产品。
 
-::: demo
-click me
-:::
-
 # API
 
 api text
