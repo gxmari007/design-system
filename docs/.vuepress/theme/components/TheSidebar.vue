@@ -30,14 +30,14 @@ export default {
         if (item.hasOwnProperty('open')) {
           return (
             <co-sub-menu name={item.text}>
-              <span slot="title">{item.text}</span>
+              <h4 slot="title">{item.text}</h4>
               {renderSidebar(h, item.children, instance)}
             </co-sub-menu>
           );
         } else if (item.hasOwnProperty('children')) {
           return (
             <co-item-group>
-              <span slot="title">{item.text}</span>
+              <template slot="title">{item.text}</template>
               {renderSidebar(h, item.children, instance)}
             </co-item-group>
           );
@@ -45,7 +45,11 @@ export default {
 
         return (
           <co-menu-item name={item.text}>
-            <router-link to={item.link}>{item.text}</router-link>
+            <router-link to={item.link}>
+              <span>{item.text}</span>
+              {item.chinese &&
+              <span class="sidebar__chinese">{item.chinese}</span>}
+            </router-link>
           </co-menu-item>
         );
       });
@@ -53,7 +57,11 @@ export default {
   },
   render(h) {
     return (
-      <co-menu class="sidebar" mode="inline" default-open-names={this.defaultOpenNames}>
+      <co-menu
+        class="sidebar docs-menu"
+        mode="inline"
+        default-open-names={this.defaultOpenNames}
+        inline-indent={40}>
         {this.renderSidebar(h, this.sidebar, this)}
       </co-menu>
     );
@@ -64,5 +72,24 @@ export default {
 <style lang="less">
 .sidebar {
   padding-bottom: 50px;
+
+  &.co-menu--inline {
+    & > .co-menu__item {
+      font-size: 14px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .co-menu__item-group-title {
+      padding-left: 56px !important;
+    }
+  }
+
+  &__chinese {
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 6px;
+    opacity: .67;
+  }
 }
 </style>

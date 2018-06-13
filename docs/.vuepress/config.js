@@ -32,22 +32,22 @@ module.exports = {
           {
             text: 'General',
             children: [
-              { text: 'Button 按钮', link: '/components/button.html' },
-              { text: 'Icon 图标', link: '/components/icon.html' },
+              { text: 'Button', chinese: '按钮', link: '/components/button.html' },
+              { text: 'Icon', chinese: '图标', link: '/components/icon.html' },
             ],
           },
           {
             text: 'Layout',
             children: [
-              { text: 'Grid 删格', link: '/components/grid.html' },
-              { text: 'Layout 布局', link: '/components/layout.html' },
+              { text: 'Grid', chinese: '删格', link: '/components/grid.html' },
+              { text: 'Layout', chinese: '布局', link: '/components/layout.html' },
             ],
           },
           {
             text: 'Navigation',
             children: [
-              { text: 'Affix 固钉', link: '/components/affix.html' },
-              { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb.html' },
+              { text: 'Affix', chinese: '固钉', link: '/components/affix.html' },
+              { text: 'Breadcrumb', chinese: '面包屑', link: '/components/breadcrumb.html' },
             ],
           },
         ],

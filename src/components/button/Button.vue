@@ -11,6 +11,8 @@ export default {
       type: Boolean,
       default: false,
     },
+    // 点击跳转的地址，此时组件为 a 链接
+    href: String,
     // button 原生 html 属性
     htmlType: {
       type: String,
@@ -23,6 +25,11 @@ export default {
     icon: String,
     // 设置按钮进入载入状态
     loading: {
+      type: Boolean,
+      default: false,
+    },
+    // 设置按钮禁用状态
+    disabled: {
       type: Boolean,
       default: false,
     },
@@ -40,21 +47,14 @@ export default {
         return oneOf(value, SIZE);
       },
     },
+    // a 链接的 target 属性，href 属性存在时生效
+    target: String,
     // 设置按钮类型
     type: {
       type: String,
       validator(value) {
         return oneOf(value, ['primary', 'dashed', 'danger']);
       },
-    },
-    // 点击跳转的地址，此时组件为 a 链接
-    href: String,
-    // a 链接的 target 属性，href 属性存在时生效
-    target: String,
-    // 设置按钮禁用状态
-    disabled: {
-      type: Boolean,
-      default: false,
     },
   },
   data() {

@@ -7,7 +7,7 @@
       </router-link>
     </co-col>
     <co-col :xs="0" :sm="0" :md="18" :lg="19" :xl="19" :xxl="20">
-      <co-menu class="the-heading__navs" mode="horizontal">
+      <co-menu class="the-heading__navs docs-menu" mode="horizontal">
         <co-menu-item
           v-for="(nav, index) in navs"
           :key="index"
