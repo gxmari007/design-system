@@ -25,10 +25,10 @@ export default {
 };
 </script>
 
+<style src="prismjs/themes/prism-tomorrow.css"></style>
+<style src="../../../src/style/index.less" lang="less"></style>
+<style src="./styles/index.less" lang="less"></style>
 <style lang="less">
-@import "../../../src/style/index.less";
-@import "./style.less";
-
 .app {
   &__main {
     padding: 40px 0 0;

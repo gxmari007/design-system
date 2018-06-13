@@ -11,7 +11,7 @@
 
 > `?` 为可选。
 
-完整的图标设计规范请访问 [图标规范](https://ant.design/docs/spec/icon-cn)。
+<!-- 完整的图标设计规范请访问 [图标规范](https://ant.design/docs/spec/icon-cn)。 -->
 
 ## 如何使用
 
@@ -19,4 +19,12 @@
 
 ``` html
 <co-icon type="link" />
+```
+
+## API
+
+由于图标字体本质上还是文字，可以使用 `style` 和 `class` 设置图标的大小和颜色。
+
+``` html
+<co-icon type="question" style="font-size: 16px; color: #08c;" />
 ```
