@@ -8,6 +8,9 @@ export default {
     defaultOpenNames() {
       return this.getDefaultOpenNames(this.sidebar);
     },
+    selectedNames() {
+      return [this.$route.path];
+    },
   },
   methods: {
     getDefaultOpenNames: function getDefaultOpenNames(sidebar = []) {
@@ -44,7 +47,7 @@ export default {
         }
 
         return (
-          <co-menu-item name={item.text}>
+          <co-menu-item name={item.link}>
             <router-link to={item.link}>
               <span>{item.text}</span>
               {item.chinese &&
@@ -61,6 +64,7 @@ export default {
         class="sidebar docs-menu"
         mode="inline"
         default-open-names={this.defaultOpenNames}
+        selected-names={this.selectedNames}
         inline-indent={40}>
         {this.renderSidebar(h, this.sidebar, this)}
       </co-menu>
@@ -71,9 +75,9 @@ export default {
 
 <style lang="less">
 .sidebar {
-  padding-bottom: 50px;
-
   &.co-menu--inline {
+    padding-bottom: 50px;
+
     & > .co-menu__item {
       font-size: 14px;
       text-overflow: ellipsis;

@@ -7,11 +7,14 @@
       </router-link>
     </co-col>
     <co-col :xs="0" :sm="0" :md="18" :lg="19" :xl="19" :xxl="20">
-      <co-menu class="the-heading__navs docs-menu" mode="horizontal">
+      <co-menu
+        class="the-heading__navs docs-menu"
+        mode="horizontal"
+        :selected-names="selectedNames">
         <co-menu-item
           v-for="(nav, index) in navs"
           :key="index"
-          :name="nav.text">
+          :name="nav.link">
           <router-link :to="nav.link">{{ nav.text }}</router-link>
         </co-menu-item>
       </co-menu>
@@ -25,6 +28,22 @@ export default {
   computed: {
     navs() {
       return this.$site.themeConfig.nav;
+    },
+    linkMap() {
+      const map = {};
+
+      this.navs.forEach((nav) => {
+        const key = nav.link.split('/').slice(0, -1).join('/');
+
+        map[key] = nav.link;
+      });
+
+      return map;
+    },
+    selectedNames() {
+      const key = this.$route.path.split('/').slice(0, -1).join('/');
+
+      return [this.linkMap[key]];
     },
   },
 };

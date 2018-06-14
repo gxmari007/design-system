@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const pkg = require('../../package.json');
 
 module.exports = {
+  base: '/coview/',
   // 配置 head 标签内容
   head: [
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Titillium+Web' }],
@@ -20,7 +21,7 @@ module.exports = {
   },
   themeConfig: {
     nav: [
-      { text: '组件', link: '/components/' },
+      { text: '组件', link: '/components/getting-started.html' },
     ],
     sidebar: [
       { text: '快速上手', link: '/components/getting-started.html' },
@@ -48,8 +49,25 @@ module.exports = {
             children: [
               { text: 'Affix', chinese: '固钉', link: '/components/affix.html' },
               { text: 'Breadcrumb', chinese: '面包屑', link: '/components/breadcrumb.html' },
+              { text: 'Menu', chinese: '导航菜单', link: '/components/menu.html' },
             ],
           },
+        ],
+      },
+    ],
+    footer: [
+      {
+        text: 'CoView',
+        children: [
+          { text: 'GitHub', icon: 'github', link: 'https://github.com/gxmari007/coview' },
+          { text: 'Ant Design', desc: 'React', link: 'https://ant.design/docs/react/introduce-cn' },
+        ],
+      },
+      {
+        text: '相关资源',
+        children: [
+          { text: 'Axure Library', desc: 'Axure 部件库', link: 'http://library.ant.design/' },
+          { text: '设计资源集合', link: 'https://ant.design/docs/spec/download-cn' },
         ],
       },
     ],

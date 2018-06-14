@@ -2,7 +2,7 @@
 coverage/
 node_modules/
 lib/
-docs/dist/
+dist/
 .nuxt/
 npm-debug.log*
 yarn-debug.log*

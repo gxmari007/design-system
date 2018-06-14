@@ -6,15 +6,15 @@
 export default {
   name: 'CoIcon',
   props: {
-    // 图标名称
-    type: {
-      type: String,
-      required: true,
-    },
     // 是否有旋转动画
     spin: {
       type: Boolean,
       default: false,
+    },
+    // 图标名称
+    type: {
+      type: String,
+      required: true,
     },
   },
   computed: {

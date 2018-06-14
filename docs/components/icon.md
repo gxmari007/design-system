@@ -28,3 +28,8 @@
 ``` html
 <co-icon type="question" style="font-size: 16px; color: #08c;" />
 ```
+
+| 参数 | 说明 | 类型 | 默认值 |
+| -- | -- | -- | -- |
+| spin | 是否有旋转动画 | boolean | false |
+| type | 图标类型 | string | - |

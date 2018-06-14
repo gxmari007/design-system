@@ -9,18 +9,21 @@
         <Content class="markdown" />
       </co-col>
     </co-row>
+    <the-footer />
   </div>
 </template>
 
 <script>
 import TheHeading from './components/TheHeading';
 import TheSidebar from './components/TheSidebar';
+import TheFooter from './components/TheFooter';
 
 export default {
   name: 'App',
   components: {
     TheHeading,
     TheSidebar,
+    TheFooter,
   },
 };
 </script>
@@ -42,7 +45,7 @@ export default {
     min-height: 500px;
     overflow: hidden;
     border-left: 1px solid #ebedf0;
-    padding: 0 170px 0 64px;
+    padding: 0 170px 144px 64px;
     margin-left: -1px;
   }
 }

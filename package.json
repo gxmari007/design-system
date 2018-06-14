@@ -6,14 +6,14 @@
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
+    "docs:deploy": "push-dir --dir=docs/.vuepress/dist --branch=gh-pages --cleanup",
     "test": "jest --config test/unit/jest.conf.js",
     "test:watch": "jest --config test/unit/jest.conf.js --watchAll",
     "test:coverage": "npm run test -- --coverage",
     "lint": "eslint --ext .js,.vue src",
     "build:script": "node ./build/build.js",
     "build:style": "gulp --gulpfile build/build-style.js",
-    "build": "npm run build:script && npm run build:style",
-    "deploy": "push-dir --dir=docs/dist --branch=gh-pages --cleanup"
+    "build": "npm run build:script && npm run build:style"
   },
   "main": "lib/coview.js",
   "files": [
