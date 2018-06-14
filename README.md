@@ -30,11 +30,6 @@ Vue.component(CoButton.name, CoButton);
 Vue.component(CoInput.name, CoInput);
 ````
 
-## Todos
-
-- [x] 更改 eslint 配置，使其能够兼容组件开发和文档开发
-- [ ] 组件库打包工具从 webpack 改为 rollup 以提高性能
-
 ## License
 
 MIT
