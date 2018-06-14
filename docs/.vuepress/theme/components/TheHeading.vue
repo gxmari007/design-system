@@ -63,6 +63,10 @@ export default {
     height: 64px;
     padding-left: 40px;
 
+    &:focus {
+      text-decoration: none;
+    }
+
     img {
       height: 32px;
       margin-right: 16px;

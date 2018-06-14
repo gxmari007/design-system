@@ -103,7 +103,7 @@
     "vue-server-renderer": "^2.5.13",
     "vue-style-loader": "^4.0.2",
     "vue-template-compiler": "^2.5.13",
-    "vuepress": "^0.10.0",
+    "vuepress": "^0.10.1",
     "webpack-bundle-analyzer": "^2.10.0",
     "webpack-dev-server": "^2.11.1",
     "webpack-merge": "^4.1.0"
