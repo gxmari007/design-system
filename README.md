@@ -16,7 +16,7 @@ npm install coview --save
 或者
 
 ```sh
-yarn install coview --save
+yarn add coview
 ```
 
 ## 使用方法
