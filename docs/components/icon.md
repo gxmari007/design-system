@@ -1,3 +1,5 @@
+<markdown>
+
 # Icon 图标
 
 语义化的矢量图形。
@@ -21,7 +23,13 @@
 <co-icon type="link" />
 ```
 
+</markdown>
+
+<markdown>
+
 ## API
+
+### co-icon <Badge type="component" text="component" />
 
 由于图标字体本质上还是文字，可以使用 `style` 和 `class` 设置图标的大小和颜色。
 
@@ -33,3 +41,5 @@
 | -- | -- | -- | -- |
 | spin | 是否有旋转动画 | boolean | false |
 | type | 图标类型 | string | - |
+
+</markdown>

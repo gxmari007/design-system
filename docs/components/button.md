@@ -1,3 +1,5 @@
+<markdown>
+
 # Button 按钮
 
 按钮用于开始一个即时操作。
@@ -6,7 +8,17 @@
 
 标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。
 
+## 代码演示
+
+</markdown>
+
+<demo-button-Basic />
+
+<markdown>
+
 ## API
+
+### co-button <Badge type="component" text="component" />
 
 通过设置 Button 的属性来产生不同的按钮样式，推荐顺序为：`type` -> `shape` -> `size` -> `loading` -> `disabled`
 
@@ -27,3 +39,5 @@
 
 > `<co-button>Hello world!</co-button>` 会被渲染为 `<button><span>Hello world!</span></button>`，内容被标签包裹的则不会。  
 > `<co-button href="http://example.com">Hello world!</co-button>` 则会渲染为 `<a href="http://example.com"><span>Hello world!</span></a>`。
+
+</markdown>

@@ -1,3 +1,5 @@
+<markdown>
+
 # Layout 布局
 
 协助进行页面级整体布局。
@@ -51,6 +53,10 @@
 
 > 注意：采用 flex 布局实现，请注意[浏览器兼容性](https://caniuse.com/#search=flex)问题。
 
+</markdown>
+
+<markdown>
+
 ## API
 
 ```html
@@ -65,16 +71,18 @@
 </co-layout>
 ```
 
-### co-layout
+### co-layout <Badge type="component" text="component" />
 
 布局容器
 
 > 无 `API`，会根据嵌套的是否 `co-aside` 决定垂直还是水平布局。
 
-### co-aside
+### co-aside <Badge type="component" text="component" />
 
 侧边栏
 
 | 参数  | 说明 | 类型           | 默认值 |
 | ----- | ---- | -------------- | ------ |
 | width | 宽度 | string\|number | 300    |
+
+</markdown>

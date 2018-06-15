@@ -2,7 +2,7 @@
   <co-row class="the-heading">
     <co-col :xs="24" :sm="24" :md="6" :lg="5" :xl="5" :xxl="4">
       <router-link class="the-heading__logo" to="/">
-        <img src="../assets/logo.svg" alt="logo" />
+        <img src="../../assets/vue.svg" alt="logo" />
         <span>CoView</span>
       </router-link>
     </co-col>

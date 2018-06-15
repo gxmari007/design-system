@@ -6,7 +6,7 @@
         <the-sidebar />
       </co-col>
       <co-col class="app__content" :xs="0" :sm="0" :md="18" :lg="18" :xl="19" :xxl="20">
-        <Content class="markdown" />
+        <Content :custom="false" />
       </co-col>
     </co-row>
     <the-footer />

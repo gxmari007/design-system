@@ -24,6 +24,7 @@ module.exports = {
       { text: '组件', link: '/components/getting-started.html' },
     ],
     sidebar: [
+      { text: 'Ant Design of Vue', link: '/' },
       { text: '快速上手', link: '/components/getting-started.html' },
       { text: '更新日志', link: '/components/changelog.html' },
       {
@@ -40,15 +41,15 @@ module.exports = {
           {
             text: 'Layout',
             children: [
-              { text: 'Grid', chinese: '删格', link: '/components/grid.html' },
+              // { text: 'Grid', chinese: '删格', link: '/components/grid.html' },
               { text: 'Layout', chinese: '布局', link: '/components/layout.html' },
             ],
           },
           {
             text: 'Navigation',
             children: [
-              { text: 'Affix', chinese: '固钉', link: '/components/affix.html' },
-              { text: 'Breadcrumb', chinese: '面包屑', link: '/components/breadcrumb.html' },
+              // { text: 'Affix', chinese: '固钉', link: '/components/affix.html' },
+              // { text: 'Breadcrumb', chinese: '面包屑', link: '/components/breadcrumb.html' },
               { text: 'Menu', chinese: '导航菜单', link: '/components/menu.html' },
             ],
           },
