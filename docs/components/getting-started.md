@@ -1,3 +1,8 @@
+---
+title: 快速上手 - CoView
+lang: zh
+---
+
 <markdown>
 
 # 快速上手

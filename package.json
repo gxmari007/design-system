@@ -13,7 +13,8 @@
     "lint": "eslint --ext .js,.vue src",
     "build:script": "node ./build/build.js",
     "build:style": "gulp --gulpfile build/build-style.js",
-    "build": "npm run build:script && npm run build:style"
+    "build": "npm run build:script && npm run build:style",
+    "build:test": "rollup ---config build/rollup.config.js"
   },
   "main": "lib/coview.js",
   "files": [
@@ -94,6 +95,7 @@
     "portfinder": "^1.0.13",
     "prismjs": "^1.14.0",
     "rimraf": "^2.6.2",
+    "rollup": "^0.60.7",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "url-loader": "^1.0.1",
     "vue": "^2.5.13",
