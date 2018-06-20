@@ -1,38 +1,100 @@
-'use strict';
 const path = require('path');
+const vue = require('rollup-plugin-vue').default;
+const buble = require('rollup-plugin-buble');
+const resolve = require('rollup-plugin-node-resolve');
+const commonjs = require('rollup-plugin-commonjs');
+const replace = require('rollup-plugin-replace');
+const version = require('../package.json').version;
 
-module.exports = {
-  docsDev: {
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    // 指定 host 地址
-    host: 'localhost',
-    // 指定要监听请求的端口号
-    port: 8080,
-    // 编译完成的时候自动打开浏览器
-    autoOpenBrowser: false,
-    // 当出现编译错误的时候浏览器会显示一个叠加层
-    errorOverlay: true,
-    notifyOnErrors: true,
-    poll: false,
-    devtool: 'cheap-module-eval-source-map',
-    cacheBusting: true,
-    cssSourceMap: true,
-    // env
-    env: { 'NODE_ENV': JSON.stringify('development') }
+const banner = `
+/*!
+ * CoView v${version}
+ * (c) 2017-${new Date().getFullYear()} gxmari007
+ * Released under the MIT License.
+ */
+`;
+
+/**
+ * 以项目根路径为基础获取实际的路径地址
+ * @param {String} _path - 路径
+ * @return {String} - 构建的绝对路径
+ */
+function resolvePath(_path) {
+  return path.resolve(__dirname, '../', _path);
+}
+
+const entry = resolvePath('src/index.js');
+const builds = {
+  'lib-umd': {
+    entry,
+    dest: resolvePath('lib/coview.js'),
+    format: 'umd',
+    banner,
   },
-  docsBuild: {
-    // template path
-    index: path.join(__dirname, '../docs/dist/index.html'),
-    assetsRoot: path.join(__dirname, '../docs/dist'),
-    // 打包出来的静态文件存放的文件夹名称
-    assetsSubDirectory: 'static',
-    // gh-pages 只支持相对路径
-    assetsPublicPath: '',
-    // source maps
-    sourceMap: false,
-    devtool: '#source-map',
-    // env
-    env: { 'NODE_ENV': JSON.stringify('production') }
-  }
+  'lib-prod': {
+    entry,
+    dest: resolvePath('lib/coview.min.js'),
+    format: 'umd',
+    env: 'production',
+    banner,
+  },
+  'lib-esm': {
+    entry,
+    dest: resolvePath('lib/coview.esm.js'),
+    format: 'es',
+    banner,
+  },
+  'lib-cjs': {
+    entry,
+    dest: resolvePath('lib/coview.common.js'),
+    format: 'cjs',
+    banner,
+  },
 };
+
+/**
+ * 根据传入的 key 构建响应的 rollup 配置
+ * @param {String} key - builds 的属性名
+ * @return {Object} - rollup 配置
+ */
+function getConfig(key) {
+  const opts = builds[key];
+  const config = {
+    input: opts.entry,
+    external: ['vue'],
+    plugins: [
+      // 解析 .vue 文件
+      vue(),
+      // 解析 jsx 语法
+      buble({
+        objectAssign: 'Object.assign',
+        jsx: 'h',
+      }),
+      // 解析 node 模块文件，附带配置可忽略的文件扩展名
+      resolve({
+        extensions: ['.js', '.vue', '.json'],
+      }),
+      // 构建工具理解 commonjs 类型模块
+      commonjs(),
+      replace({
+        'process.env.VERSION': JSON.stringify(version),
+      }),
+    ].concat(opts.plugins || []),
+    output: {
+      format: opts.format,
+      file: opts.dest,
+      name: 'CoView',
+      banner: opts.banner,
+    },
+  };
+
+  if (opts.env) {
+    config.plugins.push(replace({
+      'process.env.NODE_ENV': JSON.stringify(opts.env),
+    }));
+  }
+
+  return config;
+}
+
+exports.getAllBuilds = () => Object.keys(builds).map(getConfig);

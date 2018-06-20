@@ -2518,7 +2518,7 @@ chalk@^2.3.2:
 
 chalk@^2.4.1:
   version "2.4.1"
-  resolved "https://registry.npmjs.org/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
+  resolved "http://registry.npm.taobao.org/chalk/download/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
   dependencies:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
@@ -2754,7 +2754,7 @@ commander@2.8.x:
   dependencies:
     graceful-readlink ">= 1.0.0"
 
-commander@^2.15.1:
+commander@^2.15.1, commander@~2.15.0:
   version "2.15.1"
   resolved "http://registry.npm.taobao.org/commander/download/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
 
@@ -9938,6 +9938,13 @@ uglify-js@^2.6, uglify-js@^2.8.22:
     yargs "~3.10.0"
   optionalDependencies:
     uglify-to-browserify "~1.0.0"
+
+uglify-js@^3.4.1:
+  version "3.4.1"
+  resolved "http://registry.npm.taobao.org/uglify-js/download/uglify-js-3.4.1.tgz#006da540dc25e9319d106a99a5ef1d24ae04ce60"
+  dependencies:
+    commander "~2.15.0"
+    source-map "~0.6.1"
 
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
