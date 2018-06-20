@@ -84,6 +84,7 @@ function getConfig(key) {
       format: opts.format,
       file: opts.dest,
       name: 'CoView',
+      globals: { vue: 'Vue' },
       banner: opts.banner,
     },
   };

@@ -17,7 +17,9 @@ function getSize (code) {
 function write(dest, code, zip) {
   return new Promise((resolve, reject) => {
     function report(extra) {
-      console.log(chalk.green(`${path.relative(process.cwd(), dest)} ${getSize(code)}${extra || ''}.`));
+      const text = `${path.relative(process.cwd(), dest)} ${getSize(code)}${extra || ''}.`;
+
+      console.log(`${chalk.cyan('[BUILD]')} ${chalk.yellow('JS')} : ${chalk.green(text)}`);
       resolve();
     }
 
