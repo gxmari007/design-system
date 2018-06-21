@@ -4,7 +4,10 @@ const zlib = require('zlib');
 const rollup = require('rollup');
 const uglify = require('uglify-js');
 const chalk = require('chalk');
-const builds = require('./config').getAllBuilds();
+const config = require('./config');
+
+const builds = config.getAllBuilds();
+const dirs = config.dirs;
 
 function logError(e) {
   console.log(e);
@@ -53,7 +56,7 @@ function buildLib(config) {
     });
 }
 
-function build(builds) {
+async function build(builds) {
   let index = 0;
   const total = builds.length;
   const next = () => {
@@ -70,7 +73,9 @@ function build(builds) {
 }
 
 if (!fs.existsSync('lib')) {
-  fs.mkdirSync('lib');
+  for (let i = 0, len = dirs.length; i < len; i++) {
+    fs.mkdirSync(dirs[i]);
+  }
 }
 
 build(builds);

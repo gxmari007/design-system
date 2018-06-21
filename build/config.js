@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const vue = require('rollup-plugin-vue').default;
 const buble = require('rollup-plugin-buble');
 const resolve = require('rollup-plugin-node-resolve');
@@ -6,8 +7,7 @@ const commonjs = require('rollup-plugin-commonjs');
 const replace = require('rollup-plugin-replace');
 const version = require('../package.json').version;
 
-const banner = `
-/*!
+const banner = `/*!
  * CoView v${version}
  * (c) 2017-${new Date().getFullYear()} gxmari007
  * Released under the MIT License.
@@ -51,6 +51,20 @@ const builds = {
     banner,
   },
 };
+
+const files = fs.readdirSync(resolvePath('src/components'));
+const dirs = ['lib'];
+
+for (let i = 0, len = files.length; i < len; i++) {
+  const componentName = files[i];
+
+  builds[componentName] = {
+    entry: resolvePath(`src/components/${componentName}/index.js`),
+    dest: resolvePath(`lib/${componentName}/index.js`),
+    format: 'cjs',
+  };
+  dirs.push(`lib/${componentName}`);
+}
 
 /**
  * 根据传入的 key 构建响应的 rollup 配置
@@ -98,4 +112,5 @@ function getConfig(key) {
   return config;
 }
 
+exports.dirs = dirs;
 exports.getAllBuilds = () => Object.keys(builds).map(getConfig);
