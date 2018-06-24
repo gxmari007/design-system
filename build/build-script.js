@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
-const rollup = require('rollup');
+const { rollup } = require('rollup');
 const uglify = require('uglify-js');
 const chalk = require('chalk');
 const config = require('./config');
@@ -26,6 +26,12 @@ function write(dest, code, zip) {
       resolve();
     }
 
+    const dir = path.dirname(dest);
+
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+
     fs.writeFile(dest, code, (err) => {
       if (err) return reject(err);
       if (zip) {
@@ -45,18 +51,18 @@ function buildLib(config) {
   const { file, banner } = output;
   const isProd = /min\.js$/.test(file);
 
-  return rollup.rollup(config)
+  return rollup(config)
     .then(bundle => bundle.generate(output))
     .then(({ code }) => {
       const content = isProd
-        ? (banner ? banner + '\n' : '') + uglify.minify(code, { warnings: false }).code
+        ? (banner ? banner.replace(/[\n]/, '') + '\n' : '') + uglify.minify(code, { warnings: false }).code
         : code;
 
       return write(file, content, isProd);
     });
 }
 
-async function build(builds) {
+function build(builds) {
   let index = 0;
   const total = builds.length;
   const next = () => {
@@ -70,12 +76,6 @@ async function build(builds) {
   };
 
   next();
-}
-
-if (!fs.existsSync('lib')) {
-  for (let i = 0, len = dirs.length; i < len; i++) {
-    fs.mkdirSync(dirs[i]);
-  }
 }
 
 build(builds);

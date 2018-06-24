@@ -7,7 +7,8 @@ const commonjs = require('rollup-plugin-commonjs');
 const replace = require('rollup-plugin-replace');
 const version = require('../package.json').version;
 
-const banner = `/*!
+const banner = `
+/*!
  * CoView v${version}
  * (c) 2017-${new Date().getFullYear()} gxmari007
  * Released under the MIT License.

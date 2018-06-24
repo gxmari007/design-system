@@ -1,30 +1,17 @@
-// http://eslint.org/docs/user-guide/configuring
-
 module.exports = {
   root: true,
-  parserOptions: {
-    parser: 'babel-eslint',
-    sourceType: 'module',
+  env: {
+    node: true,
   },
   extends: [
     'plugin:vue/essential',
     'airbnb-base',
   ],
-  plugins: [
-    'vue',
-  ],
-  settings: {
-    'import/resolver': {
-      webpack: {
-        config: 'build/webpack.base.conf.js',
-      },
-    },
+  parserOptions: {
+    parser: 'babel-eslint',
   },
   rules: {
-    'import/extensions': ['error', 'always', {
-      js: 'never',
-      vue: 'never',
-    }],
-    'import/no-extraneous-dependencies': 0,
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },
 };
