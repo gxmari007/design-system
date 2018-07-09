@@ -1,3 +1,3 @@
-import CoButtonGroup from './ButtonGroup';
+import CoButtonGroup from './ButtonGroup.vue';
 
 export default CoButtonGroup;

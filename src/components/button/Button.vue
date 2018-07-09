@@ -103,7 +103,7 @@ export default {
 
         return (
           <co-icon
-            class={{ 'anticon-spin': loading }}
+            spin={loading}
             type={iconType} />
         );
       }

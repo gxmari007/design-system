@@ -1575,6 +1575,13 @@ babel-jest@^23.0.1:
     babel-plugin-istanbul "^4.1.6"
     babel-preset-jest "^23.0.1"
 
+babel-jest@^23.2.0:
+  version "23.2.0"
+  resolved "https://registry.npmjs.org/babel-jest/-/babel-jest-23.2.0.tgz#14a9d6a3f4122dfea6069d37085adf26a53a4dba"
+  dependencies:
+    babel-plugin-istanbul "^4.1.6"
+    babel-preset-jest "^23.2.0"
+
 babel-loader@8.0.0-beta.3:
   version "8.0.0-beta.3"
   resolved "http://registry.npm.taobao.org/babel-loader/download/babel-loader-8.0.0-beta.3.tgz#49efeea6e8058d5af860a18a6de88b8c1450645b"
@@ -1614,6 +1621,10 @@ babel-plugin-istanbul@^4.1.6:
 babel-plugin-jest-hoist@^23.0.1:
   version "23.0.1"
   resolved "http://registry.npm.taobao.org/babel-plugin-jest-hoist/download/babel-plugin-jest-hoist-23.0.1.tgz#eaa11c964563aea9c21becef2bdf7853f7f3c148"
+
+babel-plugin-jest-hoist@^23.2.0:
+  version "23.2.0"
+  resolved "https://registry.npmjs.org/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-23.2.0.tgz#e61fae05a1ca8801aadee57a6d66b8cefaf44167"
 
 babel-plugin-jsx-event-modifiers@^2.0.2:
   version "2.0.5"
@@ -1913,6 +1924,13 @@ babel-preset-jest@^23.0.1:
   resolved "http://registry.npm.taobao.org/babel-preset-jest/download/babel-preset-jest-23.0.1.tgz#631cc545c6cf021943013bcaf22f45d87fe62198"
   dependencies:
     babel-plugin-jest-hoist "^23.0.1"
+    babel-plugin-syntax-object-rest-spread "^6.13.0"
+
+babel-preset-jest@^23.2.0:
+  version "23.2.0"
+  resolved "https://registry.npmjs.org/babel-preset-jest/-/babel-preset-jest-23.2.0.tgz#8ec7a03a138f001a1a8fb1e8113652bf1a55da46"
+  dependencies:
+    babel-plugin-jest-hoist "^23.2.0"
     babel-plugin-syntax-object-rest-spread "^6.13.0"
 
 babel-preset-vue-app@^2.0.0:
@@ -3287,6 +3305,12 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
+echarts@^4.0.4:
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/echarts/-/echarts-4.1.0.tgz#d588c95f73c1a9928b9c73d5b769751c3185bcdc"
+  dependencies:
+    zrender "4.0.4"
+
 editorconfig@^0.13.2:
   version "0.13.3"
   resolved "http://registry.npm.taobao.org/editorconfig/download/editorconfig-0.13.3.tgz#e5219e587951d60958fd94ea9a9a008cdeff1b34"
@@ -3446,7 +3470,7 @@ escodegen@^1.9.0:
 
 eslint-config-airbnb-base@^13.0.0:
   version "13.0.0"
-  resolved "http://registry.npm.taobao.org/eslint-config-airbnb-base/download/eslint-config-airbnb-base-13.0.0.tgz#2ee6279c4891128e49d6445b24aa13c2d1a21450"
+  resolved "https://registry.npmjs.org/eslint-config-airbnb-base/-/eslint-config-airbnb-base-13.0.0.tgz#2ee6279c4891128e49d6445b24aa13c2d1a21450"
   dependencies:
     eslint-restricted-globals "^0.1.1"
     object.assign "^4.1.0"
@@ -8089,6 +8113,10 @@ require-uncached@^1.0.3:
     caller-path "^0.1.0"
     resolve-from "^1.0.0"
 
+resize-detector@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.npmjs.org/resize-detector/-/resize-detector-0.1.7.tgz#48375f9d462afbcd9077d59580985020a84443f8"
+
 resolve-cwd@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/resolve-cwd/download/resolve-cwd-2.0.0.tgz#00a9f7387556e27038eae232caa372a6a59b665a"
@@ -9369,6 +9397,18 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-class-component@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.npmjs.org/vue-class-component/-/vue-class-component-6.2.0.tgz#7adb1daa9a868c75f30f97f33f4f1b94aee62089"
+
+vue-echarts@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.npmjs.org/vue-echarts/-/vue-echarts-3.0.9.tgz#bad7bdef12a1361a463f90ba57319f40afcd60ac"
+  dependencies:
+    echarts "^4.0.4"
+    lodash "^4.17.10"
+    resize-detector "^0.1.7"
+
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/vue-eslint-parser/download/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
@@ -9955,3 +9995,7 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+zrender@4.0.4:
+  version "4.0.4"
+  resolved "https://registry.npmjs.org/zrender/-/zrender-4.0.4.tgz#910e60d888f00c9599073f23758dd23345fe48fd"

@@ -52,12 +52,13 @@
     "async-validator": "^1.8.2",
     "dom-helpers": "^3.3.1",
     "lodash": "^4.17.4",
-    "popper.js": "^1.14.1"
+    "popper.js": "^1.14.1",
+    "vue-echarts": "^3.0.9"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.19",
     "babel-eslint": "^8.2.3",
-    "babel-jest": "^23.0.1",
+    "babel-jest": "^23.2.0",
     "babel-preset-vue-app": "^2.0.0",
     "chalk": "^2.4.1",
     "enquire.js": "^2.1.6",
@@ -85,6 +86,7 @@
     "uglify-js": "^3.4.1",
     "url-loader": "^1.0.1",
     "vue": "^2.5.13",
+    "vue-class-component": "^6.2.0",
     "vue-jest": "^2.6.0",
     "vue-server-renderer": "^2.5.13",
     "vue-style-loader": "^4.0.2",

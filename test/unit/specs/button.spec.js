@@ -2,7 +2,7 @@ import { shallow } from '@vue/test-utils';
 import CoButton from '@/components/button';
 // import CoIcon from '@/components/icon';
 
-describe('CoButton', () => {
+describe.skip('CoButton', () => {
   it('slot render', () => {
     const wrapper = shallow(CoButton, {
       slots: { default: 'button' },
