@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import CoIcon from '../icon';
 import { oneOf } from '../../utils/help';
 import { sizeMap, SIZE } from '../../utils/style';
