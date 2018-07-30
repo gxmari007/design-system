@@ -29,7 +29,7 @@
 
 ## API
 
-### co-icon <Badge type="component" text="component" />
+### co-icon <Badge type="component" vertical="middle" text="component" />
 
 由于图标字体本质上还是文字，可以使用 `style` 和 `class` 设置图标的大小和颜色。
 

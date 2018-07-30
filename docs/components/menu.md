@@ -26,7 +26,7 @@
 </co-menu>
 ```
 
-### co-menu <Badge type="component" text="component" />
+### co-menu <Badge type="component" vertical="middle" text="component" />
 
 | 参数                 | 说明                                                                                            | 类型     | 默认值   |
 | -------------------- | ----------------------------------------------------------------------------------------------- | -------- | -------- |

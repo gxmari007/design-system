@@ -1,3 +1,7 @@
+---
+title: 按钮 Button - CoView
+---
+
 <markdown>
 
 # Button 按钮
@@ -12,13 +16,21 @@
 
 </markdown>
 
-<demo-button-Basic />
+<demo-button-ButtonBasic />
+
+<demo-button-ButtonIcon />
+
+<demo-button-ButtonDisabled />
+
+<demo-button-ButtonLoading />
+
+<demo-button-ButtonGhost />
 
 <markdown>
 
 ## API
 
-### co-button <Badge type="component" text="component" />
+### co-button <Badge type="component" vertical="middle" text="component" />
 
 通过设置 Button 的属性来产生不同的按钮样式，推荐顺序为：`type` -> `shape` -> `size` -> `loading` -> `disabled`
 

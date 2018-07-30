@@ -71,13 +71,13 @@
 </co-layout>
 ```
 
-### co-layout <Badge type="component" text="component" />
+### co-layout <Badge type="component" vertical="middle" text="component" />
 
 布局容器
 
 > 无 `API`，会根据嵌套的是否 `co-aside` 决定垂直还是水平布局。
 
-### co-aside <Badge type="component" text="component" />
+### co-aside <Badge type="component" vertical="middle" text="component" />
 
 侧边栏
 

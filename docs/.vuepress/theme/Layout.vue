@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style src="prismjs/themes/prism-tomorrow.css"></style>
+<style src="./styles/prism-theme.less" lang="less"></style>
 <style src="../../../src/style/index.less" lang="less"></style>
 <style src="./styles/index.less" lang="less"></style>
 <style lang="less">
