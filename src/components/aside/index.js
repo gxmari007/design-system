@@ -1,3 +1,3 @@
-import CoAside from './Aside';
+import CoAside from './Aside.vue';
 
 export default CoAside;

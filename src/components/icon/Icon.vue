@@ -2,31 +2,29 @@
   <i :class="classes" />
 </template>
 
-<script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+<script>
+export default {
+  name: 'CoIcon',
+  props: {
+    // 是否有旋转动画
+    spin: {
+      type: Boolean,
+      default: false,
+    },
+    // 图标名称
+    type: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    classes() {
+      const prefixClass = 'anticon';
 
-@Component
-export default class CoIcon extends Vue {
-  /**
-   * props
-   */
-  // 是否有旋转动画
-  @Prop({ default: false })
-  spin!: boolean
-
-  // 图标名称
-  @Prop({ required: true })
-  type!: string
-
-  /**
-   * computed
-   */
-  get classes(): (string | object)[] {
-    const prefixClass = 'anticon';
-
-    return [prefixClass, `${prefixClass}-${this.type}`, {
-      [`${prefixClass}-spin`]: this.spin,
-    }];
-  }
-}
+      return [prefixClass, `${prefixClass}-${this.type}`, {
+        [`${prefixClass}-spin`]: this.spin,
+      }];
+    },
+  },
+};
 </script>
