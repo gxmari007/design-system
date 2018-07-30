@@ -2,21 +2,28 @@ module.exports = {
   moduleFileExtensions: [
     'js',
     'jsx',
-    'json',
     'vue',
+    'json',
+    'ts',
+    'tsx',
   ],
   transform: {
     '^.+\\.vue$': 'vue-jest',
-    '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.(ts|tsx)?$': 'ts-jest',
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@/(.*)$': '<rootDir>/src/$1'
   },
   snapshotSerializers: [
     'jest-serializer-vue',
   ],
   testMatch: [
-    '<rootDir>/(test/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx))',
+    '<rootDir>/test/unit/**/*.spec.(ts|tsx)',
   ],
+  globals: {
+    "ts-jest": {
+      useBabelrc: true
+    }
+  }
 };
