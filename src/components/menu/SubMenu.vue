@@ -1,6 +1,6 @@
 <script>
 import CoCollapseTransition from '../collapse-transition';
-import SubMenuPopper from './SubMenuPopper';
+import SubMenuPopper from './SubMenuPopper.vue';
 import mixin from './mixin';
 
 export default {
@@ -159,7 +159,7 @@ export default {
     },
     renderPopper() {
       let placement = 'bottom';
-      let transformOrigin = 'center bottom';
+      let transformOrigin = 'center top';
 
       // 根据 mode 的类型设置 popper 弹出的位置
       if (['vertical', 'vertical-left', 'vertical-right'].indexOf(this.mode) > -1) {

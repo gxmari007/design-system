@@ -21,7 +21,7 @@ export default {
       code: basic,
     };
   },
-}
+};
 </script>
 
 <style src="./button.less" lang="less"></style>

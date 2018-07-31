@@ -10,7 +10,13 @@
 
 更多布局和导航的使用可以参考：[通用布局](/components/layout.html)
 
+## 代码演示
+
 </markdown>
+
+<demo-menu-MenuHorizontal />
+
+<demo-menu-MenuSubmenu />
 
 <markdown>
 

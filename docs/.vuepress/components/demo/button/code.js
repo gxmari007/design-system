@@ -71,4 +71,33 @@ export const ghost = `
   </div>
 `;
 
-export const group = ``;
+export const group = `
+  <h4>Basic</h4>
+  <co-button-group>
+    <co-button>Cancel</co-button>
+    <co-button>OK</co-button>
+  </co-button-group>
+  <co-button-group>
+    <co-button disabled>L</co-button>
+    <co-button disabled>M</co-button>
+    <co-button disabled>R</co-button>
+  </co-button-group>
+  <co-button-group>
+    <co-button>L</co-button>
+    <co-button>M</co-button>
+    <co-button>R</co-button>
+  </co-button-group>
+  <h4>With Icon</h4>
+  <co-button-group>
+    <co-button type="primary">
+      <co-icon type="left" />Go back
+    </co-button>
+    <co-button type="primary">
+      Go forward<co-icon type="right" />
+    </co-button>
+  </co-button-group>
+  <co-button-group>
+    <co-button type="primary" icon="cloud" />
+    <co-button type="primary" icon="cloud-download" />
+  </co-button-group>
+`;

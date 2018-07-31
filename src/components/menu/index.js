@@ -1,7 +1,7 @@
-import CoMenu from './Menu';
-import CoMenuItem from './MenuItem';
-import CoItemGroup from './ItemGroup';
-import CoSubMenu from './SubMenu';
+import CoMenu from './Menu.vue';
+import CoMenuItem from './MenuItem.vue';
+import CoItemGroup from './ItemGroup.vue';
+import CoSubMenu from './SubMenu.vue';
 
 CoMenu.CoMenuItem = CoMenuItem;
 CoMenu.CoItemGroup = CoItemGroup;

@@ -1,4 +1,4 @@
-@langs: js, ts, html, md, vue, css, sass, scss, less, stylus, go, java, c, sh, yaml;
+@langs: js, ts, html, md, vue, css, sass, scss, less, stylus, go, java, c, bash, yaml;
 
 .genLang(@langs, @index: 1) when (@index <= length(@langs)) {
   @lang: extract(@langs, @index);
@@ -30,7 +30,6 @@
 
     code {
       display: block;
-      color: #fff;
       padding: 0;
       margin: 0;
       background-color: transparent;

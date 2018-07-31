@@ -24,7 +24,7 @@
       </co-button-group>
     </template>
     <template slot="title">按钮组合</template>
-    <template slot="desc">可以将多个 Button 放入 Button.Group 的容器中。通过设置 size 为 large small 分别把按钮组合设为大、小尺寸。若不设置 size，则尺寸为中。</template>
+    <template slot="desc">可以将多个 Button 放入 ButtonGroup 的容器中。通过设置 size 为 large small 分别把按钮组合设为大、小尺寸。若不设置 size，则尺寸为中。</template>
   </code-box>
 </template>
 
