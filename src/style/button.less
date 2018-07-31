@@ -17,6 +17,32 @@
 
   &--primary {
     .btn-primary();
+
+    .@{button-prefix-class}-group &:not(:first-child):not(:last-child) {
+      border-right-color: @btn-group-border;
+      border-left-color: @btn-group-border;
+
+      &:disabled {
+        border-color: @btn-default-border;
+      }
+    }
+
+    .@{button-prefix-class}-group &:first-child:not(:last-child) {
+      border-right-color: @btn-group-border;
+
+      &:disabled {
+        border-right-color: @btn-default-border;
+      }
+    }
+
+    .@{button-prefix-class}-group &:last-child:not(:first-child),
+    .@{button-prefix-class}-group & + & {
+      border-left-color: @btn-group-border;
+
+      &:disabled {
+        border-left-color: @btn-default-border;
+      }
+    }
   }
 
   &--dashed {
@@ -25,6 +51,18 @@
 
   &--danger {
     .btn-danger();
+  }
+
+  &--ghost {
+    .btn-ghost();
+
+    &.@{button-prefix-class}--primary {
+      .button-variant-ghost(@btn-primary-bg);
+    }
+
+    &.@{button-prefix-class}--danger {
+      .button-variant-ghost(@btn-danger-color);
+    }
   }
 
   &--circle {
@@ -100,6 +138,11 @@
 
   &--danger&--clicked::after {
     border-color: @btn-danger-color;
+  }
+
+  // button group
+  &-group {
+    .btn-group(@button-prefix-class);
   }
 }
 

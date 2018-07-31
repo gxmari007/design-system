@@ -70,3 +70,5 @@ export const ghost = `
     <co-button type="danger" ghost>Danger</co-button>
   </div>
 `;
+
+export const group = ``;

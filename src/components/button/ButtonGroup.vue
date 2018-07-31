@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes">
+  <div class="co-button-group">
     <slot></slot>
   </div>
 </template>
@@ -17,20 +17,6 @@ export default {
       validator(val) {
         return oneOf(val, SIZE);
       },
-    },
-    // 是否垂直排列按钮，默认水平排列
-    vertical: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: {
-    classes() {
-      const prefixClass = 'co-button-group';
-
-      return [prefixClass, {
-        [`${prefixClass}--vertical`]: this.vertical,
-      }];
     },
   },
 };

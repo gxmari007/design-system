@@ -26,6 +26,8 @@ title: 按钮 Button - CoView
 
 <demo-button-ButtonGhost />
 
+<demo-button-ButtonGroup />
+
 <markdown>
 
 ## API

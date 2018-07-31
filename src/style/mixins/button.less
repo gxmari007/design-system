@@ -32,8 +32,7 @@
     &,
     &:hover,
     &:focus,
-    &:active,
-    &.active {
+    &:active {
       .button-color(@btn-disable-color; @btn-disable-bg; @btn-disable-border);
     }
   }
@@ -47,8 +46,7 @@
     .button-color(@color; ~`colorPalette("@{background}", 5)`; ~`colorPalette("@{background}", 5)`);
   }
 
-  &:active,
-  &.active {
+  &:active {
     .button-color(@color; ~`colorPalette("@{background}", 7)`; ~`colorPalette("@{background}", 7)`);
   }
 
@@ -63,8 +61,7 @@
     .button-color(@primary-5, @background, @primary-5);
   }
 
-  &:active,
-  &.active {
+  &:active {
     .button-color(@primary-7, @background, @primary-7);
   }
 
@@ -74,17 +71,65 @@
 .button-variant-danger(@color; @background; @border) {
   .button-color(@color, @background, @border);
 
-  &:hover,
-  &:focus {
+  &:hover {
     .button-color(@btn-primary-color; ~`colorPalette("@{color}", 5)`; ~`colorPalette("@{color}", 5)`);
   }
 
-  &:active,
-  &.active {
+  &:focus {
+    .button-color(~`colorPalette("@{color}", 5)`; transparent; ~`colorPalette("@{color}", 5)`);
+  }
+
+  &:active {
     .button-color(@btn-primary-color; ~`colorPalette("@{color}", 7)`; ~`colorPalette("@{color}", 7)`);
   }
 
   .button-disabled();
+}
+
+.button-variant-ghost(@color) {
+  .button-color(@color; transparent; @color);
+
+  &:hover,
+  &:focus {
+    .button-color(~`colorPalette("@{color}", 5)`; transparent; ~`colorPalette("@{color}", 5)`);
+  }
+
+  &:active {
+    .button-color(~`colorPalette("@{color}", 7)`; transparent; ~`colorPalette("@{color}", 7)`);
+  }
+
+  .button-disabled();
+}
+
+.button-group-base(@button-class-name) {
+  position: relative;
+  display: inline-block;
+
+  > .@{button-class-name},
+  > span > .@{button-class-name} {
+    position: relative;
+
+    &:hover,
+    &:focus,
+    &:active {
+      z-index: 2;
+    }
+
+    &:disabled {
+      z-index: 0;
+    }
+  }
+
+  // size
+  &--small > .@{button-class-name},
+  &--small > span > .@{button-class-name} {
+    .button-size(@btn-height-sm; @btn-padding-sm; @btn-font-size-sm; 0);
+  }
+
+  &--large > .@{button-class-name},
+  &--large > span > .@{button-class-name} {
+    .button-size(@btn-height-lg; @btn-padding-lg; @btn-font-size-lg; 0);
+  }
 }
 
 // 基本 button 样式
@@ -170,6 +215,13 @@
   .button-variant-danger(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
 }
 
+// ghost button style
+.btn-ghost() {
+  background: transparent !important;
+  border-color: #fff;
+  color: #fff;
+}
+
 // circle button: the content only contains icon
 .btn-circle(@btn-class-name) {
   .square(@btn-circle-size);
@@ -183,5 +235,83 @@
   &.@{btn-class-name}--small {
     .square(@btn-circle-size-sm);
     .button-size(@btn-circle-size-sm; 0; @btn-font-size-sm; 50%);
+  }
+}
+
+// 设置 button-group 中 button 的 radius
+.button-group-radius(@button-class-name; @button-border-radius) {
+  > .@{button-class-name}:only-child,
+  > span:only-child > .@{button-class-name} {
+    border-radius: @button-border-radius;
+  }
+
+  > .@{button-class-name}:first-child:not(:last-child),
+  > span:first-child:not(:last-child) > .@{button-class-name} {
+    border-bottom-left-radius: @button-border-radius;
+    border-top-left-radius: @button-border-radius;
+  }
+
+  > .@{button-class-name}:last-child:not(:first-child),
+  > span:last-child:not(:first-child) > .@{button-class-name} {
+    border-top-right-radius: @button-border-radius;
+    border-bottom-right-radius: @button-border-radius;
+  }
+}
+
+// button-group mixin
+.btn-group(@button-class-name) {
+  .button-group-base(@button-class-name);
+
+  .@{button-class-name} + .@{button-class-name},
+  .@{button-class-name} + &,
+  span + .@{button-class-name},
+  .@{button-class-name} + span,
+  > span + span,
+  & + .@{button-class-name},
+  & + & {
+    margin-left: -1px;
+  }
+
+  .@{button-class-name}--primary + .@{button-class-name}:not(.@{button-class-name}--primary):not([disabled]) {
+    border-left-color: transparent;
+  }
+
+  .@{button-class-name} {
+    border-radius: 0;
+  }
+
+  > .@{button-class-name}:first-child,
+  > .span:first-child > .@{button-class-name} {
+    margin-left: 0;
+  }
+
+  .button-group-radius(@button-class-name; @btn-border-radius-base);
+
+  &--small {
+    .button-group-radius(@button-class-name; @btn-border-radius-sm);
+  }
+
+  &--large {
+    .button-group-radius(@button-class-name; @btn-border-radius-lg);
+  }
+
+  & > & {
+    float: left;
+  }
+
+  & > &:not(:first-child):not(:last-child) > .@{button-class-name} {
+    border-radius: 0;
+  }
+
+  & > &:first-child:not(:last-child) > .@{button-class-name}:last-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-right: 8px;
+  }
+
+  & > &:last-child:not(:first-child) > .@{button-class-name}:first-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 8px;
   }
 }
