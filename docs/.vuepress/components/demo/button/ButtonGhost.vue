@@ -23,7 +23,7 @@ export default {
       code: ghost,
     };
   },
-}
+};
 </script>
 
 <style src="./button.less" lang="less"></style>

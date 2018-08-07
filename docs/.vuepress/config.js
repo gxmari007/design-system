@@ -12,12 +12,22 @@ module.exports = {
       permalinkBefore: false,
     },
   },
-  configureWebpack: {
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.env.VERSION': JSON.stringify(pkg.version),
-      }),
-    ],
+  chainWebpack(config) {
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap(() => ({
+        compilerOptions: {
+          preserveWhitespace: false,
+        },
+      }));
+
+    config.plugin('injections')
+      .tap((args) => {
+        args[0]['process.env.VERSION'] = JSON.stringify(pkg.version);
+        return args;
+      });
   },
   less: { javascriptEnabled: true },
   themeConfig: {
