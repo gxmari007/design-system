@@ -1,5 +1,9 @@
 <template>
-  <button class="inline-block leading-normal text-sm text-current rounded py-1 px-3-1px select-none" :class="classes">
+  <button
+    class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer"
+    :class="classes"
+    :disabled="disabled"
+  >
     <slot />
   </button>
 </template>
@@ -17,17 +21,20 @@ export default defineComponent({
     const classes = computed(() => ({
       'bg-white': props.type === 'default',
       'bg-primary-6': props.type === 'primary',
-      border: ['default', 'primary', 'dashed'].includes(props.type),
-      'border-gray-5': ['default', 'dashed'].includes(props.type),
-      'border-primary-6': props.type === 'primary',
+      'border-gray-5': props.disabled || ['default', 'dashed'].includes(props.type),
+      'border-primary-6': !props.disabled && props.type === 'primary',
       'border-dashed': props.type === 'dashed',
+      'border-transparent': ['text', 'link'].includes(props.type),
       'text-white': props.type === 'primary',
       'text-primary-6': props.type === 'link',
-      'hover:border-primary-5': ['default', 'primary', 'dashed'].includes(props.type),
-      'hover:text-primary-5': ['default', 'dashed', 'link'].includes(props.type),
-      'hover:bg-primary-5': props.type === 'primary',
-      'hover:bg-black': props.type === 'text',
-      'hover:bg-opacity-5': props.type === 'text',
+      'hover:border-primary-5': !props.disabled && ['default', 'primary', 'dashed'].includes(props.type),
+      'hover:text-primary-5': !props.disabled && ['default', 'dashed', 'link'].includes(props.type),
+      'hover:bg-primary-5': !props.disabled && props.type === 'primary',
+      'hover:bg-black': !props.disabled && props.type === 'text',
+      'hover:bg-opacity-5': !props.disabled && props.type === 'text',
+      'disabled:bg-gray-3': props.disabled && ['default', 'primary', 'dashed'].includes(props.type),
+      'disabled:text-disabled': props.disabled,
+      'disabled:cursor-not-allowed': props.disabled,
     }));
 
     return {
