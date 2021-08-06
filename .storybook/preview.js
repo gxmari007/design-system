@@ -1,4 +1,4 @@
-// import '../src/veresa/index.css';
+import '../src/veresa/index.css';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
