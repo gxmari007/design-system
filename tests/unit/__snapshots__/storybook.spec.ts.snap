@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Components/Button Dashed 1`] = `
+<button
+  class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer border-gray-5 border-dashed hover:border-primary-5 hover:text-primary-5"
+  default="Dashed Button"
+>
+  
+  Dashed Button
+  
+</button>
+`;
+
+exports[`Storyshots Components/Button Default 1`] = `
+<button
+  class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer bg-white border-gray-5 hover:border-primary-5 hover:text-primary-5"
+  default="Default Button"
+>
+  
+  Default Button
+  
+</button>
+`;
+
+exports[`Storyshots Components/Button Disabled 1`] = `
+<div
+  disabled="true"
+>
+  <div>
+    <button
+      class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer bg-primary-6 border-primary-6 text-white hover:border-primary-5 hover:bg-primary-5 mr-8 mb-8"
+    >
+      
+      Primary
+      
+    </button>
+    <button
+      class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer bg-primary-6 border-gray-5 text-white disabled:bg-gray-3 disabled:text-disabled disabled:cursor-not-allowed mb-8"
+      disabled=""
+    >
+      
+      Primary(disabled)
+      
+    </button>
+  </div>
+  <div>
+    <button
+      class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer bg-white border-gray-5 hover:border-primary-5 hover:text-primary-5 mr-8 mb-8"
+    >
+      
+      Default
+      
+    </button>
+    <button
+      class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer bg-white border-gray-5 disabled:bg-gray-3 disabled:text-disabled disabled:cursor-not-allowed mb-8"
+      disabled=""
+    >
+      
+      Default(disabled)
+      
+    </button>
+  </div>
+  <div>
+    <button
+      class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer border-gray-5 border-dashed hover:border-primary-5 hover:text-primary-5 mr-8 mb-8"
+    >
+      
+      Dashed
+      
+    </button>
+    <button
+      class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer border-gray-5 border-dashed disabled:bg-gray-3 disabled:text-disabled disabled:cursor-not-allowed mb-8"
+      disabled=""
+    >
+      
+      Dashed(disabled)
+      
+    </button>
+  </div>
+  <div>
+    <button
+      class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer border-transparent hover:bg-black hover:bg-opacity-5 mr-8 mb-8"
+    >
+      
+      Text
+      
+    </button>
+    <button
+      class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer border-gray-5 border-transparent disabled:text-disabled disabled:cursor-not-allowed mb-8"
+      disabled=""
+    >
+      
+      Text(disabled)
+      
+    </button>
+  </div>
+  <div>
+    <button
+      class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer border-transparent text-primary-6 hover:text-primary-5 mr-8 mb-8"
+    >
+      
+      Link
+      
+    </button>
+    <button
+      class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer border-gray-5 border-transparent text-primary-6 disabled:text-disabled disabled:cursor-not-allowed mb-8"
+      disabled=""
+    >
+      
+      Link(disabled)
+      
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Components/Button Link 1`] = `
+<button
+  class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer border-transparent text-primary-6 hover:text-primary-5"
+  default="Link Button"
+>
+  
+  Link Button
+  
+</button>
+`;
+
+exports[`Storyshots Components/Button Primary 1`] = `
+<button
+  class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer bg-primary-6 border-primary-6 text-white hover:border-primary-5 hover:bg-primary-5"
+  default="Primary Button"
+>
+  
+  Primary Button
+  
+</button>
+`;
+
+exports[`Storyshots Components/Button Text 1`] = `
+<button
+  class="inline-block leading-normal text-sm text-current rounded py-4 px-15 border select-none cursor-pointer border-transparent hover:bg-black hover:bg-opacity-5"
+  default="Text Button"
+>
+  
+  Text Button
+  
+</button>
+`;

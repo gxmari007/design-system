@@ -62,24 +62,26 @@ export const Disabled: Story = (args) => ({
   },
   template: `
     <div>
-      <v-button class="mr-8 mb-8" type="primary">Primary</v-button>
-      <v-button class="mb-8" type="primary" :disabled="args.disabled">Primary(disabled)</v-button>
-    </div>
-    <div>
-      <v-button class="mr-8 mb-8">Default</v-button>
-      <v-button class="mb-8" :disabled="args.disabled">Default(disabled)</v-button>
-    </div>
-    <div>
-      <v-button class="mr-8 mb-8" type="dashed">Dashed</v-button>
-      <v-button class="mb-8" type="dashed" :disabled="args.disabled">Dashed(disabled)</v-button>
-    </div>
-    <div>
-      <v-button class="mr-8 mb-8" type="text">Text</v-button>
-      <v-button class="mb-8" type="text" :disabled="args.disabled">Text(disabled)</v-button>
-    </div>
-    <div>
-      <v-button class="mr-8 mb-8" type="link">Link</v-button>
-      <v-button class="mb-8" type="link" :disabled="args.disabled">Link(disabled)</v-button>
+      <div>
+        <v-button class="mr-8 mb-8" type="primary">Primary</v-button>
+        <v-button class="mb-8" type="primary" :disabled="args.disabled">Primary(disabled)</v-button>
+      </div>
+      <div>
+        <v-button class="mr-8 mb-8">Default</v-button>
+        <v-button class="mb-8" :disabled="args.disabled">Default(disabled)</v-button>
+      </div>
+      <div>
+        <v-button class="mr-8 mb-8" type="dashed">Dashed</v-button>
+        <v-button class="mb-8" type="dashed" :disabled="args.disabled">Dashed(disabled)</v-button>
+      </div>
+      <div>
+        <v-button class="mr-8 mb-8" type="text">Text</v-button>
+        <v-button class="mb-8" type="text" :disabled="args.disabled">Text(disabled)</v-button>
+      </div>
+      <div>
+        <v-button class="mr-8 mb-8" type="link">Link</v-button>
+        <v-button class="mb-8" type="link" :disabled="args.disabled">Link(disabled)</v-button>
+      </div>
     </div>
   `,
 });
