@@ -34,6 +34,9 @@ module.exports = {
       current: '#000000d9',
       disabled: '#00000040',
     },
+    fontFamily: {
+      sans: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+    },
     spacing: {
       px: '1px',
       0: '0px',
